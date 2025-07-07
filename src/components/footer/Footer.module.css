@@ -3,7 +3,6 @@
 .footer {
   display: grid;
   grid-template-columns: 70% 30%;
-  /* justify-content: space-between; */
 
   align-items: center;
   padding: 4rem 2rem;

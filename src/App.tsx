@@ -11,6 +11,7 @@ import { FounderPage } from './pages/founderpage/FounderPage'; // <-- Import the
 // import './styles/global.css';
 import globalstyles from './global.module.css';
 import {HomePage} from './HomePage'
+import { ContactPage } from './pages/contactpage/ContactPage'; 
 const App: React.FC = () => (
   <>
     <TitleBar />
@@ -18,8 +19,8 @@ const App: React.FC = () => (
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/founder" element={<FounderPage />} />
-        <Route path="/contact" element={<div />} />
-      </Routes>
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>``
     </main>
 
     <Footer />

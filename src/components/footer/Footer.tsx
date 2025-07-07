@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/logo.svg';
 import styles from './Footer.module.css';
-import globalstyles from '../../global.module.css' ;
+import globalstyles from '../../GlobalStyles.module.css' ;
 
 
 export const Footer: React.FC = () => {

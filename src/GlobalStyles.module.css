@@ -15,3 +15,11 @@ body {
   color: #2c2c3c;
 }
 
+.backgroundPattern {
+  height: 100px; /* Adjust height as needed */
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+ background-attachment: fixed;
+}

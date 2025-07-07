@@ -61,6 +61,10 @@ module.exports = {
         test: /\.svg$/i,
         type: 'asset/resource',   // emits a file and exports the URL
       },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/i, // Matches all common image types
+        type: 'asset/resource', // This tells Webpack 5 to handle it as a file asset
+      },
       // other asset rules...
     ],
   },
