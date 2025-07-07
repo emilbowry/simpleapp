@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #fafafa;
+}
+.app {
+  text-align: center;
+  padding: 2rem;
+}

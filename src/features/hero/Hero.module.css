@@ -1,0 +1,77 @@
+/* src/features/hero/Hero.module.css */
+/* .hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.text {
+  max-width: 60%;
+} */
+/* 
+.logo {
+  height: 4rem;
+  width: auto;
+  margin-left: 2rem;
+} */
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+}
+
+.left {
+  flex: 1 1 50%;
+  max-width: 600px;
+}
+
+.title {
+  font-family: system-ui, sans-seriff;
+
+  font-size: 4rem;
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  color: #2c2c3c;
+}
+body {
+  margin: 0;
+  font-family:  system-ui, sans-serif;
+  background: #fafafa;
+  color: #333;
+  font-weight: 300;  
+}
+.features {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  font-size: 1rem;
+  color: #4a4a5a;
+}
+
+.features li {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 1.125rem;
+  color: #555;
+}
+
+.right {
+  flex: 1 1 40%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logo {
+  max-height: 8rem;
+  width: auto;
+  display: block;
+}
