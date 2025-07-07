@@ -1,6 +1,8 @@
 // src/features/hero/Tagline.tsx
 import React from 'react';
-import styles from './Hero.module.css';
+// import styles from '../../Hero.module.css';
+import styles from '../../Hero.module.css';
+
 
 export function Tagline() {
   return (

@@ -1,6 +1,8 @@
 // src/features/hero/Features.tsx
 import React from 'react';
-import styles from './Hero.module.css';
+import styles from '../../Hero.module.css';
+
+
 
 export function Features() {
   return (

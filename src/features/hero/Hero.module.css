@@ -1,20 +1,11 @@
-/* src/features/hero/Hero.module.css */
-/* .hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2rem;
-}
 
-.text {
-  max-width: 60%;
-} */
-/* 
-.logo {
-  height: 4rem;
-  width: auto;
-  margin-left: 2rem;
-} */
+body {
+  margin: 0;
+  font-family:  system-ui, sans-serif;
+  background: #fafafa;
+  color: #333;
+  font-weight: 300;  
+}
 
 .hero {
   display: flex;
@@ -23,7 +14,7 @@
   padding: 4rem 2rem;
 }
 
-.left {
+.body {
   flex: 1 1 50%;
   max-width: 600px;
 }
@@ -36,13 +27,7 @@
   margin: 0 0 1.5rem;
   color: #2c2c3c;
 }
-body {
-  margin: 0;
-  font-family:  system-ui, sans-serif;
-  background: #fafafa;
-  color: #333;
-  font-weight: 300;  
-}
+
 .features {
   display: flex;
   gap: 2rem;
@@ -64,7 +49,7 @@ body {
   color: #555;
 }
 
-.right {
+.logobox {
   flex: 1 1 40%;
   display: flex;
   justify-content: flex-end;
