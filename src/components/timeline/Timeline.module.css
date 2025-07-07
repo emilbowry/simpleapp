@@ -1,0 +1,123 @@
+/* General styling for the section */
+.timelinesection {
+  width: 100%;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 50px 20px;
+  background-color: #ffffff;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.timelinetitle {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: #333;
+}
+
+/* The main timeline container */
+.timelinecontainer {
+  position: relative;
+}
+
+/* The central vertical line */
+.timelinecontainer::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #e0e0e0;
+  transform: translateX(-50%);
+}
+
+/* Individual timeline item base style */
+.timelineitem {
+  padding: 20px 40px;
+  position: relative;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+/* Modifier class for items on the left */
+.left {
+  left: 0;
+  padding-right: 50px;
+  text-align: right;
+}
+
+/* Modifier class for items on the right */
+.right {
+  left: 50%;
+  padding-left: 50px;
+  text-align: left;
+}
+
+/* The numbered circle on the timeline */
+.timelinenumber {
+  position: absolute;
+  top: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #f3f3f3;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+  z-index: 1;
+}
+
+/* Position the number for left and right items */
+.left .timelinenumber {
+  right: -21px;
+}
+
+.right .timelinenumber {
+  left: -21px;
+}
+
+/* Content of the timeline item */
+.timelinecontent {
+  padding: 10px;
+}
+
+.timelinecontent h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.timelinecontent p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  .timelinecontainer::before {
+    left: 20px;
+  }
+
+  .timelineitem {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 15px;
+  }
+
+  /* On mobile, all items are on the left side of the line */
+  .left,
+  .right {
+    left: 0;
+    text-align: left;
+  }
+
+  .left .timelinenumber,
+  .right .timelinenumber {
+    left: 0;
+  }
+}

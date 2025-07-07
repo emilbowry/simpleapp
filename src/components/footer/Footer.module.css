@@ -1,0 +1,24 @@
+
+
+.footer {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  /* justify-content: space-between; */
+
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+
+
+.logobox {
+	display: flex;
+  justify-content: flex-end;
+}
+
+.logobox img,
+.logobox svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

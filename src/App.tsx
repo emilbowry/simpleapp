@@ -1,19 +1,29 @@
 // src/App.tsx
 import React from 'react';
-import { Hero } from './features/hero/Hero';
+import { Routes, Route } from 'react-router-dom';
+import { TitleBar } from './components/titlebar/TitleBar';
+import {Footer} from './components/footer/Footer';
 // import other features as you build them
 // import { Steps } from './features/steps/Steps';
 // import { Timeline } from './features/timeline/Timeline';
-
+import { FounderPage } from './pages/founderpage/FounderPage'; // <-- Import the new page
 // If you do have global styles, point at the real file:
 // import './styles/global.css';
-
+import globalstyles from './global.module.css';
+import {HomePage} from './HomePage'
 const App: React.FC = () => (
-  <div className="app">
-    <Hero />
-    {/* <Steps /> */}
-    {/* <Timeline /> */}
-  </div>
+  <>
+    <TitleBar />
+    <main>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/founder" element={<FounderPage />} />
+        <Route path="/contact" element={<div />} />
+      </Routes>
+    </main>
+
+    <Footer />
+  </>
 );
 
 export default App;

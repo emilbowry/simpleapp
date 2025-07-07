@@ -1,0 +1,17 @@
+
+body {
+  margin: 0;
+  font-family:  system-ui, sans-serif;
+  background: #fafafa;
+  color: #333;
+  font-weight: 300;  
+}
+.title {
+  font-family: system-ui, sans-seriff;
+
+  font-size: 4rem;
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  color: #2c2c3c;
+}
+

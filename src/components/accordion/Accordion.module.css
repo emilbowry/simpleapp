@@ -1,0 +1,85 @@
+/* Main section with the yellow background */
+.accordionSection {
+  background-color: #fffbe5; /* Light yellow background */
+  padding: 60px 20px;
+  font-family: sans-serif;
+}
+
+/* The white container card */
+.card {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Main title styling */
+.mainTitle {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+
+/* Styling for each accordion item (header + content) */
+.accordionItem {
+  border-bottom: 1px solid #eee;
+}
+
+.accordionItem:last-child {
+  border-bottom: none;
+}
+
+/* Header containing the arrow and question */
+.accordionHeader {
+  display: flex;
+  align-items: flex-start; /* Align to the top */
+  padding: 20px 0;
+  cursor: pointer;
+}
+
+.accordionHeader h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* The dropdown arrow icon */
+.arrow {
+  font-size: 1rem;
+  margin-right: 15px;
+  margin-top: 8px; /* Adjust vertical alignment */
+  color: #555;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+/* Rotate the arrow when the item is open */
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Hide the arrow for non-expandable items */
+.arrow.hidden {
+  visibility: hidden;
+}
+
+/* The content that appears when an item is opened */
+.accordionContent {
+  padding-left: 35px; /* Align with the question text */
+  padding-bottom: 20px;
+  overflow: hidden;
+}
+
+.accordionContent p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}

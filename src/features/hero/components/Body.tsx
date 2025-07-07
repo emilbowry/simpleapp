@@ -5,9 +5,10 @@ import { Features } from './body/Features';
 import { Tagline } from './body/Tagline';
 import { Title } from './body/Title';
 
-export function Body() {
+export const Body: React.FC = () => {
+
   return (
-      <div className={styles.body}>
+      <div className={styles.herobody}>
         <Title />
         <Features />
         <Tagline />

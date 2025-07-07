@@ -6,7 +6,8 @@ import logo from '/src/assets/logo.svg';
 
 
 
-export function Logobox() {
+export const Logobox: React.FC = () => {
+
   return (
     <div className={styles.logobox}>
       <img src={logo} alt="AI Compatible logo" className={styles.logobox}/>

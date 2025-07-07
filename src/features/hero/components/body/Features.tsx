@@ -4,7 +4,7 @@ import styles from '../../Hero.module.css';
 
 
 
-export function Features() {
+export const Features: React.FC = () => {
   return (
     <ul className={styles.features}>
       <li>

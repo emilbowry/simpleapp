@@ -1,11 +1,4 @@
 
-body {
-  margin: 0;
-  font-family:  system-ui, sans-serif;
-  background: #fafafa;
-  color: #333;
-  font-weight: 300;  
-}
 
 .hero {
   display: flex;
@@ -14,7 +7,7 @@ body {
   padding: 4rem 2rem;
 }
 
-.body {
+.herobody {
   flex: 1 1 50%;
   max-width: 600px;
 }

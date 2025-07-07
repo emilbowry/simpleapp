@@ -5,7 +5,8 @@ import styles from './Hero.module.css';
 import { Body } from './components/Body';
 import { Logobox } from './components/Logobox';
 
-export function Hero() {
+export const Hero: React.FC = () => {
+
   return (
     <section className={styles.hero}>
       <Body/>
@@ -13,3 +14,4 @@ export function Hero() {
     </section>
   );
 }
+

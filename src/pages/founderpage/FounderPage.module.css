@@ -1,0 +1,74 @@
+.founderPage {
+  background-color: #ffffff;
+}
+
+/* Hero section with white background */
+.heroSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.heroContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 40px;
+}
+
+.heroText {
+  flex: 1;
+}
+
+.heroText h1 {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #373a4f; /* Dark purple-gray from image */
+  margin: 0 0 10px 0;
+}
+
+.heroText p {
+  font-size: 1.25rem;
+  color: #555;
+  margin: 0;
+}
+
+.heroImageContainer {
+  flex-shrink: 0; /* Prevents the image from shrinking */
+}
+
+.heroImage {
+  width: 360px;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* This is the decorative element below the hero */
+.backgroundPattern {
+  height: 100px; /* Adjust height as needed */
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .heroContent {
+    flex-direction: column-reverse; /* Stack image on top of text */
+    text-align: center;
+  }
+
+  .heroText {
+    margin-top: 30px;
+  }
+
+  .heroText h1 {
+    font-size: 3rem;
+  }
+}
