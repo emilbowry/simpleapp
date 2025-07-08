@@ -1,0 +1,28 @@
+.callingCard {
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5rem 1rem;
+  /* min-width: 0;
+  min-height: 0; */
+}
+
+
+
+.logobox {
+	display: flex;
+  justify-content: flex-end;
+}
+
+.logobox img,
+.logobox svg {
+  /* max-width: 100%; */
+  /* height: auto; */
+
+  display: block;
+}
+
+@media (max-width: 50rem) {
+  .callingCard { grid-template-columns: 1fr; }
+  .logobox     { justify-self: right; max-inline-size: 80%; }
+}
