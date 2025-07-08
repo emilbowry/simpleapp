@@ -6,11 +6,10 @@ import globalstyles from '../../GlobalStyles.module.css';
 // Reuse the assets from the previous pages
 import logo from '../../assets/logo.svg'; // Assuming this is the large logo
 import backgroundPattern from '../../assets/background.png';
+import { createCallingCard } from '../../components/callingcard/CallingCard';
 
-export const ContactPage: React.FC = () => {
-  return (
-    <div className={styles.contactPageWrapper}>
-      <section className={styles.contactSection}>
+const ContactPageBody : React.FC = () => {
+  return(
         <div className={styles.contactText}>
           <h2>Reach Joe at:</h2>
           <p>
@@ -20,12 +19,17 @@ export const ContactPage: React.FC = () => {
             Linkedin: <a href="https://www.linkedin.com/in/joe-fennell-379466170/" target="_blank" rel="noopener noreferrer">Joe Fennell</a>
           </p>
         </div>
-        <div className={styles.contactLogo}>
-          <img src={logo} alt="AI Compatible Logo" />
-        </div>
-      </section>
+)}
 
-      {/* Reusing the same fixed background pattern */}
+
+
+export const ContactPage: React.FC = () => {
+  const ccElement = createCallingCard({ Body: ContactPageBody, ratio: 0.8 });
+
+  return (
+    <div className={styles.contactPageWrapper}>
+    {ccElement}
+
       <div
         className={globalstyles.backgroundPattern}
         style={{ backgroundImage: `url(${backgroundPattern})` }}

@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import styles from './Accordion.module.css';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 
-// Define the type for each accordion item's data
 interface AccordionItemData {
   question: string;
   answer: string;
   iconType: 'right' | 'down';
 }
 
-// Data for the accordion items
 const accordionData: AccordionItemData[] = [
   {
     question: 'But has your business explored the free off-the-shelf tools?',
@@ -23,7 +21,6 @@ const accordionData: AccordionItemData[] = [
   },
 ];
 
-// Individual Accordion Item Component (No changes needed here)
 const AccordionItem: React.FC<{
   item: AccordionItemData;
   isOpen: boolean;
@@ -38,7 +35,6 @@ const AccordionItem: React.FC<{
           {item.iconType === 'right' ? (
             <ChevronRight className={styles.icon} />
           ) : (
-            // The icon now changes based on the 'isOpen' state for expandable items
             isExpandable ? (
               isOpen ? <ChevronDown className={styles.icon} /> : <ChevronRight className={styles.icon} />
             ) : (
@@ -58,18 +54,13 @@ const AccordionItem: React.FC<{
 };
 
 
-// Main Accordion Section Component (UPDATED LOGIC)
 export const AccordionSection: React.FC = () => {
-  // State now holds an array of open indexes. Default to [1] to keep the second item open.
   const [openIndexes, setOpenIndexes] = useState<number[]>([1]);
 
   const handleClick = (index: number) => {
-    // Check if the index is already in the array
     if (openIndexes.includes(index)) {
-      // If it is, remove it (closing the item)
       setOpenIndexes(openIndexes.filter((i) => i !== index));
     } else {
-      // If it's not, add it (opening the item)
       setOpenIndexes([...openIndexes, index]);
     }
   };
@@ -82,7 +73,6 @@ export const AccordionSection: React.FC = () => {
           <AccordionItem
             key={index}
             item={item}
-            // The item is open if its index is in the openIndexes array
             isOpen={openIndexes.includes(index)}
             onClick={() => handleClick(index)}
           />
