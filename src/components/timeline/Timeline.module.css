@@ -201,14 +201,13 @@
   width: 1em;
   box-sizing: content-box;
   height: 1em;
-  /* background: red; */
 
   /* clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z");  */
 }
 
 
 
-.icon::after {
+/* .icon::before {
   content: "";
   font-size: 10em;
   position: absolute;
@@ -219,15 +218,11 @@
   height: 1em;
   background: blue;
 
-  /* Circle Shape  */
-  /* clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z");   */
-  clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z M 61 50 A 11 11 90 0 0 50 39 L 50 38 A 12 12 90 0 1 62 50 M 50 39 H 49.5 V 19 H 50.5 V 39 Z M 61 50 V 49.5 H 77.5 V 50.5 H 61 Z M 81 50 A 1 1 90 1 1 77 50 A 1 1 90 1 1 81 50 Z M 80 50 A 1 1 90 0 0 78 50 A 1 1 90 0 0 80 50 Z"); 
+  clip-path: path("M 39 50 A 11 11 90 0 1 50 39 L 50 38 A 12 12 90 0 0 38 50 M 50 39 H 50.5 V 19 H 49.5 V 39 Z M 39 50 V 49.5 H 22.5 V 50.5 H 39 Z M 19 50 A 1 1 90 1 0 23 50 A 1 1 90 1 0 19 50 Z M 20 50 A 1 1 90 0 1 22 50 A 1 1 90 0 1 20 50 Z"); 
+
+}  */
 
 
-  /*Without Circle Shape  */
-
-  /* clip-path: path(" M 61 50 A 11 11 90 0 0 50 39 L 50 38 A 12 12 90 0 1 62 50 M 50 39 H 49.5 V 19 H 50.5 V 39 Z M 61 50 V 49.5 H 77.5 V 50.5 H 61 Z M 81 50 A 1 1 90 1 1 77 50 A 1 1 90 1 1 81 50 Z M 80 50 A 1 1 90 0 0 78 50 A 1 1 90 0 0 80 50 Z");  */
-} 
 .icon::before {
   content: "";
   font-size: 10em;
@@ -239,7 +234,8 @@
   height: 1em;
   background: blue;
 
-  /* clip-path: path("M 39 50 A 11 11 90 0 1 50 39 L 50 38 A 12 12 90 0 0 38 50 M 50 39 H 50.5 V 19 H 49.5 V 39 Z M 39 50 V 49.5 H 22.5 V 50.5 H 39 Z M 19 50 A 1 1 90 1 0 23 50 A 1 1 90 1 0 19 50 Z M 20 50 A 1 1 90 0 1 22 50 A 1 1 90 0 1 20 50 Z");  */
-  clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z M 39 50 A 11 11 90 0 1 50 39 L 50 38 A 12 12 90 0 0 38 50 M 50 39 H 50.5 V 19 H 49.5 V 39 Z M 39 50 V 49.5 H 22.5 V 50.5 H 39 Z M 19 50 A 1 1 90 1 0 23 50 A 1 1 90 1 0 19 50 Z M 20 50 A 1 1 90 0 1 22 50 A 1 1 90 0 1 20 50 Z"); 
+  clip-path: path(" M 61 50 A 11 11 90 0 0 50 39 L 50 38 A 12 12 90 0 1 62 50 M 50 39 H 49.5 V 19 H 50.5 V 39 Z M 61 50 V 49.5 H 77.5 V 50.5 H 61 Z M 81 50 A 1 1 90 1 1 77 50 A 1 1 90 1 1 81 50 Z M 80 50 A 1 1 90 0 0 78 50 A 1 1 90 0 0 80 50 Z"); 
+  
 
 } 
+

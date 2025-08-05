@@ -83,31 +83,47 @@ const SpineNode: React.FC<SpineNodeProps> = ({ color, orientation }) => {
 
 // --- 2. The Demo Component ---
 
-export const Timeline: React.FC = () => {
-  // Sample data to demonstrate the chain
-  const demoData = [
-    { color: '#00A0B0', orientation: 'left' as const },
-    { color: '#6A7A8F', orientation: 'right' as const },
-    { color: '#8E7CC3', orientation: 'left' as const },
-    { color: '#6A7A8F', orientation: 'right' as const },
-    { color: '#00A0B0', orientation: 'left' as const },
-  ];
+// export const LeftHandHalo: React.FC = () {}
+export interface ISpineElementProps {
+  index: number;
+}
+export class SpineElement extends React.Component<ISpineElementProps> {
+  render() {
+  const {index} = this.props
+  const colours = ["#41b2b3","#5D7F8C","#7F81AF","#697085","#7E8180"]
+
+  const centreCircle = "M180,100 a30,30,90,0,0,-60,0zm-60,0a30,30,90,0,0,60,0"
+  const leftHandHalo = "M117,100 a33,33,90,0,1,33,-33l0,-3a36,36,90,0,0,-36,36m36,-33h1.5v-60h-3v60zm-33,33v-1.5h-49.5v3h49.5zm-60,0a3,3,90,1,0,12,0a3,3,90,1,0,-12,0zm3,0a3,3,90,0,1,6,0a3,3,90,0,1,-6,0z";
+  const rightHandHalo = "M183,100 a33,33,90,0,0,-33,-33l0,-3a36,36,90,0,1,36,36m-36,-33h-1.5v-60h3v60zm33,33v-1.5h49.5v3h-49.5zm60,0a3,3,90,1,1,-12,0a3,3,90,1,1,12,0zm-3,0a3,3,90,0,0,-6,0a3,3,90,0,0,6,0z";
+  
+  // transform="scale(2,2) scale(-1,1)"
+  let halo = leftHandHalo;
+  if (index % 2 === 1) {
+    halo = rightHandHalo;
+  }
+  const colour = colours[index % 5]
+
   return (
-    <div 
-      className={styles.icon} 
-      role="img" 
-      aria-label="Magnifying glass icon"
-    />
+      <svg fill={colour} >
+        <path d={centreCircle} />
+        <path d = {halo} />
+      </svg>
+ )
+
+  ;
+  }
+}
+
+export const Timeline: React.FC = () => {
+  const numberOfElements = 4; // Example number of elements in the chain
+
+  return (
+    // A simple flex container to stack the SVG elements vertically.
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* Create an array and map over it to render the chain */}
+      {Array.from({ length: numberOfElements }).map((_, index) => (
+        <SpineElement key={index} index={index} />
+      ))}
+    </div>
   );
-  // return (
-  //   <div style={{ width: '100px', margin: '0 auto' }}>
-  //     {demoData.map((item, index) => (
-  //       <SpineNode
-  //         key={index}
-  //         color={item.color}
-  //         orientation={item.orientation}
-  //       />
-  //     ))}
-  //   </div>
-  // );
 };

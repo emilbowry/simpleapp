@@ -31,7 +31,7 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 
     // Apply styles
     cardStyle.gridTemplateColumns = gridTemplate;
-    if (index % 2 !== 0) {
+    if (index % 2 === 1) {
       cardStyle.backgroundColor = 'rgb(228, 241, 233)';
     }
 
