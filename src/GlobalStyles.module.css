@@ -1,10 +1,14 @@
 
+/* GlobalStyles.module.css */
+
 body {
   margin: 0;
   font-family:  system-ui, sans-serif;
   background: #fafafa;
   color: #333;
   font-weight: 300;  
+  /* opacity: 0; 
+  transition: opacity 1s ease-in-out;  */
 }
 .title {
   font-family: system-ui, sans-seriff;
@@ -22,4 +26,80 @@ body {
   background-position: center;
   background-size: cover;
  background-attachment: fixed;
+}
+
+/* globalStyle.module.css
+@keyframes fadeInUp {
+ from {
+ opacity: 0;
+ transform: translateY(20px);
+ }
+ to {
+ opacity: 1;
+ transform: translateY(0);
+ }
+}
+
+.animated {
+ animation-name: fadeInUp;
+ animation-duration: 1s;
+ animation-fill-mode: both;
+}
+
+/*
+  The element is hidden by default.
+  We use a class selector here, not a module-generated one, for easier selection in our JS.
+*/
+.animateOnScroll {
+ animation-name: fadeInUp;
+ animation-duration: 1s;
+ animation-fill-mode: both;
+}
+
+/* The class that our JavaScript will add when the element is visible */
+.isVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .aos,
+  .is-visible,
+  .animated {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+/* GlobalStyles.module.css */
+
+/* (Small fix) */
+.title {
+  font-family: system-ui, sans-serif; /* fixed typo */
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Make these classes global so you can use plain strings in JSX */
+:global(.aos) {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: transform, opacity;
+}
+
+/* This class is added by JS when the element enters the viewport */
+:global(.is-visible) {
+  animation: fadeInUp 600ms ease-out forwards;
+}
+
+/* (Optional) If you still want the entire <main> to animate on route change */
+.animated {
+  animation: fadeInUp 600ms ease-out both;
 }

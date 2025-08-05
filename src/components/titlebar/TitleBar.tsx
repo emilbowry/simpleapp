@@ -40,6 +40,8 @@ export const TitleBar: React.FC = () => {
         <NavLink to="/"        className={({isActive})=>isActive?styles.activeLink:styles.link} onClick={()=>setOpen(false)}>Home</NavLink>
         <NavLink to="/founder" className={({isActive})=>isActive?styles.activeLink:styles.link} onClick={()=>setOpen(false)}>Founder</NavLink>
         <NavLink to="/contact" className={({isActive})=>isActive?styles.activeLink:styles.link} onClick={()=>setOpen(false)}>Contact</NavLink>
+        <NavLink to="/demo_page" className={({isActive})=>isActive?styles.activeLink:styles.link} onClick={()=>setOpen(false)}>Demo Page</NavLink>
+
       </nav>
     </header>
 );
