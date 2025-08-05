@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './Timeline.module.css';
 
-interface TimelineEvent {
+interface ITimelineEvent {
   date: string;
   title: string;
   description: string;
 }
 
-const timelineData: TimelineEvent[] = [
+const timelineEvent: ITimelineEvent[] = [
   {
     date: 'Early 2024',
     title: 'Prompt Engineering Offering',
@@ -35,53 +35,137 @@ const timelineData: TimelineEvent[] = [
   },
 ];
 
-const sf = 3;
-export interface IVertibraeProps {
+interface IVertibraeProps {
+  content?:React.ReactNode;
+
   index?: number;
+  scaleFactor?: number;
+
 }
-export class Vertibrae extends React.Component<IVertibraeProps> {
+class Vertibrae extends React.Component<IVertibraeProps> {
   render() {
-  const {index=0} = this.props
+
+  const centreCircle = "m20,0a20,20,90,0,0,-40,0zm-40,0a20,20,90,0,0,40,0z"
+  const leftHandHalo = "m -22,0 a22,22,90,0,1,22,-22l0,-2a24,24,90,0,0,-24,24m24,-22h1v-40h-2v40zm-22,22v-1h-33v2h33zm-40,0a2,2,90,1,0,8,0a2,2,90,1,0,-8,0zm2,0a2,2,90,0,1,4,0a2,2,90,0,1,-4,0z";
+
+  const defaultElement = (
+        <>
+              <path d={centreCircle} />
+              <path d = {leftHandHalo} />
+        </>
+  )
+  const {index=0,scaleFactor=0,content=defaultElement} = this.props
+  
+  let _flip = 1;
+  if (index % 2 === 1) {
+    _flip = -1;
+  }
+  const transformation = `scale(${_flip*scaleFactor},${scaleFactor}) `
   const colours = ["#41b2b3","#5D7F8C","#7F81AF","#697085","#7E8180"]
 
 
 
-  const centreCircle = "m20,0a20,20,90,0,0,-40,0zm-40,0a20,20,90,0,0,40,0z"
-
-  const leftHandHalo = "m -22,0 a22,22,90,0,1,22,-22l0,-2a24,24,90,0,0,-24,24m24,-22h1v-40h-2v40zm-22,22v-1h-33v2h33zm-40,0a2,2,90,1,0,8,0a2,2,90,1,0,-8,0zm2,0a2,2,90,0,1,4,0a2,2,90,0,1,-4,0z";
-
-  let _flip = 1;
-
-  if (index % 2 === 1) {
-    _flip = -1;
-  }
-
   const colour = colours[index % 5]
-  const transformation = `scale(${_flip*sf},${sf}) `
-  const view_box = `${-45*sf} ${-45*sf} ${90*sf} ${90*sf}`
+  const view_box = `${-45*scaleFactor} ${-45*scaleFactor} ${90*scaleFactor} ${90*scaleFactor}`
 
-  return (
-      <svg viewBox={view_box} width={sf*90} height={sf*90} fill={colour} preserveAspectRatio="xMidYMid meet" style={{overflow: "visible"}} >
+  const vertebralContent = (
+      <svg viewBox={view_box} width={scaleFactor*90} height={scaleFactor*90} fill={colour} preserveAspectRatio="xMidYMid meet" style={{overflow: "visible"}} >
         <g  transform={transformation}>
-              <path d={centreCircle} />
-              <path d = {leftHandHalo} />
+              {content}
         </g>
       </svg>
  )
+
+
+
+  return vertebralContent;
+
+
 
   }
 }
 
 
-export const Timeline: React.FC = () => {
-  const numberOfElements = 4; // Example number of elements in the chain
 
+
+const EventContent: React.FC<{ data: ITimelineEvent }> = ({ data }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginTop:`${sf*2}em`}}>
-
-      {Array.from({ length: numberOfElements }).map((_, index) => (
-        <Vertibrae key={index} index={index} />
-      ))}
+    <div className={styles.contentContainer}>
+      <h3 className={styles.eventTitle}>{`${data.date}: ${data.title}`}</h3>
+      <p className={styles.eventDescription}>{data.description}</p>
     </div>
   );
 };
+
+interface ITimelineEventRowProps extends IVertibraeProps{
+  eventData: ITimelineEvent;
+}
+
+ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
+  render() {
+    const { index=0, eventData, scaleFactor =2 } = this.props;
+    const isLeftSided = index % 2 === 0;
+
+    return (
+      <div className={styles.timelineEventRow}>
+        {/* Column A: Left Content */}
+        <div style={{ textAlign: 'right',marginRight:`${1*scaleFactor}rem`}}>
+          {isLeftSided && <EventContent data={eventData}  />}
+        </div>
+
+        {/* Column B: Center Spine */}
+        <div className={styles.spineContainer}>
+          <Vertibrae index={index} scaleFactor={scaleFactor} />
+        </div>
+
+        {/* Column C: Right Content */}
+        <div style={{ textAlign: 'left',  marginLeft:`${1*scaleFactor}rem` }}>
+          {!isLeftSided && <EventContent data={eventData} />}
+        </div>
+      </div>
+    );
+  }
+}
+
+interface ITimelineData {
+
+  timelineEvents: ITimelineEvent[];
+
+}
+export class Timeline extends React.Component<ITimelineData> {
+  render() {
+    const { timelineEvents } = this.props;
+
+    return (
+      <section>
+        <div style={{overflow:"auto"}}>
+          {timelineEvents.map((item, index) => (
+            <TimelineEventRow
+              key={index}
+              index={index}
+              eventData={item}
+            />
+          ))}
+        </div>
+
+      </section>
+    );
+    
+  }
+}
+// --- The Final Demo Component ---
+export const DemoTimeline: React.FC = () => {
+  return (
+      <section>
+        <h2 style={{ textAlign: 'center' }}>Our Journey</h2>
+
+        <Timeline timelineEvents={timelineEvent}/>
+
+      </section>
+  )
+
+
+};
+
+
+//TOD GENERALISE THE PARTS

@@ -1,7 +1,7 @@
 // src/App.tsx
 import React from 'react';
 import { Hero } from '../../components/hero/Hero';
-import {Timeline} from '../../components/timeline/Timeline';
+import {DemoTimeline} from '../../components/timeline/Timeline';
 import { AccordionSection } from '../../components/accordion/Accordion';
 import globalstyles from '../../GlobalStyles.module.css' ;
 
@@ -23,7 +23,7 @@ export const HomePage: React.FC = () => {
         className={globalstyles.backgroundPattern}
         style={{ backgroundImage: `url(${backgroundPattern})` }}
       ></div>
-      <Timeline />
+      <DemoTimeline />
       <div
         className={globalstyles.backgroundPattern}
         style={{ backgroundImage: `url(${backgroundPattern})` }}

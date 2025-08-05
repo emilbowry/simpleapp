@@ -1,241 +1,31 @@
-/* General styling for the section */
-.timelinesection {
+.timelineEventRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 30px;
   width: 100%;
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 50px 20px;
-  background-color: #ffffff;
-  font-family: sans-serif;
-  text-align: center;
+
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.timelinetitle {
-  font-size: 2.5rem;
-  margin-bottom: 50px;
-  color: #333;
-}
-
-/* The main timeline container */
-.timelinecontainer {
-  position: relative;
-}
-
-/* The central vertical line */
-.timelinecontainer::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background-color: #e0e0e0;
-  transform: translateX(-50%);
-}
-
-/* Individual timeline item base style */
-.timelineitem {
-  padding: 20px 40px;
-  position: relative;
-  width: 50%;
-  box-sizing: border-box;
-}
-
-/* Modifier class for items on the left */
-.left {
-  left: 0;
-  padding-right: 50px;
-  text-align: right;
-}
-
-/* Modifier class for items on the right */
-.right {
-  left: 50%;
-  padding-left: 50px;
-  text-align: left;
-}
-
-/* The numbered circle on the timeline */
-.timelinenumber {
-  position: absolute;
-  top: 20px;
-  width: 40px;
-  height: 40px;
-  background-color: #f3f3f3;
-  border: 2px solid #e0e0e0;
-  border-radius: 50%;
+.spineContainer {
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-weight: bold;
-  color: #333;
-  z-index: 1;
 }
 
-/* Position the number for left and right items */
-.left .timelinenumber {
-  right: -21px;
+.contentContainer {
+  padding-top: 1.5em; 
 }
 
-.right .timelinenumber {
-  left: -21px;
-}
-
-/* Content of the timeline item */
-.timelinecontent {
-  padding: 10px;
-}
-
-.timelinecontent h3 {
-  margin-top: 0;
+.eventTitle {
   font-size: 1.2rem;
-  color: #222;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
 }
 
-.timelinecontent p {
-  font-size: 0.95rem;
-  line-height: 1.6;
+.eventDescription {
+  font-size: 1rem;
   color: #555;
+  margin: 0;
 }
-
-/* Responsive adjustments for smaller screens */
-@media screen and (max-width: 768px) {
-  .timelinecontainer::before {
-    left: 20px;
-  }
-
-  .timelineitem {
-    width: 100%;
-    padding-left: 70px;
-    padding-right: 15px;
-  }
-
-  /* On mobile, all items are on the left side of the line */
-  .left,
-  .right {
-    left: 0;
-    text-align: left;
-  }
-
-  .left .timelinenumber,
-  .right .timelinenumber {
-    left: 0;
-  }
-}
-
-/* Container for a single spine node */
-.spineNodeContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* Set a minimum height to see the vertical line */
-  min-height: 150px;
-  width: 100%;
-}
-
-/* The main colored circle */
-.circle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: var(--event-color);
-  /* Crucial for positioning the horizontal connector relative to the circle */
-  position: relative;
-  /* Ensures the circle sits on top of the vertical line */
-  z-index: 1;
-}
-
-/* The vertical line connecting one node to the next */
-.verticalLine {
-  width: 2px;
-  background-color: var(--event-color);
-  /* This makes the line fill the remaining space in the container */
-  flex-grow: 1;
-}
-
-/* The base style for the horizontal line pointing to the content */
-.horizontalConnector {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 2px;
-  background-color: var(--event-color);
-}
-
-/* The small dot at the end of the horizontal connector */
-.horizontalConnector::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--event-color);
-}
-
-/* Modifier class for pointing LEFT */
-.left {
-  right: 100%;
-  margin-right: 6px; /* Adds a small gap */
-}
-
-.left::after {
-  left: -4px; /* Positions the dot at the far left end */
-}
-
-/* Modifier class for pointing RIGHT */
-.right {
-  left: 100%;
-  margin-left: 6px; /* Adds a small gap */
-}
-
-.right::after {
-  right: -4px; /* Positions the dot at the far right end */
-}
-.icon {
-  right: -0.4em;
-  font-size: 10em;
-
-  display: inline-block;
-  width: 1em;
-  box-sizing: content-box;
-  height: 1em;
-
-  /* clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z");  */
-}
-
-
-
-/* .icon::before {
-  content: "";
-  font-size: 10em;
-  position: absolute;
-
-  display: inline-block;
-  width: 1em;
-  box-sizing: content-box;
-  height: 1em;
-  background: blue;
-
-  clip-path: path("M 39 50 A 11 11 90 0 1 50 39 L 50 38 A 12 12 90 0 0 38 50 M 50 39 H 50.5 V 19 H 49.5 V 39 Z M 39 50 V 49.5 H 22.5 V 50.5 H 39 Z M 19 50 A 1 1 90 1 0 23 50 A 1 1 90 1 0 19 50 Z M 20 50 A 1 1 90 0 1 22 50 A 1 1 90 0 1 20 50 Z"); 
-
-}  */
-
-
-.icon::before {
-  content: "";
-  font-size: 10em;
-  position: absolute;
-
-  display: inline-block;
-  width: 1em;
-  box-sizing: content-box;
-  height: 1em;
-  background: blue;
-
-  clip-path: path(" M 61 50 A 11 11 90 0 0 50 39 L 50 38 A 12 12 90 0 1 62 50 M 50 39 H 49.5 V 19 H 50.5 V 39 Z M 61 50 V 49.5 H 77.5 V 50.5 H 61 Z M 81 50 A 1 1 90 1 1 77 50 A 1 1 90 1 1 81 50 Z M 80 50 A 1 1 90 0 0 78 50 A 1 1 90 0 0 80 50 Z"); 
-  
-
-} 
 
