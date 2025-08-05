@@ -35,94 +35,52 @@ const timelineData: TimelineEvent[] = [
   },
 ];
 
-// export const Timeline: React.FC = () => {
-//   return (
-//     <section className={styles.timelinesection}>
-//       <h2 className={styles.timelinetitle}>AI Compatible's Journey</h2>
-//       <div className={styles.timelinecontainer}>
-//         {timelineData.map((item, index) => {
-//           // Determine if the item should be on the left or right
-//           const itemPositionClass = index % 2 === 0 ? styles.left : styles.right;
-
-//           return (
-//             <div key={index} className={`${styles.timelineitem} ${itemPositionClass}`}>
-//               <div className={styles.timelinenumber}>{index + 1}</div>
-//               <div className={styles.timelinecontent}>
-//                  <h3>{`${item.date}: ${item.title}`}</h3>
-//                  <p>{item.description}</p>
-//               </div>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </section>
-//   );
-// };
-interface SpineNodeProps {
-  color: string;
-  orientation: 'left' | 'right';
+const sf = 3;
+export interface IVertibraeProps {
+  index?: number;
 }
-
-const SpineNode: React.FC<SpineNodeProps> = ({ color, orientation }) => {
-  // Pass the color to the CSS via a CSS custom property (variable)
-  const style = { '--event-color': color } as React.CSSProperties;
-
-  // Combine the base class with the orientation-specific class ('left' or 'right')
-  const connectorClass = `${styles.horizontalConnector} ${styles[orientation]}`;
-
-  return (
-    <div className={styles.spineNodeContainer} style={style}>
-      <div className={styles.circle}>
-        <div className={connectorClass}></div>
-      </div>
-      {/* The vertical line is rendered for every node in this demo */}
-      <div className={styles.verticalLine}></div>
-    </div>
-  );
-};
-
-// --- 2. The Demo Component ---
-
-// export const LeftHandHalo: React.FC = () {}
-export interface ISpineElementProps {
-  index: number;
-}
-export class SpineElement extends React.Component<ISpineElementProps> {
+export class Vertibrae extends React.Component<IVertibraeProps> {
   render() {
-  const {index} = this.props
+  const {index=0} = this.props
   const colours = ["#41b2b3","#5D7F8C","#7F81AF","#697085","#7E8180"]
 
-  const centreCircle = "M180,100 a30,30,90,0,0,-60,0zm-60,0a30,30,90,0,0,60,0"
-  const leftHandHalo = "M117,100 a33,33,90,0,1,33,-33l0,-3a36,36,90,0,0,-36,36m36,-33h1.5v-60h-3v60zm-33,33v-1.5h-49.5v3h49.5zm-60,0a3,3,90,1,0,12,0a3,3,90,1,0,-12,0zm3,0a3,3,90,0,1,6,0a3,3,90,0,1,-6,0z";
-  const rightHandHalo = "M183,100 a33,33,90,0,0,-33,-33l0,-3a36,36,90,0,1,36,36m-36,-33h-1.5v-60h3v60zm33,33v-1.5h49.5v3h-49.5zm60,0a3,3,90,1,1,-12,0a3,3,90,1,1,12,0zm-3,0a3,3,90,0,0,-6,0a3,3,90,0,0,6,0z";
-  
-  // transform="scale(2,2) scale(-1,1)"
-  let halo = leftHandHalo;
+
+
+  const centreCircle = "m20,0a20,20,90,0,0,-40,0zm-40,0a20,20,90,0,0,40,0z"
+
+  const leftHandHalo = "m -22,0 a22,22,90,0,1,22,-22l0,-2a24,24,90,0,0,-24,24m24,-22h1v-40h-2v40zm-22,22v-1h-33v2h33zm-40,0a2,2,90,1,0,8,0a2,2,90,1,0,-8,0zm2,0a2,2,90,0,1,4,0a2,2,90,0,1,-4,0z";
+
+  let _flip = 1;
+
   if (index % 2 === 1) {
-    halo = rightHandHalo;
+    _flip = -1;
   }
+
   const colour = colours[index % 5]
+  const transformation = `scale(${_flip*sf},${sf}) `
+  const view_box = `${-45*sf} ${-45*sf} ${90*sf} ${90*sf}`
 
   return (
-      <svg fill={colour} >
-        <path d={centreCircle} />
-        <path d = {halo} />
+      <svg viewBox={view_box} width={sf*90} height={sf*90} fill={colour} preserveAspectRatio="xMidYMid meet" style={{overflow: "visible"}} >
+        <g  transform={transformation}>
+              <path d={centreCircle} />
+              <path d = {leftHandHalo} />
+        </g>
       </svg>
  )
 
-  ;
   }
 }
+
 
 export const Timeline: React.FC = () => {
   const numberOfElements = 4; // Example number of elements in the chain
 
   return (
-    // A simple flex container to stack the SVG elements vertically.
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {/* Create an array and map over it to render the chain */}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginTop:`${sf*2}em`}}>
+
       {Array.from({ length: numberOfElements }).map((_, index) => (
-        <SpineElement key={index} index={index} />
+        <Vertibrae key={index} index={index} />
       ))}
     </div>
   );
