@@ -8,39 +8,10 @@ import { LogoBox, ILogoBoxProps } from './LogoBox';
 export interface ICallingCardProps {
   components: React.ReactElement[];
   index?: number;
+  // header?:React.ReactElement;
+
 }
 
-// export class CallingCard extends React.Component<ICallingCardProps> {
-//   render() {
-//     const { components, index=0 } = this.props;
-
-//     let gridTemplate = `repeat(${components.length}, 1fr)`;
-
-//     if (components.length === 2 && components[1].type === LogoBox) {
-//       const props = components[1].props as ILogoBoxProps;
-//       const ratio = props.scale || 0.2;
-      
-//       gridTemplate = `1fr minmax(0, ${ratio * 100}%)`;
-//     }
-//     const cardStyle: React.CSSProperties = {
-//       gridTemplateColumns: gridTemplate,
-//     };
-
-//     if (index % 2 !== 0) {
-//       cardStyle.backgroundColor = 'rgb(228, 241, 233)';
-//     }
-
-//     return (
-//       <section
-//         className={styles.callingCard}
-//         style={cardStyle}
-//       >
-//         {components}
-//       </section>
-//     );
-  
-//   }
-// }
 
 export class CallingCard extends React.Component<ICallingCardProps> {
   render() {

@@ -121,3 +121,125 @@
     left: 0;
   }
 }
+
+/* Container for a single spine node */
+.spineNodeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Set a minimum height to see the vertical line */
+  min-height: 150px;
+  width: 100%;
+}
+
+/* The main colored circle */
+.circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--event-color);
+  /* Crucial for positioning the horizontal connector relative to the circle */
+  position: relative;
+  /* Ensures the circle sits on top of the vertical line */
+  z-index: 1;
+}
+
+/* The vertical line connecting one node to the next */
+.verticalLine {
+  width: 2px;
+  background-color: var(--event-color);
+  /* This makes the line fill the remaining space in the container */
+  flex-grow: 1;
+}
+
+/* The base style for the horizontal line pointing to the content */
+.horizontalConnector {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: var(--event-color);
+}
+
+/* The small dot at the end of the horizontal connector */
+.horizontalConnector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--event-color);
+}
+
+/* Modifier class for pointing LEFT */
+.left {
+  right: 100%;
+  margin-right: 6px; /* Adds a small gap */
+}
+
+.left::after {
+  left: -4px; /* Positions the dot at the far left end */
+}
+
+/* Modifier class for pointing RIGHT */
+.right {
+  left: 100%;
+  margin-left: 6px; /* Adds a small gap */
+}
+
+.right::after {
+  right: -4px; /* Positions the dot at the far right end */
+}
+.icon {
+  right: -0.4em;
+  font-size: 10em;
+
+  display: inline-block;
+  width: 1em;
+  box-sizing: content-box;
+  height: 1em;
+  /* background: red; */
+
+  /* clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z");  */
+}
+
+
+
+.icon::after {
+  content: "";
+  font-size: 10em;
+  position: absolute;
+
+  display: inline-block;
+  width: 1em;
+  box-sizing: content-box;
+  height: 1em;
+  background: blue;
+
+  /* Circle Shape  */
+  /* clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z");   */
+  clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z M 61 50 A 11 11 90 0 0 50 39 L 50 38 A 12 12 90 0 1 62 50 M 50 39 H 49.5 V 19 H 50.5 V 39 Z M 61 50 V 49.5 H 77.5 V 50.5 H 61 Z M 81 50 A 1 1 90 1 1 77 50 A 1 1 90 1 1 81 50 Z M 80 50 A 1 1 90 0 0 78 50 A 1 1 90 0 0 80 50 Z"); 
+
+
+  /*Without Circle Shape  */
+
+  /* clip-path: path(" M 61 50 A 11 11 90 0 0 50 39 L 50 38 A 12 12 90 0 1 62 50 M 50 39 H 49.5 V 19 H 50.5 V 39 Z M 61 50 V 49.5 H 77.5 V 50.5 H 61 Z M 81 50 A 1 1 90 1 1 77 50 A 1 1 90 1 1 81 50 Z M 80 50 A 1 1 90 0 0 78 50 A 1 1 90 0 0 80 50 Z");  */
+} 
+.icon::before {
+  content: "";
+  font-size: 10em;
+  position: absolute;
+
+  display: inline-block;
+  width: 1em;
+  box-sizing: content-box;
+  height: 1em;
+  background: blue;
+
+  /* clip-path: path("M 39 50 A 11 11 90 0 1 50 39 L 50 38 A 12 12 90 0 0 38 50 M 50 39 H 50.5 V 19 H 49.5 V 39 Z M 39 50 V 49.5 H 22.5 V 50.5 H 39 Z M 19 50 A 1 1 90 1 0 23 50 A 1 1 90 1 0 19 50 Z M 20 50 A 1 1 90 0 1 22 50 A 1 1 90 0 1 20 50 Z");  */
+  clip-path: path("M 60 50 A 10 10 90 0 0 40 50 Z M 40 50 A 10 10 90 0 0 60 50 Z M 39 50 A 11 11 90 0 1 50 39 L 50 38 A 12 12 90 0 0 38 50 M 50 39 H 50.5 V 19 H 49.5 V 39 Z M 39 50 V 49.5 H 22.5 V 50.5 H 39 Z M 19 50 A 1 1 90 1 0 23 50 A 1 1 90 1 0 19 50 Z M 20 50 A 1 1 90 0 1 22 50 A 1 1 90 0 1 20 50 Z"); 
+
+} 
