@@ -6,7 +6,7 @@ import globalstyles from '../../GlobalStyles.module.css';
 // Reuse the assets from the previous pages
 import logo from '../../assets/logo.svg'; // Assuming this is the large logo
 import backgroundPattern from '../../assets/background.png';
-import { createCallingCard } from '../../components/callingcard/CallingCard';
+// import { createCallingCard } from '../../components/callingcard/CallingCard';
 
 const ContactPageBody : React.FC = () => {
   return(
@@ -24,11 +24,11 @@ const ContactPageBody : React.FC = () => {
 
 
 export const ContactPage: React.FC = () => {
-  const ccElement = createCallingCard({ Body: ContactPageBody, ratio: 0.8 });
+  // const ccElement = createCallingCard({ Body: ContactPageBody, ratio: 0.8 });
 
   return (
     <div className={styles.contactPageWrapper}>
-    {ccElement}
+    {/* {ccElement} */}
 
       <div
         className={globalstyles.backgroundPattern}
