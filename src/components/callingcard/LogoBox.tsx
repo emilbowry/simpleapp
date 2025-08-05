@@ -12,12 +12,3 @@ export class LogoBox extends React.Component<ILogoBoxProps> {
     return <Component />;
   }
 }
-
-// export const Logobox: React.FC = () => {
-
-//   return (
-//     <div className={styles.logobox}>
-//       <img src={logo} alt="AI Compatible logo" className={styles.logobox}/>
-//     </div>
-//   );
-// }
