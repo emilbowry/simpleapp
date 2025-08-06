@@ -27,50 +27,6 @@ body {
 }
 
 
-<<<<<<< Updated upstream
-.animated {
- animation-name: fadeInUp;
- animation-duration: 1s;
- animation-fill-mode: both;
-}
-
-/*
-  The element is hidden by default.
-  We use a class selector here, not a module-generated one, for easier selection in our JS.
-*/
-.animateOnScroll {
- animation-name: fadeInUp;
- animation-duration: 1s;
- animation-fill-mode: both;
-}
-
-/* The class that our JavaScript will add when the element is visible */
-.isVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-  .aos,
-  .is-visible,
-  .animated {
-    animation: none !important;
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
-
-/* GlobalStyles.module.css */
-
-/* (Small fix) */
-.title {
-  font-family: system-ui, sans-serif; /* fixed typo */
-}
-=======
->>>>>>> Stashed changes
 
 @keyframes fadeInUp {
   /* from { opacity: 0; transform: translateY(16px); }
@@ -84,16 +40,7 @@ body {
   opacity: 0;
   transform: var(--user-transform) var(--aos-transform);
   will-change: transform, opacity;
-<<<<<<< Updated upstream
-}
-
-/* This class is added by JS when the element enters the viewport */
-:global(.is-visible) {
-  animation: fadeInUp 600ms ease-out forwards;
-}
-=======
 } */
->>>>>>> Stashed changes
 
 :global(.is-visible) {
   /* --aos-transform: translateY(0); */
@@ -103,8 +50,6 @@ body {
 .animated {
   animation: fadeInUp 600ms ease-out both;
 }
-<<<<<<< Updated upstream
-=======
 
 @media (prefers-reduced-motion: reduce) {
   :global(.aos),
@@ -116,4 +61,3 @@ body {
     transform: var(--user-transform, none) !important;
   }
 }
->>>>>>> Stashed changes

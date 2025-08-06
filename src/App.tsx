@@ -37,34 +37,6 @@ const App: React.FC = () => {
   // useEffect(() => {
   //   const selector = '.aos';
 
-<<<<<<< Updated upstream
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        }
-      },
-      { threshold: 0.1, root: null, rootMargin: '0px 0px -20% 0px' }
-    );
-
-    const tagAllUnderMain = () => {
-      const main = document.querySelector('main');
-      if (!main) return;
-      main.querySelectorAll('*:not(.aos):not(.no-aos)').forEach((el) => {
-        el.classList.add('aos');
-      });
-    };
-
-    const observeAll = () => {
-      tagAllUnderMain();
-      document.querySelectorAll('.aos').forEach((el) => io.observe(el));
-    };
-    // Observe anything currently on the page
-    observeAll();
-=======
   //   const io = new IntersectionObserver(
   //     (entries) => {
   //       for (const entry of entries) {
@@ -72,7 +44,7 @@ const App: React.FC = () => {
   //           entry.target.classList.add('is-visible');
   //           io.unobserve(entry.target);
   //         }
-  //       }
+  //       }ß
   //     },
   //     { threshold: 0.1, root: null, rootMargin: '0px 0px -20px 0px' }
   //   );
@@ -125,7 +97,6 @@ const App: React.FC = () => {
   //   // };
   //   // Observe anything currently on the page
   //   observeAll();
->>>>>>> Stashed changes
 
   //   // Also observe elements that get added later
   //   const mo = new MutationObserver(() => observeAll());

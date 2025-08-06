@@ -20,17 +20,18 @@ export const HomePage: React.FC = () => {
         className={globalstyles.backgroundPattern}
         style={{ backgroundImage: `url(${backgroundPattern})` }}
       ></div>
-      <AccordionSection />
-      <div
-        className={globalstyles.backgroundPattern}
-        style={{ backgroundImage: `url(${backgroundPattern})` }}
-      ></div>
-      <AccordionSection />
-      <div
-        className={globalstyles.backgroundPattern}
-        style={{ backgroundImage: `url(${backgroundPattern})` }}
-      ></div>
       <DemoPage />
+
+      <div
+        className={globalstyles.backgroundPattern}
+        style={{ backgroundImage: `url(${backgroundPattern})` }}
+      ></div>
+      <AccordionSection />
+      <div
+        className={globalstyles.backgroundPattern}
+        style={{ backgroundImage: `url(${backgroundPattern})` }}
+      ></div>
+      <AccordionSection />
 
     </section>
   );
