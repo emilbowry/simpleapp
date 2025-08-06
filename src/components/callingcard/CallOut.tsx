@@ -1,5 +1,7 @@
+// src/components/callingcard/CallOut.tsx
+
 import React from 'react';
-import globalstyles from '../../GlobalStyles.module.css' ;
+import globalstyles from '../../GlobalStyles.module.css';
 
 
 export interface ICallOutProps {
@@ -7,7 +9,7 @@ export interface ICallOutProps {
 }
 export class CallOut extends React.Component<ICallOutProps> {
   render() {
-	const { Component } = this.props;
-	return <Component />;
+    const { Component } = this.props;
+    return <Component />;
   }
 }

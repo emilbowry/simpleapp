@@ -1,3 +1,6 @@
+
+/* src/components/timeline/Timeline.module.css */
+
 .timelineEventRow {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -6,6 +9,7 @@
 
   max-width: 900px;
   margin: 0 auto;
+  
 }
 
 .spineContainer {

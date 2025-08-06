@@ -1,3 +1,6 @@
+/* src/components/callingcard/CallingCard.module.css */
+
+
 .callingCard {
   display: grid;
   justify-content: space-between;
@@ -7,22 +10,20 @@
   min-height: 0; */
 }
 
-
-
-.logobox {
+/* .logobox {
 	display: flex;
   justify-content: flex-end;
 }
 
 .logobox img,
 .logobox svg {
-  /* max-width: 100%; */
-  /* height: auto; */
+  max-width: 100%;
+  /height: auto;
 
   display: block;
-}
+} 
 
 @media (max-width: 50rem) {
   .callingCard { grid-template-columns: 1fr; }
   .logobox     { justify-self: right; max-inline-size: 80%; }
-}
+} */

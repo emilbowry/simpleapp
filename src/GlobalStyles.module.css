@@ -1,5 +1,5 @@
 
-/* GlobalStyles.module.css */
+/* src/GlobalStyles.module.css */
 
 body {
   margin: 0;
@@ -7,11 +7,9 @@ body {
   background: #fafafa;
   color: #333;
   font-weight: 300;  
-  /* opacity: 0; 
-  transition: opacity 1s ease-in-out;  */
 }
 .title {
-  font-family: system-ui, sans-seriff;
+  font-family: system-ui, sans-serif;
 
   font-size: 4rem;
   line-height: 1.1;
@@ -20,7 +18,7 @@ body {
 }
 
 .backgroundPattern {
-  height: 100px; /* Adjust height as needed */
+  height: 100px; 
   width: 100%;
   background-repeat: no-repeat;
   background-position: center;
@@ -28,18 +26,8 @@ body {
  background-attachment: fixed;
 }
 
-/* globalStyle.module.css
-@keyframes fadeInUp {
- from {
- opacity: 0;
- transform: translateY(20px);
- }
- to {
- opacity: 1;
- transform: translateY(0);
- }
-}
 
+<<<<<<< Updated upstream
 .animated {
  animation-name: fadeInUp;
  animation-duration: 1s;
@@ -81,25 +69,51 @@ body {
 .title {
   font-family: system-ui, sans-serif; /* fixed typo */
 }
+=======
+>>>>>>> Stashed changes
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  /* from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); } */
 }
 
-/* Make these classes global so you can use plain strings in JSX */
-:global(.aos) {
+/* :global(.aos) {
+  --user-transform: none;
+  --aos-transform: translateY(16px);
+
   opacity: 0;
-  transform: translateY(20px);
+  transform: var(--user-transform) var(--aos-transform);
   will-change: transform, opacity;
+<<<<<<< Updated upstream
 }
 
 /* This class is added by JS when the element enters the viewport */
 :global(.is-visible) {
   animation: fadeInUp 600ms ease-out forwards;
 }
+=======
+} */
+>>>>>>> Stashed changes
 
-/* (Optional) If you still want the entire <main> to animate on route change */
+:global(.is-visible) {
+  /* --aos-transform: translateY(0); */
+  animation: fadeInUp 600ms ease-out forwards;
+}
+
 .animated {
   animation: fadeInUp 600ms ease-out both;
 }
+<<<<<<< Updated upstream
+=======
+
+@media (prefers-reduced-motion: reduce) {
+  :global(.aos),
+  :global(.is-visible),
+  .animated {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: var(--user-transform, none) !important;
+  }
+}
+>>>>>>> Stashed changes

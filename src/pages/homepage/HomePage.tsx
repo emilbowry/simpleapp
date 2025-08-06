@@ -7,6 +7,8 @@ import globalstyles from '../../GlobalStyles.module.css';
 
 import backgroundPattern from '/src/assets/background.png';
 
+import { DemoPage } from '../demopage/DemoPage';
+
 
 export const HomePage: React.FC = () => {
 
@@ -28,35 +30,8 @@ export const HomePage: React.FC = () => {
         className={globalstyles.backgroundPattern}
         style={{ backgroundImage: `url(${backgroundPattern})` }}
       ></div>
-      <AccordionSection />
-      <div
-        className={globalstyles.backgroundPattern}
-        style={{ backgroundImage: `url(${backgroundPattern})` }}
-      ></div>
-      <AccordionSection />
-      <div
-        className={globalstyles.backgroundPattern}
-        style={{ backgroundImage: `url(${backgroundPattern})` }}
-      ></div>
-      <AccordionSection />
-      <div
-        className={globalstyles.backgroundPattern}
-        style={{ backgroundImage: `url(${backgroundPattern})` }}
-      ></div>
-      <AccordionSection />
-      <div
-        className={globalstyles.backgroundPattern}
-        style={{ backgroundImage: `url(${backgroundPattern})` }}
-      ></div>
-      <AccordionSection />
+      <DemoPage />
 
-
-
-      {/* <DemoTimeline /> */}
-      <div
-        className={globalstyles.backgroundPattern}
-        style={{ backgroundImage: `url(${backgroundPattern})` }}
-      ></div>
     </section>
   );
 }
