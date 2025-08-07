@@ -4,7 +4,7 @@ import React from "react";
 // import styles from "./Timeline.module.css";
 
 export interface ISpineContent {
-	index: number;
+	isLeftHanded: boolean;
 	scaleFactor: number;
 }
 
@@ -27,10 +27,6 @@ export class SpineComponent
 	extends React.Component<TSpineComponent>
 	implements ISpineComponentBehavior
 {
-	public static getOrientationFlip(index: number): boolean {
-		return index % 2 === 1;
-	}
-
 	public renderContent(args: TSpineElement): React.ReactNode {
 		const { contentComponent: ContentComponent, ...componentProps } = args;
 		return <ContentComponent {...componentProps} />;
@@ -38,10 +34,9 @@ export class SpineComponent
 
 	render() {
 		const { reflectable = false, ...renderProps } = this.props;
-		const { index, scaleFactor } = renderProps;
+		const { isLeftHanded, scaleFactor } = renderProps;
 
-		const _flip = SpineComponent.getOrientationFlip(index);
-		const flip = _flip ? -1 : 1;
+		const flip = isLeftHanded ? 1 : -1;
 
 		return (
 			<div
@@ -52,7 +47,7 @@ export class SpineComponent
 									flip * scaleFactor
 								}, ${scaleFactor})`,
 						  }
-						: { direction: _flip ? "rtl" : "ltr" }
+						: { direction: isLeftHanded ? "rtl" : "ltr" }
 				}
 			>
 				{this.renderContent({ ...renderProps })}
