@@ -1,11 +1,14 @@
+//  src/components/timeline/spineComponent/Event.tsx
+
+// import React from "react";
 import React from "react";
-import styles from "./Timeline.module.css";
+import styles from "../Timeline.module.css";
 import {
 	SpineComponent,
 	TSpineComponent,
 	TSpineElement,
 	ISpineContent,
-} from "./newTimeline copy";
+} from "./SpineComponent";
 export interface ITimelineEvent {
 	date: string;
 	title: string;
@@ -56,44 +59,3 @@ export class EventContent extends SpineComponent {
 		);
 	}
 }
-
-const demoTimelineEvent: ITimelineEvent[] = [
-	{
-		date: "Early 2024",
-		title: "Prompt Engineering Offering",
-		description:
-			"AIC introduces the FAST START Prompt engineering framework, improving the specificity, relevance and hallucination rate of LLMs in performance.",
-	},
-	{
-		date: "Mid 2024",
-		title: "Emergence of Newer Interfaces",
-		description:
-			"Innovative interfaces like Gamma, Napkin AI, and Sana gain traction, indicating a diversifying AI landscape and a growing demand for specialized tools.",
-	},
-];
-const demoTimeline: React.FC = () => {
-	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-			}}
-		>
-			<EventContent
-				index={0}
-				scaleFactor={1.5}
-				reflectable={false}
-				contentComponent={_EventContent}
-				data={demoTimelineEvent[0]}
-			/>
-			<EventContent
-				index={1}
-				scaleFactor={1.5}
-				reflectable={false}
-				contentComponent={_EventContent}
-				data={demoTimelineEvent[1]}
-			/>
-		</div>
-	);
-};
