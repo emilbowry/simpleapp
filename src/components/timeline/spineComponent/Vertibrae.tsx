@@ -40,19 +40,23 @@ export class Vertibrae extends SpineComponent {
 		const {
 			isLeftHanded,
 			index,
-			scaleFactor = 1,
+			scaleFactor,
 			contentComponent: ContentComponent = DefaultVertibrae,
 		} = args;
 
-		const view_box = `${-45} ${-45} ${90} ${90}`;
+		const view_box = `${-70} ${-70} ${140} ${140}`;
+
+		// `,
 
 		return (
 			<svg
 				viewBox={view_box}
-				width={scaleFactor * 90}
-				height={scaleFactor * 90}
+				width={140}
+				height={140}
 				preserveAspectRatio="xMidYMid meet"
-				style={{ overflow: "visible" }}
+				// style={{
+				// 	overflow: "visible",
+				// }}
 				className="no-aos"
 			>
 				<ContentComponent

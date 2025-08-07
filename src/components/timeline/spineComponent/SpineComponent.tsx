@@ -35,8 +35,9 @@ export class SpineComponent
 	render() {
 		const { reflectable = false, ...renderProps } = this.props;
 		const { isLeftHanded, scaleFactor } = renderProps;
+		console.log(isLeftHanded);
 
-		const flip = isLeftHanded ? 1 : -1;
+		const flip = isLeftHanded ? -1 : 1;
 
 		return (
 			<div
@@ -47,10 +48,23 @@ export class SpineComponent
 									flip * scaleFactor
 								}, ${scaleFactor})`,
 						  }
-						: { direction: isLeftHanded ? "rtl" : "ltr" }
+						: // : {}
+						  { direction: isLeftHanded ? "ltr" : "rtl" }
 				}
 			>
+				{/* <div
+					style={
+						isLeftHanded
+							? {
+									paddingRight: `${0 * scaleFactor}em`,
+							  }
+							: {
+									paddingRight: `${0 * scaleFactor}em`,
+							  }
+					}
+				> */}
 				{this.renderContent({ ...renderProps })}
+				{/* </div> */}
 			</div>
 		);
 	}

@@ -22,11 +22,7 @@ type TEventContent = ISpineContent & IEventContentComponentProps;
 type TEventElement = TSpineElement & IEventContentComponentProps;
 type TEventComponent = TSpineComponent & IEventContentComponentProps;
 
-export const _EventContent: React.FC<TEventContent> = ({
-	// index,
-	// scaleFactor,
-	data,
-}) => {
+export const _EventContent: React.FC<TEventContent> = ({ data }) => {
 	return (
 		<div className={styles.contentContainer}>
 			<h3
@@ -41,20 +37,11 @@ export class EventContent extends SpineComponent {
 	props!: TEventComponent;
 
 	public renderContent(args: TEventElement): React.ReactNode {
-		const {
-			// index,
-			// scaleFactor = 1,
-			contentComponent: _EventContent,
-			data,
-		} = args;
+		const { contentComponent: _EventContent, data } = args;
 		return (
-			<>
-				<_EventContent
-					// index={index}
-					// scaleFactor={scaleFactor}
-					data={data}
-				/>
-			</>
+			<div>
+				<_EventContent data={data} />
+			</div>
 		);
 	}
 }

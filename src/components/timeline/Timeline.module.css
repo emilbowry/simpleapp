@@ -2,49 +2,20 @@
 /* src/components/timeline/Timeline.module.css */
 
 .timelineEventRow {
-  display: grid;
+  display:grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: 30px;
   width: 100%;
-
-  max-width: 900px;
-  margin: 0 auto;
-  
 }
 
-@container style(color: red){
 
- .body {
-    transform: scaleX(-1);
-  } 
-}
-.spineContainer {
-  display: flex;
-  justify-content: center;
-}
+
 
 .contentContainer {
-  padding-top: 1.5em; 
-}
-
-.eventTitle {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 0 0 0.5rem 0;
-}
-
-.eventDescription {
-  font-size: 1rem;
-  color: #555;
-  margin: 0;
-}
-
-.rotator{
-
-  rotate: 1 0 0 45deg;
-  /* rotate: 0 0 0 45deg; */
-
-  /* rotate: 0 1 1 -45deg; */
+  display:grid;
+  height: 15em;
+  margin-top: 1em;
+  align-items: center;
+} 
 
 
-}
+
