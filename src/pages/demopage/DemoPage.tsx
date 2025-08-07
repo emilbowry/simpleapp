@@ -3,18 +3,18 @@ import styles from './DemoPage.module.css';
 import { Timeline, ITimelineEvent } from '../../components/timeline/Timeline';
 import { CallingCard } from '../../components/callingcard/CallingCard';
 import { CallOut } from '../../components/callingcard/CallOut';
-
+import { IVertebraeChainProps, SpineComponent, Vertibrae, DefaultVertibrae, EventContent, _EventContent } from '../../components/timeline/newTimeline';
 const demoTimelineEvent: ITimelineEvent[] = [
   {
     date: 'Early 2024',
     title: 'Prompt Engineering Offering',
     description: 'AIC introduces the FAST START Prompt engineering framework, improving the specificity, relevance and hallucination rate of LLMs in performance.',
   },
-  // {
-  //   date: 'Mid 2024',
-  //   title: 'Emergence of Newer Interfaces',
-  //   description: 'Innovative interfaces like Gamma, Napkin AI, and Sana gain traction, indicating a diversifying AI landscape and a growing demand for specialized tools.',
-  // },
+  {
+    date: 'Mid 2024',
+    title: 'Emergence of Newer Interfaces',
+    description: 'Innovative interfaces like Gamma, Napkin AI, and Sana gain traction, indicating a diversifying AI landscape and a growing demand for specialized tools.',
+  },
   // {
   //   date: 'Late 2024',
   //   title: "'Tasks to Tools' Offering",
@@ -33,17 +33,39 @@ const demoTimelineEvent: ITimelineEvent[] = [
 ];
 
 const demoTimeline: React.FC = () => {
+  // return (
+  //   <section>
+  //     <h2 style={{ textAlign: 'center' }}>Our Journey</h2>
+
+  //     <Timeline timelineEvents={demoTimelineEvent} />
+
+  //   </section>
+  // )
+
+  // return (
+  //   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  //     {/*
+  // 		  * You render the specialized `Vertibrae` class directly.
+  // 		  * It will automatically use the `DefaultVertibrae` shape.
+  // 		*/}
+  //     <Vertibrae index={0} scaleFactor={1.5} reflactable={true} contentComponent={DefaultVertibrae} />
+  //     <Vertibrae index={1} scaleFactor={1.5} reflactable={true} contentComponent={DefaultVertibrae} />
+  //   </div>
+  // );
+
+
   return (
-    <section>
-      <h2 style={{ textAlign: 'center' }}>Our Journey</h2>
-
-      <Timeline timelineEvents={demoTimelineEvent} />
-
-    </section>
-  )
-
-
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/*
+  		  * You render the specialized `Vertibrae` class directly.
+  		  * It will automatically use the `DefaultVertibrae` shape.
+  		*/}
+      <EventContent index={0} scaleFactor={1.5} reflactable={false} contentComponent={_EventContent} timelineEvent={demoTimelineEvent[0]} />
+      <EventContent index={1} scaleFactor={1.5} reflactable={false} contentComponent={_EventContent} timelineEvent={demoTimelineEvent[0]} />
+    </div>
+  );
 };
+
 
 
 export const DemoPage: React.FC = () => {
