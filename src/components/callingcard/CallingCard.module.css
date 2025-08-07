@@ -1,6 +1,7 @@
 /* src/components/callingcard/CallingCard.module.css */
 
 
+
 .callingCard {
   display: grid;
   justify-content: space-between;
@@ -10,6 +11,20 @@
   min-height: 0; */
 }
 
+.structured-callout-heading{
+  color : #41A8A8;
+}
+
+.structured-callout-description {
+  color: #25607f;
+}
+
+.bordered-callout-heading{
+  border-top: 2px solid ;
+  padding-top: 10px;
+  border-bottom: 2px solid ;
+  padding-bottom: 10px;
+}
 /* .logobox {
 	display: flex;
   justify-content: flex-end;

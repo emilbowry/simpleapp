@@ -1,35 +1,53 @@
 //  src/components/timeline/spineComponent/Event.tsx
 
-// import React from "react";
 import React from "react";
 import styles from "../Timeline.module.css";
+import logo from "../../../assets/growthhouselogo.png";
+
 import {
 	SpineComponent,
 	TSpineComponent,
 	TSpineElement,
 	ISpineContent,
 } from "./SpineComponent";
-export interface ITimelineEvent {
+
+import {
+	StructuredCallout,
+	IStructuredCalloutData,
+	BorderdCallout,
+} from "../../callingcard/CallOut";
+
+export interface IEvent {
 	date: string;
-	title: string;
+	image?: string;
 	description: string;
 }
+
+type TEvent = Omit<IEvent, "date"> & {
+	title: IEvent["date"];
+};
+
 interface IEventContentComponentProps {
-	data: ITimelineEvent;
+	data: IEvent;
 }
 
 type TEventContent = ISpineContent & IEventContentComponentProps;
 type TEventElement = TSpineElement & IEventContentComponentProps;
 type TEventComponent = TSpineComponent & IEventContentComponentProps;
 
-export const _EventContent: React.FC<TEventContent> = ({ data }) => {
+export const _EventContent: React.FC<IEventContentComponentProps> = ({
+	data,
+}) => {
+	const { date, description, image } = data;
+	let title = date;
 	return (
-		<div className={styles.contentContainer}>
-			<h3
-				className={styles.eventTitle}
-			>{`${data.date}: ${data.title}`}</h3>
-			<p className={styles.eventDescription}>{data.description}</p>
-		</div>
+		<BorderdCallout data={{ title, description, image }} />
+		// <div className={styles.contentContainer}>
+		// 	<h3
+		// 		className={styles.eventTitle}
+		// 	>{`${data.date}: ${data.title}`}</h3>
+		// 	<p className={styles.eventDescription}>{data.description}</p>
+		// </div>
 	);
 };
 
@@ -46,16 +64,15 @@ export class EventContent extends SpineComponent {
 	}
 }
 
-const demoEvent: ITimelineEvent[] = [
+const demoEvent: IEvent[] = [
 	{
 		date: "Early 2024",
-		title: "Prompt Engineering Offering",
 		description:
 			"AIC introduces the FAST START Prompt engineering framework, improving the specificity, relevance and hallucination rate of LLMs in performance.",
 	},
 	{
 		date: "Mid 2024",
-		title: "Emergence of Newer Interfaces",
+		image: logo,
 		description:
 			"Innovative interfaces like Gamma, Napkin AI, and Sana gain traction, indicating a diversifying AI landscape and a growing demand for specialized tools.",
 	},

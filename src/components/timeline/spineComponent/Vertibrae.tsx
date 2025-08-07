@@ -46,8 +46,6 @@ export class Vertibrae extends SpineComponent {
 
 		const view_box = `${-70} ${-70} ${140} ${140}`;
 
-		// `,
-
 		return (
 			<svg
 				viewBox={view_box}

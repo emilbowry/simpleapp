@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./DemoPage.module.css";
 import { CallingCard } from "../../components/callingcard/CallingCard";
-import { CallOut } from "../../components/callingcard/CallOut";
+import { _CallOut as CallOut } from "../../components/callingcard/CallOut";
 import { demoVertibrae } from "../../components/timeline/spineComponent/Vertibrae";
 import { demoEvents } from "../../components/timeline/spineComponent/Event";
 import globalstyles from "../../GlobalStyles.module.css";

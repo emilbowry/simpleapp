@@ -1,14 +1,12 @@
-import React from 'react';
-import { CallOut,ICallOutProps } from './CallOut';
+import React from "react";
+import { _CallOut, I_CallOutProps } from "./CallOut";
 
-
-
-export interface ILogoBoxProps extends ICallOutProps {
-  scale: number;
+export interface ILogoBoxProps extends I_CallOutProps {
+	scale: number;
 }
 export class LogoBox extends React.Component<ILogoBoxProps> {
-  render() {
-    const { Component } = this.props;
-    return <Component />;
-  }
+	render() {
+		const { Component } = this.props;
+		return <Component />;
+	}
 }
