@@ -13,6 +13,7 @@ interface ITimelineEventRowProps {
 	eventData: IEvent;
 	index: number;
 	scaleFactor?: number;
+	key?: number;
 }
 // marginLeft: `${1 * scaleFactor}rem`,
 
@@ -79,11 +80,13 @@ export class Timeline extends React.Component<ITimelineData> {
 			<section>
 				<div data-scroll-root>
 					{timelineEvents.map((item, index) => (
-						<TimelineEventRow
-							key={index}
-							index={index}
-							eventData={item}
-						/>
+						<div key={index}>
+							<TimelineEventRow
+								key={index}
+								index={index}
+								eventData={item}
+							/>
+						</div>
 					))}
 				</div>
 			</section>

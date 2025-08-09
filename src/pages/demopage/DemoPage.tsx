@@ -9,6 +9,11 @@ import { demoEvents } from "../../components/timeline/spineComponent/Event";
 import globalstyles from "../../GlobalStyles.module.css";
 import { demoTimeline } from "../../components/timeline/Timeline";
 import backgroundPattern from "/src/assets/background.png";
+import {
+	demoSmallPB,
+	demoLargePB,
+} from "../../components/partnershipbar/PartnershipBar";
+
 export const DemoPage: React.FC = () => {
 	const componentsToRendera = [<CallOut Component={demoEvents} />];
 	const componentsToRenderb = [<CallOut Component={demoVertibrae} />];
@@ -17,28 +22,26 @@ export const DemoPage: React.FC = () => {
 	const acElement = (
 		<CallingCard components={componentsToRendera} index={0} />
 	);
-	``;
 	const bcElement = (
 		<CallingCard components={componentsToRenderb} index={1} />
 	);
 	const ccElement = (
 		<CallingCard components={componentsToRenderc} index={1} />
 	);
-
+	// const smallPB = <demoSmallPB />;
 	return (
 		<section>
-			{/* {acElement}
-			<div
-				className={globalstyles.backgroundPattern}
-				style={{ backgroundImage: `url(${backgroundPattern})` }}
-			></div>
-			{bcElement} */}
-
+			{demoSmallPB}
 			<div
 				className={globalstyles.backgroundPattern}
 				style={{ backgroundImage: `url(${backgroundPattern})` }}
 			></div>
 			{ccElement}
+			<div
+				className={globalstyles.backgroundPattern}
+				style={{ backgroundImage: `url(${backgroundPattern})` }}
+			></div>
+			{demoLargePB}
 		</section>
 	);
 };

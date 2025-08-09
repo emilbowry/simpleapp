@@ -10,12 +10,7 @@ import {
 	TSpineElement,
 	ISpineContent,
 } from "./SpineComponent";
-
-import {
-	StructuredCallout,
-	IStructuredCalloutData,
-	BorderdCallout,
-} from "../../callingcard/CallOut";
+import { BorderdCallout } from "../../callingcard/StructuredCallout";
 
 export interface IEvent {
 	date: string;
@@ -31,7 +26,7 @@ interface IEventContentComponentProps {
 	data: IEvent;
 }
 
-type TEventContent = ISpineContent & IEventContentComponentProps;
+type TEventContent = ISpineContent & IEventContentComponentProps; // Unused but for
 type TEventElement = TSpineElement & IEventContentComponentProps;
 type TEventComponent = TSpineComponent & IEventContentComponentProps;
 
@@ -40,15 +35,7 @@ export const _EventContent: React.FC<IEventContentComponentProps> = ({
 }) => {
 	const { date, description, image } = data;
 	let title = date;
-	return (
-		<BorderdCallout data={{ title, description, image }} />
-		// <div className={styles.contentContainer}>
-		// 	<h3
-		// 		className={styles.eventTitle}
-		// 	>{`${data.date}: ${data.title}`}</h3>
-		// 	<p className={styles.eventDescription}>{data.description}</p>
-		// </div>
-	);
+	return <BorderdCallout data={{ title, description, image }} />;
 };
 
 export class EventContent extends SpineComponent {

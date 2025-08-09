@@ -1,0 +1,77 @@
+
+/* .partnershipbar-large {
+	display: flex;
+	overflow-x: auto; 
+	align-items: center;
+	justify-content: flex-start; 
+	padding: 1rem 0;
+	gap: 3rem; 
+} */
+
+/* .partnershipbar-small {
+	display: grid;
+	flex-wrap: nowrap; 
+
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 2rem;
+	align-items: center;
+	justify-items: center;
+	padding: 1rem;
+} */
+/* .partnershipbar-small {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem; 
+  padding: 1rem 0;
+} */
+
+.partnershipbar-small {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2rem;
+	padding: 1rem;
+}
+/* .partnershipbar-large {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; 
+  place-items: center; 
+  padding: 2rem 0;
+  max-width: 900px; 
+  margin: 0 auto; 
+} */
+
+.partnershipbar-large {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 3.5rem 4rem;          /* row gap first, then column gap */
+  place-items: center;
+  padding: 3rem 0;
+  max-width: 1200px;         /* give the strip room to breathe */
+  margin: 0 auto;
+}
+.partnershipbar-small img {
+	max-height: 50px;
+	max-width: 160px;
+	object-fit: contain;
+}
+
+.partnershipbar-large img{
+	max-height: 75px;
+	max-width: 240px;
+	object-fit: contain;
+}
+
+/* .partnershipbar-large {
+	padding-bottom: 1.5rem; 
+} */
+
+/* 
+.partnershipbar-large {}
+
+.partnershipbar-small {} */

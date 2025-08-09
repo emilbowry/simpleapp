@@ -3,20 +3,15 @@
 import React from "react";
 import globalstyles from "../../GlobalStyles.module.css";
 import { renderMatches } from "react-router-dom";
-import styles from "./CallingCard.module.css";
 
-interface ICallOut {
+export interface ICallOut {
 	data: any;
-}
-
-interface IStructuredCallout extends ICallOut {
-	data: IStructuredCalloutData;
 }
 
 interface IConstructedComponent {
 	generateNode(args: ICallOut): React.ReactNode;
 }
-class CallOut
+export class CallOut
 	extends React.Component<ICallOut>
 	implements IConstructedComponent
 {
@@ -30,53 +25,7 @@ class CallOut
 	}
 }
 
-export interface IStructuredCalloutData {
-	title: string | React.ReactNode;
-	description: string | React.ReactNode;
-	image?: string;
-}
-
-export const StructuredCallOutTitle: React.FC<{
-	heading: string | React.ReactNode;
-}> = ({ heading }) => {
-	return <h2 className={styles.structuredCalloutHeading}>{heading}</h2>;
-};
-
-export const StructuredCallOutDescription: React.FC<{
-	desc: string | React.ReactNode;
-}> = ({ desc }) => {
-	return <p className={styles.structuredCalloutDescription}>{desc}</p>;
-};
-
-export class StructuredCallout extends CallOut {
-	props!: IStructuredCallout;
-	public generateNode(args: IStructuredCalloutData) {
-		const { title, description, image } = args;
-		console.log(image);
-
-		return (
-			<div>
-				{image ? <img src={image}></img> : <></>}
-				<StructuredCallOutTitle heading={title} />
-				<StructuredCallOutDescription desc={description} />
-			</div>
-		);
-	}
-}
-
-export class BorderdCallout extends StructuredCallout {
-	public generateNode(args: IStructuredCalloutData) {
-		let _args = args;
-
-		_args.title = (
-			<div className={styles.borderedCalloutHeading}>{args.title}</div>
-		);
-
-		const reformed = super.generateNode(_args);
-		return reformed;
-	}
-}
-
+//Old code, need to change the implementations to fit new
 export interface I_CallOutProps {
 	Component: React.ComponentType;
 }

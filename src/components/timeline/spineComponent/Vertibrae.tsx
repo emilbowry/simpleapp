@@ -1,7 +1,9 @@
 //  src/components/timeline/spineComponent/Vertibrae.tsx
 
 import React from "react";
-import styles from "./Timeline.module.css";
+// import styles from "./Timeline.module.css";
+import styles from "../../../GlobalStyles.module.css";
+
 import {
 	SpineComponent,
 	TSpineComponent,
@@ -55,7 +57,7 @@ export class Vertibrae extends SpineComponent {
 				// style={{
 				// 	overflow: "visible",
 				// }}
-				className="no-aos"
+				// className={styles.noAos}
 			>
 				<ContentComponent
 					index={index}
