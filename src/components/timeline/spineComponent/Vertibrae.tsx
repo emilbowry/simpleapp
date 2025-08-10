@@ -57,7 +57,6 @@ export class Vertibrae extends SpineComponent {
 				// style={{
 				// 	overflow: "visible",
 				// }}
-				// className={styles.noAos}
 			>
 				<ContentComponent
 					index={index}

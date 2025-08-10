@@ -17,9 +17,7 @@ export const HomePage: React.FC = () => {
 				className={globalstyles.backgroundPattern}
 				style={{ backgroundImage: `url(${backgroundPattern})` }}
 			></div>
-			<div className="no-aos">
-				<AccordionSection />
-			</div>
+
 			{/* <AccordionSection /> */}
 
 			<div

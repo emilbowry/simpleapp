@@ -19,7 +19,8 @@ interface ITimelineEventRowProps {
 
 class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 	render() {
-		const { index, eventData, scaleFactor = 3 } = this.props;
+		const { index, eventData, scaleFactor = 3, key } = this.props;
+		// this.
 		const isLeft = index % 2 === 0;
 
 		const eventElement = (
@@ -41,12 +42,19 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 				contentComponent={DefaultVertibrae}
 			/>
 		);
+		const componentStyle: React.CSSProperties = {
+			display: "grid",
+			height: "15em",
+			marginTop: "1em",
+			alignContent: "center",
+		};
 
 		return (
 			<div
-				className={styles.timelineEventRow}
 				style={{
-					// height: `${8 * scaleFactor}rem`,
+					display: "grid",
+					gridTemplateColumns: "1fr auto 1fr",
+					width: "100%",
 					overflow: "visible",
 				}}
 			>
@@ -58,9 +66,13 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 				>
 					{isLeft && eventElement}
 				</div>
+				<div>
+					<section className={"no-aos"}>
+						{/* Somehow retains the transformation */}
 
-				<div className={styles.contentContainer}>{vertElement}</div>
-
+						<div style={componentStyle}>{vertElement}</div>
+					</section>
+				</div>
 				<div
 					className={styles.contentContainer}
 					style={{ paddingLeft: `${4 * scaleFactor}em` }}

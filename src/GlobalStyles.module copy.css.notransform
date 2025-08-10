@@ -33,7 +33,7 @@ body {
 .aos {
   /* example: use the computed depth as a stagger */
   animation-delay: calc(var(--aos-depth, 0) * var(--aos-unit-delay));
-  transition-delay: calc(var(--aos-depth, 0) * var(--aos-unit-delay));
+  /* transition-delay: calc(var(--aos-depth, 0) * var(--aos-unit-delay)); */
 }
 
 /* or mix the components however you like */
@@ -47,18 +47,22 @@ body {
 }
 
 :global(.aos) {
-  --user-transform: none; 
+  /* --user-transform: none;  */
 
   opacity: 0;
-  transform: var(--user-transform) translateY(16px);
+  /* transform: var(--user-transform) translateY(16px); */
 
-  transition: opacity 600ms ease-out , transform 600ms ease-out;
-  will-change: transform, opacity;
+  transition: opacity 600ms ease-out 
+/* , transform 600ms ease-out */;
+
+  /* will-change: transform, opacity; */
+  will-change: opacity;
+
 }
 
 :global(.is-visible) {
   opacity: 1;
-  transform: var(--user-transform) translateY(0);
+  /* transform: var(--user-transform) translateY(0); */
 }
 
 
@@ -66,7 +70,11 @@ body {
   animation: fadeInUpAnimation 600ms ease-out both;
 }
 
-
+/* 
+@keyframes fadeInUpAnimation {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+} */
 
 
 @keyframes fadeInUpAnimation {
@@ -82,11 +90,9 @@ body {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
-    transform: var(--user-transform, none) !important;
+    /* transform: var(--user-transform, none) !important; */
   }
 }
-.no-aos {
-  /* will-change:unset; */
-
+/* .no-aos {
   transform: translateX(var(--snap-x, 0));
-}
+} */

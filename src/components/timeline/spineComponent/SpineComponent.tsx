@@ -52,7 +52,6 @@ export class SpineComponent
 				}
 			>
 				{this.renderContent({ ...renderProps })}
-				{/* </div> */}
 			</div>
 		);
 	}
