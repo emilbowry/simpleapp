@@ -85,8 +85,29 @@ body {
     transform: var(--user-transform, none) !important;
   }
 }
-.no-aos {
-  /* will-change:unset; */
+/* .no-aos {
+  will-change:unset;
 
   transform: translateX(var(--snap-x, 0));
+} */
+
+
+.typewriter {
+  overflow: hidden; 
+  white-space: nowrap; 
+  margin: 0 auto; 
+  letter-spacing: .15em;
+  justify-content: center;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+.no-aos {
+  isolation: isolate;
+  contain: paint;   /* or: contain: layout paint; if you can */
 }

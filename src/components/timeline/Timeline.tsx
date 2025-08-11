@@ -67,11 +67,9 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 					{isLeft && eventElement}
 				</div>
 				<div>
-					<section className={"no-aos"}>
-						{/* Somehow retains the transformation */}
-
-						<div style={componentStyle}>{vertElement}</div>
-					</section>
+					<div className={"no-aos"} style={componentStyle}>
+						{vertElement}
+					</div>
 				</div>
 				<div
 					className={styles.contentContainer}

@@ -1,0 +1,23 @@
+<!-- src/assets/defaulthex.svg -->
+
+<svg width="300" height="300" viewBox="0 -150 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="cutout">
+      <path 
+        d="M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 z" 
+        fill="white" />
+      <!-- <path 
+        d="M 0 0 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 z" 
+        fill="white" /> -->
+<!-- 
+      <path 
+        d="M -25 0 L 25 -86.6025 L -25 -173.205 H 0 L 50 -86.6025 L 0 0 Z"
+        fill="" /> -->
+    </mask>
+  </defs>
+
+  <path 
+    d="M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 z"
+ 
+    mask="url(#cutout)"/>
+</svg>

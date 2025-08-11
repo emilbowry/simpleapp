@@ -83,3 +83,48 @@
   line-height: 1.6;
   color: #555;
 }
+
+
+ 
+/* 
+.linewaterfall {
+  overflow: hidden; 
+  white-space: nowrap; 
+  margin: 0 auto; 
+  letter-spacing: .15em;
+  animation: 
+    waterfall 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes waterfall {
+  from { height: 0 }
+  to { height: 100% }
+} */
+/* .linewaterfall {
+  overflow: hidden;
+  display: inline-block;       
+  line-height: 1.4em;           
+  max-height: 0;                
+  animation: waterfall 3.5s steps(3, end) forwards; 
+ 
+} */
+/* 'steps(3, end)' = number of lines to reveal */
+
+/* 
+@keyframes waterfall {
+  from { max-height: 0; }
+  to { max-height: 4.2em; }
+} */
+.linewaterfall {
+  display: inline-block;
+  overflow: hidden;
+  line-height: var(line-height);
+  clip-path: inset(0 0 100% 0); 
+  animation: waterfall 3.5s steps(3, end) forwards;
+}
+
+@keyframes waterfall {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}

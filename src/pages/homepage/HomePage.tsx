@@ -8,17 +8,22 @@ import globalstyles from "../../GlobalStyles.module.css";
 import backgroundPattern from "/src/assets/background.png";
 
 import { DemoPage } from "../demopage/DemoPage";
-
+import { Background } from "../../components/background/Background";
+import { CallingCard } from "../../components/callingcard/CallingCard";
 export const HomePage: React.FC = () => {
+	const bg = <Background />;
 	return (
 		<section>
+			<CallingCard components={[bg]} />
+			{/* <AccordionSection />
+
 			<Hero />
 			<div
 				className={globalstyles.backgroundPattern}
 				style={{ backgroundImage: `url(${backgroundPattern})` }}
 			></div>
 
-			{/* <AccordionSection /> */}
+			<AccordionSection />
 
 			<div
 				className={globalstyles.backgroundPattern}
@@ -30,7 +35,7 @@ export const HomePage: React.FC = () => {
 				className={globalstyles.backgroundPattern}
 				style={{ backgroundImage: `url(${backgroundPattern})` }}
 			></div>
-			<AccordionSection />
+			<AccordionSection /> */}
 		</section>
 	);
 };
