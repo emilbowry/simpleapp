@@ -1,7 +1,6 @@
 //  src/components/timeline/spineComponent/Vertibrae.tsx
 
 import React from "react";
-// import styles from "./Timeline.module.css";
 import styles from "../../../GlobalStyles.module.css";
 import {
 	stormy_light_green,
@@ -66,9 +65,6 @@ export class Vertibrae extends SpineComponent {
 				width={140}
 				height={140}
 				preserveAspectRatio="xMidYMid meet"
-				// style={{
-				// 	overflow: "visible",
-				// }}
 			>
 				<ContentComponent
 					index={index}

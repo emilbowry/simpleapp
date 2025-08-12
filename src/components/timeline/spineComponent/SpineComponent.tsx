@@ -1,7 +1,6 @@
 //  src/components/timeline/spineComponent/SpineComponent.tsx
 
 import React from "react";
-// import styles from "./Timeline.module.css";
 
 export interface ISpineContent {
 	isLeftHanded: boolean;
