@@ -3,36 +3,17 @@
 // import bare from "../../assets/defaulthex.svg";
 // import logo from "../../assets/logoshape.svg";
 import _logo from "../../assets/logo.svg";
-import { getImageEl } from "../../utils/reactUtils";
 import React from "react";
-import styles from "./Background.module.css";
 import mountains from "../../assets/mountains.jpg";
-import { DefaultHexagon as DH, LogoHexagon as LH } from "./svgElements";
 import {
 	logo_yellow,
 	logo_blue,
 	stormy_blue,
+	stormy_light_green,
 } from "../../utils/defaultColours";
-import { Divide, List } from "lucide-react";
 
-// interface IBackgroundElements {
-// 	elements: readonly [React.ReactNode, React.ReactNode, React.ReactNode];
-// }
-
-// interface IValidComponent {
-// 	component: React.ComponentType | React.ComponentType[] | null;
-// }
-// type ValidComponent = React.ComponentType | React.ComponentType[] | null;
 interface IBackgroundElements {
-	elements: readonly [
-		ValidComponent,
-		ValidComponent,
-
-		ValidComponent
-
-		// React.ComponentType | React.ReactNode,
-		// React.ComponentType | React.ReactNode
-	];
+	elements: readonly [ValidComponent, ValidComponent, ValidComponent];
 }
 
 const hexPath =
@@ -45,237 +26,26 @@ const diamondColour =
 const chevCutour =
 	"M 25 86.6025 l 50 -86.6025 l -50 -86.6025 h 25 l 50 86.6025 l -50 86.6025 Z";
 const chevSplit = "M 95 0 v 5 h120 v -10 h-120 v5";
-export const LogoHexagon: React.ReactNode = (
-	<svg
-		width="500"
-		height="500"
-		viewBox="0 -100 200 200"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<defs>
-			<linearGradient
-				id="chevronGradient"
-				x1="10%"
-				y1="50%"
-				x2="100%"
-				y2="50%"
-			>
-				<stop offset="0%" stopColor={logo_yellow} />
-				<stop offset="100%" stopColor={logo_blue} />
-			</linearGradient>
-			<mask id="hexagon"></mask>
-			<mask id="logoCutout">
-				<path d={hexPath} fill="white" />
-				<path d={chevCutour} fill="black" />
 
-				{/* <path d={chevSplit} fill="black" /> */}
-			</mask>
-		</defs>
-
-		<path
-			d={hexPath}
-			mask="url(#hexagon)"
-			// fill="url(#img1)"
-			fill="url(#chevronGradient)"
-		/>
-		<path
-			d={diamondColour}
-			fill={logo_yellow}
-			// fill="url(#img1)"
-			mask="url(#logoCutout)"
-		/>
-
-		<path
-			d={chevColour}
-			fill="url(#chevronGradient)"
-			// fill="url(#img1)"
-			mask="url(#logoCutout)"
-		/>
-	</svg>
-);
-export const DefaultHexagons: React.ReactNode = (
-	<svg
-		width="500"
-		height="500"
-		viewBox="0 -100 200 200"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<defs>
-			{/* <pattern
-				id="img1"
-				patternUnits="userSpaceOnUse"
-				width="100"
-				height="100"
-			>
-				<image href={mountains} x="0" y="0" width="100" height="100" />
-			</pattern> */}
-			{/* <linearGradient
-				id="chevronGradient"
-				x1="10%"
-				y1="50%"
-				x2="100%"
-				y2="50%"
-			>
-				<stop offset="0%" stopColor={logo_yellow} />
-				<stop offset="100%" stopColor={logo_blue} />
-			</linearGradient> */}
-			<mask id="hexagon">
-				<path d={hexPath} fill="white" />
-			</mask>
-			{/* <mask id="logoCutout">
-				<path d={hexPath} fill="white" />
-				<path d={chevCutour} fill="black" />
-
-				<path d={chevSplit} fill="black" />
-			</mask> */}
-		</defs>
-
-		<path
-			d={hexPath}
-			mask="url(#hexagon)"
-			fill={stormy_blue}
-			// fill="url(#chevronGradient)"
-		/>
-		{/* <path
-			d={diamondColour}
-			fill={logo_yellow}
-			// fill="url(#img1)"
-			mask="url(#logoCutout)"
-		/>
-
-		<path
-			d={chevColour}
-			fill="url(#chevronGradient)"
-			// fill="url(#img1)"
-			mask="url(#logoCutout)"
-		/> */}
-	</svg>
-);
-class DefaultHexagon extends React.Component {
-	construct() {
-		const components = {
-			defs: [
-				<mask id="hexagon">
-					<path d={hexPath} fill="white" />
-				</mask>,
-			],
-			paths: [
-				<path
-					d={hexPath}
-					mask="url(#hexagon)"
-					fill={stormy_blue}
-					// fill="url(#chevronGradient)"
-				/>,
-			],
-		};
-		return components;
-	}
-	render() {
-		const { defs, paths } = this.construct();
-
-		return (
-			<svg
-				width="500"
-				height="500"
-				viewBox="0 -100 200 200"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<defs>{defs.map((def, index) => def)}</defs>
-				{paths.map((path, index) => path)}
-			</svg>
-		);
-	}
-}
-
-export const ImageHexagon: React.ReactNode = (
-	<svg
-		width="500"
-		height="500"
-		viewBox="0 -100 200 200"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<defs>
-			<pattern
-				id="img1"
-				patternUnits="userSpaceOnUse"
-				width="100"
-				height="100"
-			>
-				<image href={mountains} x="0" y="0" width="100" height="100" />
-			</pattern>
-			{/* <linearGradient
-				id="chevronGradient"
-				x1="10%"
-				y1="50%"
-				x2="100%"
-				y2="50%"
-			>
-				<stop offset="0%" stopColor={logo_yellow} />
-				<stop offset="100%" stopColor={logo_blue} />
-			</linearGradient> */}
-			<mask id="hexagon">
-				<path d={hexPath} fill="white" />
-			</mask>
-			{/* <mask id="logoCutout">
-				<path d={hexPath} fill="white" />
-				<path d={chevCutour} fill="black" />
-
-				<path d={chevSplit} fill="black" />
-			</mask> */}
-		</defs>
-
-		<path
-			d={hexPath}
-			mask="url(#hexagon)"
-			fill="url(#img1)"
-			// fill="url(#chevronGradient)"
-		/>
-		{/* <path
-			d={diamondColour}
-			fill={logo_yellow}
-			// fill="url(#img1)"
-			mask="url(#logoCutout)"
-		/>
-
-		<path
-			d={chevColour}
-			fill="url(#chevronGradient)"
-			// fill="url(#img1)"
-			mask="url(#logoCutout)"
-		/> */}
-	</svg>
-);
-
-// interface IValidComponent {
-// 	component: React.ComponentType | React.ComponentType[] | null;
-// }
-// interface IComponentDefinitions {
-// 	defs: React.ReactNode[];
-// 	paths: React.ReactNode[];
-// }
 interface IHexagonConstruction {
 	construct(args?: any): IComponentDefinitions;
 }
 
-// interface IComponentDefinitions {
-// 	defs: HTMLElement[];
-// 	paths: HTMLElement[];
-// }
 interface IComponentDefinitions {
 	defs: React.ReactNode[];
 	paths: React.ReactNode[];
 }
 class Hexagon extends React.Component<any> implements IHexagonConstruction {
 	public construct(args?: any) {
+		const _args = args || { colour: stormy_blue };
+		const colour = _args.colour || stormy_blue;
 		const components = {
 			defs: [
 				<mask id="hexagon">
 					<path d={hexPath} fill="white" />
 				</mask>,
 			],
-			paths: [
-				<path d={hexPath} mask="url(#hexagon)" fill={stormy_blue} />,
-			],
+			paths: [<path d={hexPath} mask="url(#hexagon)" fill={colour} />],
 		};
 		return components;
 	}
@@ -297,7 +67,7 @@ class Hexagon extends React.Component<any> implements IHexagonConstruction {
 	}
 }
 
-class ImHexagon extends Hexagon {
+class ImageHexagon extends Hexagon {
 	public construct(args: { img: string }) {
 		const { img } = args;
 		let components = super.construct();
@@ -315,12 +85,11 @@ class ImHexagon extends Hexagon {
 		components.paths[0] = React.cloneElement(components.paths[0], {
 			fill: "url(#img1)",
 		});
-		// components.paths[0].props.fill = "url(#img1)";
 
 		return components;
 	}
 }
-class LogHexagon extends Hexagon {
+class LogoHexagon extends Hexagon {
 	public construct(withGap = false) {
 		const components = {
 			defs: [
@@ -371,24 +140,31 @@ class LogHexagon extends Hexagon {
 		return components;
 	}
 }
+
+type ComponentOrString = React.ComponentType | string;
+type ComponentOrStringList = ComponentOrString[];
 type ValidComponent =
 	| React.ReactElement
-	| React.ComponentType
-	| React.ComponentType[]
+	| ComponentOrString
+	| ComponentOrStringList
 	| null;
 
 class BackgroundRow extends React.Component<IBackgroundElements> {
 	private emptyEl: React.ReactNode = (<svg></svg>);
 
-	private formatComponent = (component: ValidComponent): React.ReactNode => {
+	private formatComponent = (
+		component: ValidComponent
+	): React.ReactNode | string => {
 		if (component === null) {
 			return this.emptyEl;
+		} else if (component instanceof String) {
+			return component;
 		} else if (React.isValidElement(component)) {
 			return component;
 		} else if (Array.isArray(component)) {
 			return component.map((Comp, index) => (
 				<div style={{ position: "absolute" }} key={index}>
-					<Comp />
+					{this.formatComponent(Comp)}
 				</div>
 			));
 		} else {
@@ -439,37 +215,35 @@ class BackgroundRow extends React.Component<IBackgroundElements> {
 export class Background extends React.Component {
 	render() {
 		const topEl = [
-			LogHexagon,
+			LogoHexagon,
+			<Hexagon args={{ colour: stormy_light_green }} />,
+
+			<ImageHexagon args={{ img: mountains }} />,
+		] as const;
+
+		const defaultEl = [
 			null,
-			<ImHexagon args={{ img: mountains }} />,
+			<Hexagon args={{ colour: stormy_light_green }} />,
+			null,
 		] as const;
+		const a: ComponentOrStringList = [Hexagon, "hello"];
 
-		const defaultEl = [null, DefaultHexagon, null] as const;
-		const bottomEl = [
-			DefaultHexagon,
-			DefaultHexagon,
-			DefaultHexagon,
-		] as const;
-
-		const middleEl = [
-			DefaultHexagon,
-			DefaultHexagon,
-			DefaultHexagon,
-		] as const;
+		const bottomEl = [Hexagon, a, Hexagon] as const;
+		const middleEl = [Hexagon, Hexagon, Hexagon] as const;
 
 		return (
 			<div>
 				<div className="no-aos">
-					``
 					<div
 						style={{
-							// overflow: "hidden",
 							paddingLeft: "50px",
 						}}
 					>
-						<BackgroundRow elements={topEl} />
+						{/* <BackgroundRow elements={topEl} /> */}
 						<BackgroundRow elements={bottomEl} />
-						<BackgroundRow elements={middleEl} />
+
+						<BackgroundRow elements={bottomEl} />
+						{/* <BackgroundRow elements={middleEl} />
 						<BackgroundRow elements={bottomEl} />
 
 						<BackgroundRow elements={middleEl} />
@@ -480,7 +254,7 @@ export class Background extends React.Component {
 
 						<BackgroundRow elements={defaultEl} />
 						<BackgroundRow elements={middleEl} />
-						<BackgroundRow elements={middleEl} />
+						<BackgroundRow elements={middleEl} /> */}
 					</div>
 				</div>
 			</div>
