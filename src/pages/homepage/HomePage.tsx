@@ -1,19 +1,13 @@
 // src/App.tsx
 import React from "react";
 import { Hero } from "../../components/hero/Hero";
-import { AccordionSection } from "../../components/accordion/Accordion";
 import globalstyles from "../../GlobalStyles.module.css";
-import { DemoPage } from "../demopage/DemoPage";
-import { Background } from "../../components/background/Background";
 import { BackgroundStyle } from "../../styles";
 import { CallingCard } from "../../components/callingcard/CallingCard";
-import { CallOut } from "../../components/callingcard/CallOut";
-import { demoEvents as DemoEvents } from "../../components/timeline/spineComponent/Event";
-import { impactCC as ICC, WWD, AboutUs } from "./AIImpactCallingCard";
-import {
-	demoTimeline,
-	_demoTimeline as DT,
-} from "../../components/timeline/Timeline";
+import { AiImpact } from "./AIImpactCallingCard";
+import { WWD } from "./WWD";
+import { AboutUs } from "./AboutUS";
+
 import { demoSmallPB } from "../../components/partnershipbar/PartnershipBar";
 export const HomePage: React.FC = () => {
 	return (
@@ -24,7 +18,7 @@ export const HomePage: React.FC = () => {
 				title={demoSmallPB}
 				components={[
 					<CallingCard
-						title={<ICC />}
+						title={<AiImpact />}
 						components={[<WWD />]}
 						footer={<AboutUs />}
 						index={-1}

@@ -1,7 +1,6 @@
 //  src/components/timeline/spineComponent/Event.tsx
 
 import React from "react";
-import styles from "../Timeline.module.css";
 import logo from "../../../assets/growthhouselogo.png";
 
 import {

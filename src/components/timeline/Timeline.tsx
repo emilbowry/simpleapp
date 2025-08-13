@@ -17,6 +17,12 @@ interface ITimelineEventRowProps {
 }
 // marginLeft: `${1 * scaleFactor}rem`,
 
+const contentContainer: React.CSSProperties = {
+	display: "grid",
+	height: "15em",
+	marginTop: "1em",
+	alignItems: "center",
+};
 class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 	render() {
 		const { index, eventData, scaleFactor = 3, key } = this.props;
@@ -59,8 +65,9 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 				}}
 			>
 				<div
-					className={styles.contentContainer}
+					// className={contentContainer}
 					style={{
+						...contentContainer,
 						paddingRight: `${4 * scaleFactor}em`,
 					}}
 				>
@@ -72,8 +79,11 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 					</div>
 				</div>
 				<div
-					className={styles.contentContainer}
-					style={{ paddingLeft: `${4 * scaleFactor}em` }}
+					// className={contentContainer}
+					style={{
+						...contentContainer,
+						paddingLeft: `${4 * scaleFactor}em`,
+					}}
 				>
 					{!isLeft && eventElement}
 				</div>

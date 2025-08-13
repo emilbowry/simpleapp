@@ -1,31 +1,4 @@
 
-/* .partnershipbar-large {
-	display: flex;
-	overflow-x: auto; 
-	align-items: center;
-	justify-content: flex-start; 
-	padding: 1rem 0;
-	gap: 3rem; 
-} */
-
-/* .partnershipbar-small {
-	display: grid;
-	flex-wrap: nowrap; 
-
-	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	gap: 2rem;
-	align-items: center;
-	justify-items: center;
-	padding: 1rem;
-} */
-/* .partnershipbar-small {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 1rem; 
-  padding: 1rem 0;
-} */
 
 .partnershipbar-small {
 	display: flex;
@@ -36,15 +9,6 @@
 	gap: 2rem;
 	padding: 1rem;
 }
-/* .partnershipbar-large {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem; 
-  place-items: center; 
-  padding: 2rem 0;
-  max-width: 900px; 
-  margin: 0 auto; 
-} */
 
 .partnershipbar-large {
   display: grid;

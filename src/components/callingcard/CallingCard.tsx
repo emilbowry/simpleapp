@@ -1,6 +1,4 @@
 import React from "react";
-import globalstyles from "../../GlobalStyles.module.css";
-import logo from "/src/assets/logo.svg";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
 import { title_font_colour } from "../../utils/defaultColours";
 export interface ICallingCardProps {
@@ -45,12 +43,8 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 		if (index === -1) {
 			innerStyle.backgroundColor = "transparent";
 		} else if (index % 2 === 1) {
-			// innerStyle.backgroundColor = "transparent";
-			// cardStyle.backgroundColor = "rgb(228, 241, 233)";
-
 			innerStyle.backgroundColor = "rgb(228, 241, 233)";
 		} else {
-			// cardStyle.backgroundColor = "rgb(255, 255, 255)";
 			innerStyle.backgroundColor = "rgb(255, 255, 255)";
 		}
 
@@ -72,12 +66,6 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 
 					{footer ? <div>{formatComponent(footer)}</div> : null}
 				</div>
-
-				{/* <div style={cardStyle}>
-					{components.map((item, _index) => (
-						<div key={_index}>{formatComponent(item)}</div>
-					))}
-				</div> */}
 			</section>
 		);
 	}

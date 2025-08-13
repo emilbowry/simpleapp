@@ -1,10 +1,12 @@
 // src/components/callingcard/StructuredCallout.tsx
 
 import React from "react";
-import globalstyles from "../../GlobalStyles.module.css";
-import { renderMatches } from "react-router-dom";
-import styles from "./CallingCard.module.css";
-import { getImageEl, formatComponent } from "../../utils/reactUtils";
+
+import {
+	getImageEl,
+	formatComponent,
+	ValidComponent,
+} from "../../utils/reactUtils";
 import { CallOut, ICallOut } from "./CallOut";
 // imp
 import {
@@ -39,15 +41,15 @@ interface IStructuredCallout extends ICallOut {
 	data: IStructuredCalloutData;
 }
 export interface IStructuredCalloutData {
-	title: string | React.ReactNode;
-	description: string | React.ReactNode;
+	title: ValidComponent;
+	description: ValidComponent;
 	image?: string;
 }
 
 // Implementation
 
 export const StructuredCallOutTitle: React.FC<{
-	heading: string | React.ReactNode;
+	heading: ValidComponent;
 }> = ({ heading }) => {
 	return (
 		<h2 className={style_StructuredCallOutTitle}>
@@ -57,7 +59,7 @@ export const StructuredCallOutTitle: React.FC<{
 };
 
 export const StructuredCallOutDescription: React.FC<{
-	desc: string | React.ReactNode;
+	desc: ValidComponent;
 }> = ({ desc }) => {
 	return (
 		<p className={style_StructuredCallOutBody}>{formatComponent(desc)}</p>
@@ -84,10 +86,41 @@ export class BorderdCallout extends StructuredCallout {
 		let _args = args;
 
 		_args.title = (
-			<div style={_style_BorderedCalloutHeading}>{args.title}</div>
+			<div style={_style_BorderedCalloutHeading}>{!args.title}</div> //  [TODO] check that assertion is valid
 		);
 
 		const reformed = super.generateNode(_args);
 		return reformed;
+	}
+}
+
+export interface IFlexiCalloutProps {
+	component: ValidComponent;
+}
+export class FlexiCallout extends CallOut {
+	public static flexiCallotStyle: React.CSSProperties = {
+		marginLeft: "10px",
+		paddingTop: "10px",
+		paddingBottom: "10px",
+		marginRight: "10px",
+		color: body_font_colour,
+		fontSize: "3rem",
+		textAlign: "center",
+		alignContent: "center",
+		alignSelf: "start",
+		overflowY: "auto", // Allows vertical scrolling if content overflows
+	};
+	generateNode(args: IFlexiCalloutProps) {
+		console.log(args.component);
+		return (
+			<div
+				style={{
+					...FlexiCallout.flexiCallotStyle,
+					..._style_BorderedCalloutHeading,
+				}}
+			>
+				{formatComponent(args.component)}
+			</div>
+		);
 	}
 }

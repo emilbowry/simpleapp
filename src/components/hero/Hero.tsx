@@ -4,10 +4,6 @@ import { Hexagon, LogoHexagon, ImageHexagon } from "../hexagons/Hexagons";
 import { HexagonRow } from "../hexagons/HexagonRow";
 import { ComponentOrStringList } from "../../utils/reactUtils";
 import {
-	// nyanza,
-	// pistachio,
-	// stormy_light_green,
-	// stormy_blue,
 	purple,
 	midnight_green,
 	l_midnight_green,

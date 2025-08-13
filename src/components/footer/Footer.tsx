@@ -1,13 +1,8 @@
 import React from "react";
 import logo from "../../assets/logo.svg";
 import styles from "./Footer.module.css";
-import globalstyles from "../../GlobalStyles.module.css";
 import { CallOut } from "../callingcard/CallOut";
 import { getImageEl } from "../../utils/reactUtils";
-// src/components/callingcard/CallOut.tsx
-
-// import React from 'react';
-// import globalstyles from '../../GlobalStyles.module.css' ;
 
 import { CallingCard } from "../callingcard/CallingCard";
 

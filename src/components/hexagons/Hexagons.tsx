@@ -1,7 +1,6 @@
 // src/components/hexagons/Hexagons.tsx
 
 import React from "react";
-import mountains from "../../assets/mountains.jpg";
 
 const hexPath =
 	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";

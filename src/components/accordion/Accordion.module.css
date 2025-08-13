@@ -1,11 +1,9 @@
-/* Main section with the yellow background */
 .accordionSection {
-  background-color: #fffbe5; /* Light yellow background */
+  background-color: #fffbe5;
   padding: 60px 20px;
   font-family: sans-serif;
 }
 
-/* The white container card */
 .card {
   max-width: 800px;
   margin: 0 auto;
@@ -15,7 +13,6 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Main title styling */
 .mainTitle {
   font-size: 2.8rem;
   font-weight: bold;
@@ -25,7 +22,6 @@
   line-height: 1.2;
 }
 
-/* Styling for each accordion item (header + content) */
 .accordionItem {
   border-bottom: 1px solid #eee;
 }
@@ -34,7 +30,6 @@
   border-bottom: none;
 }
 
-/* Header containing the arrow and question */
 .accordionHeader {
   display: flex;
   align-items: flex-start; /* Align to the top */
@@ -50,7 +45,6 @@
   line-height: 1.4;
 }
 
-/* The dropdown arrow icon */
 .arrow {
   font-size: 1rem;
   margin-right: 15px;
@@ -60,19 +54,16 @@
   transform-origin: center;
 }
 
-/* Rotate the arrow when the item is open */
 .arrow.open {
   transform: rotate(180deg);
 }
 
-/* Hide the arrow for non-expandable items */
 .arrow.hidden {
   visibility: hidden;
 }
 
-/* The content that appears when an item is opened */
 .accordionContent {
-  padding-left: 35px; /* Align with the question text */
+  padding-left: 35px; 
   padding-bottom: 20px;
   overflow: hidden;
 }
@@ -85,37 +76,6 @@
 }
 
 
- 
-/* 
-.linewaterfall {
-  overflow: hidden; 
-  white-space: nowrap; 
-  margin: 0 auto; 
-  letter-spacing: .15em;
-  animation: 
-    waterfall 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
-}
-
-@keyframes waterfall {
-  from { height: 0 }
-  to { height: 100% }
-} */
-/* .linewaterfall {
-  overflow: hidden;
-  display: inline-block;       
-  line-height: 1.4em;           
-  max-height: 0;                
-  animation: waterfall 3.5s steps(3, end) forwards; 
- 
-} */
-/* 'steps(3, end)' = number of lines to reveal */
-
-/* 
-@keyframes waterfall {
-  from { max-height: 0; }
-  to { max-height: 4.2em; }
-} */
 .linewaterfall {
   display: inline-block;
   overflow: hidden;
