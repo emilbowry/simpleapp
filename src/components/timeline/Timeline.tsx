@@ -141,3 +141,7 @@ const demoTimelineEvent: IEvent[] = [
 export const demoTimeline: React.FC = () => {
 	return <Timeline timelineEvents={demoTimelineEvent} />;
 };
+
+export const _demoTimeline: React.ReactNode = (
+	<Timeline timelineEvents={demoTimelineEvent} />
+);

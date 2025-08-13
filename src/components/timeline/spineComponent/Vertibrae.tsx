@@ -3,11 +3,11 @@
 import React from "react";
 import styles from "../../../GlobalStyles.module.css";
 import {
-	stormy_light_green,
-	stormy_green,
-	stormy_grey,
-	stormy_blue,
-	stormy_violet,
+	b_green,
+	midnight_green,
+	grey,
+	l_midnight_green,
+	purple,
 } from "../../../utils/defaultColours";
 import {
 	SpineComponent,
@@ -29,13 +29,7 @@ export const DefaultVertibrae: React.FC<TVertibraeContent> = ({ index }) => {
 	const leftHandHalo =
 		"m -22,0 a22,22,90,0,1,22,-22l0,-2a24,24,90,0,0,-24,24m24,-22h1v-40h-2v40zm-22,22v-1h-33v2h33zm-40,0a2,2,90,1,0,8,0a2,2,90,1,0,-8,0zm2,0a2,2,90,0,1,4,0a2,2,90,0,1,-4,0z";
 
-	const colours = [
-		stormy_light_green,
-		stormy_blue,
-		stormy_violet,
-		stormy_grey,
-		stormy_green,
-	];
+	const colours = [b_green, midnight_green, purple, grey, l_midnight_green];
 	const colour = colours[index % 5];
 
 	return (

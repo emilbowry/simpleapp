@@ -1,3 +1,4 @@
+// src/utils/reactUtils.tsx
 import React from "react";
 
 export const wrapLink = (
@@ -10,3 +11,44 @@ export const getImageEl = (
 ): React.ReactNode => (image ? <img src={image}></img> : <></>);
 
 export const _noOp = (_: any) => undefined;
+
+type ComponentOrString = React.ReactNode | React.ComponentType | string;
+export type ComponentOrStringList = ComponentOrString[];
+export type ValidComponent =
+	| React.ReactElement
+	| ComponentOrString
+	| ComponentOrStringList
+	| null;
+
+const emptyEl = <></>;
+export const formatComponent = (
+	component: ValidComponent,
+	overlay = false
+): React.ReactNode | string => {
+	if (component === null) {
+		return emptyEl;
+	} else if (typeof component === "string") {
+		return component;
+	} else if (React.isValidElement(component)) {
+		return component;
+	} else if (Array.isArray(component)) {
+		return component.map((Comp, index) => (
+			<div style={overlay ? { position: "absolute" } : {}} key={index}>
+				{formatComponent(Comp)}
+			</div>
+		));
+	} else if (
+		typeof component === "function" || // Functional component
+		(typeof component === "object" &&
+			component !== null &&
+			(component as any).prototype instanceof React.Component) // Class component
+	) {
+		// If it's a React.ComponentType (functional or class component)
+		const SingleComponent = component as React.ComponentType; // Assert to ComponentType
+		return <SingleComponent />;
+	} else {
+		// This branch handles other React.ReactNode types like numbers, booleans, etc.
+		// These are directly renderable by React.
+		return component;
+	}
+};

@@ -1,41 +1,37 @@
 // src/App.tsx
 import React from "react";
 import { Hero } from "../../components/hero/Hero";
-// import {DemoTimeline} from '../../components/timeline/Timeline';
 import { AccordionSection } from "../../components/accordion/Accordion";
 import globalstyles from "../../GlobalStyles.module.css";
-
-import backgroundPattern from "/src/assets/background.png";
-
 import { DemoPage } from "../demopage/DemoPage";
 import { Background } from "../../components/background/Background";
+import { BackgroundStyle } from "../../styles";
 import { CallingCard } from "../../components/callingcard/CallingCard";
+import { CallOut } from "../../components/callingcard/CallOut";
+import { demoEvents as DemoEvents } from "../../components/timeline/spineComponent/Event";
+import { impactCC as ICC, WWD, AboutUs } from "./AIImpactCallingCard";
+import {
+	demoTimeline,
+	_demoTimeline as DT,
+} from "../../components/timeline/Timeline";
+import { demoSmallPB } from "../../components/partnershipbar/PartnershipBar";
 export const HomePage: React.FC = () => {
-	const bg = <Background />;
 	return (
-		<section>
-			<CallingCard components={[bg]} />
-			{/* <AccordionSection />
-
+		<div style={BackgroundStyle}>
 			<Hero />
-			<div
-				className={globalstyles.backgroundPattern}
-				style={{ backgroundImage: `url(${backgroundPattern})` }}
-			></div>
 
-			<AccordionSection />
-
-			<div
-				className={globalstyles.backgroundPattern}
-				style={{ backgroundImage: `url(${backgroundPattern})` }}
-			></div>
-			<DemoPage />
-
-			<div
-				className={globalstyles.backgroundPattern}
-				style={{ backgroundImage: `url(${backgroundPattern})` }}
-			></div>
-			<AccordionSection /> */}
-		</section>
+			<CallingCard
+				title={demoSmallPB}
+				components={[
+					<CallingCard
+						title={<ICC />}
+						components={[<WWD />]}
+						footer={<AboutUs />}
+						index={-1}
+					/>,
+				]}
+				index={0}
+			/>
+		</div>
 	);
 };
