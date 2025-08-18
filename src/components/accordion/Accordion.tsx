@@ -1,3 +1,5 @@
+// src/components/accordion/Accordion.tsx
+
 import React, { useState } from "react";
 import styles from "./Accordion.module.css";
 import { ChevronRight, ChevronDown } from "lucide-react";

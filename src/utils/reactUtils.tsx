@@ -23,7 +23,8 @@ export type ValidComponent =
 const emptyEl = <></>;
 export const formatComponent = (
 	component: ValidComponent,
-	overlay = false
+	overlay = false,
+	index = 0
 ): React.ReactNode | string => {
 	if (component === null) {
 		return emptyEl;
@@ -52,3 +53,15 @@ export const formatComponent = (
 		return component;
 	}
 };
+
+import {
+	midnight_green,
+	dark_midnight_green,
+	logo_blue,
+	l_midnight_green,
+	dark_mix_green,
+	light_logo_blue,
+	logo_yellow,
+	light_mix_green,
+	lighter_logo_blue,
+} from "./defaultColours";

@@ -1,9 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import styles from "./TitleBar.module.css";
 import { Menu } from "lucide-react";
-// export default function TitleBar() {
 
 export const TitleBar: React.FC = () => {
 	const [open, setOpen] = React.useState(false);

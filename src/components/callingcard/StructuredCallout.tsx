@@ -13,7 +13,7 @@ import {
 	title_font_colour,
 	body_font_colour,
 } from "../../utils/defaultColours";
-
+import { Theme } from "../../styles";
 // Styling
 
 const _style_structuredCalloutTitle: React.CSSProperties = {
@@ -28,65 +28,92 @@ export const style_StructuredCallOutBody = `${_style_structuredCalloutBody}`;
 
 const _style_BorderedCalloutHeading: React.CSSProperties = {
 	borderTop: "2px solid",
-	paddingTop: "10px",
+	// paddingTop: "10px",
 	borderBottom: "2px solid",
-	paddingBottom: "10px",
+	// paddingBottom: "10px",
 };
 
 export const style_BorderedCalloutHeading = `${_style_BorderedCalloutHeading}`;
-
-// Typing
 
 interface IStructuredCallout extends ICallOut {
 	data: IStructuredCalloutData;
 }
 export interface IStructuredCalloutData {
 	title: ValidComponent;
-	description: ValidComponent;
+	subtitle?: ValidComponent;
+	body: ValidComponent;
 	image?: string;
+	index?: number;
 }
 
 // Implementation
 
-export const StructuredCallOutTitle: React.FC<{
-	heading: ValidComponent;
-}> = ({ heading }) => {
-	return (
-		<h2 className={style_StructuredCallOutTitle}>
-			{formatComponent(heading)}
-		</h2>
-	);
-};
-
-export const StructuredCallOutDescription: React.FC<{
-	desc: ValidComponent;
-}> = ({ desc }) => {
-	return (
-		<p className={style_StructuredCallOutBody}>{formatComponent(desc)}</p>
-	);
-};
-
 export class StructuredCallout extends CallOut {
 	props!: IStructuredCallout;
 	public generateNode(args: IStructuredCalloutData) {
-		const { title, description, image } = args;
-
+		const { title, body, image, subtitle, index = 0 } = args;
+		const theme = Theme(index);
+		const StructuredCallOutTitle: React.FC<{
+			heading: ValidComponent;
+		}> = ({ heading }) => {
+			return (
+				<div style={{ color: theme.primaryColor }}>
+					{formatComponent(heading)}
+				</div>
+			);
+		};
+		const StructuredCallOutSubTitle: React.FC<{
+			subtitle: ValidComponent;
+		}> = ({ subtitle }) => {
+			return (
+				<div style={{ color: theme.tertiaryColor }}>
+					{formatComponent(subtitle)}
+				</div>
+			);
+		};
+		const StructuredCallOutDescription: React.FC<{
+			desc: ValidComponent;
+		}> = ({ desc }) => {
+			return (
+				<div style={{ color: theme.secondaryColor }}>
+					{formatComponent(desc)}
+				</div>
+			);
+		};
 		return (
 			<div>
-				{getImageEl(image)}
+				{/* <div style={{ maxWidth: "100%" }}> */}
+				{image ? getImageEl(image) : <></>}
 				<StructuredCallOutTitle heading={title} />
-				<StructuredCallOutDescription desc={description} />
+
+				{subtitle ? (
+					<StructuredCallOutSubTitle subtitle={subtitle} />
+				) : (
+					<></>
+				)}
+
+				<StructuredCallOutDescription desc={body} />
 			</div>
 		);
 	}
 }
 
+export interface IStructuredCalloutData {
+	title: ValidComponent;
+	subtitle?: ValidComponent;
+	body: ValidComponent;
+	image?: string;
+	index?: number;
+}
 export class BorderdCallout extends StructuredCallout {
 	public generateNode(args: IStructuredCalloutData) {
 		let _args = args;
+		console.log(args);
 
 		_args.title = (
-			<div style={_style_BorderedCalloutHeading}>{!args.title}</div> //  [TODO] check that assertion is valid
+			<div style={_style_BorderedCalloutHeading}>
+				{formatComponent(args.title)}
+			</div> //  [TODO] check that assertion is valid
 		);
 
 		const reformed = super.generateNode(_args);
@@ -97,21 +124,14 @@ export class BorderdCallout extends StructuredCallout {
 export interface IFlexiCalloutProps {
 	component: ValidComponent;
 }
-export class FlexiCallout extends CallOut {
+
+export class FlexiCallout extends StructuredCallout {
 	public static flexiCallotStyle: React.CSSProperties = {
-		marginLeft: "10px",
-		paddingTop: "10px",
-		paddingBottom: "10px",
-		marginRight: "10px",
 		color: body_font_colour,
-		fontSize: "3rem",
-		textAlign: "center",
-		alignContent: "center",
-		alignSelf: "start",
-		overflowY: "auto", // Allows vertical scrolling if content overflows
+		display: "block",
 	};
-	generateNode(args: IFlexiCalloutProps) {
-		console.log(args.component);
+	generateNode(args: IStructuredCalloutData) {
+		// console.log(args.component);
 		return (
 			<div
 				style={{
@@ -119,7 +139,8 @@ export class FlexiCallout extends CallOut {
 					..._style_BorderedCalloutHeading,
 				}}
 			>
-				{formatComponent(args.component)}
+				<StructuredCallout {...this.props} />
+				{/* {super.generateNode(args.component, index=this.index)} */}
 			</div>
 		);
 	}

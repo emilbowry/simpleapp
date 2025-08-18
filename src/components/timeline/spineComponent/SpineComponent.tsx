@@ -46,8 +46,8 @@ export class SpineComponent
 									flip * scaleFactor
 								}, ${scaleFactor})`,
 						  }
-						: // : {}
-						  { direction: isLeftHanded ? "ltr" : "rtl" }
+						: {}
+					//:   { direction: isLeftHanded ? "ltr" : "rtl" }
 				}
 			>
 				{this.renderContent({ ...renderProps })}

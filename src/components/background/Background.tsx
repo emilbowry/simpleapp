@@ -1,4 +1,4 @@
-// src/comonents/background/Background.tsx
+// src/components/background/Background.tsx
 
 import React from "react";
 import globalstyles from "../../GlobalStyles.module.css";

@@ -1,7 +1,7 @@
 /* src/components/TitleBar.module.css */
 
 .header {
-  position: fixed;      /* stick it to the top */
+  position: fixed;      
   top: 0; left: 0; right: 0;
   display: flex;
   align-items: center;

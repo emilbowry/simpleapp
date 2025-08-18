@@ -14,6 +14,14 @@ export class CallOut
 	extends React.Component<ICallOut>
 	implements IConstructedComponent
 {
+	public calloutStyle: React.CSSProperties = {
+		marginLeft: "10px",
+		paddingTop: "10px",
+		paddingBottom: "10px",
+		marginRight: "10px",
+		textAlign: "center",
+		// maxWidth: "100%",
+	};
 	public generateNode(args: any): React.ReactNode {
 		try {
 			return formatComponent(args);
@@ -24,6 +32,6 @@ export class CallOut
 	render() {
 		const { data } = this.props;
 		const component = this.generateNode(data);
-		return component;
+		return <div style={this.calloutStyle}>{component}</div>;
 	}
 }

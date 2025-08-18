@@ -1,6 +1,11 @@
 // src/components/hexagons/Hexagons.tsx
 
 import React from "react";
+import {
+	logo_yellow,
+	logo_blue,
+	midnight_green,
+} from "../../utils/defaultColours";
 
 const hexPath =
 	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
@@ -12,12 +17,6 @@ const diamondColour =
 const chevCutour =
 	"M 25 86.6025 l 50 -86.6025 l -50 -86.6025 h 25 l 50 86.6025 l -50 86.6025 Z";
 const chevSplit = "M 95 0 v 5 h120 v -10 h-120 v5";
-
-import {
-	logo_yellow,
-	logo_blue,
-	midnight_green,
-} from "../../utils/defaultColours";
 
 interface IHexagonConstruction {
 	construct(args?: any): IComponentDefinitions;

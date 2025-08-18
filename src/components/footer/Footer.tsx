@@ -1,5 +1,7 @@
+// src/components/footer/Footer.tsx
+
 import React from "react";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import styles from "./Footer.module.css";
 import { CallOut } from "../callingcard/CallOut";
 import { getImageEl } from "../../utils/reactUtils";
@@ -13,6 +15,12 @@ export const Footer: React.FC = () => {
 		<CallOut data={getImageEl(logo)} />,
 		<CallOut data={FooterBody} />,
 	];
-	const ccElement = <CallingCard components={componentsToRender} index={1} />;
+	const ccElement = (
+		<CallingCard
+			components={componentsToRender}
+			index={1}
+			fullSpread={true}
+		/>
+	);
 	return <section className={styles.footer}>{ccElement}</section>;
 };

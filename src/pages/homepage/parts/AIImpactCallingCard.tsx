@@ -1,12 +1,14 @@
-import React from "react";
-import { FlexiCallout } from "../../components/callingcard/StructuredCallout";
+// src/pages/homepage/parts/smallPartnershipBar.tsx
 
-import { CallingCard } from "../../components/callingcard/CallingCard";
-import { midnight_green } from "../../utils/defaultColours";
+import React from "react";
+import { FlexiCallout } from "../../../components/callingcard/StructuredCallout";
+
+import { CallingCard } from "../../../components/callingcard/CallingCard";
+import { midnight_green } from "../../../utils/defaultColours";
 import { StatBox } from "./StatsBox";
 
-import { getImageEl } from "../../utils/reactUtils";
-import workingManGif from "../../assets/WorkingMan.gif";
+import { getImageEl } from "../../../utils/reactUtils";
+import workingManGif from "../../../assets/WorkingMan.gif";
 
 const quoteTextStyle: React.CSSProperties = {
 	fontStyle: "italic",
@@ -14,10 +16,7 @@ const quoteTextStyle: React.CSSProperties = {
 
 export const quoteBlock: React.CSSProperties = {
 	fontSize: "3rem",
-
-	color: midnight_green,
 };
-``;
 
 const statsContainerGrid: React.CSSProperties = {
 	display: "grid",
@@ -63,30 +62,36 @@ export const AiImpact: React.FC<{ index?: number }> = ({ index = -1 }) => {
 			components={[
 				<FlexiCallout
 					data={{
-						component: StatBox(
+						...StatBox(
 							"Business spent",
 							"$200",
-							"Billion on AI in 2024"
+							"Billion on AI in 2024",
+							index
 						),
+						index: index,
 					}}
 				/>,
 				<FlexiCallout
 					data={{
-						component: StatBox(
+						...StatBox(
 							"Confidence increases for",
 							"96%",
-							"Of people who take our sessions in their use of generative AI"
+							"Of people who take our sessions in their use of generative AI",
+							index
 						),
+						index: index,
 					}}
 				/>,
 
 				<FlexiCallout
 					data={{
-						component: StatBox(
+						...StatBox(
 							"PwC Global CEO Survey 2024",
 							"70%",
-							"Of CEOs say AI will significantly change the way their company creates, delivers and captures value over the next 3 years"
+							"Of CEOs say AI will significantly change the way their company creates, delivers and captures value over the next 3 years",
+							index
 						),
+						index: index,
 					}}
 				/>,
 			]}

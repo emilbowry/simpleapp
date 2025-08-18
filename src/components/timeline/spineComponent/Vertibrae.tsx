@@ -1,7 +1,6 @@
 //  src/components/timeline/spineComponent/Vertibrae.tsx
 
 import React from "react";
-import styles from "../../../GlobalStyles.module.css";
 import {
 	b_green,
 	midnight_green,

@@ -1,15 +1,20 @@
+// src/pages/homepage/parts/AboutUS.tsx
+
 import React from "react";
-import { CallingCard } from "../../components/callingcard/CallingCard";
-import { body_font_colour } from "../../utils/defaultColours";
+
+import { CallingCard } from "../../../components/callingcard/CallingCard";
+import { body_font_colour } from "../../../utils/defaultColours";
+import { Theme } from "../../../styles";
 
 export const AboutUs: React.FC<{ index?: number }> = ({ index = -1 }) => {
+	let theme = Theme(index);
 	return (
 		<CallingCard
 			title="About us"
 			components={[
 				<div
 					style={{
-						color: body_font_colour,
+						color: theme.secondaryColor,
 						fontSize: "2rem",
 					}}
 				>

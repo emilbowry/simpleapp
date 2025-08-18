@@ -17,7 +17,7 @@ export interface IEvent {
 	description: string;
 }
 
-type TEvent = Omit<IEvent, "date"> & {
+export type TEvent = Omit<IEvent, "date"> & {
 	title: IEvent["date"];
 };
 
@@ -32,9 +32,8 @@ type TEventComponent = TSpineComponent & IEventContentComponentProps;
 export const _EventContent: React.FC<IEventContentComponentProps> = ({
 	data,
 }) => {
-	const { date, description, image } = data;
-	let title = date;
-	return <BorderdCallout data={{ title, description, image }} />;
+	const { date: title, description: body, image } = data;
+	return <BorderdCallout data={{ title, body, image }} />;
 };
 
 export class EventContent extends SpineComponent {

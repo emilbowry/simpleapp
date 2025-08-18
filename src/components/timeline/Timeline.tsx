@@ -1,10 +1,14 @@
 // src/components/timeline/Timeline.tsx
 
 import React from "react";
-import styles from "./Timeline.module.css";
 import { Vertibrae, DefaultVertibrae } from "./spineComponent/Vertibrae";
 import { EventContent, _EventContent, IEvent } from "./spineComponent/Event";
-import logo from "../../assets/growthhouselogo.png";
+import { getImageEl } from "../../utils/reactUtils";
+import bw1 from "../../assets/bw1.jpg";
+import bw2 from "../../assets/bw2.jpg";
+
+import bw3 from "../../assets/bw3.jpg";
+
 export interface ITimelineData {
 	timelineEvents: IEvent[];
 }
@@ -15,7 +19,6 @@ interface ITimelineEventRowProps {
 	scaleFactor?: number;
 	key?: number;
 }
-// marginLeft: `${1 * scaleFactor}rem`,
 
 const contentContainer: React.CSSProperties = {
 	display: "grid",
@@ -23,10 +26,16 @@ const contentContainer: React.CSSProperties = {
 	marginTop: "1em",
 	alignItems: "center",
 };
+
+const componentStyle: React.CSSProperties = {
+	display: "grid",
+	height: "15em",
+	marginTop: "5em",
+	alignContent: "center",
+};
 class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 	render() {
-		const { index, eventData, scaleFactor = 3, key } = this.props;
-		// this.
+		const { index, eventData, scaleFactor = 5, key } = this.props;
 		const isLeft = index % 2 === 0;
 
 		const eventElement = (
@@ -48,12 +57,6 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 				contentComponent={DefaultVertibrae}
 			/>
 		);
-		const componentStyle: React.CSSProperties = {
-			display: "grid",
-			height: "15em",
-			marginTop: "1em",
-			alignContent: "center",
-		};
 
 		return (
 			<div
@@ -65,7 +68,6 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 				}}
 			>
 				<div
-					// className={contentContainer}
 					style={{
 						...contentContainer,
 						paddingRight: `${4 * scaleFactor}em`,
@@ -92,6 +94,22 @@ class TimelineEventRow extends React.Component<ITimelineEventRowProps> {
 	}
 }
 
+const FinalImages: React.FC = () => {
+	return (
+		<div
+			style={{
+				display: "grid",
+				gridTemplateColumns: "1fr 1fr 1fr",
+				paddingLeft: "9em",
+				marginBottom: "400px",
+			}}
+		>
+			<div style={contentContainer}>{getImageEl(bw1)}</div>
+			<div style={contentContainer}>{getImageEl(bw2)}</div>
+			<div style={contentContainer}>{getImageEl(bw3)}</div>
+		</div>
+	);
+};
 export class Timeline extends React.Component<ITimelineData> {
 	render() {
 		const { timelineEvents } = this.props;
@@ -108,6 +126,7 @@ export class Timeline extends React.Component<ITimelineData> {
 							/>
 						</div>
 					))}
+					<FinalImages />
 				</div>
 			</section>
 		);

@@ -1,12 +1,13 @@
 // src/components/hexagons/HexagonsRow.tsx
 
-import _logo from "../../assets/logo.svg";
+// import _logo from "../../assets/logo.svg";
 import React from "react";
+
+import { formatComponent, ValidComponent } from "../../utils/reactUtils";
+
 export interface IHexagonRowElements {
 	elements: readonly [ValidComponent, ValidComponent, ValidComponent];
 }
-import { formatComponent, ValidComponent } from "../../utils/reactUtils";
-
 export class HexagonRow extends React.Component<IHexagonRowElements> {
 	render() {
 		const spacing = -20;

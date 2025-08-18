@@ -1,18 +1,9 @@
-import React from "react";
-// import styles from "./PartnershipBar.module.css";
-import { wrapLink, getImageEl, _noOp } from "../../utils/reactUtils";
-import logo from "../../assets/logo.svg";
+// src/components/partnershipbar/PartnershipBar.tsx
 
-import HM from "../../assets/HewardMills.png";
-import AZ from "../../assets/AZ.png";
-import AS from "../../assets/AS.png";
-import vf from "../../assets/vf.png";
-import dct from "../../assets/dct.png";
-import bm from "../../assets/BenchMark.png";
-import tb from "../../assets/TB.png";
+import React from "react";
+import { wrapLink, getImageEl, _noOp } from "../../utils/reactUtils";
 import { title_font_colour } from "../../utils/defaultColours";
-import growthouse from "../../assets/growthhouselogo.png";
-import { CallOut, ICallOut } from "../callingcard/CallOut";
+
 interface IPartner {
 	image: string;
 	link?: string;
@@ -25,7 +16,7 @@ export interface IPartners {
 	size?: TPartnerSize;
 }
 
-class Partners {
+export class Partners {
 	readonly partners: readonly IPartner[];
 	readonly size: TPartnerSize;
 
@@ -40,9 +31,11 @@ const styles: {
 	Large: React.CSSProperties;
 } = {
 	Small: {
-		display: "flex",
-		flexWrap: "nowrap",
-		overflowX: "auto",
+		// display: "flex",
+		display: "grid",
+		gridTemplateRows: "1fr",
+		// flexWrap: "nowrap",
+		// overflowX: "auto",
 		alignItems: "center",
 		justifyContent: "space-between",
 		gap: "2rem",
@@ -73,14 +66,31 @@ export class PartnershipBar extends React.Component<Partners> {
 
 		let _ = _noOp(size); //`size` may be used later
 
-		const imageEl = getImageEl(image);
+		// const imageEl = getImageEl(image);
+		const imageEl = (
+			<img
+				src={image}
+				alt="Partner logo"
+				style={{
+					maxWidth: "100%", // This makes the image shrink to fit its container
+					height: "auto", // This maintains the aspect ratio
+					display: "block", // Removes potential extra space below the image
+					margin: "0 auto", // Horizontally centers the image within its grid cell
+				}}
+			/>
+		);
 		const linkedEl = wrapLink(link, imageEl);
 		return <div>{linkedEl}</div>;
 	};
 	render() {
 		const { partners, size = "Small" } = this.props;
-
 		// const _style = `partnershipbar${size}`;
+
+		if (size === "Small") {
+			styles[
+				size
+			].gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
+		}
 
 		return (
 			<div style={styles[size]}>
@@ -96,23 +106,9 @@ export class PartnershipBar extends React.Component<Partners> {
 	}
 }
 
-const demoSmallPartnershipBarData = new Partners({
-	partners: [
-		{ image: HM },
-		{ image: AZ },
-		{ image: AS },
-		{ image: vf },
-		{ image: dct },
-		{ image: bm },
-		{ image: logo },
-		{ image: tb },
-	],
-});
+// const demoLargePartnershipBarData = new Partners({
+// 	...demoSmallPartnershipBarData, // shallow-copy the array reference
+// 	size: "Large",
+// });
 
-export const demoSmallPB = <PartnershipBar {...demoSmallPartnershipBarData} />;
-const demoLargePartnershipBarData = new Partners({
-	...demoSmallPartnershipBarData, // shallow-copy the array reference
-	size: "Large",
-});
-
-export const demoLargePB = <PartnershipBar {...demoLargePartnershipBarData} />;
+// export const demoLargePB = <PartnershipBar {...demoLargePartnershipBarData} />;
