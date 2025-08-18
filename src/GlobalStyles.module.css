@@ -60,7 +60,7 @@ body {
   animation-delay: var(--stagger);
 }
 
-:global(.aos) {
+/* :global(.aos) {
   --user-transform: none; 
 
   opacity: 0;
@@ -68,12 +68,25 @@ body {
 
   transition: opacity 600ms ease-out , transform 600ms ease-out;
   will-change: transform, opacity;
+} */
+:global(.aos) {
+  --user-transform: none;
+  opacity: 0;
+  transform: var(--user-transform) translateY(20px); /* Changed to 20px */
+  transition: opacity 600ms ease-out , transform 600ms ease-out;
+  will-change: transform, opacity;
 }
 
 :global(.is-visible) {
+  /* Remove direct opacity and transform, let the animation handle it */
+  /* opacity: 1; */
+  /* transform: var(--user-transform) translateY(0); */
+  animation: fadeInUpAnimation 600ms ease-out forwards; /* Apply the animation */
+}
+/* :global(.is-visible) {
   opacity: 1;
   transform: var(--user-transform) translateY(0);
-}
+} */
 
 
 .animated {
