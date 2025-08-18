@@ -105,10 +105,3 @@ export class PartnershipBar extends React.Component<Partners> {
 		);
 	}
 }
-
-// const demoLargePartnershipBarData = new Partners({
-// 	...demoSmallPartnershipBarData, // shallow-copy the array reference
-// 	size: "Large",
-// });
-
-// export const demoLargePB = <PartnershipBar {...demoLargePartnershipBarData} />;
