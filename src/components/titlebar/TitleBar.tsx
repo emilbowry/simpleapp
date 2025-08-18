@@ -1,3 +1,5 @@
+// src/components/titlebar/TitleBar.tsx
+
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
