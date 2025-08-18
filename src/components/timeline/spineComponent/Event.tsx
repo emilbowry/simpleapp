@@ -17,7 +17,7 @@ export interface IEvent {
 	description: string;
 }
 
-export type TEvent = Omit<IEvent, "date"> & {
+type TEvent = Omit<IEvent, "date"> & {
 	title: IEvent["date"];
 };
 
