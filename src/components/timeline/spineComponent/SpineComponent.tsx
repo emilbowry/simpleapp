@@ -7,18 +7,18 @@ export interface ISpineContent {
 	scaleFactor: number;
 }
 
-export interface IContentContainer {
+interface IContentContainer {
 	contentComponent: React.ComponentType<any>;
 }
 
-export interface IReflectable {
+interface IReflectable {
 	reflectable?: boolean;
 }
 
 export type TSpineElement = ISpineContent & IContentContainer;
 export type TSpineComponent = TSpineElement & IReflectable;
 
-export interface ISpineComponentBehavior {
+interface ISpineComponentBehavior {
 	renderContent(args: TSpineElement): React.ReactNode;
 }
 
