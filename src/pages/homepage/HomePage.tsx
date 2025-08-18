@@ -1,7 +1,6 @@
 // src/App.tsx
 import React from "react";
 import { Hero } from "./parts/Hero";
-import globalstyles from "../../GlobalStyles.module.css";
 import { BackgroundStyle } from "../../styles";
 import { CallingCard } from "../../components/callingcard/CallingCard";
 import { AiImpact } from "./parts/AIImpactCallingCard";
@@ -9,7 +8,7 @@ import { WWD } from "./parts/WWD";
 import { AboutUs } from "./parts/AboutUS";
 
 import { demoSmallPB } from "./parts/smallPartnershipBar";
-import { demoPersona as DP, Persona } from "./parts/OurTeam";
+import { Persona } from "./parts/OurTeam";
 import { FounderLetter, FFoouter } from "./parts/FounderLetter";
 import joefennelhs from "../../assets/joeheadshot.png";
 import miranda from "../../assets/miranda.jpg";
@@ -24,7 +23,6 @@ export const HomePage: React.FC = () => {
 	return (
 		<div style={BackgroundStyle}>
 			<Hero />
-			{/* <DP /> */}
 			<CallingCard
 				components={[
 					<Persona
