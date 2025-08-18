@@ -31,6 +31,13 @@ export const Hero: React.FC = () => {
 		LogoHexagon,
 		<ImageHexagon args={{ img: hi1 }} />,
 	] as const;
+	// const secondRow = [
+	// 	null,
+	// 	<div style={{ transform: "scaleX(-1)" }}>
+	// 		<LogoHexagon />
+	// 	</div>,
+	// 	<ImageHexagon args={{ img: hi1 }} />,
+	// ] as const;
 
 	const textEl = (
 		<div

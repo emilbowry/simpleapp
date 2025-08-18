@@ -1,6 +1,5 @@
 // src/components/hexagons/HexagonsRow.tsx
 
-// import _logo from "../../assets/logo.svg";
 import React from "react";
 
 import { formatComponent, ValidComponent } from "../../utils/reactUtils";
