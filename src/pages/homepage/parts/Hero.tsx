@@ -1,19 +1,23 @@
 // src/features/hero/Hero.tsx
 import React from "react";
-import { Hexagon, LogoHexagon, ImageHexagon } from "../hexagons/Hexagons";
-import { HexagonRow } from "../hexagons/HexagonRow";
-import { ComponentOrStringList } from "../../utils/reactUtils";
+import {
+	Hexagon,
+	LogoHexagon,
+	ImageHexagon,
+} from "../../../components/hexagons/Hexagons";
+import { HexagonRow } from "../../../components/hexagons/HexagonRow";
+import { ComponentOrStringList } from "../../../utils/reactUtils";
 import {
 	purple,
 	midnight_green,
 	l_midnight_green,
 	mix_green,
 	light_mix_green,
-} from "../../utils/defaultColours";
-import hi1 from "../../assets/heroimage1.jpg";
-import hi2 from "../../assets/heroimage2.jpg";
-import hi3 from "../../assets/heroimage3.jpg";
-import hi4 from "../../assets/heroimage4.jpg";
+} from "../../../utils/defaultColours";
+import hi1 from "../../../assets/heroimage1.jpg";
+import hi2 from "../../../assets/heroimage2.jpg";
+import hi3 from "../../../assets/heroimage3.jpg";
+import hi4 from "../../../assets/heroimage4.jpg";
 
 export const Hero: React.FC = () => {
 	const firstRow = [

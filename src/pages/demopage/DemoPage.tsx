@@ -6,7 +6,7 @@ import { demoTimeline } from "../../components/timeline/Timeline";
 import { AiImpact } from "../homepage/parts/AIImpactCallingCard";
 import { WWD } from "../homepage/parts/WWD";
 import { AboutUs } from "../homepage/parts/AboutUS";
-import { Hero } from "../../components/hero/Hero";
+import { Hero } from "../homepage/parts/Hero";
 import { demoSmallPB } from "../homepage/parts/smallPartnershipBar";
 
 export const DemoPage: React.FC = () => {

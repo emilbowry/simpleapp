@@ -1,6 +1,6 @@
 // src/App.tsx
 import React from "react";
-import { Hero } from "../../components/hero/Hero";
+import { Hero } from "./parts/Hero";
 import globalstyles from "../../GlobalStyles.module.css";
 import { BackgroundStyle } from "../../styles";
 import { CallingCard } from "../../components/callingcard/CallingCard";
