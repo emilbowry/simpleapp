@@ -7,7 +7,7 @@ import { AiImpact } from "./parts/AIImpactCallingCard";
 import { WWD } from "./parts/WWD";
 import { AboutUs } from "./parts/AboutUS";
 
-import { demoSmallPB } from "./parts/smallPartnershipBar";
+import { demoSmallPB as DPB } from "./parts/smallPartnershipBar";
 import { Persona } from "./parts/OurTeam";
 import { FounderLetter, FFoouter } from "./parts/FounderLetter";
 import joefennelhs from "../../assets/joeheadshot.png";
@@ -15,13 +15,12 @@ import miranda from "../../assets/miranda.jpg";
 import omar from "../../assets/dude3.jpg";
 import ben from "../../assets/dude2.jpg";
 import will from "../../assets/dude1.jpg";
-import { demoTimeline as DT } from "../../components/timeline/Timeline";
-import { CallOut } from "../../components/callingcard/CallOut";
 
 export const HomePage: React.FC = () => {
 	let MainIdx = 1;
 	return (
 		<div style={BackgroundStyle}>
+			{/* <CallingCard components={[<DemoNewTL />]} index={-1} /> */}
 			<Hero />
 			<CallingCard
 				components={[
@@ -62,7 +61,7 @@ marketing strategy, operations and growth vision."
 			<CallingCard
 				components={[
 					<Persona
-						index={-1}
+						index={1}
 						image={omar}
 						name="Omer Bilgin"
 						body="Omer is an AI ethics, policy, and governance researcher.
@@ -80,7 +79,7 @@ for Suffrago. "
 			<CallingCard
 				components={[
 					<Persona
-						index={-1}
+						index={1}
 						image={ben}
 						name="Benjamin Raho "
 						body="Benjamin is an economics graduate and EPM sales
@@ -97,7 +96,7 @@ forward-thinking approach."
 			<CallingCard
 				components={[
 					<Persona
-						index={-1}
+						index={1}
 						image={will}
 						name="William Swain "
 						body="Will has 10 years of experience as a Data and Reporting
@@ -112,7 +111,7 @@ automation (RPA).  "
 				index={-1}
 			/>
 			<CallingCard
-				title={demoSmallPB}
+				title={<DPB index={MainIdx} />}
 				components={[
 					<CallingCard
 						title={<AiImpact index={MainIdx} />}
@@ -123,7 +122,6 @@ automation (RPA).  "
 				]}
 				index={MainIdx}
 			/>
-			<CallingCard components={[<CallOut data={<DT />} />]} />
 
 			<CallingCard
 				title="A letter from our Founder"

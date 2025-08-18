@@ -3,6 +3,7 @@
 import React from "react";
 import { wrapLink, getImageEl, _noOp } from "../../utils/reactUtils";
 import { title_font_colour } from "../../utils/defaultColours";
+import { Theme } from "../../styles";
 
 interface IPartner {
 	image: string;
@@ -37,8 +38,8 @@ const styles: {
 		justifyContent: "space-between",
 		gap: "2rem",
 		padding: "1rem",
-		borderTop: "2px solid",
-		borderBottom: "2px solid",
+		borderTop: "3px solid",
+		borderBottom: "3px solid",
 		borderColor: title_font_colour,
 	},
 	Large: {
@@ -61,7 +62,11 @@ const imageStyle: React.CSSProperties = {
 	display: "block",
 	margin: "0 auto",
 };
-export class PartnershipBar extends React.Component<Partners> {
+interface PartnershipBarProps extends Partners {
+	index?: number;
+}
+
+export class PartnershipBar extends React.Component<PartnershipBarProps> {
 	public static PartnerImage: React.FC<{
 		partner: IPartner;
 		size: TPartnerSize;
@@ -76,24 +81,26 @@ export class PartnershipBar extends React.Component<Partners> {
 		return <div>{linkedEl}</div>;
 	};
 	render() {
-		const { partners, size = "Small" } = this.props;
-		// let currentStyle: React.CSSProperties = { ...styles[size] };
-
-		// if (size === "Small") {
-		// 	currentStyle.gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
-		// }
-
+		const { partners, size = "Small", index = 0 } = this.props;
+		let currentStyle: React.CSSProperties = { ...styles[size] };
+		let theme = Theme(index);
+		currentStyle.borderColor = theme.tertiaryColor;
 		if (size === "Small") {
-			styles[
-				size
-			].gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
+			currentStyle.gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
 		}
 
+		// if (size === "Small") {
+		// 	styles[
+		// 		size
+		// 	].gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
+		// }
+		``;
 		return (
-			<div style={styles[size]}>
-				{partners.map((partner, index) => (
+			// <div style={styles[size]}>
+			<div style={currentStyle}>
+				{partners.map((partner, _index) => (
 					<PartnershipBar.PartnerImage
-						key={index}
+						key={_index}
 						partner={partner}
 						size={size}
 					/>

@@ -40,17 +40,14 @@ export const formatComponent = (
 			</div>
 		));
 	} else if (
-		typeof component === "function" || // Functional component
+		typeof component === "function" ||
 		(typeof component === "object" &&
 			component !== null &&
-			(component as any).prototype instanceof React.Component) // Class component
+			(component as any).prototype instanceof React.Component)
 	) {
-		// If it's a React.ComponentType (functional or class component)
-		const SingleComponent = component as React.ComponentType; // Assert to ComponentType
+		const SingleComponent = component as React.ComponentType;
 		return <SingleComponent />;
 	} else {
-		// This branch handles other React.ReactNode types like numbers, booleans, etc.
-		// These are directly renderable by React.
 		return component;
 	}
 };

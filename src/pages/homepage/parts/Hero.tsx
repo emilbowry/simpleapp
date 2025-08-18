@@ -13,6 +13,7 @@ import {
 	l_midnight_green,
 	mix_green,
 	light_mix_green,
+	white,
 } from "../../../utils/defaultColours";
 import hi1 from "../../../assets/heroimage1.jpg";
 import hi2 from "../../../assets/heroimage2.jpg";
@@ -52,7 +53,7 @@ export const Hero: React.FC = () => {
 			>
 				<div>
 					“Not everyone needs to be an AI expert.
-					<div>But everyone needs to be AI compatible.”</div>
+					<div>“Not everyone needs to be an AI expert.”</div>
 				</div>
 			</div>
 
@@ -109,3 +110,65 @@ export const Hero: React.FC = () => {
 		</div>
 	);
 };
+
+// import { TimelineRow } from "../../../components/hexagons/HexagonRow";
+// export const Hero: React.FC = () => {
+// 	const firstRow = [null, <Hexagon args={{ colour: white }} />] as const;
+
+// 	const secondRow = [<ImageHexagon args={{ img: hi1 }} />, null] as const;
+// 	const textEl = (
+// 		<div
+// 			style={{
+// 				color: " #066070",
+// 				// width: 700,
+// 				minHeight: 0,
+// 				maxHeight: 0,
+// 			}}
+// 		>
+// 			<div
+// 				style={{
+// 					fontStyle: "italic",
+// 				}}
+// 			>
+// 				<div>
+// 					“Not everyone needs to be an AI expert.
+// 					<div>“Not everyone needs to be an AI expert.”</div>
+// 				</div>
+// 			</div>
+
+// 			<div
+// 				style={{
+// 					fontWeight: "bold",
+// 				}}
+// 			>
+// 				- Joe Fennel
+// 			</div>
+// 		</div>
+// 	);
+// 	const overlay: ComponentOrStringList = [
+// 		<Hexagon args={{ colour: light_mix_green }} />,
+// 		textEl,
+// 	];
+// 	const thirdRow = [null, overlay] as const;
+
+// 	return (
+// 		<div>
+// 			<div className="no-aos">
+// 				<div
+// 					style={{
+// 						paddingLeft: "50px",
+// 						opacity: 0.7,
+// 						marginBottom: "-300px",
+// 						transform: "scale(1.5)",
+// 						paddingTop: "650px",
+// 						paddingBottom: "500px",
+// 					}}
+// 				>
+// 					<TimelineRow elements={firstRow} />
+// 					<TimelineRow elements={secondRow} />
+// 					<TimelineRow elements={thirdRow} />
+// 				</div>
+// 			</div>
+// 		</div>
+// 	);
+// };

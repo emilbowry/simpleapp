@@ -24,6 +24,7 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 		} = this.props;
 		const _style_CallingCardStyle: React.CSSProperties = {
 			padding: !fullSpread ? "20px" : "", //Works DO NOT TOUCH
+			// paddingTop: "40px",
 			alignItems: "center",
 		};
 

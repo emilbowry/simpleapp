@@ -9,7 +9,7 @@ import styles from "./GlobalStyles.module.css";
 import { HomePage } from "./pages/homepage/HomePage";
 // import { ContactPage } from "./pages/contactpage/ContactPage";
 import { animationTagging } from "./utils/animationTagging";
-
+import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
 const App: React.FC = () => {
 	const location = useLocation();
 
@@ -21,8 +21,8 @@ const App: React.FC = () => {
 			<main className={styles.animated} key={location.pathname}>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
-					<Route path="/founder" element={<></>} />
-					<Route path="/contn  act" element={<></>} />
+					<Route path="/thejourney" element={<TheJourneyPage />} />
+					<Route path="/contact" element={<></>} />
 					<Route path="/demo_page" element={<DemoPage />} />
 				</Routes>
 			</main>

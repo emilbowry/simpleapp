@@ -72,6 +72,8 @@ body {
 :global(.aos) {
   --user-transform: none;
   opacity: 0;
+  /* opacity: 1; */
+
   transform: var(--user-transform) translateY(20px); /* Changed to 20px */
   transition: opacity 600ms ease-out , transform 600ms ease-out;
   will-change: transform, opacity;
@@ -79,7 +81,7 @@ body {
 
 :global(.is-visible) {
   /* Remove direct opacity and transform, let the animation handle it */
-  /* opacity: 1; */
+  opacity: 1;
   /* transform: var(--user-transform) translateY(0); */
   animation: fadeInUpAnimation 600ms ease-out forwards; /* Apply the animation */
 }
@@ -100,7 +102,11 @@ body {
   from { opacity: 0 }
   to   { opacity: 1 }
 } */
+
 @keyframes fadeInUpAnimation {
+
+}
+/* @keyframes fadeInUpAnimation {
  from {
  opacity: 0;
  transform: translateY(20px);
@@ -109,7 +115,7 @@ body {
  opacity: 1;
  transform: translateY(0);
  }
-}
+} */
 
 @media (prefers-reduced-motion: reduce) {
   :global(.aos),

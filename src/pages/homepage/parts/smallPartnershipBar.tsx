@@ -25,4 +25,6 @@ const demoSmallPartnershipBarData = new Partners({
 	],
 });
 
-export const demoSmallPB = <PartnershipBar {...demoSmallPartnershipBarData} />;
+export const demoSmallPB: React.FC<{ index?: number }> = ({ index = 0 }) => (
+	<PartnershipBar {...demoSmallPartnershipBarData} index={index} />
+);

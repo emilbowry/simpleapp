@@ -14,7 +14,6 @@ export const Footer: React.FC = () => {
 		<CallOut data={getImageEl(logo)} />,
 		<CallOut data={FooterBody} />,
 	];
-	``;
 	const ccElement = (
 		<CallingCard
 			components={componentsToRender}

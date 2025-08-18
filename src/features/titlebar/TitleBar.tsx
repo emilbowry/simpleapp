@@ -46,13 +46,13 @@ export const TitleBar: React.FC = () => {
 					Home
 				</NavLink>
 				<NavLink
-					to="/founder"
+					to="/thejourney"
 					className={({ isActive }) =>
 						isActive ? styles.activeLink : styles.link
 					}
 					onClick={() => setOpen(false)}
 				>
-					Founder
+					The Journey
 				</NavLink>
 				<NavLink
 					to="/contact"

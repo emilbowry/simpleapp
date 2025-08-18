@@ -2,35 +2,23 @@
 import React from "react";
 import { CallingCard } from "../../components/callingcard/CallingCard";
 import { CallOut } from "../../components/callingcard/CallOut";
-import { demoTimeline } from "../../components/timeline/Timeline";
-import { AiImpact } from "../homepage/parts/AIImpactCallingCard";
-import { WWD } from "../homepage/parts/WWD";
-import { AboutUs } from "../homepage/parts/AboutUS";
-import { Hero } from "../homepage/parts/Hero";
-import { demoSmallPB } from "../homepage/parts/smallPartnershipBar";
+import { demoTimeline as DT } from "../../components/timeline/Timeline";
+
+import { DemoNewTL } from "../../components/timeline/newTimeline";
 
 export const DemoPage: React.FC = () => {
-	const componentsToRenderc = [<CallOut data={demoTimeline} />];
+	const componentsToRenderc = [<CallOut data={DT} />];
 
 	const ccElement = (
 		<CallingCard components={componentsToRenderc} index={1} />
 	);
 	return (
 		<section>
-			<Hero />
+			<CallingCard components={[<CallOut data={<DT />} />]} />
 			<CallingCard
-				title={demoSmallPB}
-				components={[
-					<CallingCard
-						title={<AiImpact index={3} />}
-						components={[<WWD index={0} />]}
-						footer={<AboutUs index={0} />}
-						index={1}
-					/>,
-				]}
-				index={0}
+				components={[<CallOut data={<DemoNewTL />} />]}
+				index={1}
 			/>
-			{ccElement}
 		</section>
 	);
 };

@@ -45,19 +45,24 @@ export class Hexagon
 	}
 	render() {
 		const { args } = this.props;
+
 		const size: number = this.props.size || 500;
+		const scale: number = this.props.scale || 1;
+		console.log(scale);
 		const { defs, paths } = this.construct(args);
 
 		return (
-			<svg
-				width={size}
-				height={size}
-				viewBox="0 -100 200 200"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<defs>{defs.map((def, index) => def)}</defs>
-				{paths.map((path, index) => path)}
-			</svg>
+			<div style={{ transform: `scale(${scale})` }}>
+				<svg
+					width={size}
+					height={size}
+					viewBox="0 -100 200 200"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<defs>{defs.map((def, index) => def)}</defs>
+					{paths.map((path, index) => path)}
+				</svg>
+			</div>
 		);
 	}
 }
@@ -141,12 +146,38 @@ export class LogoHexagon extends Hexagon {
 	}
 }
 
-// M 0 0 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z
+export class CutHexagon extends Hexagon {
+	public construct({ isLeftHanded = true, colour = midnight_green } = {}) {
+		const flip = isLeftHanded ? -1 : 100;
+		const cutPath = `M ${flip} 0 l 50 -86.6025 h1 l 50 86.6025  l -50 86.6025  h -1 z`;
 
-// M 125 0 l 50 -86.6025 l -50 -86.6025 h 25 l 50 86.6025 l -50 86.6025 Z
-
-// M 0 200 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z
-
-// M -25 200 l -50 -86.6025 l 50 -86.6025 h -25 l -50 86.6025 l 50 86.6025 Z
-
-// M 5 5  h 90 v 15  h -90 Z
+		const components = {
+			defs: [
+				<mask id="cutoutMask">
+					<path d={hexPath} fill="white" />
+					<path d={cutPath} fill="black" />
+				</mask>,
+				<linearGradient
+					id="chevronGradient"
+					x1="10%"
+					y1="50%"
+					x2="100%"
+					y2="50%"
+				>
+					<stop offset="0%" stopColor={logo_yellow} />
+					<stop offset="100%" stopColor={logo_blue} />
+				</linearGradient>,
+			],
+			// paths: [<path d={hexPath} mask="url(#cutoutMask)" fill={colour} />],
+			paths: [
+				<path
+					d={hexPath}
+					mask="url(#cutoutMask)"
+					// fill="url(#chevronGradient)"
+					fill={colour}
+				/>,
+			],
+		};
+		return components;
+	}
+}
