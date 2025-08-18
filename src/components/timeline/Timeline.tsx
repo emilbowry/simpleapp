@@ -132,7 +132,7 @@ export class Timeline extends React.Component<ITimelineData> {
 		);
 	}
 }
-
+// [TODO] Remove/extract to demo page
 const demoTimelineEvent: IEvent[] = [
 	{
 		date: "Early 2024",
