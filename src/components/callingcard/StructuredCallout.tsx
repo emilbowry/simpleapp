@@ -1,4 +1,5 @@
 // src/components/callingcard/StructuredCallout.tsx
+// impports
 
 import React from "react";
 
@@ -8,12 +9,23 @@ import {
 	ValidComponent,
 } from "../../utils/reactUtils";
 import { CallOut, ICallOut } from "./CallOut";
-// imp
 import {
 	title_font_colour,
 	body_font_colour,
 } from "../../utils/defaultColours";
 import { Theme } from "../../styles";
+
+// Typing
+interface IStructuredCallout extends ICallOut {
+	data: IStructuredCalloutData;
+}
+export interface IStructuredCalloutData {
+	title: ValidComponent;
+	subtitle?: ValidComponent;
+	body: ValidComponent;
+	image?: string;
+	index?: number;
+}
 // Styling
 
 const _style_structuredCalloutTitle: React.CSSProperties = {
@@ -28,23 +40,10 @@ export const style_StructuredCallOutBody = `${_style_structuredCalloutBody}`;
 
 const _style_BorderedCalloutHeading: React.CSSProperties = {
 	borderTop: "2px solid",
-	// paddingTop: "10px",
 	borderBottom: "2px solid",
-	// paddingBottom: "10px",
 };
 
 export const style_BorderedCalloutHeading = `${_style_BorderedCalloutHeading}`;
-
-interface IStructuredCallout extends ICallOut {
-	data: IStructuredCalloutData;
-}
-export interface IStructuredCalloutData {
-	title: ValidComponent;
-	subtitle?: ValidComponent;
-	body: ValidComponent;
-	image?: string;
-	index?: number;
-}
 
 // Implementation
 
@@ -108,7 +107,7 @@ export interface IStructuredCalloutData {
 export class BorderdCallout extends StructuredCallout {
 	public generateNode(args: IStructuredCalloutData) {
 		let _args = args;
-		console.log(args);
+		// console.log(args);
 
 		_args.title = (
 			<div style={_style_BorderedCalloutHeading}>
@@ -140,7 +139,7 @@ export class FlexiCallout extends StructuredCallout {
 				}}
 			>
 				<StructuredCallout {...this.props} />
-				{/* {super.generateNode(args.component, index=this.index)} */}
+				{/* {super.generateNode(...this.props)} */}
 			</div>
 		);
 	}

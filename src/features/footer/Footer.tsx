@@ -1,12 +1,11 @@
-// src/components/footer/Footer.tsx
+// src/features/footer/footer.tsx
 
 import React from "react";
 import logo from "../../assets/logo.png";
-import styles from "./Footer.module.css";
-import { CallOut } from "../callingcard/CallOut";
+import { CallOut } from "../../components/callingcard/CallOut";
 import { getImageEl } from "../../utils/reactUtils";
-
-import { CallingCard } from "../callingcard/CallingCard";
+// import { CallingCard } from "../../../components/callingcard/CallingCard";
+import { CallingCard } from "../../components/callingcard/CallingCard";
 
 const FooterBody: React.FC = () => <h1>The way to be 'AI-first'...</h1>;
 
@@ -15,6 +14,7 @@ export const Footer: React.FC = () => {
 		<CallOut data={getImageEl(logo)} />,
 		<CallOut data={FooterBody} />,
 	];
+	``;
 	const ccElement = (
 		<CallingCard
 			components={componentsToRender}
@@ -22,5 +22,5 @@ export const Footer: React.FC = () => {
 			fullSpread={true}
 		/>
 	);
-	return <section className={styles.footer}>{ccElement}</section>;
+	return <section>{ccElement}</section>;
 };

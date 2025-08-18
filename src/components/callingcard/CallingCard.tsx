@@ -46,6 +46,7 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 			fontSize: "2rem",
 
 			paddingTop: "10px",
+			borderRadius: !fullSpread ? "50px 10px" : "",
 		};
 		innerStyle.backgroundColor = theme.backgroundColor;
 

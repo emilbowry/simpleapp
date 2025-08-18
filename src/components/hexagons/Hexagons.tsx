@@ -81,7 +81,7 @@ export class ImageHexagon extends Hexagon {
 				/>
 			</pattern>
 		);
-		console.log(components.paths[0].props["fill"]);
+		// console.log(components.paths[0].props["fill"]);
 		components.paths[0] = React.cloneElement(components.paths[0], {
 			fill: "url(#img1)",
 		});

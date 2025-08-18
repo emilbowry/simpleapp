@@ -31,11 +31,8 @@ const styles: {
 	Large: React.CSSProperties;
 } = {
 	Small: {
-		// display: "flex",
 		display: "grid",
 		gridTemplateRows: "1fr",
-		// flexWrap: "nowrap",
-		// overflowX: "auto",
 		alignItems: "center",
 		justifyContent: "space-between",
 		gap: "2rem",
@@ -57,6 +54,13 @@ const styles: {
 		borderColor: title_font_colour,
 	},
 };
+
+const imageStyle: React.CSSProperties = {
+	maxWidth: "100%",
+	height: "auto",
+	display: "block",
+	margin: "0 auto",
+};
 export class PartnershipBar extends React.Component<Partners> {
 	public static PartnerImage: React.FC<{
 		partner: IPartner;
@@ -66,25 +70,18 @@ export class PartnershipBar extends React.Component<Partners> {
 
 		let _ = _noOp(size); //`size` may be used later
 
-		// const imageEl = getImageEl(image);
-		const imageEl = (
-			<img
-				src={image}
-				alt="Partner logo"
-				style={{
-					maxWidth: "100%", // This makes the image shrink to fit its container
-					height: "auto", // This maintains the aspect ratio
-					display: "block", // Removes potential extra space below the image
-					margin: "0 auto", // Horizontally centers the image within its grid cell
-				}}
-			/>
-		);
+		const imageEl = getImageEl(image, imageStyle);
+
 		const linkedEl = wrapLink(link, imageEl);
 		return <div>{linkedEl}</div>;
 	};
 	render() {
 		const { partners, size = "Small" } = this.props;
-		// const _style = `partnershipbar${size}`;
+		// let currentStyle: React.CSSProperties = { ...styles[size] };
+
+		// if (size === "Small") {
+		// 	currentStyle.gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
+		// }
 
 		if (size === "Small") {
 			styles[

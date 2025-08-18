@@ -7,8 +7,9 @@ export const wrapLink = (
 ): React.ReactNode => (link ? <a href={link}>{el}</a> : el);
 
 export const getImageEl = (
-	image: string | undefined | React.SVGElementType
-): React.ReactNode => (image ? <img src={image}></img> : <></>);
+	image: string | undefined | React.SVGElementType,
+	styling: React.CSSProperties = {}
+): React.ReactNode => (image ? <img src={image} style={styling}></img> : <></>);
 
 export const _noOp = (_: any) => undefined;
 
