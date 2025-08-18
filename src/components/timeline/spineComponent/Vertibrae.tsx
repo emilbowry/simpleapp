@@ -68,30 +68,3 @@ export class Vertibrae extends SpineComponent {
 		);
 	}
 }
-
-export const demoVertibrae: React.FC = () => {
-	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-			}}
-		>
-			<Vertibrae
-				isLeftHanded={true}
-				index={0}
-				scaleFactor={1.5}
-				reflectable={true}
-				contentComponent={DefaultVertibrae}
-			/>
-			<Vertibrae
-				isLeftHanded={false}
-				index={1}
-				scaleFactor={1.5}
-				reflectable={true}
-				contentComponent={DefaultVertibrae}
-			/>
-		</div>
-	);
-};
