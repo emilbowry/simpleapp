@@ -15,13 +15,14 @@ import { CallOut } from "./components/callingcard/callout/CallOut";
 import { CallingCard } from "./components/callingcard/CallingCard";
 
 //Components
-import { TitleBar } from "./features/titlebar/TitleBar";
+// import { TitleBar } from "./features/titlebar/TitleBar";
 
 // Pages
 import { DemoPage } from "./pages/demopage/DemoPage";
 // import { FounderPage } from "./pages/founderpage/FounderPage";
 import { HomePage } from "./pages/homepage/HomePage";
-
+import { TitleBar } from "./features/titlebar/TitleBar";
+import { ContactPage } from "./pages/contactpage/ContactPage";
 import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
 
 export const AppTitleBar: React.FC = () => {

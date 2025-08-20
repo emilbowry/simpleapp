@@ -9,7 +9,7 @@ import { BackgroundStyle } from "../../styles";
 const CalloutContent: React.FC<{ body: string }> = ({ body }) => {
 	return (
 		<CallOut
-			data={
+			body={
 				<div>
 					<div>{formatComponent(body)}</div>
 					<div>
