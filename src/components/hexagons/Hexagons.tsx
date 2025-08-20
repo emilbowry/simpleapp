@@ -6,8 +6,15 @@ import {
 	logo_blue,
 	midnight_green,
 } from "../../utils/defaultColours";
-import { IHexagonConstruction, IComponentDefinitions } from "./Hexagons.types";
+import { IHexagonConstruction } from "./Hexagons.types";
 import { formatComponent } from "../../utils/reactUtils";
+import {
+	containerStyle,
+	svgStyle,
+	horizontalContentStyle,
+	verticalContentStyle,
+} from "./Hexagons.styles";
+
 const hexPath =
 	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
 
@@ -20,34 +27,18 @@ const chevCutour =
 const chevSplit = "M 95 0 v 5 h120 v -10 h-120 v5";
 const vertHexPath =
 	"M 13.3975 -50 l 0 100 l 86.6025 50 l 86.6025 -50 l -0 -100 l -86.6025 -50 Z";
-const horizontalSafeZoneCoords = {
-	minX: 50,
-	maxX: 150,
-	minY: -86.6025,
-	maxY: 86.6025,
-	width: 100,
-	height: 173.205, // 86.6025 * 2
-};
 
-const vertSafeZoneCoords = {
-	minX: 13.3975,
-	maxX: 186.6025,
-	minY: -50,
-	maxY: 50,
-	width: 173.205, // 186.6025 - 13.3975
-	height: 100, // 50 * 2
-};
-
+//
+// ===== VertHexagon =====
+//
 export class VertHexagon
 	extends React.Component<any>
 	implements IHexagonConstruction
 {
 	public construct(args?: any) {
 		const _args = args || { colour: midnight_green };
-
 		const colour = _args.colour || midnight_green;
-
-		const components = {
+		return {
 			defs: [
 				<mask id="verthexagon">
 					<path
@@ -64,60 +55,28 @@ export class VertHexagon
 				/>,
 			],
 		};
-		return components;
 	}
+
 	render() {
-		const { args } = this.props;
-
-		const element = this.props.element || <></>;
-
-		const size: number = this.props.size || 500;
-		const scale: number = this.props.scale || 1;
-		const opacity: number = this.props.opacity || 1;
-		console.log(`opacity: ${opacity}`);
+		const { args, element = <></>, ...styleProps } = this.props;
 		const { defs, paths } = this.construct(args);
-		const finalWidth = size * scale;
-		const finalHeight = size * scale;
-
-		const contentLeft = `${((vertSafeZoneCoords.minX - 0) / 200) * 100}%`;
-		const contentTop = `${((vertSafeZoneCoords.minY - -100) / 200) * 100}%`;
-		const contentWidth = `${(vertSafeZoneCoords.width / 200) * 100}%`;
-		const contentHeight = `${(vertSafeZoneCoords.height / 200) * 100}%`;
 
 		return (
 			<div
 				className="no-aos"
-				style={{
-					position: "relative",
-					width: finalWidth,
-					height: finalHeight,
-					opacity: opacity,
-				}}
+				style={containerStyle(styleProps)}
 			>
 				<svg
-					width={finalWidth}
-					height={finalHeight}
+					style={svgStyle(styleProps)}
 					viewBox="0 -100 200 200"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<defs>{defs.map((def, index) => def)}</defs>
-					{paths.map((path, index) => path)}
+					<defs>{defs.map((def, i) => def)}</defs>
+					{paths.map((path, i) => path)}
 				</svg>
 
 				{element && (
-					<div
-						style={{
-							position: "absolute",
-							left: contentLeft,
-							top: contentTop,
-							width: contentWidth,
-							height: contentHeight,
-							overflow: "hidden",
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-						}}
-					>
+					<div style={verticalContentStyle()}>
 						{formatComponent(element)}
 					</div>
 				)}
@@ -126,6 +85,9 @@ export class VertHexagon
 	}
 }
 
+//
+// ===== Hexagon =====
+//
 export class Hexagon
 	extends React.Component<any>
 	implements IHexagonConstruction
@@ -133,7 +95,7 @@ export class Hexagon
 	public construct(args?: any) {
 		const _args = args || { colour: midnight_green };
 		const colour = _args.colour || midnight_green;
-		const components = {
+		return {
 			defs: [
 				<mask id="hexagon">
 					<path
@@ -150,62 +112,28 @@ export class Hexagon
 				/>,
 			],
 		};
-		return components;
 	}
+
 	render() {
-		const { args } = this.props;
-		const element = this.props.element || <></>;
-
-		const size: number = this.props.size || 500;
-		const scale: number = this.props.scale || 1;
+		const { args, element = <></>, ...styleProps } = this.props;
 		const { defs, paths } = this.construct(args);
-		const finalWidth = size * scale;
-		const finalHeight = size * scale;
-
-		const contentLeft = `${
-			((horizontalSafeZoneCoords.minX - 0) / 200) * 100
-		}%`;
-		const contentTop = `${
-			((horizontalSafeZoneCoords.minY - -100) / 200) * 100
-		}%`;
-		const contentWidth = `${(horizontalSafeZoneCoords.width / 200) * 100}%`;
-		const contentHeight = `${
-			(horizontalSafeZoneCoords.height / 200) * 100
-		}%`;
 
 		return (
 			<div
 				className="no-aos"
-				style={{
-					position: "relative",
-					width: finalWidth,
-					height: finalHeight,
-				}}
+				style={containerStyle(styleProps)}
 			>
 				<svg
-					width={finalWidth}
-					height={finalHeight}
+					style={svgStyle(styleProps)}
 					viewBox="0 -100 200 200"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<defs>{defs.map((def, index) => def)}</defs>
-					{paths.map((path, index) => path)}
+					<defs>{defs.map((def, i) => def)}</defs>
+					{paths.map((path, i) => path)}
 				</svg>
 
 				{element && (
-					<div
-						style={{
-							position: "absolute",
-							left: contentLeft,
-							top: contentTop,
-							width: contentWidth,
-							height: contentHeight,
-							overflow: "hidden",
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-						}}
-					>
+					<div style={horizontalContentStyle()}>
 						{formatComponent(element)}
 					</div>
 				)}
@@ -214,6 +142,9 @@ export class Hexagon
 	}
 }
 
+//
+// ===== ImageHexagon =====
+//
 export class ImageHexagon extends Hexagon {
 	public construct(args: { img: string }) {
 		const { img } = args;
@@ -236,10 +167,13 @@ export class ImageHexagon extends Hexagon {
 		components.paths[0] = React.cloneElement(components.paths[0], {
 			fill: "url(#img1)",
 		});
-
 		return components;
 	}
 }
+
+//
+// ===== LogoHexagon =====
+//
 export class LogoHexagon extends Hexagon {
 	public construct(withGap = false) {
 		const components = {
@@ -260,7 +194,6 @@ export class LogoHexagon extends Hexagon {
 						stopColor={logo_blue}
 					/>
 				</linearGradient>,
-
 				<mask id="hexagon"></mask>,
 			],
 			paths: [
@@ -269,7 +202,6 @@ export class LogoHexagon extends Hexagon {
 					fill={logo_yellow}
 					mask="url(#logoCutout)"
 				/>,
-
 				<path
 					d={chevColour}
 					fill="url(#chevronGradient)"
@@ -313,12 +245,15 @@ export class LogoHexagon extends Hexagon {
 	}
 }
 
+//
+// ===== CutHexagon =====
+//
 export class CutHexagon extends Hexagon {
 	public construct({ isLeftHanded = true, colour = midnight_green } = {}) {
 		const flip = isLeftHanded ? -1 : 100;
 		const cutPath = `M ${flip} 0 l 50 -86.6025 h1 l 50 86.6025  l -50 86.6025  h -1 z`;
 
-		const components = {
+		return {
 			defs: [
 				<mask id="cutoutMask">
 					<path
@@ -347,16 +282,13 @@ export class CutHexagon extends Hexagon {
 					/>
 				</linearGradient>,
 			],
-			// paths: [<path d={hexPath} mask="url(#cutoutMask)" fill={colour} />],
 			paths: [
 				<path
 					d={hexPath}
 					mask="url(#cutoutMask)"
-					// fill="url(#chevronGradient)"
 					fill={colour}
 				/>,
 			],
 		};
-		return components;
 	}
 }

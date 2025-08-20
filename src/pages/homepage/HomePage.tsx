@@ -1,5 +1,5 @@
 // src/App.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Hero } from "./parts/Hero";
 import { BackgroundStyle } from "../../styles";
 import { CallingCard } from "../../components/callingcard/CallingCard";
@@ -16,15 +16,36 @@ import omar from "../../assets/dude3.jpg";
 import ben from "../../assets/dude2.jpg";
 import will from "../../assets/dude1.jpg";
 import { CallOut } from "../../components/callingcard/callout/CallOut";
-import { DemoHexTimeline } from "../demopage/DemoPage";
+import { DemoHexTimeline } from "../demopage/demoParts";
+import // DynamicImage_BackgroundStyle,
+// TiledImage_BackgroundStyle,
+"../../components/background/Background";
+import {
+	// useTiledBackgroundStyle,
 
+	Background,
+} from "../../components/background/Background";
+
+// import { DemoTiledBackground } from "../../components/background/TiledBackgroundFromSVG";
+import { DemoTiledBackground as BG } from "../../components/background/bg copy";
+import {
+	// TestBackgroundString,
+	// TestBackgroundElement,
+	// style_2,
+	DemoTiledBackground,
+} from "../../components/background/bg";
+import {
+	DynamicImage_BackgroundStyle,
+	ComposedSvgStyle,
+} from "../../components/background/Background copy";
 export const HomePage: React.FC = () => {
+	// const bgStyle = useTiledBackgroundStyle();
 	let MainIdx = 1;
 	return (
-		<div style={BackgroundStyle}>
-			{/* <CallingCard components={[<DemoNewTL />]} index={-1} /> */}
+		<div>
+			<BG />
+			{/* <div style={{ ...bgStyle, position: "absolute", inset: 0 }} /> */}
 			<Hero />
-
 			<CallingCard
 				components={[<CallOut body={<DemoHexTimeline />} />]}
 				index={-1}

@@ -5,7 +5,7 @@ import {
 	LogoHexagon,
 	ImageHexagon,
 } from "../../../components/hexagons/Hexagons";
-import { HexagonRow } from "../../../components/hexagons/HexagonRow";
+import { HexagonRow } from "../../../components/hexagons/hexagonRow/HexagonRow";
 import { ComponentOrStringList } from "../../../utils/reactUtils";
 import {
 	purple,

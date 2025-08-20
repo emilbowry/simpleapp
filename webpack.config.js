@@ -44,7 +44,18 @@ module.exports = {
 					},
 				],
 			},
-
+			{
+				test: /\.(png|jpe?g|gif)$/i,
+				oneOf: [
+					{
+						resourceQuery: /inline/, // e.g. foo.png?inline
+						type: "asset/inline",
+					},
+					{
+						type: "asset/resource", // default behavior
+					},
+				],
+			},
 			{
 				test: /\.css$/i,
 				exclude: /\.module\.css$/i,
@@ -54,10 +65,10 @@ module.exports = {
 				test: /\.svg$/i,
 				type: "asset/resource",
 			},
-			{
-				test: /\.(png|jpg|jpeg|gif|svg)$/i,
-				type: "asset/resource",
-			},
+			// {
+			// 	test: /\.(png|jpg|jpeg|gif|svg)$/i,
+			// 	type: "asset/resource",
+			// },
 		],
 	},
 

@@ -4,7 +4,7 @@ import React from "react";
 import { _EventContent, IEvent } from "./spineComponent/Event";
 
 import { IVerticalHexagonRowProps } from "./hexTimeline.types";
-import { VerticalHexagonRow } from "../hexagons/HexagonRow";
+import { VerticalHexagonRow } from "../hexagons/hexagonRow/HexagonRow";
 
 export class VerticalHexagonGrid extends React.Component<IVerticalHexagonRowProps> {
 	render() {

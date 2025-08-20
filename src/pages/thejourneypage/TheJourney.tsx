@@ -11,25 +11,12 @@ import { demoSmallPB as DPB } from "../homepage/parts/smallPartnershipBar";
 export const TheJourneyPage: React.FC = () => {
 	const componentsToRenderc = [<CallOut body={<DPB index={-1} />} />];
 
-	const ccElement = (
-		<CallingCard
-			components={componentsToRenderc}
-			index={1}
-		/>
-	);
 	return (
 		<div style={BackgroundStyle}>
-			<div></div>
 			<CallingCard
 				components={componentsToRenderc}
-				// fullSpread={true}
 				index={-1}
 			/>
-			{/* <CallingCard components={[<CallOut data={<DT />} />]} /> */}
-			{/* <CallingCard
-				components={[<CallOut body={<DemoNewTL />} />]}
-				index={1}
-			/> */}
 		</div>
 	);
 };

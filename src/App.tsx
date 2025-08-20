@@ -4,48 +4,40 @@ import React, { useEffect } from "react";
 import "./styles.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-// Utils
+// ==================== Utils ==================== //
 import { animationTagging } from "./utils/animationTagging";
 import { getImageEl } from "./utils/reactUtils";
 import logo from "./assets/logo.png";
 
-import { TTitleBarLinkConfig } from "./features/titlebar/TitleBar.types";
-
+// ==================== Components ==================== //
+import { TTitleBarLinkConfig } from "./components/titlebar/TitleBar.types";
+import { TitleBar } from "./components/titlebar/TitleBar";
 import { CallOut } from "./components/callingcard/callout/CallOut";
 import { CallingCard } from "./components/callingcard/CallingCard";
 
-//Components
-// import { TitleBar } from "./features/titlebar/TitleBar";
+// ==================== Pages ==================== //
 
-// Pages
 import { DemoPage } from "./pages/demopage/DemoPage";
 // import { FounderPage } from "./pages/founderpage/FounderPage";
 import { HomePage } from "./pages/homepage/HomePage";
-import { TitleBar } from "./features/titlebar/TitleBar";
-import { ContactPage } from "./pages/contactpage/ContactPage";
 import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
+import { ContactPage } from "./pages/contactpage/ContactPage";
 
 export const AppTitleBar: React.FC = () => {
 	const links: TTitleBarLinkConfig = {
 		home: {
 			layout: { inline: true, dropdown: true },
-			alias: "Home",
-			path: "/",
 		},
 		thejourney: {
 			layout: { inline: false, dropdown: true },
 			alias: "The Journey",
-			path: "/thejourney",
 		},
 		contact: {
 			layout: { inline: false, dropdown: true },
-			// alias auto-formats → "Contact"
-			path: "/contact",
 		},
 		demo_page: {
 			layout: { inline: true, dropdown: true },
 			// alias auto-formats → "Demo Page"
-			path: "/demo_page",
 		},
 	};
 

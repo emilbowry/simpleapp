@@ -46,7 +46,7 @@ const ContactUS: React.FC = () => {
 import { demoSmallPB as DPB } from "../homepage/parts/smallPartnershipBar";
 
 export const ContactPage: React.FC = () => {
-	const componentsToRenderc = [<CallOut data={<DPB index={-1} />} />];
+	const componentsToRenderc = [<CallOut body={<DPB index={-1} />} />];
 
 	const ccElement = (
 		<CallingCard
