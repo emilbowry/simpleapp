@@ -1,7 +1,6 @@
-// src/pages/homepage/parts/smallPartnershipBar.tsx
+// src/pages/homepage/parts/AIImpactCallingCard.tsx
 
 import React from "react";
-import { FlexiCallout } from "../../../components/callingcard/StructuredCallout";
 
 import { CallingCard } from "../../../components/callingcard/CallingCard";
 import { midnight_green } from "../../../utils/defaultColours";
@@ -9,6 +8,10 @@ import { StatBox } from "./StatsBox";
 
 import { getImageEl } from "../../../utils/reactUtils";
 import workingManGif from "../../../assets/WorkingMan.gif";
+import {
+	Bordered_TriPartCallout,
+	TriPartCallout,
+} from "../../../components/callingcard/callout/CallOut";
 
 const quoteTextStyle: React.CSSProperties = {
 	fontStyle: "italic",
@@ -56,43 +59,35 @@ const footer = (
 		</div>
 	</div>
 );
+
 export const AiImpact: React.FC<{ index?: number }> = ({ index = -1 }) => {
 	return (
 		<CallingCard
 			components={[
-				<FlexiCallout
-					data={{
-						...StatBox(
-							"Business spent",
-							"$200",
-							"Billion on AI in 2024",
-							index
-						),
-						index: index,
-					}}
+				<Bordered_TriPartCallout
+					{...StatBox(
+						"Business spent",
+						"$200",
+						"Billion on AI in 2024",
+						index
+					)}
 				/>,
-				<FlexiCallout
-					data={{
-						...StatBox(
-							"Confidence increases for",
-							"96%",
-							"Of people who take our sessions in their use of generative AI",
-							index
-						),
-						index: index,
-					}}
+				<Bordered_TriPartCallout
+					{...StatBox(
+						"Confidence increases for",
+						"96%",
+						"Of people who take our sessions in their use of generative AI",
+						index
+					)}
 				/>,
 
-				<FlexiCallout
-					data={{
-						...StatBox(
-							"PwC Global CEO Survey 2024",
-							"70%",
-							"Of CEOs say AI will significantly change the way their company creates, delivers and captures value over the next 3 years",
-							index
-						),
-						index: index,
-					}}
+				<Bordered_TriPartCallout
+					{...StatBox(
+						"PwC Global CEO Survey 2024",
+						"70%",
+						"Of CEOs say AI will significantly change the way their company creates, delivers and captures value over the next 3 years",
+						index
+					)}
 				/>,
 			]}
 			title="How AI is Impacting Business"

@@ -15,6 +15,8 @@ import miranda from "../../assets/miranda.jpg";
 import omar from "../../assets/dude3.jpg";
 import ben from "../../assets/dude2.jpg";
 import will from "../../assets/dude1.jpg";
+import { CallOut } from "../../components/callingcard/callout/CallOut";
+import { DemoHexTimeline } from "../demopage/DemoPage";
 
 export const HomePage: React.FC = () => {
 	let MainIdx = 1;
@@ -22,6 +24,11 @@ export const HomePage: React.FC = () => {
 		<div style={BackgroundStyle}>
 			{/* <CallingCard components={[<DemoNewTL />]} index={-1} /> */}
 			<Hero />
+
+			<CallingCard
+				components={[<CallOut body={<DemoHexTimeline />} />]}
+				index={-1}
+			/>
 			<CallingCard
 				components={[
 					<Persona

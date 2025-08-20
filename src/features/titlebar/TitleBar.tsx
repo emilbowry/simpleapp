@@ -1,78 +1,132 @@
-// src/components/titlebar/TitleBar.tsx
+// src/features/titlebar/TitleBar.tsx
 
 import React from "react";
-import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import styles from "./TitleBar.module.css";
+import {
+	logoStyle,
+	inlineNavStyle,
+	activeLinkStyle,
+	linkStyle,
+	hamburgerStyle,
+	navOverlayStyle,
+	navOverlayOpen,
+	closeButtonStyle,
+	dropdownActiveLinkStyle,
+	dropdownLinkStyle,
+	headerStyle,
+} from "./TitleBar.styles";
 import { Menu } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { ITitleBarProps, ITitleBarState } from "./TitleBar.types";
 
-export const TitleBar: React.FC = () => {
-	const [open, setOpen] = React.useState(false);
+// ============= Helper =============
+function formatLabel(key: string, alias?: string): string {
+	if (alias) return alias;
+	return key
+		.replace(/_/g, " ")
+		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
+}
 
-	return (
-		<header className={styles.header}>
-			<NavLink
-				to="/"
-				className={styles.logoLink}
-				onClick={() => setOpen(false)}
-			>
-				<img src={logo} alt="Logo" className={styles.logo} />
-			</NavLink>
+function formatPath(key: string): string {
+	if (key === "home") return "/";
+	return "/" + key;
+}
 
-			<button
-				className={styles.hamburger}
-				onClick={() => setOpen((o) => !o)}
-				aria-label="Menu"
-			>
-				<Menu size={24} />
-			</button>
+// ============= Component =============
 
-			<nav className={`${styles.nav} ${open ? styles.open : ""}`}>
-				<button
-					className={styles.close}
-					onClick={() => setOpen(false)}
-					aria-label="Close menu"
+export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
+	constructor(props: ITitleBarProps) {
+		super(props);
+		this.state = { open: false };
+	}
+
+	toggleMenu = () => {
+		this.setState((prev) => ({ open: !prev.open }));
+	};
+
+	closeMenu = () => {
+		this.setState({ open: false });
+	};
+
+	private renderInlineLinks() {
+		return Object.entries(this.props.links)
+			.filter(([_, cfg]) => cfg.layout.inline)
+			.map(([key, cfg]) => (
+				<NavLink
+					key={key}
+					to={cfg.path || formatPath(key)}
+					style={({ isActive }) =>
+						isActive ? activeLinkStyle : linkStyle
+					}
 				>
-					×
-				</button>
+					{formatLabel(key, cfg.alias)}
+				</NavLink>
+			));
+	}
 
+	private renderDropdownLinks() {
+		return Object.entries(this.props.links)
+			.filter(([_, cfg]) => cfg.layout.dropdown)
+			.map(([key, cfg]) => (
+				<NavLink
+					key={key}
+					to={cfg.path || "/" + key}
+					style={({ isActive }) =>
+						isActive ? dropdownActiveLinkStyle : dropdownLinkStyle
+					}
+					onClick={this.closeMenu}
+				>
+					{formatLabel(key, cfg.alias)}
+				</NavLink>
+			));
+	}
+
+	render() {
+		const { logoSrc } = this.props;
+		const { open } = this.state;
+
+		return (
+			<header style={headerStyle}>
+				{/* Logo */}
 				<NavLink
 					to="/"
-					className={({ isActive }) =>
-						isActive ? styles.activeLink : styles.link
-					}
-					onClick={() => setOpen(false)}
+					onClick={this.closeMenu}
 				>
-					Home
+					<img
+						src={logoSrc}
+						alt="Logo"
+						style={logoStyle}
+					/>
 				</NavLink>
-				<NavLink
-					to="/thejourney"
-					className={({ isActive }) =>
-						isActive ? styles.activeLink : styles.link
-					}
-					onClick={() => setOpen(false)}
+
+				{/* Inline nav */}
+				<nav style={inlineNavStyle}>{this.renderInlineLinks()}</nav>
+
+				{/* Hamburger */}
+				<button
+					style={hamburgerStyle}
+					onClick={this.toggleMenu}
+					aria-label="Menu"
 				>
-					The Journey
-				</NavLink>
-				<NavLink
-					to="/contact"
-					className={({ isActive }) =>
-						isActive ? styles.activeLink : styles.link
-					}
-					onClick={() => setOpen(false)}
+					<Menu size={24} />
+				</button>
+
+				{/* Dropdown overlay */}
+				<nav
+					style={{
+						...navOverlayStyle,
+						...(open ? navOverlayOpen : {}),
+					}}
 				>
-					Contact
-				</NavLink>
-				<NavLink
-					to="/demo_page"
-					className={({ isActive }) =>
-						isActive ? styles.activeLink : styles.link
-					}
-					onClick={() => setOpen(false)}
-				>
-					Demo Page
-				</NavLink>
-			</nav>
-		</header>
-	);
-};
+					<button
+						style={closeButtonStyle}
+						onClick={this.closeMenu}
+						aria-label="Close menu"
+					>
+						×
+					</button>
+					{this.renderDropdownLinks()}
+				</nav>
+			</header>
+		);
+	}
+}

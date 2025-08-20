@@ -1,17 +1,17 @@
 // src/components/callingcard/CallingCard.tsx
 
 import React from "react";
-import { ValidComponent, formatComponent } from "../../utils/reactUtils";
-import { title_font_colour } from "../../utils/defaultColours";
+import { formatComponent } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
 
-export interface ICallingCardProps {
-	components: ValidComponent[];
-	title?: ValidComponent;
-	footer?: ValidComponent;
-	fullSpread?: boolean;
-	index?: number;
-}
+import {
+	cardStyle,
+	innerStyle,
+	titleHeadingStyle,
+	style_CallingCardStyle,
+	itemStyle,
+} from "./CallingCard.styles";
+import { ICallingCardProps } from "./CallingCard.types";
 
 export class CallingCard extends React.Component<ICallingCardProps> {
 	render() {
@@ -22,11 +22,6 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 			footer,
 			fullSpread = false,
 		} = this.props;
-		const _style_CallingCardStyle: React.CSSProperties = {
-			padding: !fullSpread ? "20px" : "", //Works DO NOT TOUCH
-			// paddingTop: "40px",
-			alignItems: "center",
-		};
 
 		let gridTemplate = "";
 		if (Array.isArray(components)) {
@@ -34,47 +29,34 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 		}
 
 		let theme = Theme(index);
+		let _cardStyle = cardStyle(theme.secondaryColor);
+		_cardStyle.gridTemplateColumns = gridTemplate;
+		let _innerstyle = innerStyle(fullSpread);
+		let _titleHeadingStyle = titleHeadingStyle(theme.primaryColor);
 
-		const cardStyle: React.CSSProperties = {
-			color: theme.secondaryColor,
-			display: "grid",
-			justifyContent: "space-evenly",
-			// gap: "10px",
-		};
-		cardStyle.gridTemplateColumns = gridTemplate;
-
-		const innerStyle: React.CSSProperties = {
-			fontSize: "2rem",
-
-			paddingTop: "10px",
-			borderRadius: !fullSpread ? "50px 10px" : "",
-		};
-		innerStyle.backgroundColor = theme.backgroundColor;
-
-		const itemStyle: React.CSSProperties = {
-			minWidth: 0,
-			margin: "20px",
-		};
-		const titleHeadingStyle: React.CSSProperties = {
-			fontSize: "4rem",
-			color: theme.primaryColor,
-		};
+		_innerstyle.backgroundColor = theme.backgroundColor;
 
 		return (
-			<div style={_style_CallingCardStyle}>
-				<div style={innerStyle}>
+			<div style={style_CallingCardStyle(fullSpread)}>
+				<div style={_innerstyle}>
 					{title ? (
 						<div>
 							<h2
-								style={{ ...titleHeadingStyle, margin: "10px" }}
+								style={{
+									..._titleHeadingStyle,
+									margin: "10px",
+								}}
 							>
 								{formatComponent(title)}
 							</h2>
 						</div>
 					) : null}
-					<div style={cardStyle}>
+					<div style={_cardStyle}>
 						{components.map((item, _index) => (
-							<div style={itemStyle} key={_index}>
+							<div
+								style={itemStyle}
+								key={_index}
+							>
 								{formatComponent(item)}
 							</div>
 						))}
