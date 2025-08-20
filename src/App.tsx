@@ -1,23 +1,31 @@
 // src/App.tsx
 import React, { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { TitleBar } from "./features/titlebar/TitleBar";
-import { DemoPage } from "./pages/demopage/DemoPage";
-import { Footer } from "./features/footer/Footer";
-// import { FounderPage } from "./pages/founderpage/FounderPage"; // <-- Import the new page
-import gstyles from "./GlobalStyles.module.css";
-import "./styles.css"; // add this near the top, once
-import { HomePage } from "./pages/homepage/HomePage";
-// import { ContactPage } from "./pages/contactpage/ContactPage";
-import { animationTagging } from "./utils/animationTagging";
-import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
-import { ContactPage } from "./pages/contactpage/ContactPage";
 
+import "./styles.css";
+import { Routes, Route, useLocation } from "react-router-dom";
+
+// Utils
+import { animationTagging } from "./utils/animationTagging";
+import { getImageEl } from "./utils/reactUtils";
 import logo from "./assets/logo.png";
-import { ITitleBarLinkConfig } from "./features/titlebar/TitleBar.types";
+
+import { TTitleBarLinkConfig } from "./features/titlebar/TitleBar.types";
+
+import { CallOut } from "./components/callingcard/callout/CallOut";
+import { CallingCard } from "./components/callingcard/CallingCard";
+
+//Components
+import { TitleBar } from "./features/titlebar/TitleBar";
+
+// Pages
+import { DemoPage } from "./pages/demopage/DemoPage";
+// import { FounderPage } from "./pages/founderpage/FounderPage";
+import { HomePage } from "./pages/homepage/HomePage";
+
+import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
 
 export const AppTitleBar: React.FC = () => {
-	const links: Record<string, ITitleBarLinkConfig> = {
+	const links: TTitleBarLinkConfig = {
 		home: {
 			layout: { inline: true, dropdown: true },
 			alias: "Home",
@@ -48,6 +56,24 @@ export const AppTitleBar: React.FC = () => {
 	);
 };
 
+export const Footer: React.FC = () => {
+	const componentsToRender = [
+		<CallOut body={getImageEl(logo)} />,
+		<CallOut
+			body={<h1>The way to be 'AI-first'...</h1>}
+			index={1}
+		/>,
+	];
+	const ccElement = (
+		<CallingCard
+			components={componentsToRender}
+			index={1}
+			fullSpread={true}
+		/>
+	);
+	return <section>{ccElement}</section>;
+};
+
 const App: React.FC = () => {
 	const location = useLocation();
 
@@ -56,10 +82,6 @@ const App: React.FC = () => {
 		<>
 			<AppTitleBar />
 
-			{/* <main
-				className={gstyles.animated}
-				key={location.pathname}
-			> */}
 			<main
 				className={"animated"}
 				key={location.pathname}

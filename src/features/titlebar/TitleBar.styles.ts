@@ -2,7 +2,6 @@
 
 import React from "react";
 
-// ==================== Styles ==================== //
 export const headerStyle: React.CSSProperties = {
 	position: "fixed",
 	top: 0,
@@ -47,28 +46,12 @@ export const activeLinkStyle: React.CSSProperties = {
 	borderBottom: "2px solid #333",
 };
 
-// ===== Dropdown (overlay menu) =====
-// export const navOverlayStyle: React.CSSProperties = {
-// 	position: "fixed",
-// 	top: 0,
-// 	left: 0,
-// 	width: "100%",
-// 	height: "100%",
-// 	background: "rgba(255,255,255,0.95)",
-// 	display: "flex",
-// 	flexDirection: "column",
-// 	alignItems: "center",
-// 	justifyContent: "center",
-// 	transform: "translateY(-100%)",
-// 	transition: "transform 0.3s ease-in-out",
-// 	zIndex: 100,
-// };
 export const navOverlayStyle: React.CSSProperties = {
 	position: "fixed",
-	top: "4rem", // 👈 push it below the TitleBar height
+	top: "4rem",
 	right: 0,
 	width: "300px",
-	height: "calc(100% - 4rem)", // 👈 adjust so it doesn’t overflow
+	height: "calc(100% - 4rem)",
 	background: "rgba(255,255,255,0.95)",
 	display: "flex",
 	flexDirection: "column",
@@ -77,24 +60,12 @@ export const navOverlayStyle: React.CSSProperties = {
 	paddingTop: "2rem",
 	transform: "translateX(100%)",
 	transition: "transform 0.3s ease-in-out",
-	zIndex: 90, // can still sit above page content
+	zIndex: 90,
 };
 
-// export const navOverlayOpen: React.CSSProperties = {
-// 	transform: "translateY(0)",
-// };
 export const navOverlayOpen: React.CSSProperties = {
 	transform: "translateX(0)",
 };
-// export const closeButtonStyle: React.CSSProperties = {
-// 	position: "absolute",
-// 	top: "1rem",
-// 	right: "1.5rem",
-// 	background: "none",
-// 	border: "none",
-// 	fontSize: "2rem",
-// 	cursor: "pointer",
-// };
 
 export const closeButtonStyle: React.CSSProperties = {
 	position: "absolute",

@@ -18,20 +18,17 @@ import { Menu } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { ITitleBarProps, ITitleBarState } from "./TitleBar.types";
 
-// ============= Helper =============
-function formatLabel(key: string, alias?: string): string {
+const formatLabel = (key: string, alias?: string): string => {
 	if (alias) return alias;
 	return key
 		.replace(/_/g, " ")
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
-}
+};
 
-function formatPath(key: string): string {
+const formatPath = (key: string): string => {
 	if (key === "home") return "/";
 	return "/" + key;
-}
-
-// ============= Component =============
+};
 
 export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 	constructor(props: ITitleBarProps) {
@@ -47,7 +44,7 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 		this.setState({ open: false });
 	};
 
-	private renderInlineLinks() {
+	private renderInlineLinks = () => {
 		return Object.entries(this.props.links)
 			.filter(([_, cfg]) => cfg.layout.inline)
 			.map(([key, cfg]) => (
@@ -61,15 +58,15 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 					{formatLabel(key, cfg.alias)}
 				</NavLink>
 			));
-	}
+	};
 
-	private renderDropdownLinks() {
+	private renderDropdownLinks = () => {
 		return Object.entries(this.props.links)
 			.filter(([_, cfg]) => cfg.layout.dropdown)
 			.map(([key, cfg]) => (
 				<NavLink
 					key={key}
-					to={cfg.path || "/" + key}
+					to={cfg.path || formatPath(key)}
 					style={({ isActive }) =>
 						isActive ? dropdownActiveLinkStyle : dropdownLinkStyle
 					}
@@ -78,7 +75,7 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 					{formatLabel(key, cfg.alias)}
 				</NavLink>
 			));
-	}
+	};
 
 	render() {
 		const { logoSrc } = this.props;
@@ -110,7 +107,6 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 					<Menu size={24} />
 				</button>
 
-				{/* Dropdown overlay */}
 				<nav
 					style={{
 						...navOverlayStyle,

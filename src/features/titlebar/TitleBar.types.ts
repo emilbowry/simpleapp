@@ -3,18 +3,20 @@
 import React from "react";
 
 // ============= Types =============
-export interface ITitleBarLinkConfig {
-	alias?: string; // Optional label override
-	path?: string; // Defaults to "/" + key
+
+export interface ITitleBarLink {
+	alias?: string;
+	path?: string;
 	layout: {
 		inline: boolean;
 		dropdown: boolean;
 	};
 }
 
+export type TTitleBarLinkConfig = Record<string, ITitleBarLink>;
 export interface ITitleBarProps {
 	logoSrc: string;
-	links: Record<string, ITitleBarLinkConfig>;
+	links: TTitleBarLinkConfig;
 }
 export interface ITitleBarState {
 	open: boolean;
