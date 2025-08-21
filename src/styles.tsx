@@ -3,14 +3,16 @@ import backgroundPattern from "./assets/tileablebackground.png";
 
 export const BackgroundStyle: React.CSSProperties = {
 	backgroundImage: `url(${backgroundPattern})`,
-	backgroundPosition: "0 0",
+	// backgroundPosition: "0 0",
 	backgroundRepeat: "repeat",
-	// backgroundPosition: "center",
-	// backgroundSize: "cover", // Some reason doesnt work with ContactPage
+	backgroundPosition: "center",
+	backgroundSize: "cover", // Some reason doesnt work with ContactPage
 	backgroundAttachment: "fixed",
 	width: "100vw",
+	height: "100vh",
+	position: "fixed",
 	zIndex: -1,
-
+	inset: 0,
 	backgroundColor: "#f0f0f0",
 	paddingBottom: "100px",
 };

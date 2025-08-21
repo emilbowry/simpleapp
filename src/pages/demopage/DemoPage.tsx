@@ -8,14 +8,14 @@ import { IEvent } from "../../components/timeline/spineComponent/Event";
 import {
 	// DynamicImage_BackgroundStyle,
 	// TiledImage_BackgroundStyle,
-	Background,
+	DemoTiledBackground,
 } from "../../components/background/Background";
 import { DemoHexTimeline } from "./demoParts";
 
 export const DemoPage: React.FC = () => {
 	return (
 		<div>
-			{/* <Background /> */}
+			{/* <DemoTiledBackground /> */}
 			<CallingCard
 				components={[<CallOut body={<DemoHexTimeline />} />]}
 				index={-1}

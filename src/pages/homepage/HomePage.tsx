@@ -15,35 +15,33 @@ import miranda from "../../assets/miranda.jpg";
 import omar from "../../assets/dude3.jpg";
 import ben from "../../assets/dude2.jpg";
 import will from "../../assets/dude1.jpg";
+
 import { CallOut } from "../../components/callingcard/callout/CallOut";
 import { DemoHexTimeline } from "../demopage/demoParts";
-import // DynamicImage_BackgroundStyle,
-// TiledImage_BackgroundStyle,
-"../../components/background/Background";
-import {
-	// useTiledBackgroundStyle,
+import { DemoTiledBackground } from "../../components/background/Background";
+import backgroundPattern from "../../assets/bavkground.png";
 
-	Background,
-} from "../../components/background/Background";
-
-// import { DemoTiledBackground } from "../../components/background/TiledBackgroundFromSVG";
-import { DemoTiledBackground as BG } from "../../components/background/bg copy";
-import {
-	// TestBackgroundString,
-	// TestBackgroundElement,
-	// style_2,
-	DemoTiledBackground,
-} from "../../components/background/bg";
-import {
-	DynamicImage_BackgroundStyle,
-	ComposedSvgStyle,
-} from "../../components/background/Background copy";
 export const HomePage: React.FC = () => {
 	// const bgStyle = useTiledBackgroundStyle();
 	let MainIdx = 1;
+	const _BackgroundStyle: React.CSSProperties = {
+		backgroundImage: `url(${backgroundPattern})`,
+		backgroundRepeat: "repeat",
+		backgroundPosition: "center",
+		backgroundSize: "cover",
+		backgroundAttachment: "fixed",
+		width: "100vw",
+		height: "100vh",
+		position: "fixed",
+		zIndex: -1,
+		inset: 0,
+		backgroundColor: "#f0f0f0",
+		paddingBottom: "100px",
+	};
 	return (
 		<div>
-			<BG />
+			{/* <div style={_BackgroundStyle} /> */}
+			<DemoTiledBackground />
 			{/* <div style={{ ...bgStyle, position: "absolute", inset: 0 }} /> */}
 			<Hero />
 			<CallingCard
