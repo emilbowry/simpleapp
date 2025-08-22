@@ -1,10 +1,8 @@
 // src/components/hexagons/Hexagons.styles.ts
 
 import React from "react";
+import { HexagonStyleParams } from "./Hexagons.types";
 
-//
-// ===== Layout Safe Zones =====
-//
 const horizontalSafeZoneCoords = {
 	minX: 50,
 	maxX: 150,
@@ -23,15 +21,6 @@ const vertSafeZoneCoords = {
 	height: 100,
 };
 
-//
-// ===== Helpers =====
-//
-interface HexagonStyleParams {
-	size?: number;
-	scale?: number;
-	opacity?: number;
-}
-
 export const getFinalDimensions = ({
 	size = 500,
 	scale = 1,
@@ -42,9 +31,6 @@ export const getFinalDimensions = ({
 	};
 };
 
-//
-// ===== Containers =====
-//
 export const containerStyle = ({
 	size = 500,
 	scale = 1,

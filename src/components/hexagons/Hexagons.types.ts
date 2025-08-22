@@ -9,3 +9,9 @@ export interface IComponentDefinitions {
 export interface IHexagonConstruction {
 	construct(args?: any): IComponentDefinitions;
 }
+
+export interface HexagonStyleParams {
+	size?: number;
+	scale?: number;
+	opacity?: number;
+}

@@ -1,8 +1,7 @@
-// src/components/background/background.tsx
+// src/components/background/Background.tsx
+
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-
-// ========== Base Background ==========
 
 export interface BackgroundProps {
 	svg?: string | React.ReactElement;
@@ -16,7 +15,8 @@ export class Background<
 	state = { style: this.props.styleOverrides || ({} as React.CSSProperties) };
 
 	componentDidMount() {
-		this.setState({ style: this.getComputedStyle() });
+		this.getComputedStyle();
+		// this.setState({ style: this.getComputedStyle() });
 	}
 
 	componentDidUpdate(prevProps: P) {
@@ -25,7 +25,13 @@ export class Background<
 			JSON.stringify(prevProps.styleOverrides) !==
 				JSON.stringify(this.props.styleOverrides)
 		) {
-			this.setState({ style: this.getComputedStyle() });
+			this.getComputedStyle();
+			// this.setState({
+			// 	style: {
+			// 		...this.state.style,
+			// 		...this.getComputedStyle(),
+			// 	},
+			// });
 		}
 	}
 
@@ -38,52 +44,75 @@ export class Background<
 		return ReactDOMServer.renderToStaticMarkup(svg);
 	}
 
+	// protected computeStyle(
+	// 	svg?: string | React.ReactElement,
+	// 	styleOverrides?: React.CSSProperties
+	// ): React.CSSProperties {
+	// 	let backgroundImage: string | undefined;
+
+	// 	if (svg) {
+	// 		if (typeof svg === "string") {
+	// 			backgroundImage = Background.fromSVGString(svg);
+	// 		} else {
+	// 			const svgString = Background.stringifySVG(svg);
+	// 			backgroundImage = Background.fromSVGString(svgString);
+	// 		}
+	// 	}
+
+	// 	return {
+	// 		..._BackgroundStyle,
+	// 		...styleOverrides, // Spreading again after ensures that properties are overrided
+	// 	};
+	// }
 	protected computeStyle(
 		svg?: string | React.ReactElement,
 		styleOverrides?: React.CSSProperties
 	): React.CSSProperties {
-		let backgroundImage: string | undefined;
+		const dynamicStyles: React.CSSProperties = {};
 
 		if (svg) {
+			let svgString: string;
 			if (typeof svg === "string") {
-				backgroundImage = Background.fromSVGString(svg);
+				svgString = svg;
 			} else {
-				const svgString = Background.stringifySVG(svg);
-				backgroundImage = Background.fromSVGString(svgString);
+				svgString = Background.stringifySVG(svg);
 			}
+			dynamicStyles.backgroundImage = Background.fromSVGString(svgString);
 		}
 
-		return {
-			// width: "100vw",
-			// minHeight: "100vh",
-			// zIndex: -1,
-			// backgroundColor: "#f0f0f0",
-			// paddingBottom: "100px",
-			// position: "absolute",
-			// inset: 0,
-			// backgroundImage,
-			..._BackgroundStyle,
+		const s = {
+			...dynamicStyles,
+			...this.state.style,
+
 			...styleOverrides,
 		};
-	}
 
-	/** 🔑 Subclasses override this to customize style generation */
+		// this.setState({
+		// 	style: s
+		// });
+		return s;
+	}
 	protected getComputedStyle(): React.CSSProperties {
 		const { svg, styleOverrides } = this.props;
-		return this.computeStyle(svg, styleOverrides);
+		return this.computeStyle(svg, {
+			// ...this.state.style,
+			...styleOverrides,
+		});
 	}
-
 	render() {
-		return (
-			<div
-				style={this.state.style}
-				className="no-aos"
-			/>
-		);
+		const computedStyle = this.getComputedStyle();
+		return <div style={computedStyle} />;
 	}
-}
+	// render() {
 
-// ========== TiledBackground ==========
+	// 	return (
+	// 		<div
+	// 			style={this.state.style}
+	// 			className="no-aos"
+	// 		/>
+	// 	);
+	// }
+}
 
 interface TiledBackgroundProps extends Omit<BackgroundProps, "svg"> {
 	image: string;
@@ -122,7 +151,6 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 	private async computeAndCacheStyle(): Promise<React.CSSProperties> {
 		const { image, reflections = [], styleOverrides } = this.props;
 
-		// Load image → base64
 		const res = await fetch(image);
 		const blob = await res.blob();
 		const base64 = await new Promise<string>((resolve, reject) => {
@@ -132,7 +160,6 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 			reader.readAsDataURL(blob);
 		});
 
-		// Get dimensions
 		const tempImg = new Image();
 		tempImg.src = base64;
 		await new Promise<void>((res, rej) => {
@@ -142,7 +169,6 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 		const width = tempImg.width;
 		const height = tempImg.height;
 
-		// Build repeatable tile SVG
 		const tileSvg = TiledBackground.buildTiledSvg(
 			base64,
 			width,
@@ -151,7 +177,6 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 		);
 		const svgStr = ReactDOMServer.renderToStaticMarkup(tileSvg);
 
-		// Rasterize that tile
 		const tilePng = await TiledBackground.rasterizeSvgToPng(
 			svgStr,
 			width *
@@ -164,10 +189,8 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 					: 1)
 		);
 
-		// Use super.computeStyle for baseline
 		return super.computeStyle(undefined, {
 			backgroundImage: `url(${tilePng})`,
-			// backgroundRepeat: "repeat",
 			...styleOverrides,
 		});
 	}
@@ -204,7 +227,6 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 		let svgWidth = width;
 		let svgHeight = height;
 
-		// base block
 		let tiles: React.ReactNode[] = [
 			<image
 				key="base"
@@ -216,7 +238,6 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 			/>,
 		];
 
-		// mirror horizontally
 		if (reflections.includes("right")) {
 			tiles = [
 				<g key="horiz">
@@ -229,7 +250,6 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 			svgWidth *= 2;
 		}
 
-		// mirror vertically
 		if (reflections.includes("below")) {
 			tiles = [
 				<g key="vert">
@@ -262,14 +282,15 @@ export const _BackgroundStyle: React.CSSProperties = {
 	// backgroundPosition: "0 0",
 	backgroundRepeat: "repeat",
 	backgroundPosition: "center",
-	backgroundSize: "", // Some reason doesnt work with ContactPage
+	backgroundSize: "",
 	backgroundAttachment: "fixed",
 	width: "100vw",
 	height: "100vh",
 	position: "fixed",
 	zIndex: -1,
 	inset: 0,
-	backgroundColor: "#f0f0f0",
+	// backgroundColor: "#f0f0f0",
+	// backgroundColor: "red",
 	paddingBottom: "100px",
 };
 
@@ -291,8 +312,8 @@ export const DemoTiledBackground: React.FC = () => {
 // export const DemoPage: React.FC = () => {
 // 	return (
 // 		<div>
-// 			<div style={BackgroundStyle} /> // Fixed on scroll
-// 			{/* <DemoTiledBackground /> */} // Moves on scroll (incorrect)
+// 			<div style={BackgroundStyle} />
+// 			{/* <DemoTiledBackground /> */}
 // 			<CallingCard
 // 				components={[<CallOut body={<DemoHexTimeline />} />]}
 // 				index={-1}
