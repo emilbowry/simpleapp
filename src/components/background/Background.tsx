@@ -11,12 +11,10 @@ export interface BackgroundProps {
 export class Background<
 	P extends BackgroundProps = BackgroundProps
 > extends React.Component<P> {
-	// state = { style: {} as React.CSSProperties };
 	state = { style: this.props.styleOverrides || ({} as React.CSSProperties) };
 
 	componentDidMount() {
 		this.computeStyle();
-		// this.setState({ style: this.getComputedStyle() });
 	}
 
 	componentDidUpdate(prevProps: P) {
@@ -26,12 +24,6 @@ export class Background<
 				JSON.stringify(this.props.styleOverrides)
 		) {
 			this.computeStyle();
-			// this.setState({
-			// 	style: {
-			// 		...this.state.style,
-			// 		...this.getComputedStyle(),
-			// 	},
-			// });
 		}
 	}
 
@@ -44,34 +36,11 @@ export class Background<
 		return ReactDOMServer.renderToStaticMarkup(svg);
 	}
 
-	// protected computeStyle(
-	// 	svg?: string | React.ReactElement,
-	// 	styleOverrides?: React.CSSProperties
-	// ): React.CSSProperties {
-	// 	let backgroundImage: string | undefined;
-
-	// 	if (svg) {
-	// 		if (typeof svg === "string") {
-	// 			backgroundImage = Background.fromSVGString(svg);
-	// 		} else {
-	// 			const svgString = Background.stringifySVG(svg);
-	// 			backgroundImage = Background.fromSVGString(svgString);
-	// 		}
-	// 	}
-
-	// 	return {
-	// 		..._BackgroundStyle,
-	// 		...styleOverrides, // Spreading again after ensures that properties are overrided
-	// 	};
-	// }
 	protected computeStyle(
 		svg?: string | React.ReactElement,
 		styleOverrides?: React.CSSProperties
 	): React.CSSProperties {
-		// const dynamicStyles: React.CSSProperties = {};
-
 		const s = {
-			// ...dynamicStyles,
 			...this.state.style,
 
 			...styleOverrides,
@@ -82,13 +51,7 @@ export class Background<
 		});
 		return s;
 	}
-	// protected getComputedStyle(): React.CSSProperties {
-	// 	const { svg, styleOverrides } = this.props;
-	// 	return this.computeStyle(svg, {
-	// 		...this.state.style,
-	// 		...styleOverrides,
-	// 	});
-	// }
+
 	constructor(props: any) {
 		super(props);
 		const { svg, styleOverrides } = this.props;
@@ -106,22 +69,13 @@ export class Background<
 
 		let _styles: React.CSSProperties = {
 			...dynamicStyles,
-			// ...this.state.style,
 			...styleOverrides,
 		};
 		this.computeStyle(undefined, _styles);
 	}
-	// render() {
-	// 	const computedStyle = this.computeStyle();
-	// 	return <div style={computedStyle} />;
-	// }
+
 	render() {
-		return (
-			<div
-				style={this.state.style}
-				// className="no-aos"
-			/>
-		);
+		return <div style={this.state.style} />;
 	}
 }
 
@@ -133,12 +87,7 @@ interface TiledBackgroundProps extends Omit<BackgroundProps, "svg"> {
 export class TiledBackground extends Background<TiledBackgroundProps> {
 	private static cache = new Map<string, React.CSSProperties>();
 	render() {
-		return (
-			<div
-				style={this.state.style}
-				// className="no-aos"
-			/>
-		);
+		return <div style={this.state.style} />;
 	}
 	async componentDidMount() {
 		await this.ensureStyle();
@@ -167,8 +116,7 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 			const style = await this.computeAndCacheStyle();
 			TiledBackground.cache.set(this.cacheKey, style);
 		}
-		const style = await this.computeAndCacheStyle(this.cacheKey);
-		// this.setState({ style: TiledBackground.cache.get(cacheKey)! });
+		await this.computeAndCacheStyle(this.cacheKey);
 	}
 
 	private async computeAndCacheStyle(
@@ -224,25 +172,12 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 				_style = TiledBackground.cache.get(cacheKey)!;
 				super.computeStyle(undefined, _style);
 
-				// this.setState({
-				// 	style: super.computeStyle(undefined, _style),
-				// });
 				this.isSet = true;
 			} else {
-				// _style = TiledBackground.cache.get(cacheKey)!;
 				_style = this.state.style;
 			}
 		}
 		return _style;
-		// return super.computeStyle(undefined, _style);
-
-		// let s = {
-		// 	backgroundImage: `url(${tilePng})`,
-		// 	...this.state.style,
-		// 	...styleOverrides,
-		// };
-
-		// return s;
 	}
 
 	private static async rasterizeSvgToPng(

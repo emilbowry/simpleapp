@@ -13,6 +13,7 @@ import {
 	dropdownActiveLinkStyle,
 	dropdownLinkStyle,
 	headerStyle,
+	menuStyle,
 } from "./TitleBar.styles";
 import { Menu } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -104,7 +105,10 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 					onClick={this.toggleMenu}
 					aria-label="Menu"
 				>
-					<Menu size={24} />
+					<Menu
+						size={24}
+						style={menuStyle}
+					/>
 				</button>
 
 				<nav

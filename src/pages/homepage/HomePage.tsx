@@ -1,7 +1,6 @@
 // src/App.tsx
 import React, { useEffect, useState } from "react";
 import { Hero } from "./parts/Hero";
-import { BackgroundStyle } from "../../styles";
 import { CallingCard } from "../../components/callingcard/CallingCard";
 import { AiImpact } from "./parts/AIImpactCallingCard";
 import { WWD } from "./parts/WWD";
@@ -20,7 +19,6 @@ import { CallOut } from "../../components/callingcard/callout/CallOut";
 import { DemoHexTimeline } from "../demopage/demoParts";
 
 const homePage: React.FC = () => {
-	// const bgStyle = useTiledBackgroundStyle();
 	let MainIdx = 1;
 
 	return (

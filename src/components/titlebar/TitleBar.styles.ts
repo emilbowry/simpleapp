@@ -52,7 +52,9 @@ export const navOverlayStyle: React.CSSProperties = {
 	right: 0,
 	width: "300px",
 	height: "calc(100% - 4rem)",
-	background: "rgba(255,255,255,0.95)",
+	// background: "rgba(255,255,255,0.95)",
+	background: "white",
+
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
@@ -65,13 +67,21 @@ export const navOverlayStyle: React.CSSProperties = {
 
 export const navOverlayOpen: React.CSSProperties = {
 	transform: "translateX(0)",
+	background: "white",
+};
+
+export const menuStyle: React.CSSProperties = {
+	// transform: "translateX(0)",
+	background: "white",
 };
 
 export const closeButtonStyle: React.CSSProperties = {
 	position: "absolute",
 	top: "1rem",
 	right: "1.5rem",
-	background: "none",
+	// background: "none",
+	background: "white",
+
 	border: "none",
 	fontSize: "2rem",
 	cursor: "pointer",
@@ -82,6 +92,7 @@ export const dropdownLinkStyle: React.CSSProperties = {
 	fontSize: "1.25rem",
 	textDecoration: "none",
 	color: "#333",
+	// background: "white",
 };
 
 export const dropdownActiveLinkStyle: React.CSSProperties = {

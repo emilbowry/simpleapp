@@ -22,7 +22,6 @@ const App: React.FC = () => {
 	return (
 		<>
 			<Routes>
-				{/* <Route element={<AppRoot />}> */}
 				<Route
 					path="/"
 					element={HomePage}
