@@ -45,7 +45,7 @@ const ContactUS: React.FC = () => {
 
 import { demoSmallPB as DPB } from "../homepage/parts/smallPartnershipBar";
 
-export const ContactPage: React.FC = () => {
+const contactPage: React.FC = () => {
 	const componentsToRenderc = [<CallOut body={<DPB index={-1} />} />];
 
 	const ccElement = (
@@ -84,3 +84,12 @@ export const ContactPage: React.FC = () => {
 		</div>
 	);
 };
+
+import { Page } from "../page";
+
+export const ContactPage = (
+	<Page
+		page={contactPage}
+		bg={true}
+	/>
+);

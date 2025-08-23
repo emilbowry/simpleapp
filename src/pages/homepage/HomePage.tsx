@@ -18,31 +18,13 @@ import will from "../../assets/dude1.jpg";
 
 import { CallOut } from "../../components/callingcard/callout/CallOut";
 import { DemoHexTimeline } from "../demopage/demoParts";
-import { DemoTiledBackground } from "../../components/background/Background";
-import backgroundPattern from "../../assets/bavkground.png";
 
-export const HomePage: React.FC = () => {
+const homePage: React.FC = () => {
 	// const bgStyle = useTiledBackgroundStyle();
 	let MainIdx = 1;
-	const _BackgroundStyle: React.CSSProperties = {
-		backgroundImage: `url(${backgroundPattern})`,
-		backgroundRepeat: "repeat",
-		backgroundPosition: "center",
-		backgroundSize: "cover",
-		backgroundAttachment: "fixed",
-		width: "100vw",
-		height: "100vh",
-		position: "fixed",
-		zIndex: -1,
-		inset: 0,
-		backgroundColor: "#f0f0f0",
-		paddingBottom: "100px",
-	};
+
 	return (
-		<div>
-			{/* <div style={_BackgroundStyle} /> */}
-			<DemoTiledBackground />
-			{/* <div style={{ ...bgStyle, position: "absolute", inset: 0 }} /> */}
+		<section>
 			<Hero />
 			<CallingCard
 				components={[<CallOut body={<DemoHexTimeline />} />]}
@@ -155,6 +137,15 @@ automation (RPA).  "
 				footer={FFoouter}
 				index={0}
 			/>
-		</div>
+		</section>
 	);
 };
+
+import { Page } from "../page";
+
+export const HomePage = (
+	<Page
+		page={homePage}
+		bg={true}
+	/>
+);

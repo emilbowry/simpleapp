@@ -15,7 +15,7 @@ export class Background<
 	state = { style: this.props.styleOverrides || ({} as React.CSSProperties) };
 
 	componentDidMount() {
-		this.getComputedStyle();
+		this.computeStyle();
 		// this.setState({ style: this.getComputedStyle() });
 	}
 
@@ -25,7 +25,7 @@ export class Background<
 			JSON.stringify(prevProps.styleOverrides) !==
 				JSON.stringify(this.props.styleOverrides)
 		) {
-			this.getComputedStyle();
+			this.computeStyle();
 			// this.setState({
 			// 	style: {
 			// 		...this.state.style,
@@ -68,6 +68,30 @@ export class Background<
 		svg?: string | React.ReactElement,
 		styleOverrides?: React.CSSProperties
 	): React.CSSProperties {
+		// const dynamicStyles: React.CSSProperties = {};
+
+		const s = {
+			// ...dynamicStyles,
+			...this.state.style,
+
+			...styleOverrides,
+		};
+
+		this.setState({
+			style: s,
+		});
+		return s;
+	}
+	// protected getComputedStyle(): React.CSSProperties {
+	// 	const { svg, styleOverrides } = this.props;
+	// 	return this.computeStyle(svg, {
+	// 		...this.state.style,
+	// 		...styleOverrides,
+	// 	});
+	// }
+	constructor(props: any) {
+		super(props);
+		const { svg, styleOverrides } = this.props;
 		const dynamicStyles: React.CSSProperties = {};
 
 		if (svg) {
@@ -80,38 +104,25 @@ export class Background<
 			dynamicStyles.backgroundImage = Background.fromSVGString(svgString);
 		}
 
-		const s = {
+		let _styles: React.CSSProperties = {
 			...dynamicStyles,
-			...this.state.style,
-
-			...styleOverrides,
-		};
-
-		// this.setState({
-		// 	style: s
-		// });
-		return s;
-	}
-	protected getComputedStyle(): React.CSSProperties {
-		const { svg, styleOverrides } = this.props;
-		return this.computeStyle(svg, {
 			// ...this.state.style,
 			...styleOverrides,
-		});
-	}
-	render() {
-		const computedStyle = this.getComputedStyle();
-		return <div style={computedStyle} />;
+		};
+		this.computeStyle(undefined, _styles);
 	}
 	// render() {
-
-	// 	return (
-	// 		<div
-	// 			style={this.state.style}
-	// 			className="no-aos"
-	// 		/>
-	// 	);
+	// 	const computedStyle = this.computeStyle();
+	// 	return <div style={computedStyle} />;
 	// }
+	render() {
+		return (
+			<div
+				style={this.state.style}
+				// className="no-aos"
+			/>
+		);
+	}
 }
 
 interface TiledBackgroundProps extends Omit<BackgroundProps, "svg"> {
@@ -121,7 +132,14 @@ interface TiledBackgroundProps extends Omit<BackgroundProps, "svg"> {
 
 export class TiledBackground extends Background<TiledBackgroundProps> {
 	private static cache = new Map<string, React.CSSProperties>();
-
+	render() {
+		return (
+			<div
+				style={this.state.style}
+				// className="no-aos"
+			/>
+		);
+	}
 	async componentDidMount() {
 		await this.ensureStyle();
 	}
@@ -135,64 +153,96 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 			await this.ensureStyle();
 		}
 	}
+	private cacheKey: string;
+	private isSet: boolean = false;
 
-	private async ensureStyle() {
+	constructor(props: any) {
+		super(props);
 		const { image, reflections = [] } = this.props;
 		const cacheKey = `${image}|${reflections.sort().join(",")}`;
-
-		if (!TiledBackground.cache.has(cacheKey)) {
+		this.cacheKey = cacheKey;
+	}
+	private async ensureStyle() {
+		if (!TiledBackground.cache.has(this.cacheKey)) {
 			const style = await this.computeAndCacheStyle();
-			TiledBackground.cache.set(cacheKey, style);
+			TiledBackground.cache.set(this.cacheKey, style);
 		}
-
-		this.setState({ style: TiledBackground.cache.get(cacheKey)! });
+		const style = await this.computeAndCacheStyle(this.cacheKey);
+		// this.setState({ style: TiledBackground.cache.get(cacheKey)! });
 	}
 
-	private async computeAndCacheStyle(): Promise<React.CSSProperties> {
-		const { image, reflections = [], styleOverrides } = this.props;
+	private async computeAndCacheStyle(
+		cacheKey?: string
+	): Promise<React.CSSProperties> {
+		let _style: React.CSSProperties;
+		if (!cacheKey) {
+			const { image, reflections = [], styleOverrides } = this.props;
 
-		const res = await fetch(image);
-		const blob = await res.blob();
-		const base64 = await new Promise<string>((resolve, reject) => {
-			const reader = new FileReader();
-			reader.onloadend = () => resolve(reader.result as string);
-			reader.onerror = reject;
-			reader.readAsDataURL(blob);
-		});
+			const res = await fetch(image);
+			const blob = await res.blob();
+			const base64 = await new Promise<string>((resolve, reject) => {
+				const reader = new FileReader();
+				reader.onloadend = () => resolve(reader.result as string);
+				reader.onerror = reject;
+				reader.readAsDataURL(blob);
+			});
 
-		const tempImg = new Image();
-		tempImg.src = base64;
-		await new Promise<void>((res, rej) => {
-			tempImg.onload = () => res();
-			tempImg.onerror = rej;
-		});
-		const width = tempImg.width;
-		const height = tempImg.height;
+			const tempImg = new Image();
+			tempImg.src = base64;
+			await new Promise<void>((res, rej) => {
+				tempImg.onload = () => res();
+				tempImg.onerror = rej;
+			});
+			const width = tempImg.width;
+			const height = tempImg.height;
 
-		const tileSvg = TiledBackground.buildTiledSvg(
-			base64,
-			width,
-			height,
-			reflections
-		);
-		const svgStr = ReactDOMServer.renderToStaticMarkup(tileSvg);
+			const tileSvg = TiledBackground.buildTiledSvg(
+				base64,
+				width,
+				height,
+				reflections
+			);
+			const svgStr = ReactDOMServer.renderToStaticMarkup(tileSvg);
 
-		const tilePng = await TiledBackground.rasterizeSvgToPng(
-			svgStr,
-			width *
-				(reflections.includes("left") || reflections.includes("right")
-					? 2
-					: 1),
-			height *
-				(reflections.includes("above") || reflections.includes("below")
-					? 2
-					: 1)
-		);
+			const tilePng = await TiledBackground.rasterizeSvgToPng(
+				svgStr,
+				width *
+					(reflections.includes("left") ||
+					reflections.includes("right")
+						? 2
+						: 1),
+				height *
+					(reflections.includes("above") ||
+					reflections.includes("below")
+						? 2
+						: 1)
+			);
+			_style = { backgroundImage: `url(${tilePng})` };
+			super.computeStyle(undefined, _style);
+		} else {
+			if (!this.isSet) {
+				_style = TiledBackground.cache.get(cacheKey)!;
+				super.computeStyle(undefined, _style);
 
-		return super.computeStyle(undefined, {
-			backgroundImage: `url(${tilePng})`,
-			...styleOverrides,
-		});
+				// this.setState({
+				// 	style: super.computeStyle(undefined, _style),
+				// });
+				this.isSet = true;
+			} else {
+				// _style = TiledBackground.cache.get(cacheKey)!;
+				_style = this.state.style;
+			}
+		}
+		return _style;
+		// return super.computeStyle(undefined, _style);
+
+		// let s = {
+		// 	backgroundImage: `url(${tilePng})`,
+		// 	...this.state.style,
+		// 	...styleOverrides,
+		// };
+
+		// return s;
 	}
 
 	private static async rasterizeSvgToPng(
@@ -280,17 +330,25 @@ import backgroundPattern from "../../assets/bavkground.png";
 
 export const _BackgroundStyle: React.CSSProperties = {
 	// backgroundPosition: "0 0",
-	backgroundRepeat: "repeat",
-	backgroundPosition: "center",
-	backgroundSize: "",
+	backgroundRepeat: "repeat-x",
+	// backgroundPosition: "center",
+	// backgroundSize: "",
+	backgroundSize: "cover",
+	// backgroundClip: "border-box",
 	backgroundAttachment: "fixed",
+	backgroundOrigin: "border-box",
+
 	width: "100vw",
 	height: "100vh",
 	position: "fixed",
 	zIndex: -1,
 	inset: 0,
+	// paddingBottom: "10px",
+	marginBottom: "-100px",
+
+	// overflow: "visible",
 	// backgroundColor: "#f0f0f0",
-	// backgroundColor: "red",
+	// isolation: "isolate",
 	paddingBottom: "100px",
 };
 
