@@ -83,7 +83,6 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 
 		return (
 			<header style={headerStyle}>
-				{/* Logo */}
 				<NavLink
 					to="/"
 					onClick={this.closeMenu}
@@ -95,10 +94,8 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 					/>
 				</NavLink>
 
-				{/* Inline nav */}
 				<nav style={inlineNavStyle}>{this.renderInlineLinks()}</nav>
 
-				{/* Hamburger */}
 				<button
 					style={hamburgerStyle}
 					onClick={this.toggleMenu}

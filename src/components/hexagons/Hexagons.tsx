@@ -136,7 +136,9 @@ export class ImageHexagon extends Hexagon {
 // ===== LogoHexagon =====
 //
 export class LogoHexagon extends Hexagon {
-	public construct(withGap = false) {
+	public construct(args: { withGap: boolean }) {
+		const _args = args || { withGap: false };
+		const withGap = _args.withGap || false;
 		const chevCutour =
 			"M 25 86.6025 l 50 -86.6025 l -50 -86.6025 h 25 l 50 86.6025 l -50 86.6025 Z";
 		const chevColour =
@@ -179,7 +181,7 @@ export class LogoHexagon extends Hexagon {
 			],
 		};
 
-		if (withGap) {
+		if (withGap == true) {
 			components.defs.push(
 				<mask id="logoCutout">
 					<path

@@ -1,7 +1,6 @@
 // src/App.tsx
 import React, { useEffect, useState } from "react";
 import { Hero } from "./parts/Hero";
-import { BackgroundStyle } from "../../styles";
 import { CallingCard } from "../../components/callingcard/CallingCard";
 import { AiImpact } from "./parts/AIImpactCallingCard";
 import { WWD } from "./parts/WWD";
@@ -20,20 +19,19 @@ import { CallOut } from "../../components/callingcard/callout/CallOut";
 import { DemoHexTimeline } from "../demopage/demoParts";
 
 const homePage: React.FC = () => {
-	// const bgStyle = useTiledBackgroundStyle();
 	let MainIdx = 1;
 
 	return (
 		<section>
 			<Hero />
-			<CallingCard
+			{/* <CallingCard
 				components={[<CallOut body={<DemoHexTimeline />} />]}
 				index={-1}
-			/>
+			/> */}
 			<CallingCard
 				components={[
 					<Persona
-						index={0}
+						index={1}
 						image={joefennelhs}
 						name="Joe Fennel"
 						title="Founder"
@@ -51,7 +49,7 @@ Vodafone, Accenture Song and more."
 			<CallingCard
 				components={[
 					<Persona
-						index={0}
+						index={1}
 						image={miranda}
 						name="Miranda Read"
 						title=" COO & Business Development Lead"
@@ -69,7 +67,7 @@ marketing strategy, operations and growth vision."
 			<CallingCard
 				components={[
 					<Persona
-						index={1}
+						index={0}
 						image={omar}
 						name="Omer Bilgin"
 						body="Omer is an AI ethics, policy, and governance researcher.

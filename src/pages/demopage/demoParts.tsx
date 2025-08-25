@@ -2,7 +2,7 @@
 
 import React from "react";
 import { IEvent } from "../../components/timeline/spineComponent/Event";
-import { VerticalHexagonGrid } from "../../components/timeline/hexTimeline";
+import { VerticalHexagonGrid } from "../../components/timeline/hextimeline/hexTimeline";
 
 export const DemoEvents: IEvent[] = [
 	{ date: "Early 2024", description: "AIC introduces FAST START..." },

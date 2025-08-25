@@ -2,8 +2,6 @@
 
 import React from "react";
 
-// ============= Types =============
-
 export interface ITitleBarLink {
 	alias?: string;
 	path?: string;

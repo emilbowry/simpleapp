@@ -19,7 +19,34 @@ import hi1 from "../../../assets/heroimage1.jpg";
 import hi2 from "../../../assets/heroimage2.jpg";
 import hi3 from "../../../assets/heroimage3.jpg";
 import hi4 from "../../../assets/heroimage4.jpg";
+const textEl = (
+	<div
+		style={{
+			color: " #066070",
+		}}
+	>
+		<div
+			style={{
+				fontStyle: "italic",
+			}}
+		>
+			<div>
+				“Not everyone needs to be an AI expert.
+				<br />
+				<br />
+				But everyone needs to be AI compatible.”
+			</div>
+		</div>
 
+		<div
+			style={{
+				fontWeight: "bold",
+			}}
+		>
+			- Joe Fennel
+		</div>
+	</div>
+);
 export const Hero: React.FC = () => {
 	const firstRow = [
 		null,
@@ -29,48 +56,17 @@ export const Hero: React.FC = () => {
 
 	const secondRow = [
 		null,
-		LogoHexagon,
+		// <LogoHexagon />,
+		<LogoHexagon args={{ withGap: false }} />,
+
 		<ImageHexagon args={{ img: hi1 }} />,
 	] as const;
 
-	const textEl = (
-		<div
-			style={{
-				color: " #066070",
-			}}
-		>
-			<div
-				style={{
-					fontStyle: "italic",
-				}}
-			>
-				<div>
-					“Not everyone needs to be an AI expert.
-					<br />
-					<br />
-					But everyone needs to be AI compatible.”
-				</div>
-			</div>
-
-			<div
-				style={{
-					fontWeight: "bold",
-				}}
-			>
-				- Joe Fennel
-			</div>
-		</div>
-	);
 	const overlay: ComponentOrStringList = [
 		<Hexagon args={{ colour: light_mix_green }} />,
 		textEl,
 	];
-	// const thirdRow = [
-	// 	<ImageHexagon args={{ img: hi2 }} />,
-	// 	overlay,
 
-	// 	<Hexagon args={{ colour: l_midnight_green }} />,
-	// ] as const;
 	const thirdRow = [
 		<ImageHexagon args={{ img: hi2 }} />,
 		<Hexagon

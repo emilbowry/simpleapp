@@ -1,7 +1,7 @@
 // src/components/timeline/newTimeline.tsx
 
 import React from "react";
-import { _EventContent, IEvent } from "./spineComponent/Event";
+import { _EventContent, IEvent } from "../spineComponent/Event";
 
 import {
 	hexWrapAndContentContainer,
@@ -10,8 +10,8 @@ import {
 	contentStyle,
 } from "./newTimeline.styles";
 
-import { formatComponent, ValidComponent } from "../../utils/reactUtils";
-import { CutHexagon, Hexagon } from "../hexagons/Hexagons";
+import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
+import { CutHexagon, Hexagon } from "../../hexagons/Hexagons";
 
 import {
 	ITimelineRow,
@@ -26,7 +26,7 @@ import {
 	purple,
 	grey,
 	l_midnight_green,
-} from "../../utils/defaultColours";
+} from "../../../utils/defaultColours";
 
 export class NewTimelineRow extends React.Component<ITimelineRow> {
 	render() {

@@ -10,7 +10,7 @@ import {
 	ISpineContent,
 } from "./SpineComponent";
 import { TriPartCallout } from "../../callingcard/callout/CallOut";
-import { ITimelineData } from "../newTimeline.types";
+import { ITimelineData } from "../newtimeline/newTimeline.types";
 
 export interface IEvent {
 	date: string;

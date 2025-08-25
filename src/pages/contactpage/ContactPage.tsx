@@ -70,7 +70,6 @@ const contactPage: React.FC = () => {
 	];
 	return (
 		<div style={BackgroundStyle}>
-			<div></div>
 			<CallingCard
 				components={componentsToRenderc}
 				// fullSpread={true}
