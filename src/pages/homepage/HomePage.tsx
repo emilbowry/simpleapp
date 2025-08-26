@@ -117,23 +117,23 @@ automation (RPA).  "
 				index={-1}
 			/>
 			<CallingCard
-				title={<DPB index={MainIdx} />}
+				title={<DPB index={0} />}
 				components={[
 					<CallingCard
-						title={<AiImpact index={MainIdx} />}
-						components={[<WWD index={MainIdx} />]}
-						footer={<AboutUs index={MainIdx} />}
-						index={MainIdx}
+						title={<AiImpact index={0} />}
+						components={[<WWD index={0} />]}
+						footer={<AboutUs index={0} />}
+						index={0}
 					/>,
 				]}
-				index={MainIdx}
+				index={0}
 			/>
 
 			<CallingCard
 				title="A letter from our Founder"
 				components={[FounderLetter]}
 				footer={FFoouter}
-				index={0}
+				index={-1}
 			/>
 		</section>
 	);

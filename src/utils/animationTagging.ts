@@ -102,7 +102,7 @@ export const animationTagging = () => {
 				el.dataset.orderIndex = String(orderIndex);
 				const displayDepth = baseDepth + siblingIndex + orderIndex;
 				// console.log(displayDepth);
-
+				// el.style.backgroundColor = `hsl(${displayDepth}, 90%, 70%)`;
 				el.dataset.depth = String(displayDepth);
 				el.style.setProperty("--aos-base-depth", String(baseDepth));
 				el.style.setProperty(

@@ -119,7 +119,7 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 			const style = await this.computeAndCacheStyle();
 			TiledBackground.cache.set(this.cacheKey, style);
 		}
-		const style = await this.computeAndCacheStyle(this.cacheKey);
+		await this.computeAndCacheStyle(this.cacheKey);
 	}
 
 	private async computeAndCacheStyle(
@@ -289,14 +289,15 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 import backgroundPattern from "../../assets/bavkground.png";
 
 export const _BackgroundStyle: React.CSSProperties = {
-	backgroundRepeat: "repeat-x",
+	backgroundRepeat: "repeat",
 	// backgroundSize: "auto 100%",
 	// backgroundPosition: "0 0",
 
 	// backgroundPosition: "center",
 	backgroundSize: "cover",
 	backgroundAttachment: "fixed",
-	backgroundOrigin: "border-box",
+	// backgroundOrigin: "border-box",
+	// position:"absolute",
 
 	width: "100vw",
 	height: "100vh",

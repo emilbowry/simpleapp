@@ -51,20 +51,24 @@ export const navOverlayStyle: React.CSSProperties = {
 	top: "4rem",
 	right: 0,
 	width: "300px",
-	height: "calc(100% - 4rem)",
+	// Change height to cover the full viewport height below the header
+	// height: "calc(100vh - 4rem)", // Use 100vh to ensure it covers the entire viewport height
+	// height: "calc(100% - 4rem)",
 	background: "rgba(255,255,255,0.95)",
+	// background: "white",
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "flex-start",
 	paddingTop: "2rem",
-	transform: "translateX(100%)",
-	transition: "transform 0.3s ease-in-out",
+	paddingBottom: "2rem",
+	transform: "translateX(100%+4rem)",
+	// transition: "transform 0.3s ease-in-out",
 	zIndex: 90,
 };
 
 export const navOverlayOpen: React.CSSProperties = {
-	transform: "translateX(0)",
+	// transform: "translateX(0)",
 };
 
 export const closeButtonStyle: React.CSSProperties = {

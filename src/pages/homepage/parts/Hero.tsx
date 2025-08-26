@@ -96,14 +96,14 @@ export const Hero: React.FC = () => {
 						marginBottom: "-300px",
 						transform: "scale(1.5)",
 						paddingTop: "650px",
-						paddingBottom: "500px",
+						paddingBottom: "1000px",
 					}}
 				>
 					<HexagonRow elements={firstRow} />
 					<HexagonRow elements={secondRow} />
 					<HexagonRow elements={thirdRow} />
-					<HexagonRow elements={fourthRow} />
-					<HexagonRow elements={fifthRow} />
+					{/* <HexagonRow elements={fourthRow} /> */}
+					{/* <HexagonRow elements={fifthRow} /> */}
 				</div>
 			</div>
 		</div>

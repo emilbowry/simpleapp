@@ -82,7 +82,10 @@ export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
 		const { open } = this.state;
 
 		return (
-			<header style={headerStyle}>
+			<header
+				style={headerStyle}
+				// className="no-aos"
+			>
 				<NavLink
 					to="/"
 					onClick={this.closeMenu}
