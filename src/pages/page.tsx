@@ -10,31 +10,31 @@ import { CallingCard } from "../components/callingcard/CallingCard";
 import { CallOut } from "../components/callingcard/callout/CallOut";
 import { getImageEl } from "../utils/reactUtils";
 
-const AppTitleBar: React.FC = () => {
-	const links: TTitleBarLinkConfig = {
-		home: {
-			layout: { inline: true, dropdown: true },
-		},
-		thejourney: {
-			layout: { inline: false, dropdown: true },
-			alias: "The Journey",
-		},
-		contact: {
-			layout: { inline: false, dropdown: true },
-		},
-		demo_page: {
-			layout: { inline: true, dropdown: true },
-		},
-	};
+// const AppTitleBar: React.FC = () => {
+// 	const links: TTitleBarLinkConfig = {
+// 		home: {
+// 			layout: { inline: true, dropdown: true },
+// 		},
+// 		thejourney: {
+// 			layout: { inline: false, dropdown: true },
+// 			alias: "The Journey",
+// 		},
+// 		contact: {
+// 			layout: { inline: false, dropdown: true },
+// 		},
+// 		demo_page: {
+// 			layout: { inline: true, dropdown: true },
+// 		},
+// 	};
 
-	return (
-		<TitleBar
-			logoSrc={logo}
-			links={links}
-		/>
-	);
-};
-
+// 	return (
+// 		<TitleBar
+// 			logoSrc={logo}
+// 			links={links}
+// 		/>
+// 	);
+// };
+import { TestExpandableTitleBar as AppTitleBar } from "../components/titlebar/testTitleBar";
 const Footer: React.FC = () => {
 	const componentsToRender = [
 		<CallOut body={getImageEl(logo)} />,
