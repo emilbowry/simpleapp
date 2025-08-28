@@ -373,7 +373,7 @@ export class PillTitleBar extends ExpandableTitleBar<
 			}
 		}
 	};
-
+	// style="--animation-duration: 41.26s; animation: marquee-scroll-x var(--animation-duration) linear infinite;"
 	titleBarStyles(): React.CSSProperties {
 		const baseStyles = super.titleBarStyles();
 		const { isScrolled } = this.state;

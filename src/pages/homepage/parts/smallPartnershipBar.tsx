@@ -24,8 +24,14 @@ const demoSmallPartnershipBarData = new Partners({
 });
 
 export const demoSmallPB: React.FC<{ index?: number }> = ({ index = 0 }) => (
-	<PartnershipBar
-		{...demoSmallPartnershipBarData}
-		index={index}
-	/>
+	<div
+		style={{
+			animation: "2s linear 1s infinite running slide-in",
+		}}
+	>
+		<PartnershipBar
+			{...demoSmallPartnershipBarData}
+			index={index}
+		/>
+	</div>
 );
