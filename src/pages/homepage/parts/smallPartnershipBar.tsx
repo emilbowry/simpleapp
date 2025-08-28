@@ -11,6 +11,7 @@ import bm from "../../../assets/BenchMark.png";
 import tb from "../../../assets/TB.png";
 import { PartnershipBar } from "../../../components/partnershipbar/PartnershipBar";
 import { Partners } from "../../../components/partnershipbar/PartnershipBar.types";
+import { CallingCard } from "../../../components/callingcard/CallingCard";
 const demoSmallPartnershipBarData = new Partners({
 	partners: [
 		{ image: HM },
@@ -30,4 +31,24 @@ export const demoSmallPB: React.FC<{ index?: number }> = ({ index = 0 }) => (
 			index={index}
 		/>
 	</div>
+);
+
+export const footerSmallPB: React.FC<{ index?: number }> = ({ index = 0 }) => (
+	<CallingCard
+		components={[
+			<PartnershipBar
+				{...demoSmallPartnershipBarData}
+				index={index}
+			/>,
+		]}
+		fullSpread={true}
+		styleOverrides={{ backgroundColor: "white" }}
+		index={-1}
+	/>
+	// <div>
+	// 	<PartnershipBar
+	// 		{...demoSmallPartnershipBarData}
+	// 		index={index}
+	// 	/>
+	// </div>
 );

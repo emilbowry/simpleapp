@@ -8,4 +8,5 @@ export interface ICallingCardProps {
 	footer?: ValidComponent;
 	fullSpread?: boolean;
 	index?: number;
+	styleOverrides?: React.CSSProperties;
 }

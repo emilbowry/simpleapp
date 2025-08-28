@@ -381,9 +381,10 @@ export class PillTitleBar extends ExpandableTitleBar<
 		const pillBarOverrides: React.CSSProperties = {
 			borderRadius: "40px", //why is this 40, shouldnt it be VISIBLE_TITLEBAR_HEIGHT/2 =30px
 			boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
-			marginRight: "50rem",
+			marginRight: "10%",
 			marginTop: "3rem",
-			marginLeft: "50rem",
+			marginLeft: "10%",
+			opacity: "0.9",
 		};
 
 		return {

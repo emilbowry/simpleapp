@@ -56,10 +56,11 @@ class PartnerImage extends React.Component<
 	render() {
 		const { partner } = this.props;
 		const { image, link } = partner;
-		const imageEl = getImageEl(image, imageStyle);
-		const linkedEl = wrapLink(link, imageEl);
-		return (
-			<div
+		// const imageEl = getImageEl(image, imageStyle);
+		const imageEl = (
+			<img
+				src={image}
+				width={"400px"}
 				onMouseOver={this.handleMouseOver}
 				onMouseOut={this.handleMouseOut}
 				style={{
@@ -68,10 +69,14 @@ class PartnerImage extends React.Component<
 						: "saturate(0)",
 					transition: "filter 0.3s ease-in-out",
 				}}
-			>
-				{linkedEl}
-			</div>
+				// height={"auto"}
+				// height={"400px"}
+				// style={imageStyle}
+			></img>
 		);
+
+		const linkedEl = wrapLink(link, imageEl);
+		return linkedEl;
 	}
 }
 
@@ -85,6 +90,7 @@ export class PartnershipBar extends React.Component<PartnershipBarProps> {
 			let staticStyle: React.CSSProperties = { ...PartnerStyles[size] };
 			staticStyle.borderColor = theme.tertiaryColor;
 			return (
+				// alignSelf: "center",
 				<div style={staticStyle}>
 					{partners.map((partner, _index) => (
 						<PartnerImage
@@ -100,36 +106,71 @@ export class PartnershipBar extends React.Component<PartnershipBarProps> {
 		// const animationDuration =  * 6;
 
 		const marqueeFrameStyle: React.CSSProperties = {
+			isolation: "isolate",
+
 			// borderTop: PartnerStyles.Small.borderTop,
 			// borderBottom: PartnerStyles.Small.borderBottom,
 			border: "1px solid",
 			borderColor: light_grey,
+			height: "10vh",
+			// marginTop: "5vw",
+			// marginBottom: "5vw",
+			alignItems: "center",
+			// alignContent: "center",
 			backgroundColor: "white",
-			borderRadius: "50px",
-			padding: PartnerStyles.Small.padding,
+			borderRadius: "10vh",
+			overflow: "hidden",
+			// padding: PartnerStyles.Small.padding,
 		};
 
 		const marqueeWindowStyle: React.CSSProperties = {
-			isolation: "isolate",
-			overflow: "hidden",
-			width: "100%",
+			// isolation: "isolate",
+			position: "relative",
+			// marginTop: "5vw",
+			// marginBottom: "5vw",
+			// top: "0",
+			// top: "1vh",
+			height: "10vh",
+
+			// bottom: "1vh",
+			// bottom: "5vh",
+
+			display: "grid",
+
+			// overflow: "hidden",
+			// width: "100%",
+			// alignItems: "center",
+			alignContent: "center",
+			// alignSelf: "center",
 		};
 
 		const marqueeContentStyle: React.CSSProperties = {
 			display: "flex",
 			// gap: "3 rem",
+			// top: "-50%",
+
+			// alignContent: "center",
+			alignItems: "center",
+			// alignSelf: "center",
 
 			// animation: `30s linear -${30 / partners.length}s infinite slide-in`,
-			animation: `30s linear infinite slide-in`,
+			animation: `90s linear infinite slide-in`,
 		};
 
 		const partnerWrapperStyle: React.CSSProperties = {
 			flexShrink: 0,
+			// width: "100%",
 			// gap: "3 rem",
-			padding: "0 2.5rem",
-			display: "grid",
-			alignItems: "center",
-			justifyContent: "center",
+			marginRight: "50px",
+			// paddingRight: "20px",
+
+			// marginTop: "-3%",
+			// marginTop: "-3%",
+			// display: "grid",
+			// alignItems: "center",
+			// alignContent: "center",
+			// alignSelf: "center",
+			justifyContent: "space-between",
 		};
 
 		return (

@@ -33,9 +33,13 @@ export const PartnerStyles: {
 };
 
 export const imageStyle: React.CSSProperties = {
-	maxWidth: "100%",
-	height: "auto",
+	// maxWidth: "100%",
+	// width: "stretch",
+	// height: "auto",
 	display: "block",
-
-	margin: "0 auto",
+	alignContent: "center",
+	justifyContent: "center",
+	// objectFit: "contain",
+	// objectPosition: "top",
+	// margin: "0 auto",
 };

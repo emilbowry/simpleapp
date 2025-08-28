@@ -21,6 +21,7 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 			title,
 			footer,
 			fullSpread = false,
+			styleOverrides = {},
 		} = this.props;
 
 		let gridTemplate = "";
@@ -37,7 +38,12 @@ export class CallingCard extends React.Component<ICallingCardProps> {
 		_innerstyle.backgroundColor = theme.backgroundColor;
 
 		return (
-			<div style={style_CallingCardStyle(fullSpread)}>
+			<div
+				style={{
+					...style_CallingCardStyle(fullSpread),
+					...styleOverrides,
+				}}
+			>
 				<div style={_innerstyle}>
 					{title ? (
 						<div>

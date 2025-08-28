@@ -1,5 +1,5 @@
 // src/features/hero/Hero.tsx
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
 	Hexagon,
 	LogoHexagon,
@@ -48,6 +48,21 @@ const textEl = (
 	</div>
 );
 export const Hero: React.FC = () => {
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const containerRef = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		// Function to update state
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+
+		// Add event listener
+		window.addEventListener("resize", handleResize);
+
+		// Clean up event listener on component unmount
+		return () => window.removeEventListener("resize", handleResize);
+	}, []); // Empty dependency array ensures this runs only on mount and unmount
+
 	const firstRow = [
 		null,
 		null,
@@ -85,17 +100,25 @@ export const Hero: React.FC = () => {
 		<Hexagon args={{ colour: purple }} />,
 		null,
 	] as const;
-
+	// window.innerWidth
+	// const w = window.innerWidth
+	const sf = windowWidth / 1500;
 	return (
 		<div>
 			<div className="no-aos">
 				<div
+					ref={containerRef}
 					style={{
-						paddingLeft: "50px",
+						// height: "100%",
+						// width: "70vw",
+						// display: "flex",
+						// top: 0,
+						transformOrigin: "top center",
+						// paddingLeft: "50px",
 						opacity: 0.7,
 						marginBottom: "-300px",
-						transform: "scale(1.5)",
-						paddingTop: "650px",
+						transform: `scale(${sf})`,
+						// paddingTop: "650px",
 						paddingBottom: "1000px",
 					}}
 				>

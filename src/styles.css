@@ -110,3 +110,6 @@ body {
   isolation: isolate;
   contain: paint; /* or: contain: layout paint; if you can */
 }
+* {
+cursor: none!;
+}
