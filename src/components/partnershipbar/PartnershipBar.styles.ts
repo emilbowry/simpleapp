@@ -36,7 +36,6 @@ export const imageStyle: React.CSSProperties = {
 	maxWidth: "100%",
 	height: "auto",
 	display: "block",
-	// animation: "2s linear 1s infinite running slide-in",
 
 	margin: "0 auto",
 };

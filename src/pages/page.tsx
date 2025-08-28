@@ -34,6 +34,7 @@ import { getImageEl } from "../utils/reactUtils";
 // 		/>
 // 	);
 // };
+import { demoSmallPB as DPB } from "./homepage/parts/smallPartnershipBar";
 import { TestPillTitleBar as AppTitleBar } from "../components/titlebar/TitleBar";
 const Footer: React.FC = () => {
 	const componentsToRender = [
@@ -45,6 +46,7 @@ const Footer: React.FC = () => {
 	];
 	const ccElement = (
 		<CallingCard
+			title={<DPB index={-1} />}
 			components={componentsToRender}
 			index={1}
 			fullSpread={true}

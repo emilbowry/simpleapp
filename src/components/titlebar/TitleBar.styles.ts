@@ -25,6 +25,8 @@ export const _titleBarStyles = (): React.CSSProperties => {
 		height: `${VISIBLE_TITLEBAR_HEIGHT}px`,
 		backgroundColor: "white",
 		padding: "10px",
+		// minWidth: `fit-content`,
+		minWidth: `max-content`,
 	};
 };
 

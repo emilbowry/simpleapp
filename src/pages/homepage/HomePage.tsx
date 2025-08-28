@@ -117,7 +117,7 @@ automation (RPA).  "
 				index={-1}
 			/>
 			<CallingCard
-				title={<DPB index={0} />}
+				// title={<DPB index={0} />}
 				components={[
 					<CallingCard
 						title={<AiImpact index={0} />}

@@ -1,83 +1,37 @@
-// // src/components/partnershipbar/PartnershipBar.tsx
-
-// import React from "react";
-// import { wrapLink, getImageEl, _noOp } from "../../utils/reactUtils";
-// import { title_font_colour } from "../../utils/defaultColours";
-// import { Theme } from "../../styles";
-// import { PartnerStyles, imageStyle } from "./PartnershipBar.styles";
-// import {
-// 	PartnershipBarProps,
-// 	Partners,
-// 	IPartner,
-// 	TPartnerSize,
-// } from "./PartnershipBar.types";
-
-// export class PartnershipBar extends React.Component<PartnershipBarProps> {
-// 	public static PartnerImage: React.FC<{
-// 		partner: IPartner;
-// 		size: TPartnerSize;
-// 	}> = ({ partner, size }) => {
-// 		const { image, link } = partner;
-
-// 		let _ = _noOp(size); //`size` may be used later
-
-// 		const imageEl = getImageEl(image, imageStyle);
-
-// 		const linkedEl = wrapLink(link, imageEl);
-// 		return (
-// 			<div
-// 				style={{
-// 					filter: "greyscale(1)",
-// 				}}
-// 			>
-// 				{linkedEl}
-// 			</div>
-// 		);
-// 	};
-// 	render() {
-// 		const { partners, size = "Small", index = 0 } = this.props;
-// 		let currentStyle: React.CSSProperties = { ...PartnerStyles[size] };
-// 		let theme = Theme(index);
-// 		currentStyle.borderColor = theme.tertiaryColor;
-// 		if (size === "Small") {
-// 			currentStyle.gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
-// 		}
-// 		return (
-// 			<div
-// 				style={{
-// 					...currentStyle,
-// 				}}
-// 			>
-// 				{partners.map((partner, _index) => (
-// 					<PartnershipBar.PartnerImage
-// 						key={_index}
-// 						partner={partner}
-// 						size={size}
-// 					/>
-// 				))}
-// 			</div>
-// 		);
-// 	}
-// }
-
-// src/components/partnershipbar/PartnershipBar.tsx
-
 import React from "react";
-import { wrapLink, getImageEl, _noOp } from "../../utils/reactUtils";
-import { title_font_colour } from "../../utils/defaultColours";
+import { wrapLink, getImageEl } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
 import { PartnerStyles, imageStyle } from "./PartnershipBar.styles";
 import {
 	PartnershipBarProps,
-	Partners,
 	IPartner,
 	TPartnerSize,
 } from "./PartnershipBar.types";
+import { light_grey } from "../../utils/defaultColours";
 
-// --- Helper Component Definition ---
-// 1. Define PartnerImage as a standalone class within the same file.
+const keyframes = `
+  @keyframes slide-in {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+`;
 
-// Interfaces for the component's props and state
+const MarqueeKeyframes = () => {
+	React.useEffect(() => {
+		const styleTag = document.createElement("style");
+		styleTag.innerHTML = keyframes;
+		document.head.appendChild(styleTag);
+		return () => {
+			document.head.removeChild(styleTag);
+		};
+	}, []);
+	return null;
+};
+
 interface PartnerImageProps {
 	partner: IPartner;
 	size: TPartnerSize;
@@ -96,29 +50,22 @@ class PartnerImage extends React.Component<
 			isHovered: false,
 		};
 	}
-
-	handleMouseOver = () => {
-		this.setState({ isHovered: true });
-	};
-
-	handleMouseOut = () => {
-		this.setState({ isHovered: false });
-	};
+	handleMouseOver = () => this.setState({ isHovered: true });
+	handleMouseOut = () => this.setState({ isHovered: false });
 
 	render() {
 		const { partner } = this.props;
-		const { isHovered } = this.state;
 		const { image, link } = partner;
-
 		const imageEl = getImageEl(image, imageStyle);
 		const linkedEl = wrapLink(link, imageEl);
-
 		return (
 			<div
 				onMouseOver={this.handleMouseOver}
 				onMouseOut={this.handleMouseOut}
 				style={{
-					filter: isHovered ? "grayscale(0)" : "grayscale(1)",
+					filter: this.state.isHovered
+						? "saturate(1)"
+						: "saturate(0)",
 					transition: "filter 0.3s ease-in-out",
 				}}
 			>
@@ -128,32 +75,105 @@ class PartnerImage extends React.Component<
 	}
 }
 
-// --- Main Exported Component ---
-// 2. The main PartnershipBar component remains unchanged.
-
 export class PartnershipBar extends React.Component<PartnershipBarProps> {
 	render() {
 		const { partners, size = "Small", index = 0 } = this.props;
-		let currentStyle: React.CSSProperties = { ...PartnerStyles[size] };
-		let theme = Theme(index);
-		currentStyle.borderColor = theme.tertiaryColor;
-		if (size === "Small") {
-			currentStyle.gridTemplateColumns = `repeat(${partners.length}, 1fr)`;
+		const theme = Theme(index);
+		const isMarquee = size === "Small";
+
+		if (!isMarquee) {
+			let staticStyle: React.CSSProperties = { ...PartnerStyles[size] };
+			staticStyle.borderColor = theme.tertiaryColor;
+			return (
+				<div style={staticStyle}>
+					{partners.map((partner, _index) => (
+						<PartnerImage
+							key={_index}
+							partner={partner}
+							size={size}
+						/>
+					))}
+				</div>
+			);
 		}
+
+		// const animationDuration =  * 6;
+
+		const marqueeFrameStyle: React.CSSProperties = {
+			// borderTop: PartnerStyles.Small.borderTop,
+			// borderBottom: PartnerStyles.Small.borderBottom,
+			border: "1px solid",
+			borderColor: light_grey,
+			backgroundColor: "white",
+			borderRadius: "50px",
+			padding: PartnerStyles.Small.padding,
+		};
+
+		const marqueeWindowStyle: React.CSSProperties = {
+			isolation: "isolate",
+			overflow: "hidden",
+			width: "100%",
+		};
+
+		const marqueeContentStyle: React.CSSProperties = {
+			display: "flex",
+			// gap: "3 rem",
+
+			// animation: `30s linear -${30 / partners.length}s infinite slide-in`,
+			animation: `30s linear infinite slide-in`,
+		};
+
+		const partnerWrapperStyle: React.CSSProperties = {
+			flexShrink: 0,
+			// gap: "3 rem",
+			padding: "0 2.5rem",
+			display: "grid",
+			alignItems: "center",
+			justifyContent: "center",
+		};
+
 		return (
-			<div
-				style={{
-					...currentStyle,
-				}}
-			>
-				{partners.map((partner, _index) => (
-					// 3. Use the PartnerImage class defined above.
-					<PartnerImage
-						key={_index}
-						partner={partner}
-						size={size}
-					/>
-				))}
+			<div className="no-aos">
+				<MarqueeKeyframes />
+				<div style={marqueeFrameStyle}>
+					<div style={marqueeWindowStyle}>
+						<div style={marqueeContentStyle}>
+							{partners.map((partner, _index) => (
+								<div
+									key={`a-${_index}`}
+									style={partnerWrapperStyle}
+								>
+									<PartnerImage
+										partner={partner}
+										size={size}
+									/>
+								</div>
+							))}
+							{partners.map((partner, _index) => (
+								<div
+									key={`b-${_index}`}
+									style={partnerWrapperStyle}
+								>
+									<PartnerImage
+										partner={partner}
+										size={size}
+									/>
+								</div>
+							))}
+							{partners.map((partner, _index) => (
+								<div
+									key={`c-${_index}`}
+									style={partnerWrapperStyle}
+								>
+									<PartnerImage
+										partner={partner}
+										size={size}
+									/>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
 			</div>
 		);
 	}
