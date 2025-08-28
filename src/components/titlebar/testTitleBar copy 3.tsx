@@ -1,32 +1,12 @@
 import React from "react";
 import logo from "../../assets/logo.png";
 import dropdownImage from "../../assets/dude1.jpg";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"; // Import NavLink
 import { Menu } from "lucide-react";
-import {
-	dropdownContainerStyles,
-	dropdownImageContainerStyles,
-	dropdownImageStyles,
-	dropdownImageViewOverviewStyles,
-	dropdownLinksColumnStyles,
-	dropdownLinkStyles,
-	dropdownStyles,
-	hamburgerStyle,
-	interactionWrapperStyles,
-	logoContainerStyles,
-	logoStyles,
-	navLinksContainerStyles,
-	navLinkStyles,
-	_titleBarStyles,
-	rightHandContainerStyles,
-	VISIBLE_TITLEBAR_HEIGHT,
-} from "./TitleBar.styles";
-import {
-	ITitleBarLink,
-	ITitleBarProps,
-	ITitleBarState,
-} from "./TitleBar.types";
+import { hamburgerStyle } from "./TitleBar.styles";
+import { white } from "../../utils/defaultColours";
 
+// ==== Utility Function ====
 const formatLabel = (key: string, alias?: string): string => {
 	if (alias) return alias;
 	if (key === "/") return "Home";
@@ -35,14 +15,148 @@ const formatLabel = (key: string, alias?: string): string => {
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
 };
 
-export class TitleBar<
-	P extends ITitleBarProps = ITitleBarProps,
-	S extends ITitleBarState = ITitleBarState
-> extends React.Component<P, S> {
-	protected initialActiveAlias: string;
-	state: S;
+// ==== Typing ====
+export interface ITitleBarLink {
+	alias?: string; // Alias is now optional
+	path: string; // Single path for each link item
+	image?: string;
+}
 
-	constructor(props: P) {
+export interface ITitleBarProps {
+	logoSrc: string;
+	links: ITitleBarLink[][]; // Links is now an array of arrays of ITitleBarLink
+}
+
+export interface ITitleBarState {
+	isOverLink: boolean;
+	activeLinkAlias: string | null;
+	isActive: boolean;
+}
+
+const VISIBLE_TITLEBAR_HEIGHT = 60;
+
+const interactionWrapperStyles: React.CSSProperties = {
+	width: "100%",
+	position: "fixed",
+	zIndex: "100",
+};
+
+const titleBarStyles: React.CSSProperties = {
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "space-between",
+	height: `${VISIBLE_TITLEBAR_HEIGHT}px`,
+	backgroundColor: "white",
+};
+const logoContainerStyles: React.CSSProperties = {
+	flex: 1,
+	display: "flex",
+	justifyContent: "flex-start",
+	alignItems: "center",
+};
+
+const logoStyles: React.CSSProperties = {
+	height: "40px",
+};
+
+const navLinksContainerStyles: React.CSSProperties = {
+	flex: 2,
+	display: "flex",
+	justifyContent: "center",
+	gap: "15px",
+};
+
+const rightHandContainerStyles: React.CSSProperties = {
+	flex: 1,
+	display: "flex",
+	justifyContent: "flex-end",
+	alignItems: "center",
+};
+
+const navLinkStyles = (isUnderlined: boolean): React.CSSProperties => ({
+	textDecoration: isUnderlined ? "underline" : "none",
+	color: "#333",
+	fontSize: "16px",
+	padding: "5px 0",
+	cursor: "pointer",
+});
+
+const dropdownStyles: React.CSSProperties = {
+	left: "0",
+	right: "0",
+	margin: "0 auto",
+	backgroundColor: "#fff",
+	borderRadius: "8px",
+	boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+	padding: "20px",
+	marginTop: "20px",
+
+	display: "flex",
+	gap: "30px",
+	width: "fit-content",
+};
+
+const dropdownContainerStyles: React.CSSProperties = {
+	position: "relative",
+	left: "0",
+	right: "0",
+
+	margin: "0 auto",
+
+	top: `-${VISIBLE_TITLEBAR_HEIGHT}px`,
+
+	marginTop: `${VISIBLE_TITLEBAR_HEIGHT - 10}px`,
+
+	backgroundColor: "transparent",
+	paddingTop: "10px",
+
+	// border: "1px solid black", // For debugging
+	width: "fit-content",
+};
+
+const dropdownLinksColumnStyles: React.CSSProperties = {
+	display: "flex",
+	flexDirection: "column",
+	gap: "10px",
+};
+
+const dropdownLinkStyles: React.CSSProperties = {
+	color: "#333",
+	fontSize: "15px",
+	textDecoration: "none",
+	padding: "5px 0",
+	whiteSpace: "nowrap",
+};
+
+const dropdownImageContainerStyles: React.CSSProperties = {
+	width: "200px",
+	display: "flex",
+
+	flexDirection: "column",
+	alignItems: "center",
+	justifyContent: "space-between",
+};
+
+const dropdownImageStyles: React.CSSProperties = {
+	width: "99%",
+	height: "120px",
+	objectFit: "cover",
+	borderRadius: "4px",
+};
+
+const dropdownImageViewOverviewStyles: React.CSSProperties = {
+	marginTop: "10px",
+	fontSize: "14px",
+	cursor: "pointer",
+	display: "flex",
+	alignItems: "center",
+	gap: "5px",
+};
+
+export class TitleBar extends React.Component<ITitleBarProps, ITitleBarState> {
+	protected initialActiveAlias: string;
+
+	constructor(props: ITitleBarProps) {
 		super(props);
 
 		if (props.links.length === 0 || props.links[0].length === 0) {
@@ -54,22 +168,24 @@ export class TitleBar<
 			const currentPath = window.location.pathname;
 			let foundAlias: string | null = null;
 
+			// Iterate through top-level link groups
 			for (const linkGroup of props.links) {
+				// The first link in each group is the top-level nav item
 				const mainLink = linkGroup[0];
 				if (mainLink && mainLink.path === currentPath) {
 					foundAlias = formatLabel(mainLink.path, mainLink.alias);
 					break;
 				}
-
+				// Also check if any sub-link matches the current path
 				for (const subLink of linkGroup.slice(1)) {
 					if (subLink.path === currentPath) {
-						foundAlias = formatLabel(mainLink.path, mainLink.alias);
+						foundAlias = formatLabel(mainLink.path, mainLink.alias); // Use main link's alias for highlighting
 						break;
 					}
 				}
 				if (foundAlias) break;
 			}
-
+			// Fallback to the alias of the first link in the first group if no match
 			this.initialActiveAlias =
 				foundAlias ||
 				formatLabel(props.links[0][0].path, props.links[0][0].alias);
@@ -79,7 +195,7 @@ export class TitleBar<
 			isOverLink: false,
 			activeLinkAlias: this.initialActiveAlias,
 			isActive: false,
-		} as S;
+		};
 	}
 
 	protected handleInteractionWrapperMouseLeave = (): void => {
@@ -98,11 +214,10 @@ export class TitleBar<
 			activeLinkAlias: link_alias,
 		});
 	};
-	protected handleLinkLeave = (): void => {};
-
-	titleBarStyles(): React.CSSProperties {
-		return _titleBarStyles();
-	}
+	protected handleLinkLeave = (): void => {
+		// This handler is now largely unused due to the isActive/isOverLink state
+		// and the wrapper's mouse leave.
+	};
 
 	protected constructNavLinks = (): React.ReactNode => {
 		const { links } = this.props;
@@ -110,7 +225,7 @@ export class TitleBar<
 
 		return (
 			<div
-				style={this.titleBarStyles()}
+				style={titleBarStyles}
 				onMouseLeave={() => this.handleInteractionWrapperMouseLeave()}
 			>
 				<div style={logoContainerStyles}>
@@ -122,8 +237,8 @@ export class TitleBar<
 				</div>
 				<div style={navLinksContainerStyles}>
 					{links.map((linkGroup, index) => {
-						const mainLink = linkGroup[0];
-						if (!mainLink) return null;
+						const mainLink = linkGroup[0]; // First link in the group is the main nav item
+						if (!mainLink) return null; // Should not happen with valid data
 
 						const displayAlias = formatLabel(
 							mainLink.path,
@@ -136,7 +251,7 @@ export class TitleBar<
 								onMouseOver={() =>
 									this.handleLinkOver(displayAlias)
 								}
-								onMouseLeave={() => this.handleLinkLeave()}
+								onMouseLeave={() => this.handleLinkLeave()} // This handler is still technically here, but its effect is minimal now
 							>
 								<NavLink
 									to={mainLink.path}
@@ -151,8 +266,10 @@ export class TitleBar<
 					})}
 				</div>
 				<div style={rightHandContainerStyles}>
+					{" "}
 					<button
 						style={hamburgerStyle}
+						// onClick={this.toggleMenu}
 						aria-label="Menu"
 					>
 						<Menu size={24} />
@@ -184,8 +301,9 @@ export class TitleBar<
 
 export const TestTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
+		// Home group
 		[{ path: "/", alias: "Home" }],
-
+		// The Journey group
 		[{ path: "/thejourney", alias: "The Journey" }],
 	];
 
@@ -197,10 +315,7 @@ export const TestTitleBar: React.FC = () => {
 	);
 };
 
-export class ExpandableTitleBar<
-	P extends ITitleBarProps = ITitleBarProps,
-	S extends ITitleBarState = ITitleBarState
-> extends TitleBar<P, S> {
+export class ExpandableTitleBar extends TitleBar {
 	activeAreaLeave(e: React.MouseEvent) {
 		this.setState({
 			isOverLink: false,
@@ -216,7 +331,7 @@ export class ExpandableTitleBar<
 	}
 	dropdownEnter(e: React.MouseEvent, aLink: string) {
 		this.setState({
-			isOverLink: false,
+			isOverLink: false, // We've moved into the dropdown, so not over a *link* anymore
 			activeLinkAlias: aLink,
 		});
 	}
@@ -229,6 +344,7 @@ export class ExpandableTitleBar<
 			return null;
 		}
 
+		// Find the link group that corresponds to the active alias
 		const activeLinkGroup = links.find((linkGroup) => {
 			const mainLink = linkGroup[0];
 			return (
@@ -238,10 +354,12 @@ export class ExpandableTitleBar<
 		});
 
 		if (!activeLinkGroup || activeLinkGroup.length <= 1) {
+			// Not an expandable link or no sub-links
 			return null;
 		}
 
-		const mainLink = activeLinkGroup[0];
+		const mainLink = activeLinkGroup[0]; // The main link of the group
+		// const subLinks = activeLinkGroup.slice(1); // All subsequent links are dropdown items
 
 		return (
 			<div
@@ -266,7 +384,7 @@ export class ExpandableTitleBar<
 						))}
 					</div>
 				)}
-				{mainLink.image && (
+				{mainLink.image && ( // Image is tied to the main link of the group
 					<div style={dropdownImageContainerStyles}>
 						<img
 							src={mainLink.image}
@@ -313,100 +431,18 @@ export class ExpandableTitleBar<
 
 export const TestExpandableTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
+		// Home group with dropdown
 		[
 			{ path: "/", alias: "Home", image: dropdownImage },
 			{ path: "/demo_page", alias: "Demo Page" },
 		],
-
+		// The Journey group (simple link)
 		[{ path: "/thejourney", alias: "The Journey" }],
+		// An example of an expandable link with an image
 	];
 
 	return (
 		<ExpandableTitleBar
-			logoSrc={logo}
-			links={navLinks}
-		/>
-	);
-};
-export interface IPillTitleBarState extends ITitleBarState {
-	isScrolled: boolean;
-	hasReturned: boolean;
-}
-export class PillTitleBar extends ExpandableTitleBar<
-	ITitleBarProps,
-	IPillTitleBarState
-> {
-	constructor(props: ITitleBarProps) {
-		super(props);
-
-		this.state = {
-			...this.state,
-			isScrolled: false,
-			hasReturned: false,
-		} as IPillTitleBarState;
-	}
-
-	public componentDidMount(): void {
-		window.addEventListener("scroll", this.handleScroll);
-	}
-
-	public componentWillUnmount(): void {
-		window.removeEventListener("scroll", this.handleScroll);
-	}
-
-	protected handleScroll = (): void => {
-		const uThreshold = 10;
-		const dThreshold = 1;
-		if (!this.state.isScrolled) {
-			const scrolled = window.scrollY > dThreshold;
-
-			if (scrolled) {
-				console.log(scrolled);
-				this.setState({ isScrolled: scrolled });
-			}
-		} else if (this.state.isScrolled) {
-			const n_scrolled = window.scrollY < uThreshold;
-
-			if (n_scrolled) {
-				console.log(n_scrolled);
-				this.setState({ isScrolled: !n_scrolled });
-			}
-		}
-	};
-
-	titleBarStyles(): React.CSSProperties {
-		const baseStyles = super.titleBarStyles();
-		const { isScrolled } = this.state;
-
-		const pillBarOverrides: React.CSSProperties = {
-			borderRadius: "40px", //why is this 40, shouldnt it be VISIBLE_TITLEBAR_HEIGHT/2 =30px
-			boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
-			marginRight: "50rem",
-			marginTop: "3rem",
-			marginLeft: "50rem",
-		};
-
-		return {
-			...baseStyles,
-			transition: "all 0.5s ease-in-out",
-
-			...(isScrolled ? pillBarOverrides : {}),
-		};
-	}
-}
-
-export const TestPillTitleBar: React.FC = () => {
-	const navLinks: ITitleBarLink[][] = [
-		[
-			{ path: "/", alias: "Home", image: dropdownImage },
-			{ path: "/demo_page", alias: "Demo Page" },
-		],
-
-		[{ path: "/thejourney", alias: "The Journey" }],
-	];
-
-	return (
-		<PillTitleBar
 			logoSrc={logo}
 			links={navLinks}
 		/>

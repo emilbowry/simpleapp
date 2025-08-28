@@ -1,23 +1,6 @@
-// src/features/titlebar/TitleBar.styles.ts
+// src/components/titlebar/TitleBar.styles.ts
 
 import React from "react";
-
-export const headerStyle: React.CSSProperties = {
-	position: "fixed",
-	top: 0,
-	left: 0,
-	right: 0,
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "space-between",
-	padding: "1rem 2rem",
-	background: "white",
-	zIndex: 100,
-};
-
-export const logoStyle: React.CSSProperties = {
-	height: "2.5rem",
-};
 
 export const hamburgerStyle: React.CSSProperties = {
 	background: "none",
@@ -26,74 +9,125 @@ export const hamburgerStyle: React.CSSProperties = {
 	marginLeft: "1rem",
 };
 
-export const inlineNavStyle: React.CSSProperties = {
-	display: "flex",
-	alignItems: "center",
-	marginLeft: "2rem",
-	gap: "1.5rem",
-};
+export const VISIBLE_TITLEBAR_HEIGHT = 60;
 
-export const linkStyle: React.CSSProperties = {
-	margin: "0 1rem",
-	fontSize: "1rem",
-	textDecoration: "none",
-	color: "#333",
-};
-
-export const activeLinkStyle: React.CSSProperties = {
-	...linkStyle,
-	fontWeight: 600,
-	borderBottom: "2px solid #333",
-};
-
-export const navOverlayStyle: React.CSSProperties = {
+export const interactionWrapperStyles: React.CSSProperties = {
+	width: "100%",
 	position: "fixed",
-	top: "4rem",
-	right: 0,
-	width: "300px",
-	// Change height to cover the full viewport height below the header
-	// height: "calc(100vh - 4rem)", // Use 100vh to ensure it covers the entire viewport height
-	// height: "calc(100% - 4rem)",
-	background: "rgba(255,255,255,0.95)",
-	// background: "white",
+	zIndex: "100",
+};
+
+export const _titleBarStyles = (): React.CSSProperties => {
+	return {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "space-between",
+		height: `${VISIBLE_TITLEBAR_HEIGHT}px`,
+		backgroundColor: "white",
+		padding: "10px",
+	};
+};
+
+export const logoContainerStyles: React.CSSProperties = {
+	flex: 1,
+	display: "flex",
+	justifyContent: "flex-start",
+	alignItems: "center",
+};
+
+export const logoStyles: React.CSSProperties = {
+	height: "40px",
+};
+
+export const navLinksContainerStyles: React.CSSProperties = {
+	flex: 2,
+	display: "flex",
+	justifyContent: "center",
+	gap: "15px",
+};
+
+export const rightHandContainerStyles: React.CSSProperties = {
+	flex: 1,
+	display: "flex",
+	justifyContent: "flex-end",
+	alignItems: "center",
+};
+
+export const navLinkStyles = (isUnderlined: boolean): React.CSSProperties => ({
+	textDecoration: isUnderlined ? "underline" : "none",
+	color: "#333",
+	fontSize: "16px",
+	padding: "5px 0",
+	cursor: "pointer",
+});
+
+export const dropdownStyles: React.CSSProperties = {
+	left: "0",
+	right: "0",
+	margin: "0 auto",
+	backgroundColor: "#fff",
+	borderRadius: "8px",
+	boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+	padding: "20px",
+	marginTop: "20px",
+
+	display: "flex",
+	gap: "30px",
+	width: "fit-content",
+};
+
+export const dropdownContainerStyles: React.CSSProperties = {
+	position: "relative",
+	left: "0",
+	right: "0",
+
+	margin: "0 auto",
+
+	top: `-${VISIBLE_TITLEBAR_HEIGHT}px`,
+
+	marginTop: `${VISIBLE_TITLEBAR_HEIGHT - 10}px`,
+
+	backgroundColor: "transparent",
+	paddingTop: "10px",
+
+	width: "fit-content",
+};
+
+export const dropdownLinksColumnStyles: React.CSSProperties = {
 	display: "flex",
 	flexDirection: "column",
-	alignItems: "center",
-	justifyContent: "flex-start",
-	paddingTop: "2rem",
-	paddingBottom: "2rem",
-	transform: "translateX(100%+4rem)",
-	// transition: "transform 0.3s ease-in-out",
-	zIndex: 90,
+	gap: "10px",
 };
 
-export const navOverlayOpen: React.CSSProperties = {
-	// transform: "translateX(0)",
-};
-
-export const closeButtonStyle: React.CSSProperties = {
-	position: "absolute",
-	top: "1rem",
-	right: "1.5rem",
-	background: "none",
-	border: "none",
-	fontSize: "2rem",
-	cursor: "pointer",
-};
-
-export const dropdownLinkStyle: React.CSSProperties = {
-	margin: "1rem 0",
-	fontSize: "1.25rem",
-	textDecoration: "none",
+export const dropdownLinkStyles: React.CSSProperties = {
 	color: "#333",
+	fontSize: "15px",
+	textDecoration: "none",
+	padding: "5px 0",
+	whiteSpace: "nowrap",
 };
 
-export const dropdownActiveLinkStyle: React.CSSProperties = {
-	margin: "1rem 0",
-	fontSize: "1.25rem",
-	textDecoration: "none",
-	background: "#c43c00",
-	color: "white",
-	padding: "0.5rem 2rem",
-	borderRadius: "0.25rem",
+export const dropdownImageContainerStyles: React.CSSProperties = {
+	width: "200px",
+	display: "flex",
+
+	flexDirection: "column",
+	alignItems: "center",
+	justifyContent: "space-between",
+};
+
+export const dropdownImageStyles: React.CSSProperties = {
+	width: "99%",
+	height: "120px",
+	objectFit: "cover",
+	borderRadius: "4px",
+};
+
+export const dropdownImageViewOverviewStyles: React.CSSProperties = {
+	marginTop: "10px",
+	fontSize: "14px",
+	cursor: "pointer",
+	display: "flex",
+	alignItems: "center",
+	gap: "5px",
 };

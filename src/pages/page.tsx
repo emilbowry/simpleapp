@@ -3,7 +3,7 @@
 import React from "react";
 // import { AppTitleBar, Footer } from "../App";
 import { DemoTiledBackground } from "../components/background/Background";
-import { TTitleBarLinkConfig } from "../components/titlebar/TitleBar.types";
+// import { TTitleBarLinkConfig } from "../components/titlebar/TitleBar.types";
 import { TitleBar } from "../components/titlebar/TitleBar";
 import logo from "../assets/logo.png";
 import { CallingCard } from "../components/callingcard/CallingCard";
@@ -34,7 +34,7 @@ import { getImageEl } from "../utils/reactUtils";
 // 		/>
 // 	);
 // };
-import { TestExpandableTitleBar as AppTitleBar } from "../components/titlebar/testTitleBar";
+import { TestPillTitleBar as AppTitleBar } from "../components/titlebar/TitleBar";
 const Footer: React.FC = () => {
 	const componentsToRender = [
 		<CallOut body={getImageEl(logo)} />,
