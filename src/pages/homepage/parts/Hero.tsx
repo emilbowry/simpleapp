@@ -107,19 +107,20 @@ export const Hero: React.FC = () => {
 		<div>
 			<div className="no-aos">
 				<div
-					ref={containerRef}
+					// ref={containerRef}
 					style={{
-						// height: "100%",
+						height: "100%",
 						// width: "70vw",
 						// display: "flex",
 						// top: 0,
 						transformOrigin: "top center",
-						// paddingLeft: "50px",
+						marginRight: "50px",
 						opacity: 0.7,
-						marginBottom: "-300px",
+						// marginBottom: "-300px",
 						transform: `scale(${sf})`,
 						// paddingTop: "650px",
 						paddingBottom: "1000px",
+						// overflow:""
 					}}
 				>
 					<HexagonRow elements={firstRow} />

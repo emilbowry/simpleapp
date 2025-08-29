@@ -83,7 +83,9 @@ export class Page extends React.Component<{
 				{useCursor ? <CustomCursor /> : null}
 				{bg ? <DemoTiledBackground /> : null}
 				<AppTitleBar />
-				<Page />
+				<section>
+					<Page />
+				</section>
 				<Footer />
 			</main>
 		);
