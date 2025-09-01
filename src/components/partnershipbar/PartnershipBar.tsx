@@ -131,7 +131,8 @@ export class PartnershipBar extends React.Component<PartnershipBarProps> {
 			// top: "0",
 			// top: "1vh",
 			height: "10vh",
-
+			maskImage:
+				"linear-gradient(to right, transparent 1%, black 10%, black 90%, transparent 99%)",
 			// bottom: "1vh",
 			// bottom: "5vh",
 
@@ -170,6 +171,7 @@ export class PartnershipBar extends React.Component<PartnershipBarProps> {
 			// alignItems: "center",
 			// alignContent: "center",
 			// alignSelf: "center",
+
 			justifyContent: "space-between",
 		};
 
