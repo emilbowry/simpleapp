@@ -110,6 +110,7 @@ export class TitleBar<
 
 		return (
 			<div
+				className="no-aos"
 				style={this.titleBarStyles()}
 				onMouseLeave={() => this.handleInteractionWrapperMouseLeave()}
 			>
@@ -172,9 +173,10 @@ export class TitleBar<
 		const obj = (
 			<div
 				style={interactionWrapperStyles}
-				className="hoverable"
+				// className="hoverable"
+				className="no-aos"
 			>
-				<div>{this.construct()}</div>
+				{this.construct()}
 			</div>
 		);
 
@@ -381,10 +383,15 @@ export class PillTitleBar extends ExpandableTitleBar<
 		const pillBarOverrides: React.CSSProperties = {
 			borderRadius: "40px", //why is this 40, shouldnt it be VISIBLE_TITLEBAR_HEIGHT/2 =30px
 			boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+			backgroundColor: "rgb(255 255 255 / 40%)",
+			// color: "white",
+			backdropFilter: "blur(8px)",
+			// backdropFilter: "invert(80%)",
+
+			// opacity: "0.9",
 			marginRight: "10%",
 			marginTop: "3rem",
 			marginLeft: "10%",
-			opacity: "0.9",
 		};
 
 		return {

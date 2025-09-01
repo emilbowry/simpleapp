@@ -5,7 +5,7 @@ import React from "react";
 export const hamburgerStyle: React.CSSProperties = {
 	background: "none",
 	border: "none",
-	cursor: "pointer",
+	cursor: "none",
 	marginLeft: "1rem",
 };
 
@@ -14,16 +14,37 @@ export const VISIBLE_TITLEBAR_HEIGHT = 60;
 export const interactionWrapperStyles: React.CSSProperties = {
 	width: "100%",
 	position: "fixed",
+	top: 0,
 	zIndex: "100",
+	// backdropFilter: "blur(10px)",
+	// alignItems: "center",
+	// height: "60px",
+
+	// opacity: 0,
 };
 
 export const _titleBarStyles = (): React.CSSProperties => {
 	return {
+		// position: "absolute",
+		// position: "fixed",
+		// width: "fit-content",
+		// top: 0,
+		// left: "50%",
 		display: "flex",
+		alignContent: "center",
+
 		alignItems: "center",
 		justifyContent: "space-between",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}px`,
-		backgroundColor: "white",
+		// backgroundColor: "white",
+		// backdropFilter: "blur(1px)",
+		backgroundColor: "rgb(255 255 255 / 90%)",
+
+		// filter: "blur(10px)",
+		// opacity: "0",
+		// opacity: 0.6,
+		// zIndex: "99",
+
 		padding: "10px",
 		// minWidth: `fit-content`,
 		minWidth: `max-content`,
@@ -56,11 +77,15 @@ export const rightHandContainerStyles: React.CSSProperties = {
 };
 
 export const navLinkStyles = (isUnderlined: boolean): React.CSSProperties => ({
+	// isolation: "isolate",
+	// filter: "none",
+
 	textDecoration: isUnderlined ? "underline" : "none",
 	color: "#333",
 	fontSize: "16px",
+	opacity: "inherit",
 	padding: "5px 0",
-	cursor: "pointer",
+	cursor: "none",
 });
 
 export const dropdownStyles: React.CSSProperties = {
@@ -79,7 +104,7 @@ export const dropdownStyles: React.CSSProperties = {
 };
 
 export const dropdownContainerStyles: React.CSSProperties = {
-	position: "relative",
+	// position: "relative",
 	left: "0",
 	right: "0",
 
@@ -99,10 +124,12 @@ export const dropdownLinksColumnStyles: React.CSSProperties = {
 	display: "flex",
 	flexDirection: "column",
 	gap: "10px",
+	opacity: 0,
 };
 
 export const dropdownLinkStyles: React.CSSProperties = {
 	color: "#333",
+
 	fontSize: "15px",
 	textDecoration: "none",
 	padding: "5px 0",
@@ -128,7 +155,7 @@ export const dropdownImageStyles: React.CSSProperties = {
 export const dropdownImageViewOverviewStyles: React.CSSProperties = {
 	marginTop: "10px",
 	fontSize: "14px",
-	cursor: "pointer",
+
 	display: "flex",
 	alignItems: "center",
 	gap: "5px",
