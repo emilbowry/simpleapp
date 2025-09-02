@@ -46,76 +46,10 @@ const textEl = (
 		</div>
 	</div>
 );
-// export const Hero: React.FC = () => {
-// 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-// 	const containerRef = useRef<HTMLDivElement>(null);
-// 	useEffect(() => {
-// 		const handleResize = () => {
-// 			setWindowWidth(window.innerWidth);
-// 		};
 
-// 		window.addEventListener("resize", handleResize);
-
-// 		return () => window.removeEventListener("resize", handleResize);
-// 	}, []);
-
-// 	const firstRow = [
-// 		null,
-// 		null,
-// 		<Hexagon args={{ colour: mix_green }} />,
-// 	] as const;
-
-// 	const secondRow = [
-// 		null,
-
-// 		<LogoHexagon args={{ withGap: false }} />,
-
-// 		<ImageHexagon args={{ img: hi1 }} />,
-// 	] as const;
-
-// 	const overlay: ComponentOrStringList = [
-// 		<Hexagon args={{ colour: light_mix_green }} />,
-// 		textEl,
-// 	];
-
-// 	const thirdRow = [
-// 		<ImageHexagon args={{ img: hi2 }} />,
-// 		<Hexagon
-// 			args={{ colour: light_mix_green }}
-// 			element={textEl}
-// 		/>,
-// 		<Hexagon args={{ colour: l_midnight_green }} />,
-// 	] as const;
-
-// 	const sf = windowWidth / 1500;
-// 	return (
-// 		<div>
-// 			<div className="no-aos">
-// 				<div
-// 					// ref={containerRef} //Works equaly fine without it
-// 					style={{
-// 						height: "100%",
-
-// 						transformOrigin: "top center",
-// 						marginRight: "50px",
-// 						opacity: 0.7,
-
-// 						transform: `scale(${sf})`,
-
-// 						paddingBottom: "1000px",
-// 					}}
-// 				>
-// 					<HexagonRow elements={firstRow} />
-// 					<HexagonRow elements={secondRow} />
-// 					<HexagonRow elements={thirdRow} />
-// 				</div>
-// 			</div>
-// 		</div>
-// 	);
-// };
 export const Hero: React.FC = () => {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-	const contentRef = useRef<HTMLDivElement>(null); // Ref for the actual content that scales
+	const contentRef = useRef<HTMLDivElement>(null);
 	const [scaledContentHeight, setScaledContentHeight] = useState(0);
 
 	useEffect(() => {
@@ -128,12 +62,11 @@ export const Hero: React.FC = () => {
 
 	useEffect(() => {
 		if (contentRef.current) {
-			// Get the unscaled height of the content
-			const unscaledHeight = contentRef.current.scrollHeight; // or clientHeight
+			const unscaledHeight = contentRef.current.scrollHeight;
 			const sf = windowWidth / 1500;
 			setScaledContentHeight(unscaledHeight * sf);
 		}
-	}, [windowWidth]); // Recalculate when windowWidth changes
+	}, [windowWidth]);
 	const firstRow = [
 		null,
 		null,
@@ -161,24 +94,15 @@ export const Hero: React.FC = () => {
 
 	return (
 		<div style={{ minHeight: `${scaledContentHeight}px` }}>
-			<div
-				className="no-aos"
-				style={{ display: "flex", flexDirection: "row" }}
-			>
+			<div className="no-aos">
 				<div
-					ref={contentRef} // Attach ref to the element whose content's unscaled height we measure
+					ref={contentRef}
 					style={{
 						transformOrigin: " center",
-						// marginRight: "50px",
+						marginRight: "50px",
 						opacity: 0.7,
-						// flexShrink: 1,
-						// flexGrow: 1,
+						transform: `scale(${sf})`,
 
-						// maxWidth: "70%",
-						width: "80%",
-						alignItems: "center",
-						// transform: `scale(${sf})`,
-						// overflow: "visible",
 						height: "auto",
 					}}
 				>

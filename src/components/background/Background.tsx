@@ -290,14 +290,9 @@ import backgroundPattern from "../../assets/bavkground.png";
 
 export const _BackgroundStyle: React.CSSProperties = {
 	backgroundRepeat: "repeat",
-	// backgroundSize: "auto 100%",
-	// backgroundPosition: "0 0",
 
-	// backgroundPosition: "center",
 	backgroundSize: "cover",
 	backgroundAttachment: "fixed",
-	// backgroundOrigin: "border-box",
-	// position:"absolute",
 
 	width: "100vw",
 	height: "100vh",

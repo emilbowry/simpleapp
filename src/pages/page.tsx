@@ -47,6 +47,7 @@ const FooterSections: React.FC = () => {
 	);
 };
 // footerSmallPB
+
 const Footer: React.FC = () => {
 	const componentsToRender = [
 		<CallOut
@@ -66,6 +67,13 @@ const Footer: React.FC = () => {
 	return <section>{ccElement}</section>;
 };
 import CustomCursor from "../components/cursor/Cursor";
+
+const pageStyle: React.CSSProperties = {
+	flexGrow: "1",
+	height: "100%",
+
+	flexDirection: "column", // Have to do both
+};
 export class Page extends React.Component<{
 	page: React.FC;
 	bg?: boolean;
@@ -75,19 +83,26 @@ export class Page extends React.Component<{
 		const { page: Page, bg = false, useCursor = true } = this.props;
 
 		return (
-			<main
-				className={"animated"}
-				key={location.pathname}
-				style={useCursor ? { cursor: "none" } : {}}
-			>
-				{useCursor ? <CustomCursor /> : null}
-				{bg ? <DemoTiledBackground /> : null}
-				<AppTitleBar />
-				<section>
-					<Page />
-				</section>
-				<Footer />
-			</main>
+			<>
+				<main
+					className={"animated"}
+					key={location.pathname}
+					style={{
+						display: "flex",
+						flexDirection: "column", // Have to do both
+
+						...(useCursor ? { cursor: "none" } : {}),
+					}}
+				>
+					{useCursor ? <CustomCursor /> : null}
+					{bg ? <DemoTiledBackground /> : null}
+					{/* <AppTitleBar /> */}
+					<section style={pageStyle}>
+						<Page />
+					</section>
+					<Footer />
+				</main>
+			</>
 		);
 	}
 }

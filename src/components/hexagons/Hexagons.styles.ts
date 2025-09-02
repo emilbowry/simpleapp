@@ -22,7 +22,7 @@ const vertSafeZoneCoords = {
 };
 
 export const getFinalDimensions = ({
-	size = 500,
+	size = 100,
 	scale = 1,
 }: HexagonStyleParams) => {
 	return {
@@ -38,10 +38,18 @@ export const containerStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
-		position: "relative",
-		width,
-		height,
-		opacity,
+		// border: "1px solid black",
+		// position: "relative",
+		// width,
+		// height,
+		// width: "100%",
+		// width: "stretch",
+		// height: "min-content%",
+		// flexShrink: 0,
+		// width: "70vw",
+		// height: "70vh",
+		// width
+		// opacity,
 	};
 };
 
@@ -51,8 +59,10 @@ export const svgStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
-		width,
-		height,
+		overflow: "visible",
+		// width,
+		// width: "stretch",
+		// height: "stretch",
 	};
 };
 
@@ -81,7 +91,7 @@ export const horizontalContentStyle = (): React.CSSProperties => {
 export const verticalContentStyle = (): React.CSSProperties => {
 	const left = `${((vertSafeZoneCoords.minX - 0) / 200) * 100}%`;
 	const top = `${((vertSafeZoneCoords.minY - -100) / 200) * 100}%`;
-	const width = `${(vertSafeZoneCoords.width / 200) * 100}%`;
+	const width = `${((vertSafeZoneCoords.width * 1) / 200) * 100}%`;
 	const height = `${(vertSafeZoneCoords.height / 200) * 100}%`;
 
 	return {

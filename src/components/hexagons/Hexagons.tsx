@@ -77,7 +77,9 @@ export class Hexagon
 			>
 				<svg
 					style={svgStyle(styleProps)}
-					viewBox="0 -100 200 200"
+					viewBox={`0 -${(200 * Math.sqrt(3)) / 4} 200 ${
+						(200 * Math.sqrt(3)) / 2 - Math.sqrt(3) / 2
+					}`} // height correction(slightly arbitrary)
 					xmlns="http://www.w3.org/2000/svg"
 				>
 					<defs>{defs.map((def, i) => def)}</defs>

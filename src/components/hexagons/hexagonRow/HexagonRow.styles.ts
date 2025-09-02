@@ -1,39 +1,37 @@
-// src/components/hexagons/HexagonsRow.styles.ts
+// src/components/hexagons/hexagonRow/HexagonRow.styles.ts
 
 import React from "react";
 
 export const hexWrap: React.CSSProperties = {
-	display: "flex",
+	// display: "flex",
 	justifyContent: "center",
 	overflow: "visible",
-	alignItems: "center",
+	// alignItems: "center",
 	width: "500px",
+
 	height: "500px",
 };
 
 export const hexWrap_middle: React.CSSProperties = {
 	...hexWrap,
-	marginTop: `-500px`,
-	// marginTop: "-100%",
+	marginTop: `-50%`,
+	// top: "-20000%",
 };
 export const rowstyle = (spacing: number): React.CSSProperties => ({
-	display: "grid",
-	gridTemplateColumns: `${500 + Math.sqrt(3) * 2 * spacing}px ${
-		500 + Math.sqrt(3) * 2 * spacing
-	}px ${500 + Math.sqrt(3) * 2 * spacing}px`,
+	// display: "grid",
+	// position: "absolute",
+	display: "flex",
 
-	// gridTemplateColumns: `33% 33% 33%`,
-	// gridTemplateRows: `${500 + spacing}px`,
-	gridTemplateRows: `${500 + 0}px`,
+	// gridTemplateColumns: `${500 + Math.sqrt(3) * 2 * spacing}px ${
+	// 	500 + Math.sqrt(3) * 2 * spacing
+	// }px ${500 + Math.sqrt(3) * 2 * spacing}px`,
 
-	// gridTemplateRows: `33%`,
+	// gridTemplateRows: `${500 + 0}px`,
 
 	justifyContent: "center",
-	// paddingTop: "10px",
-	// margin:"10%",
-	// marginBottom: `-${500 + Math.sqrt(3) * 500}px`,
 
 	overflow: "visible",
-	// flexGrow: 0,
+	// width: "auto",
+	// width: "min-content",
 	alignItems: "center",
 });

@@ -2,54 +2,154 @@
 import React, { useEffect, useState } from "react";
 import { Hero } from "./parts/Hero";
 
-// const cursorStyles: React.CSSProperties = {
-// 	position: "fixed",
-// 	top: 0,
-// 	left: 0,
-// 	width: "30px",
-// 	height: "30px",
-// 	backgroundColor: "white",
-// 	borderRadius: "50%",
-// 	pointerEvents: "none",
+import { Hexagon } from "../../components/hexagons/Hexagons";
 
-// 	mixBlendMode: "difference",
-// 	zIndex: 9999,
-// };
+const containerWidth = "100%";
+const containerHeight = "100%";
 
-// const CustomCursor: React.FC = () => {
-// 	const [position, setPosition] = useState({ x: 0, y: 0 });
+const hexStyle = (x: number, y: number): React.CSSProperties => ({
+	// position: "absolute",
+	// left: x,
+	// top: y,
+});
+const tpgap = 10;
 
-// 	useEffect(() => {
-// 		const updateMousePosition = (e: MouseEvent) => {
-// 			setPosition({ x: e.clientX, y: e.clientY });
-// 		};
+const sideStyle = (
+	spacing: number = 0,
+	isLeft: boolean = true
+): React.CSSProperties => {
+	return {
+		overflow: "visible",
 
-// 		window.addEventListener("mousemove", updateMousePosition);
+		// marginBottom: `${(25 * 2) / Math.sqrt(3)}%`,
 
-// 		return () => {
-// 			window.removeEventListener("mousemove", updateMousePosition);
-// 		};
-// 	}, []);
+		// ...(isLeft
+		// 	? { paddingRight: `${spacing}px` }
+		// 	: { paddingLeft: `${spacing}px` }),
+		// marginTop: `${tpgap}%`,
+		...(isLeft
+			? { marginLeft: `${25}%`, marginRight: `-${25}%` }
+			: { marginRight: `${25}%`, marginLeft: `-${25}%` }),
+		// paddingBottom: `${spacing}px`,
+	};
+};
+const _sideStyle = (
+	spacing: number = 0,
+	isLeft: boolean = true
+): React.CSSProperties => {
+	return {
+		overflow: "visible",
 
-// 	const dynamicCursorStyles: React.CSSProperties = {
-// 		...cursorStyles,
-// 		left: `${position.x}px`,
-// 		top: `${position.y}px`,
-// 	};
+		// marginBottom: `${(25 * 2) / Math.sqrt(3)}%`,
 
-// 	return (
-// 		<div
-// 			className="custom-cursor"
-// 			style={dynamicCursorStyles}
-// 		/>
-// 	);
-// };
+		// ...(isLeft
+		// 	? { paddingRight: `${spacing}px` }
+		// 	: { paddingLeft: `${spacing}px` }),
+		// marginTop: `${tpgap}%`,
+		// ...(isLeft
+		// 	? { marginLeft: `-${25}%`, marginRight: `${25}%` }
+		// 	: { marginRight: `-${25}%`, marginLeft: `${25}%` }),
+		// ...(isLeft ? { right: `-${25}%` } : {}),
+		// paddingBottom: `${spacing}px`,
+	};
+};
+const midStyle = (spacing: number = 0): React.CSSProperties => {
+	return {
+		marginTop: `-${25 * Math.sqrt(3)}%`,
+		// overflow: "visible",
+		// // marginTop: `${tpgap}%`,
+		// // overflow: "visible",
+		// // paddingBottom: `${600}px`,
+		// // marginBottom: `${10 * spacing}px`,
+		// // top: `-200px`,
+		// paddingLeft: `${spacing}px`,
+		// paddingRight: `${spacing}px`,
+		// paddingLeft: `${spacing / 3}px`,
+		// paddingRight: `${spacing / 3}px`,
+	};
+};
+const _midStyle = (spacing: number = 0): React.CSSProperties => {
+	return {
+		// marginTop: `-${tpgap}%`,
+		// marginBottom: `${tpgap / 2}%`,
+		// // paddingLeft: `${tpgap / 2}%`,
+		marginTop: `-${spacing}%`,
+		// marginRight: `${tpgap / 3}%`,
+		// // paddingRight: `${tpgap / 2}%`,
+		// overflow: "visible",
+		// paddingBottom: `${600}px`,
+		// marginBottom: `${10 * spacing}px`,
+		// marginTop: `-${testSpacing / 2}px`,
+		// top: `-200px`,
+		// paddingLeft: `${spacing / 3}px`,
+		// paddingRight: `${spacing / 3}px`,
+	};
+};
+const testSpacing = 0;
 
-// export default CustomCursor;
+const container: React.CSSProperties = {
+	position: "relative",
+	// display: "flex",
+	columnGap: `${testSpacing / Math.sqrt(3)}%`,
+	rowGap: `${testSpacing}%`,
+	display: "grid",
+	overflow: "visible",
+	// gridTemplateColumns: ` repeat(3, minmax(0, 1fr))`,
+	gridTemplateColumns: `repeat(3, 30%)`,
+	left: "5% ",
+	// alignSelf: "center",
+};
+
 const homePage: React.FC = () => {
 	return (
-		<section>
-			<Hero />
+		<section className="no-aos">
+			<div style={container}>
+				<div style={sideStyle(testSpacing, true)}>
+					<div style={_sideStyle(testSpacing, true)}>
+						<Hexagon />
+					</div>
+				</div>
+				<div style={midStyle(testSpacing)}>
+					<div style={_midStyle(testSpacing)}>
+						<Hexagon />
+					</div>
+				</div>
+				<div style={sideStyle(testSpacing, false)}>
+					<div style={_sideStyle(testSpacing, false)}>
+						<Hexagon />
+					</div>
+				</div>
+				<div style={sideStyle(testSpacing, true)}>
+					<div style={_sideStyle(testSpacing, true)}>
+						<Hexagon />
+					</div>
+				</div>
+				<div style={midStyle(testSpacing)}>
+					<div style={_midStyle(testSpacing)}>
+						<Hexagon />
+					</div>
+				</div>
+				<div style={sideStyle(testSpacing, false)}>
+					<div style={_sideStyle(testSpacing, false)}>
+						<Hexagon />
+					</div>
+				</div>
+				{/* <div style={sideStyle(testSpacing, true)}>
+					<div style={_sideStyle(testSpacing, true)}>
+						<Hexagon />
+					</div>
+				</div>
+				<div style={midStyle(testSpacing)}>
+					<div style={_midStyle(testSpacing)}>
+						<Hexagon />
+					</div>
+				</div>
+				<div style={sideStyle(testSpacing, false)}>
+					<div style={_sideStyle(testSpacing, false)}>
+						<Hexagon />
+					</div>
+				</div> */}
+			</div>
 		</section>
 	);
 };
