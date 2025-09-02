@@ -101,7 +101,7 @@ export class Page extends React.Component<{
 					<section style={pageStyle}>
 						<Page />
 					</section>
-					<Footer />
+					{/* <Footer /> */}
 				</main>
 			</>
 		);

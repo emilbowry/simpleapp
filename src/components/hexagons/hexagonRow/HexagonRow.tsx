@@ -3,7 +3,7 @@
 import React from "react";
 
 import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
-import { rowstyle, hexWrap, hexWrap_middle } from "./HexagonRow.styles";
+import { container, midStyle, sideStyle } from "./HexagonRow.styles";
 import {
 	IHexagonGridElements,
 	IHexagonRowElements,
@@ -19,57 +19,9 @@ import {
 	l_midnight_green,
 } from "../../../utils/defaultColours";
 
-const sideStyle = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0,
-	isLeft: boolean = true
-): React.CSSProperties => {
-	return {
-		...(isLeft
-			? { marginLeft: `${25}%`, marginRight: `-${25}%` }
-			: { marginRight: `${25}%`, marginLeft: `-${25}%` }),
-		...(isLeft
-			? { paddingRight: `${(absolute_spacing * Math.sqrt(3)) / 2}px` }
-			: { paddingLeft: `${(absolute_spacing * Math.sqrt(3)) / 2}px` }),
+const rspacing = 15;
 
-		paddingTop: `${absolute_spacing / 2}px`,
-	};
-};
-const midStyle = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-): React.CSSProperties => {
-	return {
-		marginTop: `-${25 * Math.sqrt(3) + relative_spacing}%`,
-		paddingTop: `${absolute_spacing / 2}px`,
-
-		paddingLeft: `${(absolute_spacing * Math.sqrt(3)) / 4}px`,
-		paddingRight: `${(absolute_spacing * Math.sqrt(3)) / 4}px`,
-	};
-};
-
-const container = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-): React.CSSProperties => {
-	return {
-		position: "relative",
-
-		columnGap: `${relative_spacing / Math.sqrt(3)}%`,
-		rowGap: `${relative_spacing}%`,
-		display: "grid",
-		gridTemplateColumns: `repeat(3, minmax(0, 1fr))`,
-
-		margin: "0 auto",
-		opacity: "0.8",
-		width: "80%",
-		paddingBottom: `${1.5 * relative_spacing}%`,
-		// marginBottom: `${10 * absolute_spacing}px`,
-	};
-};
-const rspacing = 5;
-
-const aspace = 10;
+const aspace = 0;
 export class HexagonRow extends React.Component<IHexagonRowElements> {
 	render() {
 		const { elements } = this.props;

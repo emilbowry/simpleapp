@@ -138,28 +138,31 @@ export const Hero: React.FC = () => {
 			setScaledContentHeight(unscaledHeight * sf);
 		}
 	}, [windowWidth]); // Recalculate when windowWidth changes
-	const firstRow = [
-		null,
-		null,
-		<Hexagon args={{ colour: mix_green }} />,
-	] as const;
 
-	const secondRow = [
-		null,
+	// const firstRow = [
+	// 	null,
+	// 	<LogoHexagon args={{ withGap: false }} />,
+	// 	<Hexagon args={{ colour: mix_green }} />,
+	// ] as const;
 
-		<LogoHexagon args={{ withGap: false }} />,
+	// const secondRow = [
+	// 	null,
+	// 	<Hexagon
+	// 		args={{ colour: light_mix_green }}
+	// 		element={textEl}
+	// 	/>,
+	// 	<ImageHexagon args={{ img: hi1 }} />,
+	// ] as const;
+	// const thirdRow = [
+	// 	<ImageHexagon args={{ img: hi2 }} />,
+	// 	null,
+	// 	<Hexagon args={{ colour: l_midnight_green }} />,
+	// ] as const;
 
-		<ImageHexagon args={{ img: hi1 }} />,
-	] as const;
+	const firstRow = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
 
-	const thirdRow = [
-		<ImageHexagon args={{ img: hi2 }} />,
-		<Hexagon
-			args={{ colour: light_mix_green }}
-			element={textEl}
-		/>,
-		<Hexagon args={{ colour: l_midnight_green }} />,
-	] as const;
+	const secondRow = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
+	const thirdRow = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
 
 	const sf = windowWidth / 1500;
 	const r = [

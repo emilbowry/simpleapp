@@ -4,14 +4,14 @@ import React from "react";
 export const style_CallingCardStyle = (
 	fullSpread: boolean
 ): React.CSSProperties => ({
-	padding: !fullSpread ? "20px" : "", //Works DO NOT TOUCH
+	padding: !fullSpread ? "2%" : "", //Works DO NOT TOUCH
 	// paddingTop: "40px",
+
 	alignItems: "center",
 });
 export const innerStyle = (fullSpread: boolean): React.CSSProperties => ({
 	fontSize: "2rem",
-
-	paddingTop: "10px",
+	padding: "2%",
 	borderRadius: !fullSpread ? "50px 10px" : "",
 });
 
@@ -22,6 +22,7 @@ export const itemStyle: React.CSSProperties = {
 export const cardStyle = (_colour: string): React.CSSProperties => ({
 	color: _colour,
 	display: "grid",
+
 	justifyContent: "space-evenly",
 });
 

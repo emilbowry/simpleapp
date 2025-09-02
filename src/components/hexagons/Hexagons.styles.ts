@@ -38,18 +38,32 @@ export const containerStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
+		// marginTop: "-1px",
+		// marginBottom: "-1px",
+		// marginLeft: "-3px",
+		// marginRight: "-3px",
+		// display: "block",
+		// verticalAlign: "bottom",
+		// margin: 0,
 		// border: "1px solid black",
 		// position: "relative",
 		// width,
 		// height,
 		// width: "100%",
+		// height: "auto",
+		fontSize: 0, // Remeber to reset
+		overflow: "visible",
 		// width: "stretch",
 		// height: "min-content%",
 		// flexShrink: 0,
 		// width: "70vw",
 		// height: "70vh",
 		// width
-		// opacity,
+		// border: "1px solid black",
+		// display: "block",
+		// boxSizing: "border-box",
+		width: "100%",
+		opacity: 0.5,
 	};
 };
 
@@ -59,7 +73,10 @@ export const svgStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
-		overflow: "visible",
+		// overflow: "visible",
+		// 		border: "1px solid black",
+		// boxSizing: border-box;
+		// width: "stretch",
 		// width,
 		// width: "stretch",
 		// height: "stretch",
@@ -80,6 +97,7 @@ export const horizontalContentStyle = (): React.CSSProperties => {
 		left,
 		top,
 		width,
+		fontSize: "unset",
 		height,
 		overflow: "hidden",
 		display: "flex",
