@@ -71,7 +71,8 @@ import CustomCursor from "../components/cursor/Cursor";
 const pageStyle: React.CSSProperties = {
 	flexGrow: "1",
 	height: "100%",
-
+	position: "relative",
+	marginTop: "5%",
 	flexDirection: "column", // Have to do both
 };
 export class Page extends React.Component<{
@@ -96,7 +97,7 @@ export class Page extends React.Component<{
 				>
 					{useCursor ? <CustomCursor /> : null}
 					{bg ? <DemoTiledBackground /> : null}
-					{/* <AppTitleBar /> */}
+					<AppTitleBar />
 					<section style={pageStyle}>
 						<Page />
 					</section>

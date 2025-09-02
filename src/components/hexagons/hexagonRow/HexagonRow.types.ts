@@ -7,7 +7,9 @@ import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
 export interface IHexagonRowElements {
 	elements: readonly [ValidComponent, ValidComponent, ValidComponent];
 }
-
+export interface IHexagonGridElements {
+	rows: IHexagonRowElements[];
+}
 export interface IVerticalHexagonRowProps {
 	index: number;
 	element: React.ReactNode;

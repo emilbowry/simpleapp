@@ -4,7 +4,10 @@ import {
 	LogoHexagon,
 	ImageHexagon,
 } from "../../../components/hexagons/Hexagons";
-import { HexagonRow } from "../../../components/hexagons/hexagonRow/HexagonRow";
+import {
+	HexagonGrid,
+	HexagonRow,
+} from "../../../components/hexagons/hexagonRow/HexagonRow";
 import { ComponentOrStringList } from "../../../utils/reactUtils";
 import {
 	purple,
@@ -18,6 +21,7 @@ import hi1 from "../../../assets/heroimage1.jpg";
 import hi2 from "../../../assets/heroimage2.jpg";
 import hi3 from "../../../assets/heroimage3.jpg";
 import hi4 from "../../../assets/heroimage4.jpg";
+import { IHexagonGridElements } from "../../../components/hexagons/hexagonRow/HexagonRow.types";
 const textEl = (
 	<div
 		style={{
@@ -158,10 +162,18 @@ export const Hero: React.FC = () => {
 	] as const;
 
 	const sf = windowWidth / 1500;
+	const r = [
+		{ elements: firstRow },
+		{ elements: secondRow },
+		{ elements: thirdRow },
+	];
+	// const r = {rows:firstRow},{elements:secondRow},{elements:thirdRow}]};
 
 	return (
-		<div style={{ minHeight: `${scaledContentHeight}px` }}>
-			<div
+		<div>
+			<HexagonGrid rows={r} />
+
+			{/* <div
 				className="no-aos"
 				style={{ display: "flex", flexDirection: "row" }}
 			>
@@ -186,7 +198,7 @@ export const Hero: React.FC = () => {
 					<HexagonRow elements={secondRow} />
 					<HexagonRow elements={thirdRow} />
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };

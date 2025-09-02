@@ -36,6 +36,8 @@ export const _titleBarStyles = (): React.CSSProperties => {
 		alignItems: "center",
 		justifyContent: "space-between",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}px`,
+		// marginBottom: `${VISIBLE_TITLEBAR_HEIGHT}px`,
+
 		// backgroundColor: "white",
 		// backdropFilter: "blur(1px)",
 		backgroundColor: "rgb(255 255 255 / 90%)",

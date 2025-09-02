@@ -1,3 +1,5 @@
+// src/components/titlebar/TitleBar.tsx
+
 import React from "react";
 import logo from "../../assets/logo.png";
 import dropdownImage from "../../assets/dude1.jpg";
