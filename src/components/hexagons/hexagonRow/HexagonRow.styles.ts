@@ -2,61 +2,91 @@ import React from "react";
 
 const vertSF = Math.sqrt(3) / 2;
 const CONVERSION_FACTOR = 1 / 3;
+
+const _rspace = 50 + 30 / 2;
+const _urspace = 50 - 30 / 2;
+
 const bgAxis = `
-		    linear-gradient(150deg, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px)),
-		    linear-gradient(30deg, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px)),
-            linear-gradient(to bottom, red 0%, transparent 1%),
-            linear-gradient(to top,  red 0%, transparent 1%),
-            linear-gradient(to right, red 0%, transparent 1%),
-            linear-gradient(to left, red 0%, transparent 1%)
-        `;
+			linear-gradient(150deg, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px)),
+			linear-gradient(30deg, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px)),
+			linear-gradient(to bottom, red 0%, transparent 1%),
+			linear-gradient(to top,  red 0%, transparent 1%),
+			linear-gradient(to right, red 0%, transparent 1%),
+			linear-gradient(to left, red 0%, transparent 1%),
+			linear-gradient(90deg, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px)),
+			linear-gradient(0deg, transparent calc(50% - 1px), red 50%, transparent calc(50% + 1px)),
+			linear-gradient(0deg, transparent calc(${_urspace}% - 1px), red ${_urspace}%, transparent calc(${_urspace}% + 1px)),
+			linear-gradient(0deg, transparent calc(${_rspace}% - 1px), red ${_rspace}%, transparent calc(${_rspace}% + 1px))
+
+
+		`;
+
 export const sideStyle = (
-	relative_spacing: number = 0,
+	relative_spacing: number = 10,
 	absolute_spacing: number = 0,
 	isLeft: boolean = true
 ): React.CSSProperties => {
-	let _relative_spacing = 0;
-	const horizontal_spacing_add =
-		relative_spacing * vertSF * CONVERSION_FACTOR;
+	// const hsf = 1 - (2 * relative_spacing) / 100; // 25*sf = hsf
+	const horizontal_spacing = 25 - relative_spacing / 2;
+
 	return {
 		background: bgAxis,
 
 		...(isLeft
 			? {
-					marginLeft: `${25 + horizontal_spacing_add}%`,
-					marginRight: `-${25 + horizontal_spacing_add}%`,
+					// marginLeft: `calc(${horizontal_spacing}%)`,
+					marginLeft: `calc(${horizontal_spacing}% + ${
+						absolute_spacing * vertSF
+					}px)`,
+
+					// marginRight: `calc(-${horizontal_spacing}%)`,
+					marginRight: `calc(-(${horizontal_spacing}% + ${
+						absolute_spacing * vertSF
+					}px))`,
 			  }
 			: {
-					marginRight: `${25 + horizontal_spacing_add}%`,
-					marginLeft: `-${25 + horizontal_spacing_add}%`,
+					// marginRight: `calc(${horizontal_spacing}%)`,
+					marginRight: `calc(${horizontal_spacing}% + ${
+						absolute_spacing * vertSF
+					}px)`,
+
+					// marginLeft: `calc(-${horizontal_spacing}%)`,
+					marginLeft: `calc(-1*(${horizontal_spacing}% + ${
+						absolute_spacing * vertSF
+					}px))`,
 			  }),
+		// marginTop: `calc(-${absolute_spacing / 2}px)`,
+		// marginBottom: `calc(1*(${absolute_spacing / 2}px))`,
 	};
 };
 export const midStyle = (
-	relative_spacing: number = 0,
+	relative_spacing: number = 10,
 	absolute_spacing: number = 0
 ): React.CSSProperties => {
-	// The additional vertical margin must be scaled.
-	const vertical_spacing_add = relative_spacing / 2; //* CONVERSION_FACTOR;
+	// const vertical_spacing = 50 + (relative_spacing * vertSF) / 2;
+
+	const vsf = vertSF * (1 + relative_spacing / 100);
 
 	return {
 		background: bgAxis,
-		marginTop: `${50 * vertSF + vertical_spacing_add}%`,
-		marginBottom: `-${50 * vertSF + vertical_spacing_add}%`,
+		// marginTop: `calc(${50 * vsf}% + ${absolute_spacing}px)`,
+		// marginBottom: `calc(-1*(${50 * vsf}%  + ${absolute_spacing}px))`,
+		marginTop: `calc(${50 * vsf}%)`,
+		marginBottom: `calc(-1*(${50 * vsf}% ))`,
 	};
 };
 
 export const container = (
-	relative_spacing: number = 0,
+	relative_spacing: number = 10,
 	absolute_spacing: number = 0
 ): React.CSSProperties => {
-	// The rowGap should be purely vertical and must also be scaled.
-	// The 'vertSF' was geometrically incorrect here.
 	const vertical_gap = relative_spacing * CONVERSION_FACTOR;
-
+	const horizontal_gap = relative_spacing * CONVERSION_FACTOR * 0.25;
 	return {
 		position: "relative",
-		rowGap: `${vertical_gap}%`, // Corrected calculation
+		rowGap: `${vertical_gap}%`,
+		columnGap: `${horizontal_gap}%`,
+
 		display: "grid",
 		gridTemplateColumns: `repeat(3, 1fr)`,
 		overflow: "visible",
