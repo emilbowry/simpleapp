@@ -280,7 +280,7 @@ export const midStyle = (
 	relative_spacing: number = 10,
 	absolute_spacing: number = 0
 ): React.CSSProperties => {
-	const vertical_spacing_add = (relative_spacing * vertSF) / 2;
+	const vertical_spacing_add = (relative_spacing * 1 * 1) / 2;
 
 	return {
 		background: bgAxis,
