@@ -19,12 +19,12 @@ import {
 	l_midnight_green,
 } from "../../../utils/defaultColours";
 
-export const rspacing = 10;
+export const rspacing = 5;
 
-const aspace = 10;
+const aspace = 90;
 export class HexagonRow extends React.Component<IHexagonRowElements> {
 	render() {
-		const { elements } = this.props;
+		const { elements, len = 1 } = this.props;
 
 		return (
 			<>
@@ -44,11 +44,14 @@ export class HexagonRow extends React.Component<IHexagonRowElements> {
 export class HexagonGrid extends React.Component<IHexagonGridElements> {
 	render() {
 		const { rows } = this.props;
-
+		const l = rows.length;
 		return (
 			<div style={container(rspacing, aspace)}>
 				{rows.map((row, _index) => (
-					<HexagonRow elements={row.elements} />
+					<HexagonRow
+						elements={row.elements}
+						len={l}
+					/>
 				))}
 			</div>
 		);
