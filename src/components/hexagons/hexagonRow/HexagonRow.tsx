@@ -19,9 +19,9 @@ import {
 	l_midnight_green,
 } from "../../../utils/defaultColours";
 
-const rspacing = 9;
+export const rspacing = 10;
 
-const aspace = 0;
+const aspace = 10;
 export class HexagonRow extends React.Component<IHexagonRowElements> {
 	render() {
 		const { elements } = this.props;
