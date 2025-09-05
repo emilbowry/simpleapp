@@ -40,7 +40,7 @@ const k = (relative_spacing: number = 0) => {
 	return k;
 };
 const _rspace = 50 + (TEST_REL_SPACE * k(10)) / 2;
-console.log(_rspace);
+// console.log(_rspace);
 const _urspace = 50 - (TEST_REL_SPACE * k(10)) / 2;
 
 // Helpful debugging background
@@ -89,13 +89,9 @@ const _calculateRowGap = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ) => {
-	const verticalSpacing = relative_spacing / aspect_ratio;
-	const shrink_compensation =
-		-4 *
-		(1 / k(relative_spacing)) *
-		delta_W(relative_spacing) *
-		aspect_ratio;
-	return verticalSpacing + shrink_compensation;
+	const verticalSpacing = relative_spacing;
+
+	return verticalSpacing;
 };
 const calculateColGap = (
 	relative_spacing: number = 0,
@@ -131,13 +127,46 @@ const centreHexYShift = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ) => {
+	const c = aspect_ratio; // definition of colgap
+	const n = 1 / CONTAINER_per_Element;
+	const correction =
+		(-relative_spacing /
+			(aspect_ratio * (n - (n - 1) * (relative_spacing * c)))) *
+		50;
+
+	console.log(`correction: ${correction}`);
+	console.log(`50*k: ${50 * k(relative_spacing)}`);
+
+	console.log(`delta_W: ${delta_W(relative_spacing)}`);
+	console.log(
+		`delta_W*k: ${delta_W(relative_spacing) * k(relative_spacing)}`
+	);
+	console.log(
+		`relative_spacing / aspect_ratio: ${relative_spacing / aspect_ratio}`
+	);
+	console.log(
+		`relative_spacing * aspect_ratio: ${relative_spacing * aspect_ratio}`
+	);
+	console.log(
+		`relative_spacing * aspect_ratio *k : ${
+			relative_spacing * aspect_ratio * (1 + relative_spacing / 200)
+		}`
+	);
+	// const vert_offset = 50 / aspect_ratio; // Ensures "translation" down by half for honeycomb
+	// const vert_offset =
+	// 	((50 - delta_W(relative_spacing)) * k(relative_spacing)) / aspect_ratio; // Ensures "translation" down by half for honeycomb
 	const vert_offset = 50 / aspect_ratio; // Ensures "translation" down by half for honeycomb
+	const scaling_compensation = -delta_W(relative_spacing) / aspect_ratio; // Ensure's center of row gap, shift by half row gap
+	const centering_correction = _calculateRowGap(relative_spacing) * 1.465; // Compensates for decreased height
+	// 1: 1.5
+	// 2: => 1.4
+	// 5: 6.65 => 1.33
+	// 10: 12.7 => 1.27
 
-	const scaling_compensation =
-		(-delta_W(relative_spacing) * k(relative_spacing)) / 4; // Ensure's center of row gap, shift by half row gap
+	// 20: 25.35 =>1.26 relative_spacing * aspect_ratio * (1 + relative_spacing / 200)
+	// 21: 26.8  => 1.27relative_spacing * aspect_ratio * (1 + relative_spacing / 200)
 
-	const centering_correction = (relative_spacing * k(relative_spacing)) / 2; // Compensates for decreased height
-
+	return getCalc(correction, true);
 	return getCalc(
 		vert_offset + scaling_compensation + centering_correction,
 		true
