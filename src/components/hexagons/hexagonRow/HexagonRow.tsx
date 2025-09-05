@@ -19,23 +19,31 @@ import {
 	l_midnight_green,
 } from "../../../utils/defaultColours";
 
-export const rspacing = 5;
+export const rspacing = 10;
 
-const aspace = 90;
+const aspace = 0;
 export class HexagonRow extends React.Component<IHexagonRowElements> {
 	render() {
 		const { elements, len = 1 } = this.props;
-
+		const r = 2 / Math.sqrt(3);
 		return (
 			<>
 				<div style={sideStyle(rspacing, aspace, true)}>
-					{formatComponent(elements[0], true)}
+					{/* {formatComponent(elements[0], true)} */}
+					{/* <div style={{ height: `${100}%`, width: "100%" }} /> */}
+					<div style={{ width: "100%", aspectRatio: ` ${r}` }} />
 				</div>
 				<div style={midStyle(rspacing, aspace)}>
-					{formatComponent(elements[1], true)}
+					{/* <div style={{ height: `${r * 100}%`, width: "100%" }} /> */}
+					<div style={{ width: "100%", aspectRatio: ` ${r}` }} />
+
+					{/* {formatComponent(elements[1], true)} */}
 				</div>
 				<div style={sideStyle(rspacing, aspace, false)}>
-					{formatComponent(elements[2], true)}
+					{/* <div style={{ height: `${r * 100}%`, width: "100%" }} /> */}
+					<div style={{ width: "100%", aspectRatio: `${r}` }} />
+
+					{/* {formatComponent(elements[2], true)} */}
 				</div>
 			</>
 		);

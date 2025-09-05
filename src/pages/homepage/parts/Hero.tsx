@@ -139,36 +139,39 @@ export const Hero: React.FC = () => {
 		}
 	}, [windowWidth]); // Recalculate when windowWidth changes
 
-	// const firstRow = [
-	// 	null,
-	// 	<LogoHexagon args={{ withGap: false }} />,
-	// 	<Hexagon args={{ colour: mix_green }} />,
-	// ] as const;
+	const firstRow = [
+		null,
+		<LogoHexagon args={{ withGap: false }} />,
+		<Hexagon args={{ colour: mix_green }} />,
+	] as const;
 
-	// const secondRow = [
-	// 	null,
-	// 	<Hexagon
-	// 		args={{ colour: light_mix_green }}
-	// 		element={textEl}
-	// 	/>,
-	// 	<ImageHexagon args={{ img: hi1 }} />,
-	// ] as const;
-	// const thirdRow = [
-	// 	<ImageHexagon args={{ img: hi2 }} />,
-	// 	null,
-	// 	<Hexagon args={{ colour: l_midnight_green }} />,
-	// ] as const;
+	const secondRow = [
+		null,
+		<Hexagon
+			args={{ colour: light_mix_green }}
+			element={textEl}
+		/>,
+		<ImageHexagon args={{ img: hi1 }} />,
+	] as const;
+	const thirdRow = [
+		<ImageHexagon args={{ img: hi2 }} />,
+		null,
+		<Hexagon args={{ colour: l_midnight_green }} />,
+	] as const;
 
-	const firstRow = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
-
-	const secondRow = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
-	const thirdRow = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
+	const demo_row = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
 
 	const sf = windowWidth / 1500;
 	const r = [
-		{ elements: firstRow },
-		{ elements: secondRow },
-		{ elements: thirdRow },
+		{ elements: demo_row },
+		{ elements: demo_row },
+		{ elements: demo_row },
+		{ elements: demo_row },
+		{ elements: demo_row },
+
+		// { elements: demo_row },
+
+		// { elements: thirdRow },
 	];
 	// const r = {rows:firstRow},{elements:secondRow},{elements:thirdRow}]};
 

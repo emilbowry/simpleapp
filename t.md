@@ -390,3 +390,54 @@ None, None, None
 None, None, None
 ----
 
+
+
+The following math exercise involves CSS.
+- I  am only working in % scales in the following exercise. 
+- Your answer should be equations, formulae and calculations **not css**
+
+I have a grid defined as:
+
+Some useful constants:
+
+k:= percentage of **original** item **width**
+r:= apect ratio of item - **fixed**
+h:= ratio of column-gap to row-gap
+
+Some variable:
+x = (x_prime/k) *100 
+
+- [Note] x_prime is irrelvant but just shows how i define it
+
+Then a css grid containing **identical** items
+```css
+grid-row-columns:repeat(3,1fr) 
+```
+- AKA 1/3, 1/3, 1/3
+
+I want to apply a vertical spacing of *x* between rows. 
+And a horizontal spacing of **x*h** between the columns.
+
+To me - trivially, the row-gap is:
+
+RowGap(x) = (x/3)%
+and the column-gap is:
+ColumnGap(x) = (x*h/3)%
+
+I now also want to apply a margin-top of x/2% to the item. I belive applying column-gap applies some scaling to the items. I am unsure whether row-gap does as well.
+
+This would make the margin-top calculation less trivial.
+
+1. What scaling to a fixed aspect ratio item does applying ColumnGap(x) apply to the item.
+2. Does RowGap(x) also apply scaling?
+
+
+
+I want to arrange a set of flat-topped regular hexagon items into a honeycomb pattern, 
+using CSS grid as the base layout. The goal is to introduce a single control variable, 
+relative_spacing, which determines the separation between parallel edges of adjacent 
+hexagons. From this variable, I compute row gaps and margin translations so that all 
+parallel edges of the hexagons remain equally spaced — i.e. the perpendicular distance 
+(the normal) between any two neighboring parallel edges is the same. This keeps the 
+tiling visually consistent while allowing the overall spacing of the honeycomb to be 
+adjusted smoothly.
