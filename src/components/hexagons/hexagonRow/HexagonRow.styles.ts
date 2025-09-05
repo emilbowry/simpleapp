@@ -15,72 +15,10 @@ import React from "react";
 
 const TEST_REL_SPACE = 10;
 
-const _rspace = 50 + TEST_REL_SPACE / 2;
-const _urspace = 50 - TEST_REL_SPACE / 2;
-
-// Helpful debugging background
-const border_background = `
-            linear-gradient(to bottom, red 0%, transparent 2px),
-            linear-gradient(to top,  red 0%, transparent 2px),
-            linear-gradient(to right, red 0%, transparent 2px),
-            linear-gradient(to left, red 0%, transparent 2px)
-`;
-// const bgAxis = `
-// 			${border_background},
-// 			linear-gradient(90deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
-// 			linear-gradient(90deg, transparent calc(25% - 2px), red 25%, transparent calc(25% + 2px)),
-// 			linear-gradient(90deg, transparent calc(75% - 2px), red 75%, transparent calc(75% + 2px)),
-// 		    linear-gradient(150deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
-// 		    linear-gradient(30deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
-// 			linear-gradient(0deg, transparent calc(${_urspace}% - 2px), red ${_urspace}%, transparent calc(${_urspace}% + 2px)),
-// 			linear-gradient(0deg, transparent calc(${_rspace}% - 2px), red ${_rspace}%, transparent calc(${_rspace}% + 2px)),
-// 			linear-gradient(0deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px))
-
-//         `;
-const bgAxis = `
-			${border_background}
-
-
-        `;
-// Some constants
-
+// Correction Factors
 const aspect_ratio = 2 / Math.sqrt(3);
 const CONTAINER_per_Element = 1 / 3;
-const HORIZONTAL_per_VERTICAL_SPACE = Math.sqrt(3) / 2; // Ratio of Horizontal gap to Vetical Gap
-
-// Util Function
-
-const getCalc = (value: number, dual = false) => {
-	const innerStr = `(${value}%)`;
-	if (dual) return [`calc(${innerStr})`, `calc(-1*${innerStr})`];
-	return `calc(${innerStr})`;
-};
-// Gap Definitions
-
-const calculateRowGap = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	// Compromise, to actually define row gap using an addition delta_H so the non linearities resolve
-	const verticalSpacing = relative_spacing / aspect_ratio;
-	const shrink_compensation = -2 * delta_H(relative_spacing);
-	return `calc(${
-		relative_spacing / aspect_ratio + delta_H(relative_spacing)
-	}%)`;
-	// return getCalc(2 * (verticalSpacing + shrink_compensation)); // doubling seems odd cant derive it
-};
-
-const calculateColGap = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	const horizontal_spacing = relative_spacing;
-	return getCalc(horizontal_spacing);
-};
-
-// Correction Factors
-
-const column_gap_correction_factor = (relative_spacing: number = 0) => {
+const k = (relative_spacing: number = 0) => {
 	// x:=relative_spacing/100
 	// L:container_width
 	// W:= original_width
@@ -96,19 +34,80 @@ const column_gap_correction_factor = (relative_spacing: number = 0) => {
 	// W = W_prime *n/(n  -(n-1)x/100)
 
 	const n = 1 / CONTAINER_per_Element;
-	const k = n / (n - (n - 1) * (relative_spacing / 100));
+	const gap = relative_spacing * aspect_ratio;
+	const k = n / (n - (n - 1) * (gap / 100));
 
 	return k;
+};
+const _rspace = 50 + (TEST_REL_SPACE * k(10)) / 2;
+console.log(_rspace);
+const _urspace = 50 - (TEST_REL_SPACE * k(10)) / 2;
+
+// Helpful debugging background
+const border_background = `
+            linear-gradient(to bottom, red 0%, transparent 4px),
+            linear-gradient(to top,  red 0%, transparent 4px),
+            linear-gradient(to right, red 0%, transparent 4px),
+            linear-gradient(to left, red 0%, transparent 4px)
+`;
+const bgAxis = `
+			${border_background},
+			linear-gradient(90deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
+			linear-gradient(90deg, transparent calc(25% - 2px), red 25%, transparent calc(25% + 2px)),
+			linear-gradient(90deg, transparent calc(75% - 2px), red 75%, transparent calc(75% + 2px)),
+		    linear-gradient(150deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
+		    linear-gradient(30deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
+			linear-gradient(0deg, transparent calc(${_urspace}% - 2px), red ${_urspace}%, transparent calc(${_urspace}% + 2px)),
+			linear-gradient(0deg, transparent calc(${_rspace}% - 2px), red ${_rspace}%, transparent calc(${_rspace}% + 2px)),
+			linear-gradient(0deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px))
+
+        `;
+// const bgAxis = `
+// 			${border_background}
+
+//         `;
+// Some constants
+
+const HORIZONTAL_per_VERTICAL_SPACE = Math.sqrt(3) / 2; // Ratio of Horizontal gap to Vetical Gap
+
+// Util Function
+
+const getCalc = (value: number, dual = false) => {
+	const innerStr = `(${value}%)`;
+	if (dual) return [`calc(${innerStr})`, `calc(-1*${innerStr})`];
+	return `calc(${innerStr})`;
+};
+// Gap Definitions
+
+const calculateRowGap = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	return getCalc(_calculateRowGap(relative_spacing));
+};
+const _calculateRowGap = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	const verticalSpacing = relative_spacing / aspect_ratio;
+	const shrink_compensation =
+		-4 *
+		(1 / k(relative_spacing)) *
+		delta_W(relative_spacing) *
+		aspect_ratio;
+	return verticalSpacing + shrink_compensation;
+};
+const calculateColGap = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	const horizontal_spacing = relative_spacing * aspect_ratio;
+	return getCalc(horizontal_spacing);
 };
 
 const delta_W = (relative_spacing: number = 0) => {
 	// return `(100% * ${(column_gap_correction_factor(relative_spacing) - 1)/aspect_ratio})`;
-	return column_gap_correction_factor(relative_spacing) - 1;
-};
-
-const delta_H = (relative_spacing: number = 0) => {
-	// return `(100% * ${(column_gap_correction_factor(relative_spacing) - 1)/aspect_ratio})`;
-	return delta_W(relative_spacing) / aspect_ratio;
+	return k(relative_spacing) - 1;
 };
 
 const edgeHexXShift = (
@@ -116,12 +115,9 @@ const edgeHexXShift = (
 	absolute_spacing: number = 0
 ) => {
 	const SIDE_SHIFT = 25; // Ensures "translation" in by 1/4 for honeycomb
-	const horizontal_shift = SIDE_SHIFT; //* column_gap_correction_factor(relative_spacing); //* column_gap_correction_factor(relative_spacing);
-	const scaling_compensation = delta_W(relative_spacing); // Compensates for decreased width, unsure if necessary so == 0
-	const total = SIDE_SHIFT * (1 + 2 * scaling_compensation);
-	return [0, 0]; //NO-OP
+	const horizontal_shift = SIDE_SHIFT * k(relative_spacing); //* column_gap_correction_factor(relative_spacing); //* column_gap_correction_factor(relative_spacing);
 
-	return getCalc(total, true);
+	return getCalc(horizontal_shift, true);
 };
 
 const edgeHexYShift = (
@@ -131,42 +127,21 @@ const edgeHexYShift = (
 	return [0, 0]; //NO-OP
 };
 
-// const centreHexYShift = (
-// 	relative_spacing: number = 0,
-// 	absolute_spacing: number = 0
-// ) => {
-// 	const vert_offset = 50 / aspect_ratio; // Ensures "translation" down by half for honeycomb
-// 	const container_shift_percent = vert_offset; //* column_gap_correction_factor(relative_spacing);
-
-// 	const centering_correction =
-// 		(relative_spacing * column_gap_correction_factor(relative_spacing)) / 2; // Ensure's center of row gap, shift by half row gap
-
-// 	const scaling_compensation = -delta_H(relative_spacing); // Compensates for decreased height
-// 	// console.log(column_gap_correction_factor(relative_spacing));
-// 	return getCalc(
-// 		container_shift_percent + centering_correction + scaling_compensation,
-// 		true
-// 	);
-// };
 const centreHexYShift = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ) => {
 	const vert_offset = 50 / aspect_ratio; // Ensures "translation" down by half for honeycomb
-	const container_shift_percent = vert_offset; //* column_gap_correction_factor(relative_spacing);
 
-	const centering_correction =
-		(relative_spacing * column_gap_correction_factor(relative_spacing)) / 2; // Ensure's center of row gap, shift by half row gap
+	const scaling_compensation =
+		(-delta_W(relative_spacing) * k(relative_spacing)) / 4; // Ensure's center of row gap, shift by half row gap
 
-	const scaling_compensation = -delta_H(relative_spacing); // Compensates for decreased height
-	// console.log(column_gap_correction_factor(relative_spacing));
-	return [0, 0]; //NO-OP
+	const centering_correction = (relative_spacing * k(relative_spacing)) / 2; // Compensates for decreased height
 
-	return getCalc(vert_offset, true);
-	// return getCalc(
-	// 	(50 + 2.21 * delta_W(relative_spacing)) / aspect_ratio,
-	// 	true
-	// );
+	return getCalc(
+		vert_offset + scaling_compensation + centering_correction,
+		true
+	);
 };
 export const sideStyle = (
 	relative_spacing: number = 0,
@@ -179,19 +154,19 @@ export const sideStyle = (
 	return {
 		background: bgAxis,
 
-		// ...(isLeft
-		// 	? {
-		// 			marginLeft: Xshifts[0],
+		...(isLeft
+			? {
+					marginLeft: Xshifts[0],
 
-		// 			marginRight: Xshifts[1],
-		// 	  }
-		// 	: {
-		// 			marginRight: Xshifts[0],
+					marginRight: Xshifts[1],
+			  }
+			: {
+					marginRight: Xshifts[0],
 
-		// 			marginLeft: Xshifts[1],
-		// 	  }),
-		// marginTop: Yshifts[0],
-		// marginBottom: Yshifts[1],
+					marginLeft: Xshifts[1],
+			  }),
+		marginTop: Yshifts[0],
+		marginBottom: Yshifts[1],
 	};
 };
 
@@ -203,8 +178,6 @@ export const midStyle = (
 
 	return {
 		background: bgAxis,
-		// borderTop: `solid transparent`,
-		// borderBottom: `${4 / 2}px solid transparent`,
 
 		marginTop: Xshifts[0],
 		marginBottom: Xshifts[1],
@@ -225,12 +198,8 @@ export const container = (
 		background: border_background,
 
 		position: "relative",
-		// columnGap: `3%`,
-		rowGap: `calc(${
-			relative_spacing / aspect_ratio + delta_H(relative_spacing)
-		}%)`,
 
-		// rowGap: calculateRowGap(relative_spacing, absolute_spacing) as string,
+		rowGap: calculateRowGap(relative_spacing, absolute_spacing) as string,
 
 		columnGap: calculateColGap(
 			relative_spacing,
