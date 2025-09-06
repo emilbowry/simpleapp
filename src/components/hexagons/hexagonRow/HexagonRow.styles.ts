@@ -2,7 +2,6 @@
 
 import React from "react";
 import { rspacing, aspace } from "./HexagonRow.consts";
-import { DeleteIcon } from "lucide-react";
 
 /*
 	CONSTANT DEFINITIONS 
@@ -63,24 +62,13 @@ const delta_W = (relative_spacing: number = 0) => {
 	return K(relative_spacing) - 1;
 };
 
-const delta_H = (relative_spacing: number = 0) => {
-	// in terms of % width
-	return delta_W(relative_spacing) / ASPECT_RATIO;
-};
-
 // Mathematical Definitons
 
 const centerVertTranslation = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ) => {
-	const k = K(relative_spacing);
-
 	const κ = 1 / ASPECT_RATIO;
-	return 50 * κ;
-
-	return 50 * k * κ - delta_H(relative_spacing) / 2;
-
 	return 50 * κ;
 };
 
@@ -88,16 +76,11 @@ const gapMidpointTranslation = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ) => {
-	const x = rspacing * K(rspacing);
-	// return 0;
-	// return (rspacing * K(rspacing)) / 2;
-	const k = K(relative_spacing);
-
 	const κ = 1 / ASPECT_RATIO;
 
-	const row_gap = (relative_spacing * κ) / 2;
+	const row_gap = relative_spacing * κ;
 	// Since it is relative to width **already** by definition no need for kappa scaling
-	const row_midpoint = row_gap;
+	const row_midpoint = row_gap / 2;
 	return row_midpoint;
 };
 
@@ -130,7 +113,7 @@ const overlapTranslation = (
 ) => {
 	const shift_percentage = 25;
 	const k = K(relative_spacing);
-	return shift_percentage * k * (1 + relative_spacing / 100); // Since column-gap is our cannonical inner translation we need to maintain the absolute shift
+	return shift_percentage * k * 1; // Since column-gap is our cannonical inner translation we need to maintain the absolute shift
 };
 
 const PositionCorrectionFactor = (
@@ -140,7 +123,6 @@ const PositionCorrectionFactor = (
 	//overlapTranslation would shift the sclaed hexagon correctly if the centered at the same point
 	// They are actually centered at +- Delta_w/2 (I think so need to correct back for that)
 	return +delta_W(relative_spacing) / 2;
-	// return 0;
 };
 
 const XScaleCorrectionFactor = (
@@ -149,28 +131,24 @@ const XScaleCorrectionFactor = (
 ) => {
 	const k = K(relative_spacing);
 
-	return (k * relative_spacing) / 100;
+	return (k * relative_spacing) / 4;
 };
 
 const edgeXOffset = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ): number | [number, number] => {
+	const multiplier = absolute_spacing >= 0 ? 4 : 3; // Idk why we need a multiplier nor the divisor by 5
+	// something to do with repeat(3,1fr)
 	return [
 		overlapTranslation(relative_spacing) +
 			PositionCorrectionFactor(relative_spacing) +
 			XScaleCorrectionFactor(relative_spacing),
-		(-absolute_spacing * ASPECT_RATIO * 4) / 5,
+		-absolute_spacing * ASPECT_RATIO,
 	];
 };
 
-// Util Function
-
-// const getCalc = (rel: number | [number, number], dual: boolean = false) => {
-// 	const innerStr = `(${rel}%)`;
-// 	if (dual) return [`calc(${innerStr})`, `calc(-1*${innerStr})`];
-// 	return `calc(${innerStr})`;
-// };
+// Util Functions
 
 const getCalc = (vals: number | [number, number], dual: boolean = false) => {
 	let rel = 0;
@@ -282,11 +260,16 @@ export const container = (
 	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
 	const row_rel_spacing = _relative_spacing / length;
 
-	console.log(length);
-
 	return {
 		// background: border_background,
 		position: "relative",
+		margin: `calc(${_relative_spacing / 2}% + ${
+			(absolute_spacing > 0 ? absolute_spacing : 0) / 2
+		}px)`,
+		marginTop: "0px",
+		// marginTop: `calc(${_relative_spacing / 4}% + ${
+		// 	(absolute_spacing > 0 ? absolute_spacing : 0) / 2
+		// }px)`,
 
 		// These two are equivalent but allow for negative absolute spacing
 		gridAutoRows: `calc(${
@@ -301,7 +284,9 @@ export const container = (
 
 		columnGap: calculateColGap(col_rel_spacing, absolute_spacing) as string,
 		display: "grid",
-		gridTemplateColumns: `repeat(${n}, ${33}%)`,
+		// gridTemplateColumns: `repeat(${n}, ${1/3})`,
+		gridTemplateColumns: `repeat(${n}, 1fr)`,
+
 		overflow: "visible",
 	};
 };

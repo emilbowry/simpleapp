@@ -34,7 +34,7 @@ export const getFinalDimensions = ({
 export const containerStyle = ({
 	size = 500,
 	scale = 1,
-	opacity = 1,
+	opacity = 0.8,
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
@@ -63,7 +63,7 @@ export const containerStyle = ({
 		// display: "block",
 		// boxSizing: "border-box",
 		width: "100%",
-		opacity: 0.5,
+		opacity, // why can i return like this this is odd
 	};
 };
 

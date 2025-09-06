@@ -1,2 +1,2 @@
-export const rspacing: number = 10;
-export const aspace = 10;
+export const rspacing: number = 30;
+export const aspace = -100;
