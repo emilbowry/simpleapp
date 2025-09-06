@@ -162,19 +162,31 @@ export const Hero: React.FC = () => {
 	const demo_row = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
 
 	const sf = windowWidth / 1500;
+	// const r = [
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	// { elements: demo_row },
+
+	// 	// { elements: thirdRow },
+	// ];
+	// const r = {rows:firstRow},};
 	const r = [
-		{ elements: demo_row },
-		{ elements: demo_row },
-		{ elements: demo_row },
-		{ elements: demo_row },
-		{ elements: demo_row },
-
-		// { elements: demo_row },
-
-		// { elements: thirdRow },
+		{ elements: firstRow },
+		{ elements: secondRow },
+		{ elements: thirdRow },
 	];
-	// const r = {rows:firstRow},{elements:secondRow},{elements:thirdRow}]};
-
 	return (
 		<div>
 			<HexagonGrid rows={r} />

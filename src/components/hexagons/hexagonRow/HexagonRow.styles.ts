@@ -1,47 +1,213 @@
-/*
-I want to arrange a set of flat-topped regular hexagon items into a honeycomb pattern, 
-using CSS grid as the base layout. The goal is to introduce a single control variable, 
-relative_spacing, which determines the separation between parallel edges of adjacent 
-hexagons. From this variable, I compute row gaps and margin translations so that all 
-parallel edges of the hexagons remain equally spaced — i.e. the perpendicular distance 
-(the normal) between any two neighboring parallel edges is the same. This keeps the 
-tiling visually consistent while allowing the overall spacing of the honeycomb to be 
-adjusted smoothly.
-*/
+// src/components/hexagons/hexagonRow/HexagonRow.styles.ts
 
 import React from "react";
+import { rspacing, aspace } from "./HexagonRow.consts";
+import { DeleteIcon } from "lucide-react";
 
-// relative_spacing and hardcoded relative_spacing are defined as % of width of the grid items
+/*
+	CONSTANT DEFINITIONS 
+*/
 
-const TEST_REL_SPACE = 10;
+const ASPECT_RATIO = 2 / Math.sqrt(3); // Width/Height,  W=H.r
+const n = 3;
+const CONTAINER_per_Element = 1 / n;
 
-// Correction Factors
-const aspect_ratio = 2 / Math.sqrt(3);
-const CONTAINER_per_Element = 1 / 3;
-const k = (relative_spacing: number = 0) => {
-	// x:=relative_spacing/100
-	// L:container_width
-	// W:= original_width
-	// W_prime:= current_width
+const colGap = (relative_spacing: number = 0, absolute_spacing: number = 0) => {
+	const HORIZONTAL_SPACE_SF = ASPECT_RATIO;
+	//  Makes sense since devolves into an equilateral triangle problem
+	// == 1/cos(30)
+	const horizontal_spacing = relative_spacing * HORIZONTAL_SPACE_SF;
+	return horizontal_spacing;
+};
+/* 
+**IMPORTANT**:
 
-	// Wx=GAP
-	//
-	// W=L/n
-	// W_prime*n = L -(n-1)*Wx/100
-	// W_prime*n = Wn  -(n-1)*Wx/100
+row-gap is CANNONICALLY DEFINED in terms of item **width**
+*/
+const rowGap = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+): number | [number, number] => {
+	const verticalSpacing = relative_spacing;
+	return [verticalSpacing, absolute_spacing];
+};
 
-	// W_prime*n = W(n  -(n-1)x/100)
-	// W = W_prime *n/(n  -(n-1)x/100)
+/*
+	SCALING CORRECTION FACTOR: k
 
-	const n = 1 / CONTAINER_per_Element;
-	const gap = relative_spacing * aspect_ratio;
+
+k(relative_space) scales, transformed % into % of orignal element (container/n)
+g:= col-gap
+Derivation:
+
+W.n = W'.n +(n-1).g
+g = Wx/100
+	W. (n-(n-1).(x/100))/n = W'
+let W=kW'
+k = n/(n-(n-1).(x/100))
+
+*/
+
+const K = (relative_spacing: number = 0) => {
+	const gap = colGap(relative_spacing);
 	const k = n / (n - (n - 1) * (gap / 100));
 
 	return k;
 };
-const _rspace = 50 + (TEST_REL_SPACE * k(10)) / 2;
-// console.log(_rspace);
-const _urspace = 50 - (TEST_REL_SPACE * k(10)) / 2;
+
+/*
+SCALING CORRECTION FACTOR RESULTS
+*/
+
+const delta_W = (relative_spacing: number = 0) => {
+	return K(relative_spacing) - 1;
+};
+
+const delta_H = (relative_spacing: number = 0) => {
+	// in terms of % width
+	return delta_W(relative_spacing) / ASPECT_RATIO;
+};
+
+// Mathematical Definitons
+
+const centerVertTranslation = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	const k = K(relative_spacing);
+
+	const κ = 1 / ASPECT_RATIO;
+	return 50 * κ;
+
+	return 50 * k * κ - delta_H(relative_spacing) / 2;
+
+	return 50 * κ;
+};
+
+const gapMidpointTranslation = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	const x = rspacing * K(rspacing);
+	// return 0;
+	// return (rspacing * K(rspacing)) / 2;
+	const k = K(relative_spacing);
+
+	const κ = 1 / ASPECT_RATIO;
+
+	const row_gap = (relative_spacing * κ) / 2;
+	// Since it is relative to width **already** by definition no need for kappa scaling
+	const row_midpoint = row_gap;
+	return row_midpoint;
+};
+
+/* 
+**IMPORTANT**:
+
+	- CANNONICALLY DEFINED in terms of item **width**
+*/
+const centreYOffset = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+): number | [number, number] => {
+	return [
+		centerVertTranslation(relative_spacing) +
+			gapMidpointTranslation(relative_spacing),
+		+absolute_spacing / 2,
+	];
+};
+
+const edgeYOffset = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	return 0;
+};
+
+const overlapTranslation = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	const shift_percentage = 25;
+	const k = K(relative_spacing);
+	return shift_percentage * k * (1 + relative_spacing / 100); // Since column-gap is our cannonical inner translation we need to maintain the absolute shift
+};
+
+const PositionCorrectionFactor = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	//overlapTranslation would shift the sclaed hexagon correctly if the centered at the same point
+	// They are actually centered at +- Delta_w/2 (I think so need to correct back for that)
+	return +delta_W(relative_spacing) / 2;
+	// return 0;
+};
+
+const XScaleCorrectionFactor = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+) => {
+	const k = K(relative_spacing);
+
+	return (k * relative_spacing) / 100;
+};
+
+const edgeXOffset = (
+	relative_spacing: number = 0,
+	absolute_spacing: number = 0
+): number | [number, number] => {
+	return [
+		overlapTranslation(relative_spacing) +
+			PositionCorrectionFactor(relative_spacing) +
+			XScaleCorrectionFactor(relative_spacing),
+		(-absolute_spacing * ASPECT_RATIO * 4) / 5,
+	];
+};
+
+// Util Function
+
+// const getCalc = (rel: number | [number, number], dual: boolean = false) => {
+// 	const innerStr = `(${rel}%)`;
+// 	if (dual) return [`calc(${innerStr})`, `calc(-1*${innerStr})`];
+// 	return `calc(${innerStr})`;
+// };
+
+const getCalc = (vals: number | [number, number], dual: boolean = false) => {
+	let rel = 0;
+	let abs = 0;
+
+	if (typeof vals === "number") {
+		rel = vals;
+	} else {
+		rel = vals[0];
+		abs = vals[1];
+	}
+	const innerStr = `(${rel}% + ${abs}px)`;
+	if (dual) return [`calc(${innerStr})`, `calc(-1*${innerStr})`];
+	return `calc(${innerStr})`;
+};
+
+const withCalc =
+	(fn: (...args: any[]) => number | [number, number], dual = false) =>
+	(...args: Parameters<typeof fn>) =>
+		getCalc(fn(...args), dual);
+
+// Valid CSS of Mathematical Definitions
+const calculateRowGap = withCalc(rowGap);
+const calculateColGap = withCalc(colGap);
+
+const centreHexYShift = withCalc(centreYOffset, true);
+const edgeHexYShift = withCalc(edgeYOffset, true);
+const edgeHexXShift = withCalc(edgeXOffset, true);
+
+/*
+Defining a debugging background
+*/
+
+const offset = (rspacing * K(rspacing / ASPECT_RATIO)) / (2 * ASPECT_RATIO); // * aspect_ratio/aspect_ratio
+const Pos_Y = 50 + offset;
+// const Neg_y = 50 - (rspacing * K(rspacing)) / ASPECT_RATIO / 2;
+const Neg_y = 50 - offset;
 
 // Helpful debugging background
 const border_background = `
@@ -57,121 +223,11 @@ const bgAxis = `
 			linear-gradient(90deg, transparent calc(75% - 2px), red 75%, transparent calc(75% + 2px)),
 		    linear-gradient(150deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
 		    linear-gradient(30deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
-			linear-gradient(0deg, transparent calc(${_urspace}% - 2px), red ${_urspace}%, transparent calc(${_urspace}% + 2px)),
-			linear-gradient(0deg, transparent calc(${_rspace}% - 2px), red ${_rspace}%, transparent calc(${_rspace}% + 2px)),
+			linear-gradient(0deg, transparent calc(${Neg_y}% - 2px), red ${Neg_y}%, transparent calc(${Neg_y}% + 2px)),
+			linear-gradient(0deg, transparent calc(${Pos_Y}% - 2px), red ${Pos_Y}%, transparent calc(${Pos_Y}% + 2px)),
 			linear-gradient(0deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px))
-
         `;
-// const bgAxis = `
-// 			${border_background}
 
-//         `;
-// Some constants
-
-const HORIZONTAL_per_VERTICAL_SPACE = Math.sqrt(3) / 2; // Ratio of Horizontal gap to Vetical Gap
-
-// Util Function
-
-const getCalc = (value: number, dual = false) => {
-	const innerStr = `(${value}%)`;
-	if (dual) return [`calc(${innerStr})`, `calc(-1*${innerStr})`];
-	return `calc(${innerStr})`;
-};
-// Gap Definitions
-
-const calculateRowGap = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	return getCalc(_calculateRowGap(relative_spacing));
-};
-const _calculateRowGap = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	const verticalSpacing = relative_spacing;
-
-	return verticalSpacing;
-};
-const calculateColGap = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	const horizontal_spacing = relative_spacing * aspect_ratio;
-	return getCalc(horizontal_spacing);
-};
-
-const delta_W = (relative_spacing: number = 0) => {
-	// return `(100% * ${(column_gap_correction_factor(relative_spacing) - 1)/aspect_ratio})`;
-	return k(relative_spacing) - 1;
-};
-
-const edgeHexXShift = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	const SIDE_SHIFT = 25; // Ensures "translation" in by 1/4 for honeycomb
-	const horizontal_shift = SIDE_SHIFT * k(relative_spacing); //* column_gap_correction_factor(relative_spacing); //* column_gap_correction_factor(relative_spacing);
-
-	return getCalc(horizontal_shift, true);
-};
-
-const edgeHexYShift = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	return [0, 0]; //NO-OP
-};
-
-const centreHexYShift = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
-	const c = aspect_ratio; // definition of colgap
-	const n = 1 / CONTAINER_per_Element;
-	const correction =
-		(-relative_spacing /
-			(aspect_ratio * (n - (n - 1) * (relative_spacing * c)))) *
-		50;
-
-	console.log(`correction: ${correction}`);
-	console.log(`50*k: ${50 * k(relative_spacing)}`);
-
-	console.log(`delta_W: ${delta_W(relative_spacing)}`);
-	console.log(
-		`delta_W*k: ${delta_W(relative_spacing) * k(relative_spacing)}`
-	);
-	console.log(
-		`relative_spacing / aspect_ratio: ${relative_spacing / aspect_ratio}`
-	);
-	console.log(
-		`relative_spacing * aspect_ratio: ${relative_spacing * aspect_ratio}`
-	);
-	console.log(
-		`relative_spacing * aspect_ratio *k : ${
-			relative_spacing * aspect_ratio * (1 + relative_spacing / 200)
-		}`
-	);
-	// const vert_offset = 50 / aspect_ratio; // Ensures "translation" down by half for honeycomb
-	// const vert_offset =
-	// 	((50 - delta_W(relative_spacing)) * k(relative_spacing)) / aspect_ratio; // Ensures "translation" down by half for honeycomb
-	const vert_offset = 50 / aspect_ratio; // Ensures "translation" down by half for honeycomb
-	const scaling_compensation = -delta_W(relative_spacing) / aspect_ratio; // Ensure's center of row gap, shift by half row gap
-	const centering_correction = _calculateRowGap(relative_spacing) * 1.465; // Compensates for decreased height
-	// 1: 1.5
-	// 2: => 1.4
-	// 5: 6.65 => 1.33
-	// 10: 12.7 => 1.27
-
-	// 20: 25.35 =>1.26 relative_spacing * aspect_ratio * (1 + relative_spacing / 200)
-	// 21: 26.8  => 1.27relative_spacing * aspect_ratio * (1 + relative_spacing / 200)
-
-	return getCalc(correction, true);
-	return getCalc(
-		vert_offset + scaling_compensation + centering_correction,
-		true
-	);
-};
 export const sideStyle = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0,
@@ -181,7 +237,7 @@ export const sideStyle = (
 	const Yshifts = edgeHexYShift(relative_spacing, absolute_spacing);
 
 	return {
-		background: bgAxis,
+		// background: bgAxis,
 
 		...(isLeft
 			? {
@@ -203,13 +259,13 @@ export const midStyle = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ): React.CSSProperties => {
-	const Xshifts = centreHexYShift(relative_spacing, absolute_spacing);
+	const Yshifts = centreHexYShift(relative_spacing, absolute_spacing);
 
 	return {
-		background: bgAxis,
+		// background: bgAxis,
 
-		marginTop: Xshifts[0],
-		marginBottom: Xshifts[1],
+		marginTop: Yshifts[0],
+		marginBottom: Yshifts[1],
 	};
 };
 
@@ -220,67 +276,32 @@ export const midStyle = (
  */
 export const container = (
 	_relative_spacing: number = 0,
-	absolute_spacing: number = 0
+	absolute_spacing: number = 0,
+	length: number = 1
 ): React.CSSProperties => {
-	const relative_spacing = _relative_spacing * CONTAINER_per_Element;
-	return {
-		background: border_background,
+	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
+	const row_rel_spacing = _relative_spacing / length;
 
+	console.log(length);
+
+	return {
+		// background: border_background,
 		position: "relative",
 
-		rowGap: calculateRowGap(relative_spacing, absolute_spacing) as string,
+		// These two are equivalent but allow for negative absolute spacing
+		gridAutoRows: `calc(${
+			100 + _relative_spacing
+		}% / ${length} + ${absolute_spacing}px)`,
 
-		columnGap: calculateColGap(
-			relative_spacing,
-			absolute_spacing
-		) as string,
+		// rowGap: calculateRowGap(
+		// 	row_rel_spacing,
+		// 	absolute_spacing,
+		// 	length
+		// ) as string,
+
+		columnGap: calculateColGap(col_rel_spacing, absolute_spacing) as string,
 		display: "grid",
-		gridTemplateColumns: `repeat(3, 1fr)`,
+		gridTemplateColumns: `repeat(${n}, ${33}%)`,
 		overflow: "visible",
 	};
 };
-
-/*  
-	=======================
-    ===  EXAMPLE USAGE  ===
-    =======================
-
-export const rspacing = 10;
-
-const aspace = 0;
-export class HexagonRow extends React.Component<IHexagonRowElements> {
-	render() {
-		const { elements, len = 1 } = this.props;
-
-		return (
-			<>
-				<div style={sideStyle(rspacing, aspace, true)}>
-					{formatComponent(elements[0], true)}
-				</div>
-				<div style={midStyle(rspacing, aspace)}>
-					{formatComponent(elements[1], true)}
-				</div>
-				<div style={sideStyle(rspacing, aspace, false)}>
-					{formatComponent(elements[2], true)}
-				</div>
-			</>
-		);
-	}
-}
-export class HexagonGrid extends React.Component<IHexagonGridElements> {
-	render() {
-		const { rows } = this.props;
-		const l = rows.length;
-		return (
-			<div style={container(rspacing, aspace)}>
-				{rows.map((row, _index) => (
-					<HexagonRow
-						elements={row.elements}
-						len={l}
-					/>
-				))}
-			</div>
-		);
-	}
-}
-*/

@@ -1,7 +1,6 @@
-// src/components/hexagons/HexagonRow.tsx
+// src/components/hexagons/hexagonRow/HexagonRow.tsx
 
 import React from "react";
-
 import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
 import { container, midStyle, sideStyle } from "./HexagonRow.styles";
 import {
@@ -18,10 +17,8 @@ import {
 	grey,
 	l_midnight_green,
 } from "../../../utils/defaultColours";
+import { rspacing, aspace } from "./HexagonRow.consts";
 
-export const rspacing = 20;
-
-const aspace = 0;
 export class HexagonRow extends React.Component<IHexagonRowElements> {
 	render() {
 		const { elements, len = 1 } = this.props;
@@ -29,21 +26,18 @@ export class HexagonRow extends React.Component<IHexagonRowElements> {
 		return (
 			<>
 				<div style={sideStyle(rspacing, aspace, true)}>
-					{/* {formatComponent(elements[0], true)} */}
-					{/* <div style={{ height: `${100}%`, width: "100%" }} /> */}
-					<div style={{ width: "100%", aspectRatio: ` ${r}` }} />
+					{formatComponent(elements[0], true)}
+					{/* <div style={{ width: "100%", aspectRatio: ` ${r}` }} /> */}
 				</div>
 				<div style={midStyle(rspacing, aspace)}>
-					{/* <div style={{ height: `${r * 100}%`, width: "100%" }} /> */}
-					<div style={{ width: "100%", aspectRatio: ` ${r}` }} />
+					{/* <div style={{ width: "100%", aspectRatio: ` ${r}` }} /> */}
 
-					{/* {formatComponent(elements[1], true)} */}
+					{formatComponent(elements[1], true)}
 				</div>
 				<div style={sideStyle(rspacing, aspace, false)}>
-					{/* <div style={{ height: `${r * 100}%`, width: "100%" }} /> */}
-					<div style={{ width: "100%", aspectRatio: `${r}` }} />
+					{/* <div style={{ width: "100%", aspectRatio: `${r}` }} /> */}
 
-					{/* {formatComponent(elements[2], true)} */}
+					{formatComponent(elements[2], true)}
 				</div>
 			</>
 		);
@@ -54,7 +48,7 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 		const { rows } = this.props;
 		const l = rows.length;
 		return (
-			<div style={container(rspacing, aspace)}>
+			<div style={container(rspacing, aspace, l)}>
 				{rows.map((row, _index) => (
 					<HexagonRow
 						elements={row.elements}
