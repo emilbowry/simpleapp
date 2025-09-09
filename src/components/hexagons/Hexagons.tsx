@@ -24,10 +24,7 @@ export class Hexagon
 	implements IHexagonConstruction
 {
 	static useVert = false;
-	// static defaultHexPath =
-	// 	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
-	// static vertHexPath =
-	// 	"M 13.3975 -50 l 0 100 l 86.6025 50 l 86.6025 -50 l -0 -100 l -86.6025 -50 Z";
+
 	static defaultHexPath =
 		"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
 	static vertHexPath =
@@ -84,7 +81,7 @@ export class Hexagon
 					viewBox={`0 -${(200 * Math.sqrt(3)) / 4} 200 ${
 						(200 * Math.sqrt(3)) / 2
 					}`}
-					// xmlns="http://www.w3.org/2000/svg"
+					xmlns="http://www.w3.org/2000/svg"
 				>
 					<defs>{defs.map((def, i) => def)}</defs>
 					{paths.map((path, i) => path)}

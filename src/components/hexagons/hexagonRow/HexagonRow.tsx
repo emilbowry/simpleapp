@@ -33,16 +33,11 @@ export class HexagonRow extends React.Component<IHexagonRowElements> {
 			<>
 				<div style={sideStyle(rspacing, aspace, true)}>
 					{formatComponent(elements[0], true)}
-					{/* <div style={{ width: "100%", aspectRatio: ` ${r}` }} /> */}
 				</div>
 				<div style={midStyle(rspacing, aspace)}>
-					{/* <div style={{ width: "100%", aspectRatio: ` ${r}` }} /> */}
-
 					{formatComponent(elements[1], true)}
 				</div>
 				<div style={sideStyle(rspacing, aspace, false)}>
-					{/* <div style={{ width: "100%", aspectRatio: `${r}` }} /> */}
-
 					{formatComponent(elements[2], true)}
 				</div>
 			</>

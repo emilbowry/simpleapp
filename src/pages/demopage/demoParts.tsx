@@ -1,7 +1,7 @@
 // src/pages/demopage/demoParts.tsx
 
 import React from "react";
-import { IEvent } from "../../components/timeline/spineComponent/Event";
+import { IEvent } from "../../components/timeline/hextimeline/hexTimeline.types";
 import { VerticalHexagonGrid } from "../../components/timeline/hextimeline/hexTimeline";
 
 export const DemoEvents: IEvent[] = [

@@ -66,7 +66,6 @@ class PartnerImage extends React.Component<
 						? "saturate(1)"
 						: "saturate(0)",
 					transition: "filter 0.3s ease-in-out",
-					// justifyContent: "center",
 				}}
 			></img>
 		);
@@ -166,59 +165,56 @@ export class PartnershipBar extends React.Component<
 					<div
 						className="no-aos"
 						style={{
-							// position: "relative",
 							justifyContent: "center",
 							justifyItems: "center",
-
-							// margin: "0 auto",
 						}}
 					>
 						<div style={rowLayout(topCount, maxBricks)}>
 							{topRow.map((partner, _index) => (
-								<div //used for debugging
+								/* 		<div //used for debugging
 									style={{
 										width: "400px",
 										height: "200px",
 										backgroundColor: "red",
 									}}
+								/> */
+								<PartnerImage
+									key={_index}
+									partner={partner}
+									size={size}
 								/>
-								// <PartnerImage
-								// 	key={_index}
-								// 	partner={partner}
-								// 	size={size}
-								// />
 							))}
 						</div>
 						<div style={rowLayout(midCount, maxBricks)}>
 							{midRow.map((partner, _index) => (
-								// <PartnerImage
-								// 	key={_index}
-								// 	partner={partner}
-								// 	size={size}
-								// />
-								<div //used for debugging
+								<PartnerImage
+									key={_index}
+									partner={partner}
+									size={size}
+								/>
+								/* 	<div //used for debugging
 									style={{
 										width: "400px",
 										height: "200px",
 										backgroundColor: "red",
 									}}
-								/>
+								/> */
 							))}
 						</div>
 						<div style={rowLayout(bottomCount, maxBricks)}>
 							{bottomRow.map((partner, _index) => (
-								// <PartnerImage
-								// 	key={_index}
-								// 	partner={partner}
-								// 	size={size}
-								// />
-								<div //used for debugging
+								<PartnerImage
+									key={_index}
+									partner={partner}
+									size={size}
+								/>
+								/* 	<div //used for debugging
 									style={{
 										width: "400px",
 										height: "200px",
 										backgroundColor: "red",
 									}}
-								/>
+								/> */
 							))}
 						</div>
 					</div>

@@ -1,11 +1,22 @@
 // src/components/timeline/hexTimeline.tsx
 
 import React from "react";
-import { _EventContent, IEvent } from "../spineComponent/Event";
 
-import { IVerticalHexagonRowProps } from "./hexTimeline.types";
+import { IEvent, IVerticalHexagonRowProps } from "./hexTimeline.types";
 import { VerticalHexagonRow } from "../../hexagons/hexagonRow/HexagonRow";
-
+import { TriPartCallout } from "../../callingcard/callout/CallOut";
+export const _EventContent: React.FC<IEvent> = ({
+	date,
+	description,
+	image,
+}) => {
+	return (
+		<TriPartCallout
+			header={date}
+			body={description}
+		/>
+	);
+};
 export class VerticalHexagonGrid extends React.Component<IVerticalHexagonRowProps> {
 	render() {
 		const { elements, size = 500, gap = 10 } = this.props;

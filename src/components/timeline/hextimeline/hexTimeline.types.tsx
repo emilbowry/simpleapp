@@ -6,3 +6,9 @@ export interface IVerticalHexagonRowProps {
 	size?: number;
 	gap?: number;
 }
+
+export interface IEvent {
+	date: string;
+	image?: string;
+	description: string;
+}

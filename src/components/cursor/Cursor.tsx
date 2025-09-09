@@ -306,3 +306,5 @@ const CustomCursor: React.FC = () => {
 };
 
 export default CustomCursor;
+
+// CursorProps or State x,y. State: type of cursor

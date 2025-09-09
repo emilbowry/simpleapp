@@ -3,7 +3,8 @@ import React from "react";
 import { rspacing, aspace } from "./HexagonRow.consts";
 /*
 	CONSTANT DEFINITIONS 
-*/ const ASPECT_RATIO = 2 / Math.sqrt(3); /*  Width/Height,  W=H.r */
+*/
+const ASPECT_RATIO = 2 / Math.sqrt(3); /*  Width/Height,  W=H.r */
 const n = 3;
 const CONTAINER_per_Element = 1 / n;
 const colGap = (relative_spacing: number = 0, absolute_spacing: number = 0) => {
@@ -31,17 +32,20 @@ Derivation:W.n = W'.n +(n-1).g
 g = Wx/100
 	W. (n-(n-1).(x/100))/n = W'
 let W=kW'
-k = n/(n-(n-1).(x/100))*/ const K = (relative_spacing: number = 0) => {
+k = n/(n-(n-1).(x/100))*/
+const K = (relative_spacing: number = 0) => {
 	const gap = colGap(relative_spacing);
 	const k = n / (n - (n - 1) * (gap / 100));
 	return k;
 };
 /*
 SCALING CORRECTION FACTOR RESULTS
-*/ const delta_W = (relative_spacing: number = 0) => {
+*/
+const delta_W = (relative_spacing: number = 0) => {
 	return K(relative_spacing) - 1;
 };
-/* Mathematical Definitons */ const centerVertTranslation = (
+/* Mathematical Definitons */
+const centerVertTranslation = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ) => {
@@ -112,10 +116,8 @@ const edgeXOffset = (
 		-absolute_spacing * ASPECT_RATIO,
 	];
 };
-/* Util Functions */ const getCalc = (
-	vals: number | [number, number],
-	dual: boolean = false
-) => {
+/* Util Functions */
+const getCalc = (vals: number | [number, number], dual: boolean = false) => {
 	let rel = 0;
 	let abs = 0;
 	if (typeof vals === "number") {
@@ -139,7 +141,8 @@ const edgeHexYShift = withCalc(edgeYOffset, true);
 const edgeHexXShift = withCalc(edgeXOffset, true);
 /*
 Defining a debugging background
-*/ const offset = (rspacing * K(rspacing / ASPECT_RATIO)) / (2 * ASPECT_RATIO);
+*/
+const offset = (rspacing * K(rspacing / ASPECT_RATIO)) / (2 * ASPECT_RATIO);
 const Pos_Y = 50 + offset;
 const Neg_y = 50 - offset;
 const border_background = `
@@ -218,10 +221,8 @@ export const container = (
 			row_rel_spacing,
 			absolute_spacing,
 			length
-		) as string,		 */ columnGap: calculateColGap(
-			col_rel_spacing,
-			absolute_spacing
-		) as string,
+		) as string,		 */
+		columnGap: calculateColGap(col_rel_spacing, absolute_spacing) as string,
 		display: "grid",
 		/* gridTemplateColumns: `repeat(${n}, ${1/3})`, // Dont know why this doesnt work*/
 		gridTemplateColumns: `repeat(${n}, 1fr)`,

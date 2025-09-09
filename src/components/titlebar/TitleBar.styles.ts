@@ -112,3 +112,13 @@ export const dropdownImageViewOverviewStyles: React.CSSProperties = {
 	alignItems: "center",
 	gap: "5px",
 };
+
+export const pillBarOverrides: React.CSSProperties = {
+	borderRadius: "40px",
+	boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+	backgroundColor: "rgb(255 255 255 / 40%)",
+	backdropFilter: "blur(8px)",
+	marginRight: "10%",
+	marginTop: "3rem",
+	marginLeft: "10%",
+};

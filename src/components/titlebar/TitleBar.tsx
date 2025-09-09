@@ -22,6 +22,7 @@ import {
 	_titleBarStyles,
 	rightHandContainerStyles,
 	VISIBLE_TITLEBAR_HEIGHT,
+	pillBarOverrides,
 } from "./TitleBar.styles";
 import {
 	ITitleBarLink,
@@ -337,15 +338,7 @@ export class PillTitleBar extends ExpandableTitleBar<
 	titleBarStyles(): React.CSSProperties {
 		const baseStyles = super.titleBarStyles();
 		const { isScrolled } = this.state;
-		const pillBarOverrides: React.CSSProperties = {
-			borderRadius: "40px",
-			boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
-			backgroundColor: "rgb(255 255 255 / 40%)",
-			backdropFilter: "blur(8px)",
-			marginRight: "10%",
-			marginTop: "3rem",
-			marginLeft: "10%",
-		};
+
 		return {
 			...baseStyles,
 			transition: "all 0.5s ease-in-out",
