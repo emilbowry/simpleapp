@@ -1,7 +1,5 @@
 // src/components/partnershipbar/PartnershipBar.styles.ts
 
-import React from "react";
-
 export interface IPartner {
 	image: string;
 	link?: string;
@@ -25,6 +23,17 @@ export class Partners {
 	}
 }
 
-export interface PartnershipBarProps extends Partners {
+export interface IPartnershipBarProps extends Partners {
 	index?: number;
+}
+
+export interface IPartnerImageProps {
+	partner: IPartner;
+	size: TPartnerSize;
+}
+export interface IPartnerImageState {
+	isHovered: boolean;
+}
+export interface IPartnershipBarState {
+	smallViewPort: boolean;
 }

@@ -4,6 +4,7 @@ import { ImpactCallingCard } from "./impact";
 const homePage: React.FC = () => {
 	return (
 		<section className="no-aos">
+			<LargePB />
 			<Hero />
 			{/* <ImpactCallingCard /> */}
 		</section>
@@ -11,6 +12,7 @@ const homePage: React.FC = () => {
 };
 
 import { Page } from "../page";
+import { LargePB } from "./parts/smallPartnershipBar";
 
 export const HomePage = (
 	<Page

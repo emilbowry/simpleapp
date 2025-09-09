@@ -38,31 +38,8 @@ export const containerStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
-		// marginTop: "-1px",
-		// marginBottom: "-1px",
-		// marginLeft: "-3px",
-		// marginRight: "-3px",
-		// display: "block",
-		// verticalAlign: "bottom",
-		// margin: 0,
-		// border: "1px solid black",
-		// position: "relative",
-		// width,
-		// height,
-		// width: "100%",
-		// height: "auto",
 		fontSize: 0, // Remeber to reset
 		overflow: "visible",
-		// width: "stretch",
-		// height: "min-content%",
-		// flexShrink: 0,
-		// width: "70vw",
-		// height: "70vh",
-		// width
-		// border: "1px solid black",
-		// display: "block",
-		// boxSizing: "border-box",
-		width: "100%",
 		opacity, // why can i return like this this is odd
 	};
 };
@@ -72,15 +49,7 @@ export const svgStyle = ({
 	scale = 1,
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
-	return {
-		// overflow: "visible",
-		// 		border: "1px solid black",
-		// boxSizing: border-box;
-		// width: "stretch",
-		// width,
-		// width: "stretch",
-		// height: "stretch",
-	};
+	return {};
 };
 
 //

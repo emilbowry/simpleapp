@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { title_font_colour } from "../../utils/defaultColours";
+import { light_grey, title_font_colour } from "../../utils/defaultColours";
 export const PartnerStyles: {
 	Small: React.CSSProperties;
 	Large: React.CSSProperties;
@@ -19,27 +19,65 @@ export const PartnerStyles: {
 		borderColor: title_font_colour,
 	},
 	Large: {
-		display: "flex",
-		flexWrap: "nowrap",
-		overflowX: "auto",
+		justifyContent: "center",
 		alignItems: "center",
-		justifyContent: "space-between",
-		gap: "2rem",
-		padding: "1rem",
-		borderTop: "2px solid",
-		borderBottom: "2px solid",
-		borderColor: title_font_colour,
 	},
 };
 
+export const marqueeFrameStyle: React.CSSProperties = {
+	isolation: "isolate",
+
+	border: "1px solid",
+	borderColor: light_grey,
+	height: "10vh",
+
+	// alignItems: "center",
+
+	backgroundColor: "white",
+	borderRadius: "10vh",
+	overflow: "hidden",
+};
+
+export const marqueeWindowStyle: React.CSSProperties = {
+	position: "relative",
+
+	height: "10vh",
+	maskImage:
+		"linear-gradient(to right, transparent 1%, black 10%, black 90%, transparent 99%)",
+
+	display: "grid",
+
+	alignContent: "center",
+};
+
+export const marqueeContentStyle: React.CSSProperties = {
+	display: "flex",
+
+	alignItems: "center",
+
+	animation: `90s linear infinite slide-in`,
+};
+
+export const partnerWrapperStyle: React.CSSProperties = {
+	flexShrink: 0,
+
+	// marginRight: "50px",
+
+	justifyContent: "space-between",
+};
+export const keyframes = `
+  @keyframes slide-in {
+	from {
+	  transform: translateX(0%);
+	}
+	to {
+	  transform: translateX(-100%);
+	}
+  }
+`;
 export const imageStyle: React.CSSProperties = {
-	// maxWidth: "100%",
-	// width: "stretch",
-	// height: "auto",
 	display: "block",
 	alignContent: "center",
 	justifyContent: "center",
-	// objectFit: "contain",
-	// objectPosition: "top",
-	// margin: "0 auto",
+	alignItems: "center",
 };

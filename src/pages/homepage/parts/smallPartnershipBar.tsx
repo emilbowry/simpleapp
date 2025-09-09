@@ -24,6 +24,21 @@ const demoSmallPartnershipBarData = new Partners({
 	],
 });
 
+const demoLargelPartnershipBarData = new Partners({
+	partners: [
+		{ image: HM },
+		{ image: AZ },
+		{ image: AS },
+		{ image: vf },
+		{ image: dct },
+		{ image: bm },
+		{ image: tb },
+		{ image: dct },
+		{ image: bm },
+	],
+	size: "Large",
+});
+
 export const demoSmallPB: React.FC<{ index?: number }> = ({ index = 0 }) => (
 	<div>
 		<PartnershipBar
@@ -45,10 +60,18 @@ export const footerSmallPB: React.FC<{ index?: number }> = ({ index = 0 }) => (
 		styleOverrides={{ backgroundColor: "white" }}
 		index={-1}
 	/>
-	// <div>
-	// 	<PartnershipBar
-	// 		{...demoSmallPartnershipBarData}
-	// 		index={index}
-	// 	/>
-	// </div>
+);
+
+export const LargePB: React.FC<{ index?: number }> = ({ index = 0 }) => (
+	<CallingCard
+		components={[
+			<PartnershipBar
+				{...demoLargelPartnershipBarData}
+				index={index}
+			/>,
+		]}
+		fullSpread={true}
+		styleOverrides={{ backgroundColor: "white" }}
+		index={-1}
+	/>
 );

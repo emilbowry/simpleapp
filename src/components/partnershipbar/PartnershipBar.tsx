@@ -1,24 +1,29 @@
+// src/components/partnershipbar/PartnershipBar.tsx
+
 import React from "react";
 import { wrapLink, getImageEl } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
-import { PartnerStyles, imageStyle } from "./PartnershipBar.styles";
 import {
-	PartnershipBarProps,
-	IPartner,
-	TPartnerSize,
+	PartnerStyles,
+	imageStyle,
+	keyframes,
+	marqueeContentStyle,
+	marqueeFrameStyle,
+	marqueeWindowStyle,
+	partnerWrapperStyle,
+} from "./PartnershipBar.styles";
+import {
+	IPartnershipBarProps,
+	IPartnerImageProps,
+	IPartnerImageState,
+	IPartnershipBarState,
 } from "./PartnershipBar.types";
-import { light_grey } from "../../utils/defaultColours";
 
-const keyframes = `
-  @keyframes slide-in {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
-`;
+export const WallLayout = (n: number): [number, number, number] => {
+	const a = (((n % 3) + 1) % 2) + Math.floor(n / Math.min(n, 3));
+	const c = Math.floor((n + 1) / 3) - (((n + 1) % Math.min(n, 3)) % 2);
+	return [a, n - (a + c), c];
+};
 
 const MarqueeKeyframes = () => {
 	React.useEffect(() => {
@@ -32,19 +37,11 @@ const MarqueeKeyframes = () => {
 	return null;
 };
 
-interface PartnerImageProps {
-	partner: IPartner;
-	size: TPartnerSize;
-}
-interface PartnerImageState {
-	isHovered: boolean;
-}
-
 class PartnerImage extends React.Component<
-	PartnerImageProps,
-	PartnerImageState
+	IPartnerImageProps,
+	IPartnerImageState
 > {
-	constructor(props: PartnerImageProps) {
+	constructor(props: IPartnerImageProps) {
 		super(props);
 		this.state = {
 			isHovered: false,
@@ -56,7 +53,7 @@ class PartnerImage extends React.Component<
 	render() {
 		const { partner } = this.props;
 		const { image, link } = partner;
-		// const imageEl = getImageEl(image, imageStyle);
+
 		const imageEl = (
 			<img
 				src={image}
@@ -68,10 +65,8 @@ class PartnerImage extends React.Component<
 						? "saturate(1)"
 						: "saturate(0)",
 					transition: "filter 0.3s ease-in-out",
+					// justifyContent: "center",
 				}}
-				// height={"auto"}
-				// height={"400px"}
-				// style={imageStyle}
 			></img>
 		);
 
@@ -80,144 +75,219 @@ class PartnerImage extends React.Component<
 	}
 }
 
-export class PartnershipBar extends React.Component<PartnershipBarProps> {
+export class PartnershipBar extends React.Component<
+	IPartnershipBarProps,
+	IPartnershipBarState
+> {
+	constructor(props: IPartnershipBarProps) {
+		super(props);
+		this.state = {
+			smallViewPort: false,
+		};
+	}
+
+	checkViewportWidth = () => {
+		if (this.props.size !== "Large") return;
+
+		const { partners } = this.props;
+		const bricks = partners.length;
+		const layout = WallLayout(bricks);
+		let maxBricks = layout[1] > layout[0] ? layout[1] : layout[0];
+		if (maxBricks % 2 == 0) {
+			maxBricks = maxBricks + 1;
+		}
+
+		const threshold = 400 * maxBricks;
+		const currentIsSmallViewport = window.innerWidth < threshold;
+
+		if (currentIsSmallViewport !== this.state.smallViewPort) {
+			this.setState({ smallViewPort: currentIsSmallViewport });
+		}
+	};
+
+	componentDidMount() {
+		if (this.props.size === "Large") {
+			this.checkViewportWidth();
+			window.addEventListener("resize", this.checkViewportWidth);
+		}
+	}
+
+	componentWillUnmount() {
+		if (this.props.size === "Large") {
+			window.removeEventListener("resize", this.checkViewportWidth);
+		}
+	}
+
 	render() {
 		const { partners, size = "Small", index = 0 } = this.props;
 		const theme = Theme(index);
 		const isMarquee = size === "Small";
+		const { smallViewPort } = this.state;
 
-		if (!isMarquee) {
+		if (size === "Large") {
 			let staticStyle: React.CSSProperties = { ...PartnerStyles[size] };
 			staticStyle.borderColor = theme.tertiaryColor;
-			return (
-				// alignSelf: "center",
-				<div style={staticStyle}>
-					{partners.map((partner, _index) => (
-						<PartnerImage
-							key={_index}
-							partner={partner}
-							size={size}
-						/>
-					))}
-				</div>
-			);
-		}
 
-		// const animationDuration =  * 6;
+			if (smallViewPort) {
+				return (
+					<div
+						style={{
+							...staticStyle,
+							display: "flex",
+							flexWrap: "wrap",
 
-		const marqueeFrameStyle: React.CSSProperties = {
-			isolation: "isolate",
+							gap: "20px",
+						}}
+					>
+						{partners.map((partner, _index) => (
+							<PartnerImage
+								key={_index}
+								partner={partner}
+								size={size}
+							/>
+						))}
+					</div>
+				);
+			} else {
+				const bricks = partners.length;
+				const [topCount, midCount, bottomCount] = WallLayout(bricks);
 
-			// borderTop: PartnerStyles.Small.borderTop,
-			// borderBottom: PartnerStyles.Small.borderBottom,
-			border: "1px solid",
-			borderColor: light_grey,
-			height: "10vh",
-			// marginTop: "5vw",
-			// marginBottom: "5vw",
-			alignItems: "center",
-			// alignContent: "center",
-			backgroundColor: "white",
-			borderRadius: "10vh",
-			overflow: "hidden",
-			// padding: PartnerStyles.Small.padding,
-		};
+				let offset = 0;
+				const topRow = partners.slice(offset, (offset += topCount));
+				const midRow = partners.slice(offset, (offset += midCount));
+				const bottomRow = partners.slice(offset, offset + bottomCount);
+				let maxBricks = Math.max(topCount, midCount);
+				if (maxBricks % 2 == 0) {
+					maxBricks = maxBricks + 1; // increasing this seems to work
+				}
+				const rowLayout = (n_bricks: number): React.CSSProperties => {
+					return {
+						// ...staticStyle,
+						justifyContent: "center",
+						alignItems: "center",
+						//	staicStyle = {
+						// justifyContent: "center",
+						// 	alignItems: "center",
+						// },
+						// justifyContent: "space-around",
+						// width: `${(n_bricks * 100) / maxBricks}`,
+						// position: "relative",
+						display: "grid",
+						gridTemplateColumns: `repeat(${n_bricks}, ${
+							100 / maxBricks
+						}%)`,
+						// marginLeft: "250px",
+						// height: "250px",
+					};
+				};
 
-		const marqueeWindowStyle: React.CSSProperties = {
-			// isolation: "isolate",
-			position: "relative",
-			// marginTop: "5vw",
-			// marginBottom: "5vw",
-			// top: "0",
-			// top: "1vh",
-			height: "10vh",
-			maskImage:
-				"linear-gradient(to right, transparent 1%, black 10%, black 90%, transparent 99%)",
-			// bottom: "1vh",
-			// bottom: "5vh",
+				return (
+					<div
+						className="no-aos"
+						style={{
+							// position: "relative",
+							justifyContent: "center",
+							justifyItems: "center",
 
-			display: "grid",
-
-			// overflow: "hidden",
-			// width: "100%",
-			// alignItems: "center",
-			alignContent: "center",
-			// alignSelf: "center",
-		};
-
-		const marqueeContentStyle: React.CSSProperties = {
-			display: "flex",
-			// gap: "3 rem",
-			// top: "-50%",
-
-			// alignContent: "center",
-			alignItems: "center",
-			// alignSelf: "center",
-
-			// animation: `30s linear -${30 / partners.length}s infinite slide-in`,
-			animation: `90s linear infinite slide-in`,
-		};
-
-		const partnerWrapperStyle: React.CSSProperties = {
-			flexShrink: 0,
-			// width: "100%",
-			// gap: "3 rem",
-			marginRight: "50px",
-			// paddingRight: "20px",
-
-			// marginTop: "-3%",
-			// marginTop: "-3%",
-			// display: "grid",
-			// alignItems: "center",
-			// alignContent: "center",
-			// alignSelf: "center",
-
-			justifyContent: "space-between",
-		};
-
-		return (
-			<div className="no-aos">
-				<MarqueeKeyframes />
-				<div style={marqueeFrameStyle}>
-					<div style={marqueeWindowStyle}>
-						<div style={marqueeContentStyle}>
-							{partners.map((partner, _index) => (
-								<div
-									key={`a-${_index}`}
-									style={partnerWrapperStyle}
-								>
-									<PartnerImage
-										partner={partner}
-										size={size}
-									/>
-								</div>
+							// margin: "0 auto",
+						}}
+					>
+						<div style={rowLayout(topCount)}>
+							{topRow.map((partner, _index) => (
+								<div //used for debugging
+									style={{
+										width: "400px",
+										height: "200px",
+										backgroundColor: "red",
+									}}
+								/>
+								// <PartnerImage
+								// 	key={_index}
+								// 	partner={partner}
+								// 	size={size}
+								// />
 							))}
-							{partners.map((partner, _index) => (
-								<div
-									key={`b-${_index}`}
-									style={partnerWrapperStyle}
-								>
-									<PartnerImage
-										partner={partner}
-										size={size}
-									/>
-								</div>
+						</div>
+						<div style={rowLayout(midCount)}>
+							{midRow.map((partner, _index) => (
+								// <PartnerImage
+								// 	key={_index}
+								// 	partner={partner}
+								// 	size={size}
+								// />
+								<div //used for debugging
+									style={{
+										width: "400px",
+										height: "200px",
+										backgroundColor: "red",
+									}}
+								/>
 							))}
-							{partners.map((partner, _index) => (
-								<div
-									key={`c-${_index}`}
-									style={partnerWrapperStyle}
-								>
-									<PartnerImage
-										partner={partner}
-										size={size}
-									/>
-								</div>
+						</div>
+						<div style={rowLayout(bottomCount)}>
+							{bottomRow.map((partner, _index) => (
+								// <PartnerImage
+								// 	key={_index}
+								// 	partner={partner}
+								// 	size={size}
+								// />
+								<div //used for debugging
+									style={{
+										width: "400px",
+										height: "200px",
+										backgroundColor: "red",
+									}}
+								/>
 							))}
 						</div>
 					</div>
+				);
+			}
+		} else if (size === "Small") {
+			return (
+				<div className="no-aos">
+					<MarqueeKeyframes />
+					<div style={marqueeFrameStyle}>
+						<div style={marqueeWindowStyle}>
+							<div style={marqueeContentStyle}>
+								{partners.map((partner, _index) => (
+									<div
+										key={`a-${_index}`}
+										style={partnerWrapperStyle}
+									>
+										<PartnerImage
+											partner={partner}
+											size={size}
+										/>
+									</div>
+								))}
+								{partners.map((partner, _index) => (
+									<div
+										key={`b-${_index}`}
+										style={partnerWrapperStyle}
+									>
+										<PartnerImage
+											partner={partner}
+											size={size}
+										/>
+									</div>
+								))}
+								{partners.map((partner, _index) => (
+									<div
+										key={`c-${_index}`}
+										style={partnerWrapperStyle}
+									>
+										<PartnerImage
+											partner={partner}
+											size={size}
+										/>
+									</div>
+								))}
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		}
 	}
 }
