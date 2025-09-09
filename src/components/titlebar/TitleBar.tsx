@@ -175,8 +175,7 @@ export class TitleBar<
 		const obj = (
 			<div
 				style={interactionWrapperStyles}
-				// className="hoverable"
-				className="no-aos"
+				// className="no-aos" // why does adding this this break
 			>
 				{this.construct()}
 			</div>
