@@ -106,9 +106,10 @@ export const dropdownStyles: React.CSSProperties = {
 };
 
 export const dropdownContainerStyles: React.CSSProperties = {
-	// position: "relative",
+	position: "relative",
 	left: "0",
 	right: "0",
+	cursor: "none",
 
 	margin: "0 auto",
 
@@ -131,6 +132,7 @@ export const dropdownLinksColumnStyles: React.CSSProperties = {
 
 export const dropdownLinkStyles: React.CSSProperties = {
 	color: "#333",
+	cursor: "none",
 
 	fontSize: "15px",
 	textDecoration: "none",
