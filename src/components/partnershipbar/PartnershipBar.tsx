@@ -11,6 +11,7 @@ import {
 	marqueeFrameStyle,
 	marqueeWindowStyle,
 	partnerWrapperStyle,
+	rowLayout,
 } from "./PartnershipBar.styles";
 import {
 	IPartnershipBarProps,
@@ -160,26 +161,6 @@ export class PartnershipBar extends React.Component<
 				if (maxBricks % 2 == 0) {
 					maxBricks = maxBricks + 1; // increasing this seems to work
 				}
-				const rowLayout = (n_bricks: number): React.CSSProperties => {
-					return {
-						// ...staticStyle,
-						justifyContent: "center",
-						alignItems: "center",
-						//	staicStyle = {
-						// justifyContent: "center",
-						// 	alignItems: "center",
-						// },
-						// justifyContent: "space-around",
-						// width: `${(n_bricks * 100) / maxBricks}`,
-						// position: "relative",
-						display: "grid",
-						gridTemplateColumns: `repeat(${n_bricks}, ${
-							100 / maxBricks
-						}%)`,
-						// marginLeft: "250px",
-						// height: "250px",
-					};
-				};
 
 				return (
 					<div
@@ -192,7 +173,7 @@ export class PartnershipBar extends React.Component<
 							// margin: "0 auto",
 						}}
 					>
-						<div style={rowLayout(topCount)}>
+						<div style={rowLayout(topCount, maxBricks)}>
 							{topRow.map((partner, _index) => (
 								<div //used for debugging
 									style={{
@@ -208,7 +189,7 @@ export class PartnershipBar extends React.Component<
 								// />
 							))}
 						</div>
-						<div style={rowLayout(midCount)}>
+						<div style={rowLayout(midCount, maxBricks)}>
 							{midRow.map((partner, _index) => (
 								// <PartnerImage
 								// 	key={_index}
@@ -224,7 +205,7 @@ export class PartnershipBar extends React.Component<
 								/>
 							))}
 						</div>
-						<div style={rowLayout(bottomCount)}>
+						<div style={rowLayout(bottomCount, maxBricks)}>
 							{bottomRow.map((partner, _index) => (
 								// <PartnerImage
 								// 	key={_index}

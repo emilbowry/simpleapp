@@ -81,3 +81,16 @@ export const imageStyle: React.CSSProperties = {
 	justifyContent: "center",
 	alignItems: "center",
 };
+
+export const rowLayout = (
+	n_bricks: number,
+	maxBricks: number
+): React.CSSProperties => {
+	return {
+		justifyContent: "center",
+		alignItems: "center",
+
+		display: "grid",
+		gridTemplateColumns: `repeat(${n_bricks}, ${100 / maxBricks}%)`,
+	};
+};

@@ -28,7 +28,6 @@ import {
 	ITitleBarProps,
 	ITitleBarState,
 } from "./TitleBar.types";
-
 const formatLabel = (key: string, alias?: string): string => {
 	if (alias) return alias;
 	if (key === "/") return "Home";
@@ -36,17 +35,14 @@ const formatLabel = (key: string, alias?: string): string => {
 		.replace(/_/g, " ")
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
 };
-
 export class TitleBar<
 	P extends ITitleBarProps = ITitleBarProps,
 	S extends ITitleBarState = ITitleBarState
 > extends React.Component<P, S> {
 	protected initialActiveAlias: string;
 	state: S;
-
 	constructor(props: P) {
 		super(props);
-
 		if (props.links.length === 0 || props.links[0].length === 0) {
 			console.warn(
 				"TitleBar created with no links. Defaulting activeLinkAlias to null."
@@ -55,14 +51,12 @@ export class TitleBar<
 		} else {
 			const currentPath = window.location.pathname;
 			let foundAlias: string | null = null;
-
 			for (const linkGroup of props.links) {
 				const mainLink = linkGroup[0];
 				if (mainLink && mainLink.path === currentPath) {
 					foundAlias = formatLabel(mainLink.path, mainLink.alias);
 					break;
 				}
-
 				for (const subLink of linkGroup.slice(1)) {
 					if (subLink.path === currentPath) {
 						foundAlias = formatLabel(mainLink.path, mainLink.alias);
@@ -71,19 +65,16 @@ export class TitleBar<
 				}
 				if (foundAlias) break;
 			}
-
 			this.initialActiveAlias =
 				foundAlias ||
 				formatLabel(props.links[0][0].path, props.links[0][0].alias);
 		}
-
 		this.state = {
 			isOverLink: false,
 			activeLinkAlias: this.initialActiveAlias,
 			isActive: false,
 		} as S;
 	}
-
 	protected handleInteractionWrapperMouseLeave = (): void => {
 		if (!this.state.isActive) {
 			this.setState({
@@ -93,7 +84,6 @@ export class TitleBar<
 			});
 		}
 	};
-
 	protected handleLinkOver = (link_alias: string): void => {
 		this.setState({
 			isOverLink: true,
@@ -101,15 +91,12 @@ export class TitleBar<
 		});
 	};
 	protected handleLinkLeave = (): void => {};
-
 	titleBarStyles(): React.CSSProperties {
 		return _titleBarStyles();
 	}
-
 	protected constructNavLinks = (): React.ReactNode => {
 		const { links } = this.props;
 		const { activeLinkAlias } = this.state;
-
 		return (
 			<div
 				className="no-aos"
@@ -127,12 +114,10 @@ export class TitleBar<
 					{links.map((linkGroup, index) => {
 						const mainLink = linkGroup[0];
 						if (!mainLink) return null;
-
 						const displayAlias = formatLabel(
 							mainLink.path,
 							mainLink.alias
 						);
-
 						return (
 							<div
 								key={displayAlias || `main-link-${index}`}
@@ -164,34 +149,27 @@ export class TitleBar<
 			</div>
 		);
 	};
-
 	protected construct(): React.ReactNode {
 		return this.constructNavLinks();
 	}
-
 	public render(): React.ReactNode {
 		const { logoSrc } = this.props;
-
 		const obj = (
 			<div
 				style={interactionWrapperStyles}
-				// className="no-aos" // why does adding this this break
+				className="no-aos"
 			>
 				{this.construct()}
 			</div>
 		);
-
 		return obj;
 	}
 }
-
 export const TestTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
 		[{ path: "/", alias: "Home" }],
-
 		[{ path: "/thejourney", alias: "The Journey" }],
 	];
-
 	return (
 		<TitleBar
 			logoSrc={logo}
@@ -199,7 +177,6 @@ export const TestTitleBar: React.FC = () => {
 		/>
 	);
 };
-
 export class ExpandableTitleBar<
 	P extends ITitleBarProps = ITitleBarProps,
 	S extends ITitleBarState = ITitleBarState
@@ -211,7 +188,6 @@ export class ExpandableTitleBar<
 			activeLinkAlias: this.initialActiveAlias,
 		});
 	}
-
 	activeAreaEnter(e: React.MouseEvent) {
 		this.setState({
 			isActive: true,
@@ -223,15 +199,12 @@ export class ExpandableTitleBar<
 			activeLinkAlias: aLink,
 		});
 	}
-
 	protected renderDropdownContent = (): React.ReactNode => {
 		const { isActive, activeLinkAlias, isOverLink } = this.state;
 		const { links } = this.props;
-
 		if (!isOverLink && !isActive) {
 			return null;
 		}
-
 		const activeLinkGroup = links.find((linkGroup) => {
 			const mainLink = linkGroup[0];
 			return (
@@ -239,13 +212,10 @@ export class ExpandableTitleBar<
 				formatLabel(mainLink.path, mainLink.alias) === activeLinkAlias
 			);
 		});
-
 		if (!activeLinkGroup || activeLinkGroup.length <= 1) {
 			return null;
 		}
-
 		const mainLink = activeLinkGroup[0];
-
 		return (
 			<div
 				style={dropdownStyles}
@@ -288,7 +258,6 @@ export class ExpandableTitleBar<
 			</div>
 		);
 	};
-
 	protected renderDropdownArea = (): React.ReactNode => {
 		return (
 			<div
@@ -300,11 +269,9 @@ export class ExpandableTitleBar<
 			</div>
 		);
 	};
-
 	protected construct(): React.ReactNode {
 		const baseNavLinks = super.construct();
 		const dropdownArea = this.renderDropdownArea();
-
 		return (
 			<>
 				{baseNavLinks}
@@ -313,17 +280,14 @@ export class ExpandableTitleBar<
 		);
 	}
 }
-
 export const TestExpandableTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
 		[
 			{ path: "/", alias: "Home", image: dropdownImage },
 			{ path: "/demo_page", alias: "Demo Page" },
 		],
-
 		[{ path: "/thejourney", alias: "The Journey" }],
 	];
-
 	return (
 		<ExpandableTitleBar
 			logoSrc={logo}
@@ -341,79 +305,62 @@ export class PillTitleBar extends ExpandableTitleBar<
 > {
 	constructor(props: ITitleBarProps) {
 		super(props);
-
 		this.state = {
 			...this.state,
 			isScrolled: false,
 			hasReturned: false,
 		} as IPillTitleBarState;
 	}
-
 	public componentDidMount(): void {
 		window.addEventListener("scroll", this.handleScroll);
 	}
-
 	public componentWillUnmount(): void {
 		window.removeEventListener("scroll", this.handleScroll);
 	}
-
 	protected handleScroll = (): void => {
 		const uThreshold = 10;
 		const dThreshold = 1;
 		if (!this.state.isScrolled) {
 			const scrolled = window.scrollY > dThreshold;
-
 			if (scrolled) {
 				console.log(scrolled);
 				this.setState({ isScrolled: scrolled });
 			}
 		} else if (this.state.isScrolled) {
 			const n_scrolled = window.scrollY < uThreshold;
-
 			if (n_scrolled) {
 				console.log(n_scrolled);
 				this.setState({ isScrolled: !n_scrolled });
 			}
 		}
 	};
-	// style="--animation-duration: 41.26s; animation: marquee-scroll-x var(--animation-duration) linear infinite;"
 	titleBarStyles(): React.CSSProperties {
 		const baseStyles = super.titleBarStyles();
 		const { isScrolled } = this.state;
-
 		const pillBarOverrides: React.CSSProperties = {
-			borderRadius: "40px", //why is this 40, shouldnt it be VISIBLE_TITLEBAR_HEIGHT/2 =30px
+			borderRadius: "40px",
 			boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
 			backgroundColor: "rgb(255 255 255 / 40%)",
-			// color: "white",
 			backdropFilter: "blur(8px)",
-			// backdropFilter: "invert(80%)",
-
-			// opacity: "0.9",
 			marginRight: "10%",
 			marginTop: "3rem",
 			marginLeft: "10%",
 		};
-
 		return {
 			...baseStyles,
 			transition: "all 0.5s ease-in-out",
-
 			...(isScrolled ? pillBarOverrides : {}),
 		};
 	}
 }
-
 export const TestPillTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
 		[
 			{ path: "/", alias: "Home", image: dropdownImage },
 			{ path: "/demo_page", alias: "Demo Page" },
 		],
-
 		[{ path: "/thejourney", alias: "The Journey" }],
 	];
-
 	return (
 		<PillTitleBar
 			logoSrc={logo}

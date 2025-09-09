@@ -5,7 +5,6 @@ export const style_CallingCardStyle = (
 	fullSpread: boolean
 ): React.CSSProperties => ({
 	padding: !fullSpread ? "2%" : "", //Works DO NOT TOUCH
-	// paddingTop: "40px",
 
 	alignItems: "center",
 });

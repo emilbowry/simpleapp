@@ -1,12 +1,10 @@
 // src/pages/homepage/parts/WWD.tsx
 
 import React from "react";
-import { StructuredCallout } from "../../../components/callingcard/callout/StructuredCallout";
 import { CallingCard } from "../../../components/callingcard/CallingCard";
 import bulb from "../../../assets/bulb.svg";
 import target from "../../../assets/target.svg";
 import pen from "../../../assets/pen.svg";
-import { body_font_colour } from "../../../utils/defaultColours";
 
 import { quoteBlock } from "./AIImpactCallingCard";
 import { Theme } from "../../../styles";

@@ -2,7 +2,13 @@
 
 import React from "react";
 import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
-import { container, midStyle, sideStyle } from "./HexagonRow.styles";
+import {
+	container,
+	midStyle,
+	sideStyle,
+	vertContainer,
+	vertHexStyle,
+} from "./HexagonRow.styles";
 import {
 	IHexagonGridElements,
 	IHexagonRowElements,
@@ -85,26 +91,13 @@ export class VerticalHexagonRow extends React.Component<IVerticalHexagonRowProps
 		];
 		const colour = palette[index % palette.length];
 
-		const container: React.CSSProperties = {
-			position: "relative",
-			width: containerWidth,
-			height: containerHeight,
-			margin: "0 auto",
-		};
-
-		const hexStyle = (x: number, y: number): React.CSSProperties => ({
-			position: "absolute",
-			left: x,
-			top: y,
-		});
-
 		const centerX = containerWidth / 2 - size / 2;
 
 		return (
-			<div style={container}>
+			<div style={vertContainer(containerWidth, containerHeight)}>
 				<div
 					style={{
-						...hexStyle(centerX, 0),
+						...vertHexStyle(centerX, 0),
 						filter: "brightness(150%)",
 					}}
 				>
@@ -117,7 +110,7 @@ export class VerticalHexagonRow extends React.Component<IVerticalHexagonRowProps
 
 				<div
 					style={{
-						...hexStyle(
+						...vertHexStyle(
 							centerX - horizontalOffset / 2,
 							verticalOffset
 						),
@@ -133,7 +126,7 @@ export class VerticalHexagonRow extends React.Component<IVerticalHexagonRowProps
 
 				<div
 					style={{
-						...hexStyle(
+						...vertHexStyle(
 							centerX + horizontalOffset / 2,
 							verticalOffset
 						),
