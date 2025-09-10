@@ -6,7 +6,7 @@ import background from "../assets/Untitled.png";
 
 import { CallingCard } from "../components/callingcard/CallingCard";
 import { CallOut } from "../components/callingcard/callout/CallOut";
-import { getImageEl } from "../utils/reactUtils";
+import { getImageEl, ValidComponent } from "../utils/reactUtils";
 
 export const BackgroundStyle: React.CSSProperties = {
 	backgroundImage: `url(${background})`,
@@ -32,64 +32,156 @@ import {
 } from "./homepage/parts/smallPartnershipBar";
 import { TestPillTitleBar as AppTitleBar } from "../components/titlebar/TitleBar";
 
-const Footer: React.FC = () => {
+const Footer1: React.FC = (FooterEl:ValidComponent) => {
 	return (
 		<div
 			style={{
+				// height: "70vh", // resultant height cut
+
 				...genericSectionStyle,
-				position: "sticky",
-				// // display: "flex",
-				// // flexDirection: "column",
-				// paddingTop: 0,
-				top: 0,
-				minHeight: "100vh",
+				marginTop: "calc(-70vh)",
 			}}
 		>
-			<div style={{ ...genericSectionStyle, minHeight: "40vh" }}></div>
+			<div
+				style={{
+					writingMode: "horizontal-tb",
+					...genericSectionStyle,
+					height: "70vh", // resultant height cut
+				}}
+			/>
 			<div
 				style={{
 					...genericSectionStyle,
 					position: "sticky",
-					// display: "flex",
-					// flexDirection: "column",
-					paddingTop: 0,
-					// bottom: "-10vh",
+					marginTop: "0vh",
+					paddingTop: "0vh",
+
 					bottom: "0",
-
-					minHeight: "40vh",
-					// position: "sticky",
-
-					// paddingTop: "0",
-					// marginTop: "40vh",
-
-					// bottom: 0,
+					// top: "0",
+					height: "70vh",
 				}}
 			>
 				<div
 					style={{
-						// ...genericSectionStyle,
 						position: "relative",
-						// display: "flex",
-						// flexDirection: "column",
-						// justifyContent: "flex-end",
+						overflow: "visible",
 					}}
 				>
 					<div
 						style={{
-							// ...genericSectionStyle,
-							alignItems: "center",
+							isolation: "isolate",
 						}}
 					>
-						<PartnershipBar
-							{...demoSmallPartnershipBarData}
-							index={-1}
-						/>
+						{formatComponent(FooterEl)}
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
+<
+const Footer2: React.FC = () => {
+	return (
+		// <div>
+		<div
+			// className="no-aos"
+			style={{
+				...genericSectionStyle,
+
+				position: "sticky",
+				// position: "fixed",
+				// isolation: "isolate",
+
+				// position: "absolute",
+
+				// height: "stretch",
+
+				// paddingTop: "0",
+				// height: "20vh",
+				// minHeight: "20vh",
+				// marginBottom: "50vh",
+
+				// minHeight: "10vh",
+				// minHeight: "50vh",
+				// paddingTop: "40vh",
+
+				marginTop: "-50vh",
+				height: "70vh",
+				// height: "90%",
+				// width: "100%",
+				// bottom: "-80vh",
+				// bottom: "0",
+				// width: "100px",
+				// height: "100px",
+				// top: "0",
+
+				zIndex: 10,
+			}}
+		>
+			<div
+				style={{
+					...genericSectionStyle,
+					isolation: "isolate",
+					// position: "absolute",
+
+					position: "sticky",
+
+					// // position: "relative",
+					// // display: "flex",
+					// // flexDirection: "column",
+					// // justifyContent: "flex-end",
+					// // height: "inherit",
+					// // minHeight: "0vh",
+					marginTop: "-25vh",
+					// // marginTop: "20vh",
+					width: "100%",
+					// height: "10%",
+
+					height: "50vh",
+					// top: "0",
+					bottom: "0",
+
+					// minHeight: "100vh",
+					// marginTop: "50vh",
+					// margin: "auto 0",
+
+					// minHeight: "50vh",
+					// alignContent: "center",
+					// alignItems: "center",
+
+					// paddingBottom: "25vh",
+				}}
+			>
+				<div
+					style={
+						{
+							// ...genericSectionStyle,
+							// alignItems: "center",
+							// paddingTop: "10vh",
+							// marginTop: "10vh",
+							// top: "100%",
+							// height: "100%",
+							// margin: "auto 0",
+							// position: "relative",
+							// height: "50vh",
+							// display: "flex",
+							// flexDirection: "column",
+							// justifyContent: "flex-end",
+						}
+					}
+				>
+					<div style={{ isolation: "isolate", height: "70vh" }}></div>
+					{/* <PartnershipBar
+						{...demoSmallPartnershipBarData}
+						index={-1}
+					/> */}
+				</div>
+			</div>
+		</div>
+		// </div>
+	);
+};
+
 import CustomCursor from "../components/cursor/Cursor";
 import { PartnershipBar } from "../components/partnershipbar/PartnershipBar";
 import { animationTagging } from "../utils/animationTagging";
@@ -131,6 +223,7 @@ export class Page extends React.Component<{
 						display: "flex",
 						flexDirection: "column",
 						...(useCursor ? { cursor: "none" } : {}),
+						// paddingBottom: "-70vh",
 					}}
 				>
 					{useCursor ? <CustomCursor /> : null}
@@ -143,7 +236,7 @@ export class Page extends React.Component<{
 						<Page />
 					</section>
 				</main>
-				<Footer />
+				<Footer1 />
 			</>
 		);
 	}

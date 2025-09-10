@@ -11,9 +11,12 @@ export const homePage: React.FC = () => {
 			<Hero />
 
 			<DemoNewCC />
+			<DemoNewCC />
 
-			{/* <LargePB />
-			<DemoNewCC /> */}
+			<LargePB />
+			<DemoNewCC />
+
+			<DemoNewCC />
 		</section>
 	);
 };

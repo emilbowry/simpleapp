@@ -51,6 +51,8 @@ export const Theme = (index: number) => {
 export const genericSectionStyle: React.CSSProperties = {
 	border: "1px solid black",
 	backgroundColor: "rgba(255, 0, 0, 0.2)",
+	// backgroundColor: "red",
+
 	// backgroundColor: "transparent",
 	boxSizing: "border-box",
 };
