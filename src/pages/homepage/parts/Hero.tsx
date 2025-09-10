@@ -83,7 +83,18 @@ export const Hero: React.FC = () => {
 	// 	{ elements: demo_row },
 	// ];
 	return (
-		<div style={{ marginTop: "-10%", maxHeight: "50vh" }}>
+		<div
+			style={{
+				// marginTop: `calc(-1*${100 / 9}% * 1vh/1vw)`,
+				height: "100%",
+				// display: "flex",
+				display: "block",
+				margin: "auto 0",
+				// marginTop: `calc(- 	1*${100 / 18}% * 1vh/1vw)`,
+
+				// placeContent: "center",
+			}}
+		>
 			{/* TEMPOARY */}
 			<HexagonGrid rows={r} />
 		</div>

@@ -30,7 +30,7 @@ export const PartnerStyles: {
 
 export const marqueeFrameStyle: React.CSSProperties = {
 	...genericSectionStyle,
-
+	margin: "0 10%",
 	position: "relative",
 	border: "1px solid",
 	borderColor: light_grey,

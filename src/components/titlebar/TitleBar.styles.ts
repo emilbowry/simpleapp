@@ -8,7 +8,7 @@ export const hamburgerStyle: React.CSSProperties = {
 };
 export const VISIBLE_TITLEBAR_HEIGHT = 60;
 export const interactionWrapperStyles: React.CSSProperties = {
-	width: "100%",
+	width: "100vw",
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
@@ -115,6 +115,7 @@ export const dropdownImageViewOverviewStyles: React.CSSProperties = {
 
 export const pillBarOverrides: React.CSSProperties = {
 	borderRadius: "40px",
+	// width: "100vw",
 	boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
 	backgroundColor: "rgb(255 255 255 / 40%)",
 	backdropFilter: "blur(8px)",

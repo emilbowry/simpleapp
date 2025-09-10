@@ -7,17 +7,14 @@ import { LargePB } from "./parts/smallPartnershipBar";
 
 export const homePage: React.FC = () => {
 	return (
-		<section className="aos-ignore">
+		<div
+			className="aos-ignore"
+			style={{ display: "grid", gridTemplateColumns: "100%" }}
+		>
 			<Hero />
 
 			<DemoNewCC />
-			<DemoNewCC />
-
-			<LargePB />
-			<DemoNewCC />
-
-			<DemoNewCC />
-		</section>
+		</div>
 	);
 };
 

@@ -29,24 +29,6 @@ body {
   will-change: transform, opacity;
 }
 
-/* 
-.aos[data-depth] {
-  --stagger: calc(
-    var(--aos-base-depth, 0) * 1ms +
-    var(--aos-sibling-index, 0) * 8ms +
-    var(--aos-order-index, 0) * 2ms
-  );
-  animation-delay: var(--stagger);
-}
-*/
-
-/* :global(.aos) { */
-  /* --user-transform: none; */
-  /* opacity: 0; */
-  /* transform: var(--user-transform) translateY(20px); */
-  /* transition: opacity 600ms ease-out, transform 600ms ease-out;
-  will-change: transform, opacity;
-} */
 
 /* :global(.is-visible) { */
 .is-visible {
@@ -108,4 +90,6 @@ body {
 }
 * {
 cursor: none!;
-}
+}.aos-ignore {
+  isolation: isolate;
+} 

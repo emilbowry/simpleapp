@@ -5,7 +5,7 @@ import { genericSectionStyle } from "../../styles";
 
 export const containerStyle: React.CSSProperties = {
 	// ...genericSectionStyle,
-
+	position: "relative",
 	display: "flex",
 	zIndex: 10,
 	padding: "2%",

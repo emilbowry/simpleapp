@@ -45,61 +45,60 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 
 		let ContainerStyle = {
 			...containerStyle,
-			// backgroundColor: theme.backgroundColor,
-			backgroundColor: "transparent",
-			border: "1px solid black",
+			backgroundColor: theme.backgroundColor,
 		};
 
 		const borderColor = header ? theme.tertiaryColor : undefined;
 
 		return (
-			<div className="no-aos">
-				<div style={ContainerStyle}>
-					{header ? (
-						<div style={headerContainerStyle}>
-							<div style={headerContentStyle}>
-								{formatComponent(header)}
-							</div>
+			<div
+				style={ContainerStyle}
+				className="aos-ignore"
+			>
+				{header ? (
+					<div style={headerContainerStyle}>
+						<div style={headerContentStyle}>
+							{formatComponent(header)}
+						</div>
+					</div>
+				) : null}
+
+				<div
+					style={lowerContainerStyle(borderColor)}
+					// className="aos"
+				>
+					{footer || title ? (
+						<div style={leftBodyColumnStyle}>
+							{title ? (
+								<div style={titleContainerStyle}>
+									<div
+										style={titleHeadingStyle(
+											theme.primaryColor
+										)}
+									>
+										{formatComponent(title)}
+									</div>
+								</div>
+							) : null}
+
+							{footer ? (
+								<div style={textBodyContainerStyle}>
+									{formatComponent(footer)}
+								</div>
+							) : null}
 						</div>
 					) : null}
 
-					<div
-						style={lowerContainerStyle(borderColor)}
-						// className="aos"
-					>
-						{footer || title ? (
-							<div style={leftBodyColumnStyle}>
-								{title ? (
-									<div style={titleContainerStyle}>
-										<div
-											style={titleHeadingStyle(
-												theme.primaryColor
-											)}
-										>
-											{formatComponent(title)}
-										</div>
-									</div>
-								) : null}
-
-								{footer ? (
-									<div style={textBodyContainerStyle}>
-										{formatComponent(footer)}
-									</div>
-								) : null}
-							</div>
-						) : null}
-
-						<div style={rightBodyColumnStyle}>
-							<div style={RhGridStyle}>
-								{components.map((item, _index) => (
-									<div
-										style={gridItemStyle}
-										key={_index}
-									>
-										{formatComponent(item, true)}
-									</div>
-								))}
-							</div>
+					<div style={rightBodyColumnStyle}>
+						<div style={RhGridStyle}>
+							{components.map((item, _index) => (
+								<div
+									style={gridItemStyle}
+									key={_index}
+								>
+									{formatComponent(item, true)}
+								</div>
+							))}
 						</div>
 					</div>
 				</div>
