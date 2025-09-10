@@ -22,7 +22,6 @@ const App: React.FC = () => {
 	return (
 		<>
 			<Routes>
-				{/* <Route element={<AppRoot />}> */}
 				<Route
 					path="/"
 					element={HomePage}
@@ -39,9 +38,7 @@ const App: React.FC = () => {
 					path="/demo_page"
 					element={DemoPage}
 				/>
-				{/* </Route> */}
 			</Routes>
-			{/* </main> */}
 		</>
 	);
 };

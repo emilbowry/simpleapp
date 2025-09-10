@@ -12,7 +12,7 @@ import tb from "../../../assets/TB.png";
 import { PartnershipBar } from "../../../components/partnershipbar/PartnershipBar";
 import { Partners } from "../../../components/partnershipbar/PartnershipBar.types";
 import { CallingCard } from "../../../components/callingcard/CallingCard";
-const demoSmallPartnershipBarData = new Partners({
+export const demoSmallPartnershipBarData = new Partners({
 	partners: [
 		{ image: HM },
 		{ image: AZ },
@@ -24,7 +24,7 @@ const demoSmallPartnershipBarData = new Partners({
 	],
 });
 
-const demoLargelPartnershipBarData = new Partners({
+export const demoLargelPartnershipBarData = new Partners({
 	partners: [
 		{ image: HM },
 		{ image: AZ },
@@ -33,8 +33,6 @@ const demoLargelPartnershipBarData = new Partners({
 		{ image: dct },
 		{ image: bm },
 		{ image: tb },
-		{ image: dct },
-		{ image: bm },
 	],
 	size: "Large",
 });
@@ -57,7 +55,7 @@ export const footerSmallPB: React.FC<{ index?: number }> = ({ index = 0 }) => (
 			/>,
 		]}
 		fullSpread={true}
-		styleOverrides={{ backgroundColor: "white" }}
+		// styleOverrides={{ backgroundColor: "white" }}
 		index={-1}
 	/>
 );
@@ -71,7 +69,7 @@ export const LargePB: React.FC<{ index?: number }> = ({ index = 0 }) => (
 			/>,
 		]}
 		fullSpread={true}
-		styleOverrides={{ backgroundColor: "white" }}
+		// styleOverrides={{ backgroundColor: "white" }}
 		index={-1}
 	/>
 );

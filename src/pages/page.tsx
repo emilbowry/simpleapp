@@ -1,6 +1,6 @@
 // src/pages/page.tsx
 
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/logo.png";
 import background from "../assets/Untitled.png";
 
@@ -16,9 +16,9 @@ export const BackgroundStyle: React.CSSProperties = {
 	backgroundAttachment: "fixed",
 
 	width: "100vw",
-	height: "100vh",
+	// height: "150%",
 	position: "fixed",
-	zIndex: -1,
+	zIndex: -15,
 	inset: 0,
 };
 
@@ -26,55 +26,91 @@ const DemoTiledBackground = () => {
 	return <div style={BackgroundStyle}></div>;
 };
 import {
+	demoSmallPartnershipBarData,
 	demoSmallPB as DPB,
 	footerSmallPB as FPB,
 } from "./homepage/parts/smallPartnershipBar";
 import { TestPillTitleBar as AppTitleBar } from "../components/titlebar/TitleBar";
 
-const FooterSections: React.FC = () => {
-	return (
-		<>
-			<h3>The way to be 'AI-first'...</h3>
-			<h3>
-				<a
-					href={"https://www.linkedin.com/company/ai-compatible-ltd"}
-					style={{ color: "inherit", textDecoration: "none" }}
-				>
-					Follow us on LinkedIn
-				</a>
-			</h3>
-		</>
-	);
-};
-// footerSmallPB
-
 const Footer: React.FC = () => {
-	const componentsToRender = [
-		<CallOut
-			body={<FooterSections />}
-			index={-1}
-		/>,
-		<CallOut body={getImageEl(logo)} />,
-	];
-	const ccElement = (
-		<CallingCard
-			title={<FPB />}
-			components={componentsToRender}
-			index={0}
-			fullSpread={true}
-		/>
+	return (
+		<div
+			style={{
+				...genericSectionStyle,
+				position: "sticky",
+				// // display: "flex",
+				// // flexDirection: "column",
+				// paddingTop: 0,
+				top: 0,
+				minHeight: "100vh",
+			}}
+		>
+			<div style={{ ...genericSectionStyle, minHeight: "40vh" }}></div>
+			<div
+				style={{
+					...genericSectionStyle,
+					position: "sticky",
+					// display: "flex",
+					// flexDirection: "column",
+					paddingTop: 0,
+					// bottom: "-10vh",
+					bottom: "0",
+
+					minHeight: "40vh",
+					// position: "sticky",
+
+					// paddingTop: "0",
+					// marginTop: "40vh",
+
+					// bottom: 0,
+				}}
+			>
+				<div
+					style={{
+						// ...genericSectionStyle,
+						position: "relative",
+						// display: "flex",
+						// flexDirection: "column",
+						// justifyContent: "flex-end",
+					}}
+				>
+					<div
+						style={{
+							// ...genericSectionStyle,
+							alignItems: "center",
+						}}
+					>
+						<PartnershipBar
+							{...demoSmallPartnershipBarData}
+							index={-1}
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
-	return <section>{ccElement}</section>;
 };
 import CustomCursor from "../components/cursor/Cursor";
+import { PartnershipBar } from "../components/partnershipbar/PartnershipBar";
+import { animationTagging } from "../utils/animationTagging";
+import { useLocation } from "react-router-dom";
+import { genericSectionStyle } from "../styles";
 
 const pageStyle: React.CSSProperties = {
 	flexGrow: "1",
-	height: "100%",
+	// height: "100%",
 	position: "relative",
 	marginTop: "5%",
 	flexDirection: "column", // Have to do both
 };
+
+// runAnimationTagging = () => {
+// 	animationTagging();
+// };
+
+// componentDidMount() {
+// 	this.runAnimationTagging();
+// }
 export class Page extends React.Component<{
 	page: React.FC;
 	bg?: boolean;
@@ -85,24 +121,29 @@ export class Page extends React.Component<{
 
 		return (
 			<>
+				<AppTitleBar />
+				{bg ? <DemoTiledBackground /> : null}
+
 				<main
-					className={"animated"}
 					key={location.pathname}
 					style={{
+						position: "relative",
 						display: "flex",
-						flexDirection: "column", // Have to do both
-
+						flexDirection: "column",
 						...(useCursor ? { cursor: "none" } : {}),
 					}}
 				>
 					{useCursor ? <CustomCursor /> : null}
-					{bg ? <DemoTiledBackground /> : null}
-					<AppTitleBar />
-					<section style={pageStyle}>
+					<section
+						// className={"animated"}
+						style={{
+							...pageStyle,
+						}}
+					>
 						<Page />
 					</section>
-					<Footer />
 				</main>
+				<Footer />
 			</>
 		);
 	}

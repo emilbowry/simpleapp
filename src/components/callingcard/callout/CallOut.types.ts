@@ -10,6 +10,7 @@ export interface IConstructedComponent {
 export interface ICallOut {
 	body: ValidComponent;
 	index?: number;
+	styleOverides?: React.CSSProperties;
 }
 
 export interface IStructuredCalloutData {

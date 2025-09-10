@@ -28,14 +28,24 @@ export class CallOut
 		const { body } = args;
 
 		return (
-			<div style={CallOutBody_Style(this.theme.secondaryColor)}>
+			<div
+				style={{
+					...CallOutBody_Style(this.theme.secondaryColor),
+				}}
+			>
 				{formatComponent(body)}
 			</div>
 		);
 	}
 	render() {
+		const { styleOverides = {} } = this.props;
 		return (
-			<div style={CallOut_Style(this.theme.backgroundColor)}>
+			<div
+				style={{
+					...CallOut_Style(this.theme.backgroundColor),
+					...styleOverides,
+				}}
+			>
 				{this.generateNode(this.props)}
 			</div>
 		);

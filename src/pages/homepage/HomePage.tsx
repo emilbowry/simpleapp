@@ -2,27 +2,36 @@ import React, { useEffect, useState } from "react";
 import { Hero } from "./parts/Hero";
 import { ImpactCallingCard } from "./impact";
 import { DemoLayout } from "../DemoLayout";
-import { DemoNewCC } from "../../components/callingcard/callout/newCallingCard";
+import { DemoNewCC } from "./parts/AboutUs";
+import { LargePB } from "./parts/smallPartnershipBar";
 
-const homePage: React.FC = () => {
+export const homePage: React.FC = () => {
 	return (
-		<DemoNewCC />
-		/* 
-		<section className="no-aos">
+		<section className="aos-ignore">
 			<Hero />
-			<LargePB />
 
-			<ImpactCallingCard /> 
+			<DemoNewCC />
+
+			{/* <LargePB />
+			<DemoNewCC /> */}
 		</section>
-		*/
 	);
 };
+
+// export const HomePage = homePage;
 import { Page } from "../page";
-import { LargePB } from "./parts/smallPartnershipBar";
 
 export const HomePage = (
 	<Page
 		page={homePage}
-		// bg={true}
+		bg={true}
 	/>
 );
+
+// export const HomePage = (
+// 	<>
+
+// 		{homePage}
+
+// 	</>
+// );

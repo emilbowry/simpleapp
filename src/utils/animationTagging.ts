@@ -15,7 +15,6 @@ export const animationTagging = () => {
 		el instanceof HTMLElement;
 	const isInSVG = (el: Element) =>
 		el.namespaceURI === "http://www.w3.org/2000/svg" || !!el.closest("svg");
-	// !!el.querySelector("svg");
 	const cleanSVGAccidents = () => {
 		document.querySelectorAll("svg.aos, svg .aos").forEach((el) => {
 			el.classList.remove("aos", "is-visible");
@@ -93,24 +92,29 @@ export const animationTagging = () => {
 			pos.set(parent, [parentBase, nextChildIndex + 1, pOrder]);
 
 			pos.set(el, [baseDepth, 0, orderIndex]);
+			if (!el.classList.contains("aos-ignore")) {
+				el.classList.add("aos");
 
-			el.classList.add("aos");
-
-			if (el instanceof HTMLElement) {
-				el.dataset.baseDepth = String(baseDepth);
-				el.dataset.siblingIndex = String(siblingIndex);
-				el.dataset.orderIndex = String(orderIndex);
-				const displayDepth = baseDepth + siblingIndex + orderIndex;
-				// console.log(displayDepth);
-				// el.style.backgroundColor = `hsl(${displayDepth}, 90%, 70%)`;
-				el.dataset.depth = String(displayDepth);
-				el.style.setProperty("--aos-base-depth", String(baseDepth));
-				el.style.setProperty(
-					"--aos-sibling-index",
-					String(siblingIndex)
-				);
-				el.style.setProperty("--aos-order-index", String(orderIndex));
-				el.style.setProperty("--aos-depth", String(displayDepth * 10));
+				if (el instanceof HTMLElement) {
+					el.dataset.baseDepth = String(baseDepth);
+					el.dataset.siblingIndex = String(siblingIndex);
+					el.dataset.orderIndex = String(orderIndex);
+					const displayDepth = baseDepth + siblingIndex + orderIndex;
+					el.dataset.depth = String(displayDepth);
+					el.style.setProperty("--aos-base-depth", String(baseDepth));
+					el.style.setProperty(
+						"--aos-sibling-index",
+						String(siblingIndex)
+					);
+					el.style.setProperty(
+						"--aos-order-index",
+						String(orderIndex)
+					);
+					el.style.setProperty(
+						"--aos-depth",
+						String(displayDepth * 10)
+					);
+				}
 			}
 		});
 	};

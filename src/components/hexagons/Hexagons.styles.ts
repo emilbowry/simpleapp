@@ -63,18 +63,21 @@ export const horizontalContentStyle = (): React.CSSProperties => {
 
 	return {
 		position: "absolute",
+		zIndex: "9999",
 		left,
 		top,
 		width,
-		fontSize: "unset",
+		fontSize: "initial",
 		height,
-		overflow: "hidden",
+		// overflow: "hidden",
 		display: "flex",
+		overflow: "visible",
+
 		justifyContent: "center",
 		alignItems: "center",
 	};
 };
-
+import { genericSectionStyle } from "../../styles";
 export const verticalContentStyle = (): React.CSSProperties => {
 	const left = `${((vertSafeZoneCoords.minX - 0) / 200) * 100}%`;
 	const top = `${((vertSafeZoneCoords.minY - -100) / 200) * 100}%`;
@@ -82,12 +85,19 @@ export const verticalContentStyle = (): React.CSSProperties => {
 	const height = `${(vertSafeZoneCoords.height / 200) * 100}%`;
 
 	return {
+		// ...genericSectionStyle, // adds background and border debugging
 		position: "absolute",
 		left,
 		top,
 		width,
 		height,
-		overflow: "hidden",
+		maxHeight: height,
+		fontSize: "initial",
+		// fontSize: "1rem,",
+
+		// overflow: "visible",
+
+		// overflow: "hidden",
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",

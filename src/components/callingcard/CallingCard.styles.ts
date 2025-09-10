@@ -26,6 +26,6 @@ export const cardStyle = (_colour: string): React.CSSProperties => ({
 });
 
 export const titleHeadingStyle = (_colour: string): React.CSSProperties => ({
-	fontSize: "4rem",
+	fontSize: "3rem",
 	color: _colour,
 });

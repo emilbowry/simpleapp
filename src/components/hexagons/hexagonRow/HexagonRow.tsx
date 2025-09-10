@@ -52,6 +52,7 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 			<div style={container(rspacing, aspace, l)}>
 				{rows.map((row, _index) => (
 					<HexagonRow
+						key={_index}
 						elements={row.elements}
 						len={l}
 					/>

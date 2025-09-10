@@ -43,6 +43,11 @@ export class Hexagon
 	public construct(args?: any) {
 		const _args = args || { colour: midnight_green };
 		const colour = _args.colour || midnight_green;
+		const borderColor = _args.borderColor || undefined;
+		const borderWidth = borderColor
+			? _args.borderWidth || "2px"
+			: undefined;
+
 		return {
 			defs: [
 				<mask id="hexagon">
@@ -57,6 +62,8 @@ export class Hexagon
 					d={this.hexPath}
 					mask="url(#hexagon)"
 					fill={colour}
+					stroke={borderColor}
+					strokeWidth={borderWidth}
 				/>,
 			],
 		};
@@ -70,6 +77,7 @@ export class Hexagon
 			...styleProps
 		} = this.props;
 		const { defs, paths } = this.construct(args);
+		const ctor = this.constructor as typeof Hexagon;
 
 		return (
 			<div
@@ -77,18 +85,32 @@ export class Hexagon
 				style={containerStyle(styleProps)}
 			>
 				<svg
-					style={svgStyle(styleProps)}
-					viewBox={`0 -${(200 * Math.sqrt(3)) / 4} 200 ${
-						(200 * Math.sqrt(3)) / 2
-					}`}
+					style={{
+						...svgStyle(styleProps),
+					}}
+					viewBox={
+						!ctor.useVert
+							? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
+									(200 * Math.sqrt(3)) / 2
+							  }`
+							: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
+									(200 * Math.sqrt(3)) / 2
+							  } 200`
+					}
 					xmlns="http://www.w3.org/2000/svg"
 				>
 					<defs>{defs.map((def, i) => def)}</defs>
 					{paths.map((path, i) => path)}
 				</svg>
 				{element && (
-					<div style={horizontalContentStyle()}>
-						{formatComponent(element)}
+					<div
+						style={
+							!ctor.useVert
+								? horizontalContentStyle()
+								: verticalContentStyle()
+						}
+					>
+						{formatComponent(element, true)}
 					</div>
 				)}
 			</div>

@@ -72,18 +72,18 @@ export const Hero: React.FC = () => {
 
 	const demo_row = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
 
-	// const r = [
-	// 	{ elements: secondRow },
-	// 	{ elements: thirdRow },
-	// 	{ elements: firstRow },
-	// ];
 	const r = [
-		{ elements: demo_row },
-		{ elements: demo_row },
-		{ elements: demo_row },
+		{ elements: secondRow },
+		{ elements: thirdRow },
+		{ elements: firstRow },
 	];
+	// const r = [
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// 	{ elements: demo_row },
+	// ];
 	return (
-		<div style={{ marginTop: "-10%" }}>
+		<div style={{ marginTop: "-10%", maxHeight: "50vh" }}>
 			{/* TEMPOARY */}
 			<HexagonGrid rows={r} />
 		</div>

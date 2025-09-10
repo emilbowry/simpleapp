@@ -52,15 +52,11 @@ body {
 .is-visible {
   /* opacity: 1; */
   /* transform: var(--user-transform) translateY(0); */
-  animation: fadeInUpAnimation 600ms ease-out forwards; /* Apply the animation */
+  animation: fadeInUpAnimation 600ms ease-out forwards; 
   /* animation-delay: calc(var(--aos-depth, 0) * var(--aos-unit-delay)); */
 }
 
-/* 
-.animated {
-  animation: fadeInUpAnimation 600ms ease-out both;
-}
-*/
+
 
 @keyframes fadeInUpAnimation {
   from {
@@ -83,8 +79,7 @@ body {
     transform: var(--user-transform, none) !important;
   }
 }
-
-/* --- Typewriter effect --- */
+/* 
 .typewriter {
   overflow: hidden;
   white-space: nowrap;
@@ -104,11 +99,12 @@ body {
     width: 100%;
   }
 }
-
-/* --- Utilities --- */
+.aos-ignore {
+  isolation: isolate;
+} */
 .no-aos {
   isolation: isolate;
-  contain: paint; /* or: contain: layout paint; if you can */
+  contain: paint;
 }
 * {
 cursor: none!;

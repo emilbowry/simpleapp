@@ -19,11 +19,11 @@ import {
 	IPartnerImageState,
 	IPartnershipBarState,
 } from "./PartnershipBar.types";
-
+import { genericSectionStyle } from "../../styles";
 export const WallLayout = (n: number): [number, number, number] => {
-	const a = (((n % 3) + 1) % 2) + Math.floor(n / Math.min(n, 3));
-	const c = Math.floor((n + 1) / 3) - (((n + 1) % Math.min(n, 3)) % 2);
-	return [a, n - (a + c), c];
+	const a = (((n % 3) + 1) % 2) + Math.floor(n / Math.min(n, 3)); // Calculates the top row
+	const c = Math.floor((n + 1) / 3) - (((n + 1) % Math.min(n, 3)) % 2); // Calculates the bottom row
+	return [a, n - (a + c), c]; // invariant: exists x in {a, n-(a+c)} s.t c <= x
 };
 
 const MarqueeKeyframes = () => {
@@ -56,21 +56,38 @@ class PartnerImage extends React.Component<
 		const { image, link } = partner;
 
 		const imageEl = (
-			<img
-				src={image}
-				width={"400px"}
-				onMouseOver={this.handleMouseOver}
-				onMouseOut={this.handleMouseOut}
+			<div
 				style={{
-					filter: this.state.isHovered
-						? "saturate(1)"
-						: "saturate(0)",
-					transition: "filter 0.3s ease-in-out",
+					// width: "100%",
+					// ...genericSectionStyle,
+					aspectRatio: "2.5", // ensures we can appropriately brick them
+					justifyContent: "center",
+					alignContent: "center",
+					// margin: "0 5%",
+					// margin: "auto",
 				}}
-			></img>
+			>
+				<img
+					src={image}
+					width={"250"}
+					onMouseOver={this.handleMouseOver}
+					onMouseOut={this.handleMouseOut}
+					style={{
+						// ...genericSectionStyle,
+
+						filter: this.state.isHovered
+							? "saturate(1)"
+							: "saturate(0)",
+						transition: "filter 0.3s ease-in-out",
+						justifyContent: "center",
+
+						// width: "100%",
+					}}
+				/>
+			</div>
 		);
 
-		const linkedEl = wrapLink(link, imageEl);
+		const linkedEl = wrapLink(link, imageEl); // No op since no link
 		return linkedEl;
 	}
 }
@@ -97,7 +114,7 @@ export class PartnershipBar extends React.Component<
 			maxBricks = maxBricks + 1;
 		}
 
-		const threshold = 400 * maxBricks;
+		const threshold = 350 * maxBricks;
 		const currentIsSmallViewport = window.innerWidth < threshold;
 
 		if (currentIsSmallViewport !== this.state.smallViewPort) {
@@ -165,16 +182,18 @@ export class PartnershipBar extends React.Component<
 					<div
 						className="no-aos"
 						style={{
-							justifyContent: "center",
-							justifyItems: "center",
+							...staticStyle,
+							// gap: "-100px",
+							backgroundColor: "transparent",
 						}}
 					>
 						<div style={rowLayout(topCount, maxBricks)}>
 							{topRow.map((partner, _index) => (
 								/* 		<div //used for debugging
 									style={{
-										width: "400px",
-										height: "200px",
+										width: "200px",
+										height: "100px",
+
 										backgroundColor: "red",
 									}}
 								/> */
@@ -194,8 +213,8 @@ export class PartnershipBar extends React.Component<
 								/>
 								/* 	<div //used for debugging
 									style={{
-										width: "400px",
-										height: "200px",
+										width: "200px",
+										height: "100px",
 										backgroundColor: "red",
 									}}
 								/> */
@@ -210,8 +229,8 @@ export class PartnershipBar extends React.Component<
 								/>
 								/* 	<div //used for debugging
 									style={{
-										width: "400px",
-										height: "200px",
+										width: "200px",
+										height: "100px",
 										backgroundColor: "red",
 									}}
 								/> */
@@ -221,44 +240,29 @@ export class PartnershipBar extends React.Component<
 				);
 			}
 		} else if (size === "Small") {
+			const numSets = Array.from({ length: 3 }, (_, i) => i);
 			return (
 				<div className="no-aos">
 					<MarqueeKeyframes />
 					<div style={marqueeFrameStyle}>
 						<div style={marqueeWindowStyle}>
 							<div style={marqueeContentStyle}>
-								{partners.map((partner, _index) => (
-									<div
-										key={`a-${_index}`}
-										style={partnerWrapperStyle}
-									>
-										<PartnerImage
-											partner={partner}
-											size={size}
-										/>
-									</div>
-								))}
-								{partners.map((partner, _index) => (
-									<div
-										key={`b-${_index}`}
-										style={partnerWrapperStyle}
-									>
-										<PartnerImage
-											partner={partner}
-											size={size}
-										/>
-									</div>
-								))}
-								{partners.map((partner, _index) => (
-									<div
-										key={`c-${_index}`}
-										style={partnerWrapperStyle}
-									>
-										<PartnerImage
-											partner={partner}
-											size={size}
-										/>
-									</div>
+								{numSets.map((setIndex) => (
+									<React.Fragment key={`set-${setIndex}`}>
+										{partners.map(
+											(partner, partnerIndex) => (
+												<div
+													key={`partner-${setIndex}-${partnerIndex}`}
+													style={partnerWrapperStyle}
+												>
+													<PartnerImage
+														partner={partner}
+														size={size}
+													/>
+												</div>
+											)
+										)}
+									</React.Fragment>
 								))}
 							</div>
 						</div>

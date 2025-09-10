@@ -8,16 +8,49 @@ export const wrapLink = (
 
 export const getImageEl = (
 	image: string | undefined | React.SVGElementType,
-	styling: React.CSSProperties = {}
+	styling: React.CSSProperties = {},
+	imageProps: any = {}
 ): React.ReactNode =>
 	image ? (
 		<img
 			src={image}
+			{...imageProps}
 			style={styling}
 		></img>
 	) : (
 		<></>
 	);
+
+export const BoxedImage: React.FC<{
+	image: string;
+
+	width?: string;
+	aspectRatio: string;
+	imageStyling?: React.CSSProperties;
+	wrapperStyling?: React.CSSProperties;
+}> = ({
+	image,
+	aspectRatio,
+	width = "100%",
+
+	imageStyling = {},
+	wrapperStyling = {},
+}) => {
+	const wrapperStyle: React.CSSProperties = {
+		// ...genericSectionStyle,
+		display: "flex",
+		width,
+		margin: width === "100%" ? "" : "auto",
+		aspectRatio,
+		justifyContent: "center",
+		alignContent: "center",
+		alignItems: "center",
+
+		...wrapperStyling,
+	};
+	const imageEl = getImageEl(image, { minWidth: 0, ...imageStyling });
+	return <div style={wrapperStyle}>{imageEl}</div>;
+};
 
 export const _noOp = (_: any) => undefined;
 
@@ -74,3 +107,4 @@ import {
 	light_mix_green,
 	lighter_logo_blue,
 } from "./defaultColours";
+import { genericSectionStyle } from "../styles";
