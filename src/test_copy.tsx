@@ -13,7 +13,7 @@ interface IStyle {
 	theme_args?: ThemeMapping;
 }
 
-interface IThemedComponentProps {
+export interface IThemedComponentProps {
 	theme_index?: number;
 }
 
@@ -48,8 +48,18 @@ export class ThemedComponent<P = {}, S = {}> extends React.Component<
 
 	protected getStyle(
 		key: string,
-		runtimeArgs: any[] = []
+		runtimeArgs: any[] = [],
+		propOverrides: React.CSSProperties = {}
 	): React.CSSProperties {
+		// ): React.CSSProperties |undefined {
+		// if (!this._styleCache[key]) {
+		// 	if (
+		// 		runtimeArgs.length === 0 &&
+		// 		(!propOverrides || Object.keys(propOverrides).length === 0)
+		// 	) {
+		// 		// Now this block will correctly execute when the arguments are "empty".
+		// 	}
+		// } // may
 		this._styleCache[key] = this._styleCache[key] || {};
 		const cache = this._styleCache[key];
 
@@ -81,6 +91,7 @@ export class ThemedComponent<P = {}, S = {}> extends React.Component<
 			...cache.staticAndThemedCSS,
 			...cache.dynamicCSS,
 			...finalDefinition.styleOverides,
+			...propOverrides,
 		};
 	}
 
@@ -148,7 +159,7 @@ const some_element_static_style: React.CSSProperties = {
 	border: "2px solid black",
 };
 
-export class DemoClassA extends ThemedComponent {
+export class DemoClassA extends ThemedComponent<{}> {
 	static {
 		this.declareStyle("SomeElementStyle", {
 			static_css: some_element_static_style,

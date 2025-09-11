@@ -14,7 +14,7 @@ import {
 import { ICallOut, IConstructedComponent } from "./CallOut.types";
 import { Theme } from "../../../styles";
 import { styles, Styles } from "../../../test";
-export class CallOut
+export class CallOut_Old
 	extends React.Component<ICallOut>
 	implements IConstructedComponent
 {
@@ -65,28 +65,92 @@ export class CallOut
 		return this.generateNode();
 	}
 }
+import { IThemedComponentProps, ThemedComponent } from "../../../test_copy";
+export class CallOut
+	extends ThemedComponent<ICallOut>
+	implements IConstructedComponent
+{
+	static {
+		this.declareStyle("CallOutBody", {
+			static_css: {
+				width: "100%",
+			},
+			theme_args: {
+				secondaryColor: ["color"],
+			},
+		});
+		this.declareStyle("CallOutContainer", {
+			static_css: {
+				width: "100%",
 
+				display: "flex",
+				flexDirection: "column",
+			},
+			theme_args: {
+				backgroundColor: ["backgroundColor"],
+			},
+		});
+	}
+
+	constructor(props: ICallOut) {
+		super(props);
+	}
+
+	Container(arg?: any): React.ReactNode {
+		console.log(
+			this.getStyle("CallOutContainer", [], this.props.styleOverides)
+		);
+
+		return (
+			<div
+				style={this.getStyle(
+					"CallOutContainer",
+					[],
+					this.props.styleOverides
+				)}
+			>
+				{this.Content()}
+			</div>
+		);
+	}
+	Content(): React.ReactNode {
+		console.log(this.getStyle("CallOutBody"));
+		return (
+			<div style={this.getStyle("CallOutBody")}>
+				{formatComponent(this.props.body)}
+			</div>
+		);
+	}
+
+	public generateNode(args?: any): React.ReactNode {
+		const wrapperStyle = this.getStyle("wrapperStyle");
+		return Object.keys(wrapperStyle).length ? (
+			<div style={wrapperStyle}>{this.Container(args)}</div>
+		) : (
+			<>{this.Container(args)}</>
+		);
+	}
+	render() {
+		return this.generateNode();
+	}
+}
 export interface ITriPartCalloutProps extends ICallOut {
 	header?: ValidComponent;
 	footer?: ValidComponent;
 }
 
 export class TriPartCallout extends CallOut {
-	props!: ITriPartCalloutProps;
-	callout_header_style: Styles;
-	callout_footer_style: Styles;
-
-	constructor(props: ITriPartCalloutProps) {
-		super(props);
-
-		this.callout_header_style = styles({
-			styling_function: _CallOutBody_Style,
-			default_args: [this.theme.primaryColor],
+	props!: ITriPartCalloutProps & IThemedComponentProps; //fix this
+	static {
+		this.declareStyle("header_style", {
+			theme_args: {
+				primaryColor: ["color"],
+			},
 		});
-
-		this.callout_footer_style = styles({
-			styling_function: _CallOutHeader_Style,
-			default_args: [this.theme.secondaryColor],
+		this.declareStyle("footer_style", {
+			theme_args: {
+				secondaryColor: ["color"],
+			},
 		});
 	}
 
@@ -95,7 +159,7 @@ export class TriPartCallout extends CallOut {
 		return (
 			<>
 				{header ? (
-					<div style={this.callout_header_style()}>
+					<div style={this.getStyle("header_style")}>
 						{formatComponent(header)}
 					</div>
 				) : (
@@ -104,7 +168,7 @@ export class TriPartCallout extends CallOut {
 				{super.Content()}
 
 				{footer ? (
-					<div style={this.callout_footer_style()}>
+					<div style={this.getStyle("footer_Style")}>
 						{formatComponent(footer)}
 					</div>
 				) : (

@@ -48,94 +48,85 @@ import {
 } from "../../../utils/defaultColours";
 type d = CSSProperties;
 
+class HexWrapCallOut extends TriPartCallout {
+	static {
+		this.declareStyle("wrapperStyle", {
+			static_css: { ...hexCallStyle, backgroundColor: "transparent" },
+		});
+	}
+}
 const TestEl1 = () => {
 	return (
-		<>
-			<DemoClassB theme_index={-1} />
-			<DemoClassA theme_index={-1} />
-		</>
-
-		// <div
-		// 	style={{
-		// 		...hexCallStyle,
-		// 	}}
 		// >
-		// 	<TriPartCallout
-		// 		{...{
-		// 			header: (
-		// 				<BoxedImage
-		// 					image={simp_bulb}
-		// 					width="40%"
-		// 					aspectRatio="1"
-		// 					imageStyling={imageStyling}
-		// 				/>
-		// 			),
+		<HexWrapCallOut
+			{...{
+				header: (
+					<BoxedImage
+						image={simp_bulb}
+						width="40%"
+						aspectRatio="1"
+						imageStyling={imageStyling}
+					/>
+				),
 
-		// 			body: <div style={titleStyle}>Consultancy</div>,
-		// 			footer: (
-		// 				<div style={footerStyle}>
-		// 					Scoping <br /> Matching Tasks to Tools
-		// 				</div>
-		// 			),
-		// 		}}
-		// 		index={0}
-		// 		styleOverides={{ backgroundColor: "transparent" }}
-		// 	/>
-		// </div>
+				body: <div style={titleStyle}>Consultancy</div>,
+				footer: (
+					<div style={footerStyle}>
+						Scoping <br /> Matching Tasks to Tools
+					</div>
+				),
+			}}
+			theme_index={-1}
+		/>
 	);
 };
 
 const TestEl2 = (
-	<div style={hexCallStyle}>
-		<TriPartCallout
-			{...{
-				body: <div style={titleStyle}>Training</div>,
-				footer: (
-					<div style={footerStyle}>
-						Prompt Engineering
-						<br />
-						AI Ethics Literacy
-					</div>
-				),
-				header: (
-					<BoxedImage
-						image={bull}
-						width="40%"
-						aspectRatio="1"
-						imageStyling={imageStyling}
-					/>
-				),
-			}}
-			index={0}
-			styleOverides={{ backgroundColor: "transparent" }}
-		/>
-	</div>
+	<HexWrapCallOut
+		{...{
+			body: <div style={titleStyle}>Training</div>,
+			footer: (
+				<div style={footerStyle}>
+					Prompt Engineering
+					<br />
+					AI Ethics Literacy
+				</div>
+			),
+			header: (
+				<BoxedImage
+					image={bull}
+					width="40%"
+					aspectRatio="1"
+					imageStyling={imageStyling}
+				/>
+			),
+		}}
+		theme_index={-1}
+	/>
 );
 const TestEl3 = (
-	<div style={hexCallStyle}>
-		<TriPartCallout
-			{...{
-				body: <div style={titleStyle}>Policy</div>,
-				footer: (
-					<div style={footerStyle}>
-						Drafting AI
-						<br />
-						Policy Reviewing AI Policy
-					</div>
-				),
-				header: (
-					<BoxedImage
-						image={pencil}
-						width="40%"
-						aspectRatio="1"
-						imageStyling={imageStyling}
-					/>
-				),
-			}}
-			index={0}
-			styleOverides={{ backgroundColor: "transparent" }}
-		/>
-	</div>
+	<HexWrapCallOut
+		{...{
+			body: <div style={titleStyle}>Policy</div>,
+			footer: (
+				<div style={footerStyle}>
+					Drafting AI
+					<br />
+					Policy Reviewing AI Policy
+				</div>
+			),
+			header: (
+				<BoxedImage
+					image={pencil}
+					width="40%"
+					aspectRatio="1"
+					imageStyling={imageStyling}
+				/>
+			),
+		}}
+		theme_index={-1}
+		// styleOverides={{ backgroundColor: "transparent" }}
+	/>
 );
 const HexWapStyle: React.CSSProperties = {
 	margin: "0 5%",
