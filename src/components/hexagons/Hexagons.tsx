@@ -99,8 +99,14 @@ export class Hexagon
 					}
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<defs>{defs.map((def, i) => def)}</defs>
-					{paths.map((path, i) => path)}
+					<defs>
+						{defs.map((def, i) => (
+							<React.Fragment key={i}>{def}</React.Fragment>
+						))}
+					</defs>
+					{paths.map((path, i) => (
+						<React.Fragment key={i}>{path}</React.Fragment>
+					))}
 				</svg>
 				{element && (
 					<div
