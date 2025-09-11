@@ -22,13 +22,13 @@ const stat_card_one = {
 };
 
 const stat_card_two = {
-	header: <p style={stat_value_style}>96%</p>,
 	body: (
 		<p style={stat_body_style}>
 			confidence increase in people who take our sessions in thier use of
 			generative AI.
 		</p>
 	),
+	header: <p style={stat_value_style}>96%</p>,
 };
 
 const stat_card_three = {

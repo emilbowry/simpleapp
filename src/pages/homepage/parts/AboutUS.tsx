@@ -14,7 +14,6 @@ import { VertHexagon } from "../../../components/hexagons/Hexagons";
 import { PartnershipBar } from "../../../components/partnershipbar/PartnershipBar";
 import { BoxedImage } from "../../../utils/reactUtils";
 import { demoLargelPartnershipBarData } from "./smallPartnershipBar";
-
 export const titleStyle: React.CSSProperties = {
 	fontSize: "2rem",
 	fontWeight: "400",
@@ -39,31 +38,53 @@ const hexCallStyle: React.CSSProperties = {
 	margin: "0 auto",
 	marginTop: "-15%",
 };
-const TestEl1 = (
-	<div style={hexCallStyle}>
-		<TriPartCallout
-			{...{
-				header: (
-					<BoxedImage
-						image={simp_bulb}
-						width="40%"
-						aspectRatio="1"
-						imageStyling={imageStyling}
-					/>
-				),
 
-				body: <div style={titleStyle}>Consultancy</div>,
-				footer: (
-					<div style={footerStyle}>
-						Scoping <br /> Matching Tasks to Tools
-					</div>
-				),
-			}}
-			index={0}
-			styleOverides={{ backgroundColor: "transparent" }}
-		/>
-	</div>
-);
+import { CSSProperties } from "react";
+import { DemoClassA, DemoClassB } from "../../../test_copy";
+import { Theme } from "../../../styles";
+import {
+	dark_midnight_green,
+	midnight_green,
+} from "../../../utils/defaultColours";
+type d = CSSProperties;
+
+const TestEl1 = () => {
+	return (
+		<>
+			<DemoClassB theme_index={-1} />
+			<DemoClassA theme_index={-1} />
+		</>
+
+		// <div
+		// 	style={{
+		// 		...hexCallStyle,
+		// 	}}
+		// >
+		// 	<TriPartCallout
+		// 		{...{
+		// 			header: (
+		// 				<BoxedImage
+		// 					image={simp_bulb}
+		// 					width="40%"
+		// 					aspectRatio="1"
+		// 					imageStyling={imageStyling}
+		// 				/>
+		// 			),
+
+		// 			body: <div style={titleStyle}>Consultancy</div>,
+		// 			footer: (
+		// 				<div style={footerStyle}>
+		// 					Scoping <br /> Matching Tasks to Tools
+		// 				</div>
+		// 			),
+		// 		}}
+		// 		index={0}
+		// 		styleOverides={{ backgroundColor: "transparent" }}
+		// 	/>
+		// </div>
+	);
+};
+
 const TestEl2 = (
 	<div style={hexCallStyle}>
 		<TriPartCallout
@@ -123,7 +144,7 @@ const comps = [
 	<div style={HexWapStyle}>
 		<VertHexagon
 			args={{ borderColor: "black", colour: "transparent" }}
-			element={TestEl1}
+			element={TestEl1()}
 		/>
 	</div>,
 	<div style={HexWapStyle}>

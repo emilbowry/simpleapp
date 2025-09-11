@@ -4,51 +4,65 @@ import React from "react";
 import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
 
 import {
-	CallOut_Style,
-	CallOutBody_Style,
-	CallOutHeader_Style,
-	Bordered_TriPartCallout_Style,
+	_CallOut_Style,
+	_CallOutBody_Style,
+	_CallOutHeader_Style,
+	_CallOutFooter_Style,
+	_Bordered_TriPartCallout_Style,
 } from "./CallOut.styles";
 
 import { ICallOut, IConstructedComponent } from "./CallOut.types";
 import { Theme } from "../../../styles";
-
+import { styles, Styles } from "../../../test";
 export class CallOut
 	extends React.Component<ICallOut>
 	implements IConstructedComponent
 {
 	public theme;
+	callout_body_style: Styles; // necessary since i cant declare it as undefined
+	callout_wrapper_style: Styles | undefined;
+	// callout_style: Styles;
+	public callout_style;
 
 	constructor(props: ICallOut) {
 		super(props);
 		const { index = -1 } = this.props;
 		this.theme = Theme(index);
+		this.callout_body_style = styles({
+			styling_function: _CallOutBody_Style,
+			default_args: [this.theme.secondaryColor],
+		});
+		this.callout_style = styles({
+			styling_function: _CallOutBody_Style,
+			default_args: [this.theme.backgroundColor],
+		});
 	}
-	public generateNode(args: any): React.ReactNode {
-		const { body } = args;
 
+	Container(arg?: any): React.ReactNode {
 		return (
-			<div
-				style={{
-					...CallOutBody_Style(this.theme.secondaryColor),
-				}}
-			>
-				{formatComponent(body)}
+			<div style={this.callout_style([], this.props.styleOverides)}>
+				{this.Content()}
 			</div>
+		);
+	}
+	Content(): React.ReactNode {
+		return (
+			<div style={this.callout_body_style()}>
+				{formatComponent(this.props.body)}
+			</div>
+		);
+	}
+
+	public generateNode(args?: any): React.ReactNode {
+		const wrapperStyle = this.callout_wrapper_style;
+		return wrapperStyle ? (
+			<div style={wrapperStyle()}>{this.Container(args)}</div>
+		) : (
+			<>{this.Container(args)}</>
 		);
 	}
 	render() {
-		const { styleOverides = {} } = this.props;
-		return (
-			<div
-				style={{
-					...CallOut_Style(this.theme.backgroundColor),
-					...styleOverides,
-				}}
-			>
-				{this.generateNode(this.props)}
-			</div>
-		);
+		return this.generateNode();
 	}
 }
 
@@ -59,22 +73,38 @@ export interface ITriPartCalloutProps extends ICallOut {
 
 export class TriPartCallout extends CallOut {
 	props!: ITriPartCalloutProps;
+	callout_header_style: Styles;
+	callout_footer_style: Styles;
 
-	public generateNode(args: any): React.ReactNode {
-		const { header, footer } = args;
+	constructor(props: ITriPartCalloutProps) {
+		super(props);
+
+		this.callout_header_style = styles({
+			styling_function: _CallOutBody_Style,
+			default_args: [this.theme.primaryColor],
+		});
+
+		this.callout_footer_style = styles({
+			styling_function: _CallOutHeader_Style,
+			default_args: [this.theme.secondaryColor],
+		});
+	}
+
+	Content = (): React.ReactNode => {
+		const { header, footer } = this.props;
 		return (
 			<>
 				{header ? (
-					<div style={CallOutHeader_Style(this.theme.primaryColor)}>
+					<div style={this.callout_header_style()}>
 						{formatComponent(header)}
 					</div>
 				) : (
 					<></>
 				)}
-				{super.generateNode(args)}
+				{super.Content()}
 
 				{footer ? (
-					<div style={CallOutHeader_Style(this.theme.secondaryColor)}>
+					<div style={this.callout_footer_style()}>
 						{formatComponent(footer)}
 					</div>
 				) : (
@@ -82,13 +112,11 @@ export class TriPartCallout extends CallOut {
 				)}
 			</>
 		);
-	}
+	};
 }
 
 export class Bordered_TriPartCallout extends TriPartCallout {
-	render() {
-		return (
-			<div style={Bordered_TriPartCallout_Style}>{super.render()}</div>
-		);
+	CallOut_WrapperStyle(): React.CSSProperties | undefined {
+		return _Bordered_TriPartCallout_Style;
 	}
 }

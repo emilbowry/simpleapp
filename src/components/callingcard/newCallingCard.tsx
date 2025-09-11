@@ -63,10 +63,7 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 					</div>
 				) : null}
 
-				<div
-					style={lowerContainerStyle(borderColor)}
-					// className="aos"
-				>
+				<div style={lowerContainerStyle(borderColor)}>
 					{footer || title ? (
 						<div style={leftBodyColumnStyle}>
 							{title ? (

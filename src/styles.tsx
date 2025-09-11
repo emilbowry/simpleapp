@@ -56,3 +56,19 @@ export const genericSectionStyle: React.CSSProperties = {
 	// backgroundColor: "transparent",
 	boxSizing: "border-box",
 };
+
+export interface IStylesArgs {
+	styleOverrides: React.CSSProperties | undefined;
+	args?: any;
+}
+
+export interface IStyle {
+	styleOverrides: React.CSSProperties | undefined;
+	args?: any;
+}
+
+class Style implements React.CSSProperties {}
+
+const A: Style = {
+	borderColor: "red",
+};
