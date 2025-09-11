@@ -8,7 +8,10 @@ import pencil from "../../../assets/pencil.svg";
 
 import target from "../../../assets/target.svg";
 import pen from "../../../assets/pen.svg";
-import { TriPartCallout } from "../../../components/callingcard/callout/CallOut";
+import {
+	ITriPartCalloutProps,
+	TriPartCallout,
+} from "../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../components/callingcard/newCallingCard";
 import { VertHexagon } from "../../../components/hexagons/Hexagons";
 import { PartnershipBar } from "../../../components/partnershipbar/PartnershipBar";
@@ -40,24 +43,20 @@ const hexCallStyle: React.CSSProperties = {
 };
 
 import { CSSProperties } from "react";
-import { DemoClassA, DemoClassB } from "../../../test_copy";
-import { Theme } from "../../../styles";
-import {
-	dark_midnight_green,
-	midnight_green,
-} from "../../../utils/defaultColours";
-type d = CSSProperties;
+import { IThemedComponentProps } from "../../../test_copy";
 
 class HexWrapCallOut extends TriPartCallout {
 	static {
 		this.declareStyle("wrapperStyle", {
-			static_css: { ...hexCallStyle, backgroundColor: "transparent" },
+			styleOverides: { ...hexCallStyle, backgroundColor: "transparent" },
 		});
 	}
+	// constructor(props: ITriPartCalloutProps & IThemedComponentProps) {
+	// 	super(props);
+	// }
 }
 const TestEl1 = () => {
 	return (
-		// >
 		<HexWrapCallOut
 			{...{
 				header: (

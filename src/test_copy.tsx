@@ -49,17 +49,8 @@ export class ThemedComponent<P = {}, S = {}> extends React.Component<
 	protected getStyle(
 		key: string,
 		runtimeArgs: any[] = [],
-		propOverrides: React.CSSProperties = {}
+		runTimeOverrides: React.CSSProperties = {}
 	): React.CSSProperties {
-		// ): React.CSSProperties |undefined {
-		// if (!this._styleCache[key]) {
-		// 	if (
-		// 		runtimeArgs.length === 0 &&
-		// 		(!propOverrides || Object.keys(propOverrides).length === 0)
-		// 	) {
-		// 		// Now this block will correctly execute when the arguments are "empty".
-		// 	}
-		// } // may
 		this._styleCache[key] = this._styleCache[key] || {};
 		const cache = this._styleCache[key];
 
@@ -86,13 +77,19 @@ export class ThemedComponent<P = {}, S = {}> extends React.Component<
 			cache.dynamicCSS = styling_function(...currentDynamicArgs);
 			cache.lastDynamicArgs = currentDynamicArgsString;
 		}
-
-		return {
+		const returnObj = {
 			...cache.staticAndThemedCSS,
 			...cache.dynamicCSS,
 			...finalDefinition.styleOverides,
-			...propOverrides,
+			...runTimeOverrides,
 		};
+		if (finalDefinition.styleOverides) {
+			cache.staticAndThemedCSS = {
+				...cache.staticAndThemedCSS,
+				...finalDefinition.styleOverides,
+			};
+		}
+		return returnObj;
 	}
 
 	private getMergedStyleDefinition(key: string): IStyle {
@@ -152,46 +149,5 @@ export class ThemedComponent<P = {}, S = {}> extends React.Component<
 			}
 		}
 		return cssProperties;
-	}
-}
-
-const some_element_static_style: React.CSSProperties = {
-	border: "2px solid black",
-};
-
-export class DemoClassA extends ThemedComponent<{}> {
-	static {
-		this.declareStyle("SomeElementStyle", {
-			static_css: some_element_static_style,
-			theme_args: {
-				primaryColor: ["backgroundColor"],
-
-				secondaryColor: ["borderColor"],
-			},
-		});
-	}
-
-	render() {
-		return <div style={this.getStyle("SomeElementStyle")}>Class A</div>;
-	}
-}
-
-export class DemoClassB extends DemoClassA {
-	static {
-		this.declareStyle("SomeElementStyle", {
-			theme_args: {
-				primaryColor: ["borderColor"],
-				secondaryColor: ["backgroundColor"],
-				tertiaryColor: ["color"],
-			},
-		});
-	}
-
-	render() {
-		return (
-			<div style={this.getStyle("SomeElementStyle")}>
-				Class B (Inherited & Overridden)
-			</div>
-		);
 	}
 }

@@ -12,59 +12,7 @@ import {
 } from "./CallOut.styles";
 
 import { ICallOut, IConstructedComponent } from "./CallOut.types";
-import { Theme } from "../../../styles";
-import { styles, Styles } from "../../../test";
-export class CallOut_Old
-	extends React.Component<ICallOut>
-	implements IConstructedComponent
-{
-	public theme;
-	callout_body_style: Styles; // necessary since i cant declare it as undefined
-	callout_wrapper_style: Styles | undefined;
-	// callout_style: Styles;
-	public callout_style;
 
-	constructor(props: ICallOut) {
-		super(props);
-		const { index = -1 } = this.props;
-		this.theme = Theme(index);
-		this.callout_body_style = styles({
-			styling_function: _CallOutBody_Style,
-			default_args: [this.theme.secondaryColor],
-		});
-		this.callout_style = styles({
-			styling_function: _CallOutBody_Style,
-			default_args: [this.theme.backgroundColor],
-		});
-	}
-
-	Container(arg?: any): React.ReactNode {
-		return (
-			<div style={this.callout_style([], this.props.styleOverides)}>
-				{this.Content()}
-			</div>
-		);
-	}
-	Content(): React.ReactNode {
-		return (
-			<div style={this.callout_body_style()}>
-				{formatComponent(this.props.body)}
-			</div>
-		);
-	}
-
-	public generateNode(args?: any): React.ReactNode {
-		const wrapperStyle = this.callout_wrapper_style;
-		return wrapperStyle ? (
-			<div style={wrapperStyle()}>{this.Container(args)}</div>
-		) : (
-			<>{this.Container(args)}</>
-		);
-	}
-	render() {
-		return this.generateNode();
-	}
-}
 import { IThemedComponentProps, ThemedComponent } from "../../../test_copy";
 export class CallOut
 	extends ThemedComponent<ICallOut>
