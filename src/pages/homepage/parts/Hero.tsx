@@ -52,30 +52,34 @@ const textEl = (
 );
 
 export const Hero: React.FC = () => {
-	const firstRow = [
+	const thirdRow = [
 		<ImageHexagon args={{ img: hi1 }} />,
-		<Hexagon args={{ colour: purple }} />,
+		<LogoHexagon args={{ withGap: false }} />,
+
 		<ImageHexagon args={{ img: hi2 }} />,
 	] as const;
 
+	const firstRow = [null, null, null] as const;
 	const secondRow = [
 		null,
 		<Hexagon args={{ colour: light_mix_green }} />,
-		null,
-	] as const;
-	const thirdRow = [
-		null,
-		<LogoHexagon args={{ withGap: false }} />,
 
 		<Hexagon args={{ colour: l_midnight_green }} />,
 	] as const;
 
 	const demo_row = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
+	const fourth_row = [
+		null,
+		<Hexagon args={{ colour: purple }} />,
+		null,
+
+		// <Hexagon />,
+	] as const;
 
 	const r = [
 		{ elements: secondRow },
 		{ elements: thirdRow },
-		{ elements: firstRow },
+		{ elements: fourth_row },
 	];
 	// const r = [
 	// 	{ elements: demo_row },
@@ -85,12 +89,12 @@ export const Hero: React.FC = () => {
 	return (
 		<div
 			style={{
-				// marginTop: `calc(-1*${100 / 9}% * 1vh/1vw)`,
+				// marginTop: `160px`,
 				height: "100%",
 				// display: "flex",
-				display: "block",
-				margin: "auto 0",
-				// marginTop: `calc(- 	1*${100 / 18}% * 1vh/1vw)`,
+				// display: "block",
+				margin: "auto 10%",
+				marginTop: `calc(10%)`,
 
 				// placeContent: "center",
 			}}

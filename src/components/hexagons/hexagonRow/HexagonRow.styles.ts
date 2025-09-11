@@ -67,12 +67,15 @@ const gapMidpointTranslation = (
  */
 const centreYOffset = (
 	relative_spacing: number = 0,
-	absolute_spacing: number = 0
+	absolute_spacing: number = 0,
+	hasTopOffset: boolean = true
 ): number | [number, number] => {
+	const sign = hasTopOffset ? -1 : 1;
 	return [
-		centerVertTranslation(relative_spacing) +
-			gapMidpointTranslation(relative_spacing),
-		+absolute_spacing / 2,
+		sign *
+			(centerVertTranslation(relative_spacing) +
+				gapMidpointTranslation(relative_spacing)),
+		(sign * absolute_spacing) / 2,
 	];
 };
 const edgeYOffset = (
@@ -210,10 +213,10 @@ export const container = (
 		/* background: border_background,*/
 		position: "relative",
 		// height: "100%",
-		margin: `calc(${_relative_spacing / 2}% + ${
-			(absolute_spacing > 0 ? absolute_spacing : 0) / 2
-		}px)`,
-		marginTop: "0px",
+		// margin: `calc(${_relative_spacing / 2}% + ${
+		// 	(absolute_spacing > 0 ? absolute_spacing : 0) / 2
+		// }px)`,
+		// marginTop: "0px",
 		gridAutoRows: `calc(${
 			100 + _relative_spacing
 		}% / ${length} + ${absolute_spacing}px)`,
