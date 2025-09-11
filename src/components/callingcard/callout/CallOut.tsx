@@ -13,7 +13,7 @@ import {
 
 import { ICallOut, IConstructedComponent } from "./CallOut.types";
 
-import { IThemedComponentProps, ThemedComponent } from "../../../test_copy";
+import { IThemedComponentProps, ThemedComponent } from "../../../styles";
 export class CallOut
 	extends ThemedComponent<ICallOut>
 	implements IConstructedComponent
