@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Hero } from "./parts/Hero";
 import { ImpactCallingCard } from "./impact";
 import { DemoLayout } from "../DemoLayout";
-import { DemoNewCC } from "./parts/AboutUs";
+import {
+	AboutUsCallingCard,
+	AboutUsCallingCard_alt,
+} from "./parts/about-us.tsx/AboutUs";
 import { LargePB } from "./parts/smallPartnershipBar";
 
 export const homePage: React.FC = () => {
@@ -12,14 +15,16 @@ export const homePage: React.FC = () => {
 			style={{ display: "grid", gridTemplateColumns: "100%" }}
 		>
 			<Hero />
-
-			<DemoNewCC />
+			{/* <ComponentShowcase /> */}
+			<AboutUsCallingCard />
+			<AboutUsCallingCard_alt />
 		</div>
 	);
 };
 
 // export const HomePage = homePage;
 import { Page } from "../page";
+// import { ComponentShowcase } from "../../styles2_copy";
 
 export const HomePage = (
 	<Page

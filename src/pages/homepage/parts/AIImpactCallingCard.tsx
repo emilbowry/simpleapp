@@ -8,10 +8,15 @@ import { StatBox } from "./StatsBox";
 
 import { getImageEl } from "../../../utils/reactUtils";
 import workingManGif from "../../../assets/WorkingMan.gif";
-import {
-	Bordered_TriPartCallout,
-	TriPartCallout,
-} from "../../../components/callingcard/callout/CallOut";
+import { TriPartCallout } from "../../../components/callingcard/callout/CallOut";
+import { _Bordered_TriPartCallout_Style } from "../../../components/callingcard/callout/CallOut.styles";
+_Bordered_TriPartCallout_Style;
+
+class Bordered_TriPartCallout extends TriPartCallout {
+	CallOut_WrapperStyle(): React.CSSProperties | undefined {
+		return _Bordered_TriPartCallout_Style;
+	}
+}
 
 const quoteTextStyle: React.CSSProperties = {
 	fontStyle: "italic",

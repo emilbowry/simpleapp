@@ -1,4 +1,7 @@
+// src/styles.tsx
+
 import React from "react";
+
 import backgroundPattern from "./assets/tileablebackground.png";
 
 export const BackgroundStyle: React.CSSProperties = {
@@ -28,6 +31,11 @@ import {
 	lighter_logo_blue,
 } from "./utils/defaultColours";
 
+export const genericSectionStyle: React.CSSProperties = {
+	border: "1px solid black !important",
+	backgroundColor: "rgba(255, 0, 0, 0.2) !important",
+	boxSizing: "border-box",
+};
 export const Theme = (index: number) => {
 	const theme = {
 		backgroundColor: "#FFFFFF",
@@ -48,162 +56,105 @@ export const Theme = (index: number) => {
 	}
 	return theme;
 };
-export const genericSectionStyle: React.CSSProperties = {
-	border: "1px solid black",
-	backgroundColor: "rgba(255, 0, 0, 0.2)",
-	// backgroundColor: "red",
 
-	// backgroundColor: "transparent",
-	boxSizing: "border-box",
-};
+/* 
+// src/styles.tsx
+The following is an excerpt of the file  src/styles.tsx, so dont worry about the missing imports, they exist in the actual file
+*/
 
-type ThemeMapping = {
-	[key in keyof ReturnType<typeof Theme>]?: (keyof React.CSSProperties)[];
-};
+// interface IPanelProps {
+// 	isActive?: boolean;
+// 	children?: React.ReactNode;
+// }
 
-interface IStyle {
-	static_css?: React.CSSProperties;
-	styleOverides?: React.CSSProperties;
-	styling_function?: (...args: any[]) => React.CSSProperties;
-	default_args?: any[];
-	theme_args?: ThemeMapping;
-}
+// interface IPanelProps {
+// 	isActive?: boolean;
+// 	children?: React.ReactNode;
+// }
 
-export interface IThemedComponentProps {
-	theme_index?: number;
-}
+// export class BasePanel extends ThemedComponent<IPanelProps> {
+// 	static {
+// 		this.styler.updateStyle("panel_style", {
+// 			def_static_css: {
+// 				padding: "20px",
+// 				border: "1px solid",
+// 				borderRadius: "8px",
+// 				transition: "all 0.2s ease-in-out",
+// 			},
+// 			def_theme_args: {
+// 				backgroundColor: ["backgroundColor"],
+// 				primaryColor: ["color"],
+// 				secondaryColor: ["borderColor"],
+// 			},
+// 			def_styling_function: (isActive: boolean) => {
+// 				console.log(`isa:${isActive}`);
+// 				return {
+// 					transform: isActive ? "scale(1.02)" : "scale(1)",
+// 					boxShadow: isActive ? "0px 4px 12px red" : "none",
+// 				};
+// 			},
+// 			def_default_args: [false],
+// 		});
+// 	}
 
-export class ThemedComponent<P = {}, S = {}> extends React.Component<
-	P & IThemedComponentProps,
-	S
-> {
-	static styleDefinitions: { [key: string]: IStyle } = {};
-	static declareStyle(key: string, value: IStyle) {
-		if (!this.hasOwnProperty("styleDefinitions")) {
-			this.styleDefinitions = Object.create(this.styleDefinitions);
-		}
+// 	render() {
+// 		const styler =
+// 			this.styler || (this.constructor as typeof ThemedComponent).styler;
+// 		const baseKey: TName = "panel_style";
+// 		const styleKey =
+// 			this.props.themeId !== undefined
+// 				? `${baseKey}.${this.props.themeId}`
+// 				: baseKey;
+// 		const finalStyle = styler[styleKey]?.call(this.props.isActive);
 
-		this.styleDefinitions[key] = value;
-	}
-	public theme = {};
+// 		return <div style={finalStyle}>{this.props.children}</div>;
+// 	}
+// }
 
-	private _styleCache: {
-		[key: string]: {
-			staticAndThemedCSS?: React.CSSProperties;
-			dynamicCSS?: React.CSSProperties;
-			lastDynamicArgs?: string;
-		};
-	} = {};
+// export class CardPanel extends BasePanel {
+// 	static {
+// 		this.styler.updateStyle("panel_style", {
+// 			def_static_css: {
+// 				borderRadius: "12px",
+// 				fontWeight: "bold",
+// 			},
+// 			def_theme_args: {
+// 				tertiaryColor: ["borderColor"],
+// 			},
+// 		});
+// 	}
+// }
 
-	constructor(props: P & IThemedComponentProps) {
-		super(props);
-		if (this.props.theme_index) {
-			this.theme = Theme(this.props.theme_index);
-		}
-	}
+// export const ComponentShowcase: React.FC = () => {
+// 	const overrideStyle = CardPanel.styler.applyOverride("panel_style", {
+// 		borderStyle: "dashed",
+// 		color: "red",
+// 	});
 
-	protected getStyle(
-		key: string,
-		runtimeArgs: any[] = [],
-		runTimeOverrides: React.CSSProperties = {}
-	): React.CSSProperties {
-		this._styleCache[key] = this._styleCache[key] || {};
-		const cache = this._styleCache[key];
+// 	return (
+// 		<div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+// 			<h3>Demonstrating CardPanel Variations:</h3>
 
-		const finalDefinition = this.getMergedStyleDefinition(key);
+// 			<CardPanel>Default Card Panel (Inherited Style)</CardPanel>
 
-		if (!cache.staticAndThemedCSS) {
-			const themedCSS = this.getThemedCSS(
-				finalDefinition.theme_args || {}
-			);
-			cache.staticAndThemedCSS = {
-				...finalDefinition.static_css,
-				...themedCSS,
-			};
-		}
+// 			<CardPanel isActive={true}>
+// 				Active Card Panel (Dynamic Style)
+// 			</CardPanel>
 
-		const { styling_function, default_args = [] } = finalDefinition;
-		const currentDynamicArgs = [...default_args, ...runtimeArgs];
-		const currentDynamicArgsString = JSON.stringify(currentDynamicArgs);
+// 			<CardPanel themeId={0}>
+// 				Card Panel with Theme 0 (Instance Style)
+// 			</CardPanel>
 
-		if (
-			styling_function &&
-			cache.lastDynamicArgs !== currentDynamicArgsString
-		) {
-			cache.dynamicCSS = styling_function(...currentDynamicArgs);
-			cache.lastDynamicArgs = currentDynamicArgsString;
-		}
-		const returnObj = {
-			...cache.staticAndThemedCSS,
-			...cache.dynamicCSS,
-			...finalDefinition.styleOverides,
-			...runTimeOverrides,
-		};
-		if (finalDefinition.styleOverides) {
-			cache.staticAndThemedCSS = {
-				...cache.staticAndThemedCSS,
-				...finalDefinition.styleOverides,
-			};
-		}
-		return returnObj;
-	}
+// 			<CardPanel
+// 				themeId={1}
+// 				isActive={true}
+// 			>
+// 				Active Card Panel with Theme 1 (Instance + Dynamic)
+// 			</CardPanel>
 
-	private getMergedStyleDefinition(key: string): IStyle {
-		let finalDefinition: IStyle = {};
-		let currentClass = this.constructor as typeof ThemedComponent;
-		const definitionsToMerge: IStyle[] = [];
-
-		while (currentClass && currentClass.styleDefinitions) {
-			if (
-				Object.prototype.hasOwnProperty.call(
-					currentClass.styleDefinitions,
-					key
-				)
-			) {
-				definitionsToMerge.push(currentClass.styleDefinitions[key]);
-			}
-			currentClass = Object.getPrototypeOf(currentClass);
-		}
-
-		for (const def of definitionsToMerge) {
-			finalDefinition = {
-				...finalDefinition,
-				static_css: {
-					...def.static_css,
-
-					...finalDefinition.static_css,
-				},
-				styleOverides: {
-					...def.styleOverides,
-
-					...finalDefinition.styleOverides,
-				},
-				theme_args: {
-					...def.theme_args,
-
-					...finalDefinition.theme_args,
-				},
-				default_args: finalDefinition.default_args || def.default_args,
-				styling_function:
-					finalDefinition.styling_function || def.styling_function,
-			};
-		}
-		return finalDefinition;
-	}
-
-	private getThemedCSS(mapping: ThemeMapping): React.CSSProperties {
-		const cssProperties: React.CSSProperties = {};
-		for (const themeKey in mapping) {
-			if (Object.prototype.hasOwnProperty.call(this.theme, themeKey)) {
-				const cssPropertyNames =
-					mapping[themeKey as keyof ThemeMapping];
-				const colorValue =
-					this.theme[themeKey as keyof typeof this.theme];
-				cssPropertyNames?.forEach((cssPropertyName) => {
-					(cssProperties as any)[cssPropertyName] = colorValue;
-				});
-			}
-		}
-		return cssProperties;
-	}
-}
+// 			<div style={{ ...overrideStyle }}>
+// 				A div with CardPanel's style + a runtime override
+// 			</div>
+// 		</div>
+// 	);
+// };
