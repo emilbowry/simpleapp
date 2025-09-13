@@ -197,6 +197,7 @@ export const midStyle = (
 		marginBottom: Yshifts[1],
 	};
 };
+
 /**
  * Grid container: grid-template-columns: repeat(3, 1fr).
  *
@@ -212,11 +213,6 @@ export const container = (
 	return {
 		/* background: border_background,*/
 		position: "relative",
-		// height: "100%",
-		// margin: `calc(${_relative_spacing / 2}% + ${
-		// 	(absolute_spacing > 0 ? absolute_spacing : 0) / 2
-		// }px)`,
-		// marginTop: "0px",
 		gridAutoRows: `calc(${
 			100 + _relative_spacing
 		}% / ${length} + ${absolute_spacing}px)`,

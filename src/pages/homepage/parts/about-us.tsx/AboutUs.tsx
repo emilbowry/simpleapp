@@ -181,6 +181,13 @@ export class HexWrapCallOut_ALT extends TriPartCallout_ALT {
 				backgroundColor: "transparent",
 			},
 		});
+
+		this.styler.updateStyle("wrapperStyle_style", {
+			def_static_css: {
+				...hexCallStyle,
+				backgroundColor: "transparent",
+			},
+		});
 	}
 }
 

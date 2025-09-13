@@ -13,6 +13,7 @@ import {
 	dark_midnight_green,
 	dark_mix_green,
 } from "./utils/defaultColours";
+import { Property } from "csstype";
 
 export const Theme = (index: number) => {
 	const theme = {
@@ -58,6 +59,14 @@ export const getThemedCSS = (
 	return cssProperties;
 };
 
+// export interface IS extends React.CSSProperties {
+// 	def_static_css?: React.CSSProperties;
+// 	def_styling_function?: (...args: any[]) => React.CSSProperties;
+// 	def_default_args?: any[];
+// 	def_theme_args?: ThemeMapping;
+// 	_def_themeId?: number | undefined;
+// }
+
 export interface IStyle extends React.CSSProperties {
 	def_static_css?: React.CSSProperties;
 	def_styling_function?: (...args: any[]) => React.CSSProperties;
@@ -66,6 +75,16 @@ export interface IStyle extends React.CSSProperties {
 	_def_themeId?: number | undefined;
 }
 
+const y: React.CSSProperties = {
+	["--my-var" as any]: "black",
+};
+interface N {}
+// export class X implements  IStyle, React.CSSProperties {
+// 	[key: string]: Property ;
+// 	_def_static_css?: React.CSSProperties;
+// 	borderBlock?: Property.BorderBlock<string | number> | undefined;
+
+// }
 export class Style implements IStyle {
 	[key: string]: any;
 	_def_static_css?: React.CSSProperties;

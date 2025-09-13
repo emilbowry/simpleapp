@@ -15,13 +15,12 @@ import {
 	l_midnight_green,
 	mix_green,
 	light_mix_green,
-	white,
+	// white,
 } from "../../../utils/defaultColours";
 import hi1 from "../../../assets/heroimage1.jpg";
 import hi2 from "../../../assets/heroimage2.jpg";
-import hi3 from "../../../assets/heroimage3.jpg";
-import hi4 from "../../../assets/heroimage4.jpg";
-import { IHexagonGridElements } from "../../../components/hexagons/hexagonRow/HexagonRow.types";
+// import hi3 from "../../../assets/heroimage3.jpg";
+// import hi4 from "../../../assets/heroimage4.jpg";
 const textEl = (
 	<div
 		style={{
@@ -52,54 +51,42 @@ const textEl = (
 );
 
 export const Hero: React.FC = () => {
-	const thirdRow = [
+	const firstRow = [
+		null,
+		<Hexagon args={{ colour: light_mix_green }} />,
+
+		<Hexagon args={{ colour: l_midnight_green }} />,
+	] as const;
+	const secondRow = [
 		<ImageHexagon args={{ img: hi1 }} />,
 		<LogoHexagon args={{ withGap: false }} />,
 
 		<ImageHexagon args={{ img: hi2 }} />,
 	] as const;
 
-	const firstRow = [null, null, null] as const;
-	const secondRow = [
+	const thirdRow = [
 		null,
-		<Hexagon args={{ colour: light_mix_green }} />,
-
-		<Hexagon args={{ colour: l_midnight_green }} />,
-	] as const;
-
-	const demo_row = [<Hexagon />, <Hexagon />, <Hexagon />] as const;
-	const fourth_row = [
+		<Hexagon
+			args={{ colour: purple }}
+			element={textEl}
+		/>,
 		null,
-		<Hexagon args={{ colour: purple }} />,
-		null,
-
-		// <Hexagon />,
 	] as const;
 
 	const r = [
+		{ elements: firstRow },
+
 		{ elements: secondRow },
 		{ elements: thirdRow },
-		{ elements: fourth_row },
 	];
-	// const r = [
-	// 	{ elements: demo_row },
-	// 	{ elements: demo_row },
-	// 	{ elements: demo_row },
-	// ];
 	return (
 		<div
 			style={{
-				// marginTop: `160px`,
 				height: "100%",
-				// display: "flex",
-				// display: "block",
 				margin: "auto 10%",
 				marginTop: `calc(10%)`,
-
-				// placeContent: "center",
 			}}
 		>
-			{/* TEMPOARY */}
 			<HexagonGrid rows={r} />
 		</div>
 	);

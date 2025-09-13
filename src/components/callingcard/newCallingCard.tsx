@@ -18,6 +18,7 @@ import {
 	gridItemStyle,
 } from "./newCallingCard.styles";
 import { INewCallingCardProps } from "./newCallingCard.types";
+import type * as CSS from "csstype";
 
 export class NewCallingCard extends React.Component<INewCallingCardProps> {
 	render() {
@@ -50,6 +51,18 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 
 		const borderColor = header ? theme.tertiaryColor : undefined;
 
+		const pseudos: { [P in CSS.SimplePseudos]?: CSS.Properties } = {
+			":hover": {
+				color: "red",
+			},
+			// display: "flex",
+			// justifyContent: "center",
+			// justifyItems: "center",
+
+			// alignItems: "center",
+			// marginBottom: "1%",
+			// paddingBottom: "2%",
+		};
 		return (
 			<div
 				style={ContainerStyle}
@@ -57,7 +70,10 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 			>
 				{header ? (
 					<div style={headerContainerStyle}>
-						<div style={headerContentStyle}>
+						<div
+							style={headerContentStyle}
+							className={"pseudos"}
+						>
 							{formatComponent(header)}
 						</div>
 					</div>
