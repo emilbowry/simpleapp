@@ -1,5 +1,6 @@
-// src/components/background/Background.tsx
 // Reference Page
+// src/utils/misc/BackgroundGenerator.tsx
+
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 

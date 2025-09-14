@@ -23,20 +23,6 @@ export const headerContainerStyle: React.CSSProperties = {
 	alignItems: "center",
 };
 
-import type * as CSS from "csstype";
-
-const pseudos: { [P in CSS.SimplePseudos]?: CSS.Properties } = {
-	":hover": {
-		color: "red",
-	},
-	// display: "flex",
-	// justifyContent: "center",
-	// justifyItems: "center",
-
-	// alignItems: "center",
-	// marginBottom: "1%",
-	// paddingBottom: "2%",
-};
 export const headerContentStyle: React.CSSProperties = {
 	flexGrow: 1,
 

@@ -38,9 +38,10 @@ export const containerStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
-		fontSize: 0, // Remeber to reset
+		/* fontSize:0 is key to provent weird svg dimensioning issues, ensure we reset if includes jsx elements also */
+		fontSize: 0,
 		overflow: "visible",
-		opacity, // why can i return like this this is odd
+		opacity,
 	};
 };
 
