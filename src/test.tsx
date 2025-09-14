@@ -11,82 +11,37 @@ export interface IStyle extends IProtoStyle, React.CSSProperties {
 	getDefinition: (style_based: IProtoStyle) => Partial<IProtoStyle>;
 	updateDef: (definition: TDefinition) => void;
 	computeStyle: (proto_style: IProtoStyle) => void;
-	functor: () => StyleFunctor; //
+	functor: (...args: any[]) => StyleFunctor; //
 }
-type StyleFunctor = Style & { (...args: any[]): StyleFunctor };
-
-let my_track = 0;
-const y = () => {
-	my_track += 1;
-	return my_track;
+type StyleFunctor = Style & {
+	(...args: any[]): StyleFunctor;
+	new (...args: any): any;
 };
-let exp = "1";
+
 class Style implements IStyle {
-	// var_z = my_track;
-	unset = true;
-	// [exp] = exp;
-	var_one = this.unset ? y() : 0;
-	z = 0;
-
-	var_two = 0;
 	functor = (...args: any[]) => {
-		// (this.functor as any).var_two = (this.functor as any).var_two + 1;
-		(this.functor as any).z = my_track;
-
+		console.log("called actual functor");
 		const computed_style = this.def_styling_function(...args);
 		this.processRuntimeStyle(computed_style);
-		// (this.functor as any).unset = true;
 
-		// (this.functor as any).var_one = y();
 		return this.functor as StyleFunctor;
 	};
-	// var_three = 0;
-	var_four = 0;
-	not_c = false;
-	c = () => {
-		Object.assign(this, { var_four: this.var_four + 1 });
-		this.var_four = this.var_four + 1;
-		(this.functor as any).var_four = this.var_four + 1;
-		this.not_c = true;
-		return this.c;
-	};
-	var_five = this.c();
-	d = () => {
-		Object.defineProperty(this.functor, "e", {
-			get() {
-				return this.d();
-			},
-			set(args: any[]) {
-				this.d = args;
-			},
-		});
-		Object.defineProperty(this.functor, "d", {
-			get() {
-				return this.e;
-			},
-		});
-		// Object.defineProperty(this, "e", {
-		// 	get() {
-		// 		return this.d();
-		// 	},
-		// });
-		return my_track;
-	};
 
-	get e() {
-		return this.d();
-	}
-	var_d = this.e;
-
-	[key: string]: any;
-	// functor = (...args: any[]) => {
-	// 	(this.functor as any).var_two = (this.functor as any).var_two + 1;
-
+	// functor = function (this: any, ...args: any[]) {
+	// 	// console.log(this);
 	// 	const computed_style = this.def_styling_function(...args);
 	// 	this.processRuntimeStyle(computed_style);
-	// 	(this.functor as any).var_three = y;
+
 	// 	return this.functor as StyleFunctor;
 	// };
+	// functor(...args: any[]) {
+	// 	const computed_style = this.def_styling_function(...args);
+	// 	this.processRuntimeStyle(computed_style);
+
+	// 	return this.functor as StyleFunctor;
+	// }
+	// [key: string]: any;
+
 	def_static_css: React.CSSProperties = {};
 	def_styling_function: (...args: any[]) => React.CSSProperties = () => ({});
 	def_default_args: any[] = [];
@@ -102,10 +57,56 @@ class Style implements IStyle {
 		Object.assign(this.functor, { ...style_based });
 	}
 	constructor(proto_style?: IProtoStyle) {
+		console.log("constructor invoked");
 		this.computeStyle(proto_style || this);
-		Object.assign(this.functor, { ...this });
+		// const boundFunctor = this.functor.bind(this);
+		// this.functor.bind(this);
+		// function functor(this: any) {
+		// 	return this.functor();
+		// }
+		let a = this;
+		function _functor(...args: any[]) {
+			// console.log(args);
+			// return a.functor;
+			const computed_style = a.def_styling_function(...args);
+			a.processRuntimeStyle(computed_style);
+
+			return a.functor as StyleFunctor;
+		}
+		// Object.assign(functor, { ...this });
+		Object.setPrototypeOf(_functor, Style.prototype);
+
+		// Object.assign(_functor, { ...a });
+		Object.assign(_functor, { ...this });
+
+		// Object.assign(this.functor, { ...this });
+		// Object.assign(boundFunctor, { ...this });
+
+		// Object.setPrototypeOf(this.functor, Style);
+		Object.setPrototypeOf(_functor, Style);
+		Object.assign(a, { functor: _functor });
+
+		// Object.assign(this, { functor: _functor });
+
+		// Object.setPrototypeOf(boundFunctor, Style);
+
+		// Object.setPrototypeOf(this, Style.prototype);
+		// Object.setPrototypeOf(this, Style);
+
+		// Object.setPrototypeOf(this.functor, Style.prototype);
 		Object.setPrototypeOf(this.functor, Style.prototype);
+
+		// Object.setPrototypeOf(functor, Style.prototype);
+
+		// Object.setPrototypeOf(boundFunctor, Style.prototype);
+		// this.functor.constructor = Style;
+		// this.functor.prototype = Object.create(Style);
+		// this.functor.constructor = Object.create(Style.prototype);
+
+		// return a.functor as StyleFunctor;
 		return this.functor as StyleFunctor;
+
+		// return boundFunctor as StyleFunctor;
 	}
 	getDefinition<T extends Partial<IProtoStyle>>(style_based: T): TDefinition {
 		let def: TDefinition = {};
@@ -117,6 +118,7 @@ class Style implements IStyle {
 		return def;
 	}
 	processStaticStyle(static_style: React.CSSProperties) {
+		this.def_static_css = static_style;
 		Object.assign(this, { ...static_style });
 	}
 	processStylingFunction(
@@ -139,7 +141,9 @@ class Style implements IStyle {
 	}
 }
 
-const some_styling_function = (input: "red" | "blue"): React.CSSProperties => {
+const some_styling_function = (
+	input: "1px solid red" | "1px solid blue"
+): React.CSSProperties => {
 	return { border: input };
 };
 const static_style: React.CSSProperties = {
@@ -151,13 +155,64 @@ const proto_style: IProtoStyle = {
 	def_static_css: static_style,
 	def_styling_function: some_styling_function,
 };
-console.log(my_track);
 
 const s = new Style(proto_style) as StyleFunctor;
-console.log("----");
 
 console.log(s);
+/*
+<ref *1> [Function (anonymous)] Style {
+  functor: [Circular *1],
+  def_static_css: { margin: '10%' },
+  def_styling_function: [Function: some_styling_function],
+  def_default_args: [],
+  margin: '10%'
+}
+*/
 console.log(s("red"));
-console.log(s); //still has border set, unsure if its an issue?
+/*
+<ref *1> [Function (anonymous)] Style {
+  functor: [Circular *1],
+  def_static_css: { margin: '10%' },
+  def_styling_function: [Function: some_styling_function],
+  def_default_args: [],
+  margin: '10%',
+  border: 'red'
+}
+*/
+console.log(s); //still has border set
+/*
+<ref *1> [Function (anonymous)] Style {
+  functor: [Circular *1],
+  def_static_css: { margin: '10%' },
+  def_styling_function: [Function: some_styling_function],
+  def_default_args: [],
+  margin: '10%',
+  border: 'red'
+}
+*/
 console.log(s("blue"));
+/*
+<ref *1> [Function (anonymous)] Style {
+  functor: [Circular *1],
+  def_static_css: { margin: '10%' },
+  def_styling_function: [Function: some_styling_function],
+  def_default_args: [],
+  margin: '10%',
+  border: 'blue'
+}
+*/
 console.log(s); //still has border set, unsure if its an issue?
+/*
+<ref *1> [Function (anonymous)] Style {
+  functor: [Circular *1],
+  def_static_css: { margin: '10%' },
+  def_styling_function: [Function: some_styling_function],
+  def_default_args: [],
+  margin: '10%',
+  border: 'blue'
+}
+*/
+console.log(Style);
+
+const s2 = new s();
+console.log(s2);
