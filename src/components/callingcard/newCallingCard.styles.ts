@@ -86,6 +86,7 @@ export const titleHeadingStyle = (_colour: string): React.CSSProperties => ({
 	fontSize: "2.5rem",
 	fontWeight: "100",
 	color: _colour,
+	[":hover" as any]: { color: "red" },
 });
 
 export const textBodyContainerStyle: React.CSSProperties = {

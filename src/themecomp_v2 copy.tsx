@@ -64,160 +64,112 @@ export const getThemedCSS = (
 // 	def_styling_function?: (...args: any[]) => React.CSSProperties;
 // 	def_default_args?: any[];
 // 	def_theme_args?: ThemeMapping;
-// 	_def_themeId?: number | undefined;
+// 	def_themeIdx?: number | undefined;
 // }
 
-export interface IStyle extends React.CSSProperties {
-	def_static_css?: React.CSSProperties;
-	def_styling_function?: (...args: any[]) => React.CSSProperties;
-	def_default_args?: any[];
-	def_theme_args?: ThemeMapping;
-	_def_themeId?: number | undefined;
+export interface IProtoStyle {
+	def_static_css: React.CSSProperties;
+	def_styling_function: (...args: any[]) => React.CSSProperties;
+	def_default_args: any[];
+}
+export type TDefinition = Partial<IProtoStyle>;
+export interface IStyle extends IProtoStyle, React.CSSProperties {
+	[key: string]: any;
+	getDefinition: () => IProtoStyle;
+	updateDef: (definition: TDefinition) => void;
 }
 
-const y: React.CSSProperties = {
-	["--my-var" as any]: "black",
-};
-interface N {}
-// export class X implements  IStyle, React.CSSProperties {
-// 	[key: string]: Property ;
-// 	_def_static_css?: React.CSSProperties;
-// 	borderBlock?: Property.BorderBlock<string | number> | undefined;
-
-// }
 export class Style implements IStyle {
 	[key: string]: any;
-	_def_static_css?: React.CSSProperties;
-	_def_styling_function: (...args: any[]) => React.CSSProperties = () => ({});
-	_def_default_args?: any[];
-	_def_theme_args?: ThemeMapping;
-	_def_themeId: number | undefined = undefined;
+
+	def_static_css: React.CSSProperties = {};
+	def_styling_function: (...args: any[]) => React.CSSProperties = () => ({});
+	def_default_args: any[] = [];
 	_assignedCssKeys: Set<string> = new Set();
 
-	public getDefinition(): IStyle {
+	public getDefinition(): IProtoStyle {
 		return {
-			def_static_css: this._def_static_css,
-			def_styling_function: this._def_styling_function,
-			def_default_args: this._def_default_args,
-			def_theme_args: this._def_theme_args,
+			def_static_css: this.def_static_css,
+			def_styling_function: this.def_styling_function,
+			def_default_args: this.def_default_args,
 		};
 	}
-	public theme?: ReturnType<typeof Theme>;
 
-	constructor(definition: IStyle = {}) {
-		this.updateDef(definition);
+	constructor(definition?: IProtoStyle) {
+		if (definition) this.updateDef(definition);
 	}
 
-	public needsUpdating(definition: IStyle): boolean {
-		if (definition._def_themeId !== this._def_themeId) return true;
+	public needsUpdating(definition: TDefinition): boolean {
 		if (
 			definition.def_styling_function &&
-			definition.def_styling_function !== this._def_styling_function
+			definition.def_styling_function !== this.def_styling_function
 		)
 			return true;
 
 		if (
 			JSON.stringify(definition.def_static_css) !==
-			JSON.stringify(this._def_static_css)
+			JSON.stringify(this.def_static_css)
 		)
 			return true;
 		if (
 			JSON.stringify(definition.def_default_args) !==
-			JSON.stringify(this._def_default_args)
-		)
-			return true;
-		if (
-			JSON.stringify(definition.def_theme_args) !==
-			JSON.stringify(this._def_theme_args)
+			JSON.stringify(this.def_default_args)
 		)
 			return true;
 
 		return false;
 	}
 
-	public updateDef(definition: IStyle): void {
-		if (definition.def_static_css) {
-			if (Object.keys(definition.def_static_css).length === 0) {
-				delete this._def_static_css;
-			} else {
-				if (!this._def_static_css) this._def_static_css = {};
-				for (const [cssKey, cssValue] of Object.entries(
-					definition.def_static_css
-				)) {
-					if (this._def_theme_args) {
-						for (const themeKey in this._def_theme_args) {
-							const cssProps =
-								this._def_theme_args[
-									themeKey as keyof typeof this._def_theme_args
-								];
-							if (
-								cssProps?.includes(
-									cssKey as keyof React.CSSProperties
-								)
-							) {
-								this._def_theme_args[
-									themeKey as keyof typeof this._def_theme_args
-								] = cssProps.filter((prop) => prop !== cssKey);
-							}
-						}
-					}
-					(this._def_static_css as any)[cssKey] = cssValue;
-				}
-			}
-		}
+	/* 
+private resolveCollisions(
+		definition: TDefinition & Pick<IProtoStyle, "def_static_css">
+	): void {}
+ */
 
+	public updateDef(definition: TDefinition): void {
 		this._def_styling_function =
 			definition.def_styling_function ?? this._def_styling_function;
 		if (definition.def_default_args) {
-			this._def_default_args = definition.def_default_args;
+			this.def_default_args = definition.def_default_args;
 		}
-
-		if (definition.def_theme_args) {
-			if (!this._def_theme_args) this._def_theme_args = {};
-			for (const [themeKey, newCssProps] of Object.entries(
-				definition.def_theme_args
+		if (definition.def_static_css) {
+			if (Object.keys(definition.def_static_css).length === 0) {
+				this.def_static_css = {};
+			}
+			if (!this.def_static_css) this.def_static_css = {};
+			for (const [cssKey, cssValue] of Object.entries(
+				definition.def_static_css
 			)) {
-				for (const cssPropToRemove of newCssProps) {
-					for (const existingThemeKey in this._def_theme_args) {
-						const existingCssProps =
-							this._def_theme_args[
-								existingThemeKey as keyof typeof this._def_theme_args
-							];
-						if (existingCssProps?.includes(cssPropToRemove)) {
-							this._def_theme_args[
-								existingThemeKey as keyof typeof this._def_theme_args
-							] = existingCssProps.filter(
-								(p) => p !== cssPropToRemove
-							);
-						}
-					}
-				}
-				(this._def_theme_args as any)[themeKey] = newCssProps;
+				// this.def_static_css[cssKey] = cssValue;
+				(this.def_static_css as any)[cssKey] = cssValue;
 			}
 		}
 
-		if (definition._def_themeId !== undefined) {
-			this._def_themeId = definition._def_themeId;
-			this.theme = Theme(this._def_themeId);
-		}
-
-		this._recompute();
+		this._recompute(); /* cant remember why we call this */
 	}
+
 	private _recompute(): void {
 		this._assignedCssKeys.forEach((key) => delete this[key]);
 		this._assignedCssKeys.clear();
 
-		const themedCSS = this._getThemedCSS(this._def_theme_args || {});
-		const baseStyle = { ...this._def_static_css, ...themedCSS };
+		const baseStyle = { ...this.def_static_css };
 
 		for (const [key, value] of Object.entries(baseStyle)) {
 			this[key] = value;
 			this._assignedCssKeys.add(key);
 		}
 	}
-
+	/* 
+	private _rrecompute(): void {
+		const clean = new Style(this);
+		Object.keys(this).forEach((key) => {
+			delete this[key];
+		});
+		Object.assign(this, clean);
+	}
+	*/
 	public call(...runtimeArgs: any[]): React.CSSProperties {
-		const defaultArgs = this._def_default_args || [];
+		const defaultArgs = this.def_default_args || [];
 
 		const finalArgs = [...defaultArgs];
 
@@ -225,14 +177,9 @@ export class Style implements IStyle {
 			finalArgs[i] = runtimeArgs[i];
 		}
 
-		const dynamicStyle = this._def_styling_function(...finalArgs);
+		const dynamicStyle = this.def_styling_function(...finalArgs);
 
 		return { ...this, ...dynamicStyle };
-	}
-	private _getThemedCSS(mapping: ThemeMapping): React.CSSProperties {
-		const cssProperties: React.CSSProperties = {};
-		if (!this.theme) return cssProperties;
-		return getThemedCSS(this.theme, mapping);
 	}
 }
 
@@ -259,13 +206,13 @@ class Styler {
 		return this[name] ? truthy(name, ...args) : falsy(name, ...args);
 	}
 
-	private addStyle = (name: TName, definition?: IStyle) => {
-		this[name] = new Style(definition || {});
+	private addStyle = (name: TName, definition?: IProtoStyle) => {
+		this[name] = new Style(definition);
 		return this[name];
 	};
 	private _updateStyle() {
 		return [
-			(name: TName, definition: IStyle) => {
+			(name: TName, definition: Partial<IProtoStyle>) => {
 				// const style = this[name];
 				if (this[name].needsUpdating(definition)) {
 					this[name].updateDef(definition);
@@ -278,46 +225,26 @@ class Styler {
 	private _getStyle() {
 		const truthyFn = (
 			name: string,
-			definition?: IStyle,
+			definition?: IProtoStyle,
 			invoke?: boolean
 		) => {
 			return this[name];
 		};
-		/* 
-			Mainly for static JIT "theming"
-			- need to define an API endpoint since it is
-			currently only used accessed in applyOverride
-		 */
+
 		const falsyFn = (
 			name: string,
-			definition?: IStyle,
+			definition?: IProtoStyle,
 			invoke?: boolean
 		) => {
-			const themeMatch = name.match(/^(.*_style)\.(\-?\d+)$/);
-
-			if (themeMatch) {
-				const baseKey = themeMatch[1] as TName;
-				const themeIndex = parseInt(themeMatch[2], 10);
-				const baseStyleObject = this[baseKey];
-
-				if (baseStyleObject instanceof Style) {
-					const baseDefinition = baseStyleObject.getDefinition();
-					const newThemedStyle = new Style(baseDefinition);
-					newThemedStyle.updateDef({ _def_themeId: themeIndex });
-					this[name] = newThemedStyle;
-					return newThemedStyle;
-				}
-			}
-
-			return this.addStyle(name as TName, definition || {});
+			return this.addStyle(name as TName, definition);
 		};
 
 		return [truthyFn, falsyFn] as const;
 	}
-	updateStyle(name: TName, definition: IStyle) {
+	updateStyle(name: TName, definition: IProtoStyle) {
 		return this.guard(name, ...this._updateStyle(), definition);
 	}
-	getStyle(name: TName, definition?: IStyle, invoke?: boolean) {
+	getStyle(name: TName, definition?: IProtoStyle, invoke?: boolean) {
 		return this.guard(name, ...this._getStyle(), definition, invoke);
 	}
 	public applyOverride(
@@ -400,7 +327,7 @@ export class ThemedComponent<P = {}, S = {}> extends React.Component<
 				const themedCssPart = localTheme
 					? getThemedCSS(
 							localTheme,
-							baseStyleObject._def_theme_args || {}
+							baseStyleObject.def_theme_args || {}
 					  )
 					: {};
 

@@ -249,35 +249,6 @@ export class PartnershipBar extends React.Component<
 				);
 			}
 		} else if (size === "Small") {
-			const keyframes = `
-				@keyframes slide-in {
-					from {
-					transform: translateX(0%);
-					}
-					to {
-					transform: translateX(-100%);
-					}
-				}`;
-			const MarqueeKeyframes = () => {
-				React.useEffect(() => {
-					const styleTag = document.createElement("style");
-					styleTag.innerHTML = keyframes;
-					document.head.appendChild(styleTag);
-					return () => {
-						document.head.removeChild(styleTag);
-					};
-				}, []);
-				return null;
-			};
-			const marqueeContentStyle: React.CSSProperties = {
-				display: "flex",
-
-				position: "relative",
-
-				alignItems: "center",
-
-				animation: `90s linear infinite slide-in`,
-			};
 			const numSets = Array.from({ length: 3 }, (_, i) => i);
 			return (
 				<div className="no-aos">

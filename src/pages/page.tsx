@@ -109,11 +109,11 @@ export class Page extends React.Component<{
 						marginTop: "50px",
 						display: "flex",
 						flexDirection: "column",
-						...(useCursor ? { cursor: "none" } : {}),
+						// ...(useCursor ? { cursor: "none" } : {}),
 						zIndex: "5",
 					}}
 				>
-					{useCursor ? <CustomCursor /> : null}
+					{/* {useCursor ? <CustomCursor /> : null} */}
 					<section
 						className="aos-ignore"
 						style={{

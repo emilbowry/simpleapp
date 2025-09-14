@@ -18,8 +18,9 @@ import {
 	gridItemStyle,
 } from "./newCallingCard.styles";
 import { INewCallingCardProps } from "./newCallingCard.types";
-import type * as CSS from "csstype";
+// My css.d.ts file
 
+// function objToString(styleObj: any, parser?: import('./createParser').Parser): string;
 export class NewCallingCard extends React.Component<INewCallingCardProps> {
 	render() {
 		const {
@@ -51,18 +52,6 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 
 		const borderColor = header ? theme.tertiaryColor : undefined;
 
-		const pseudos: { [P in CSS.SimplePseudos]?: CSS.Properties } = {
-			":hover": {
-				color: "red",
-			},
-			// display: "flex",
-			// justifyContent: "center",
-			// justifyItems: "center",
-
-			// alignItems: "center",
-			// marginBottom: "1%",
-			// paddingBottom: "2%",
-		};
 		return (
 			<div
 				style={ContainerStyle}
@@ -72,7 +61,8 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 					<div style={headerContainerStyle}>
 						<div
 							style={headerContentStyle}
-							className={"pseudos"}
+
+							// className={pseudos}
 						>
 							{formatComponent(header)}
 						</div>
@@ -83,11 +73,15 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 					{footer || title ? (
 						<div style={leftBodyColumnStyle}>
 							{title ? (
-								<div style={titleContainerStyle}>
+								<div
+									style={titleContainerStyle}
+									// className={s}
+								>
 									<div
 										style={titleHeadingStyle(
 											theme.primaryColor
 										)}
+										// style={s}
 									>
 										{formatComponent(title)}
 									</div>
