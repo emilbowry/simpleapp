@@ -212,7 +212,7 @@ const callout_content_consultancy_alt = {
 const ConsultancyCallout_alt = (
 	<HexWrapCallOut_ALT
 		{...callout_content_consultancy_alt}
-		// themeId={-1}
+		themeId={-1}
 	/>
 );
 
@@ -238,7 +238,7 @@ const callout_content_training_alt = {
 const TrainingCallout_alt = (
 	<HexWrapCallOut_ALT
 		{...callout_content_training_alt}
-		// themeId={-1}
+		themeId={-1}
 	/>
 );
 
@@ -263,7 +263,7 @@ const callout_content_policy_alt = {
 const PolicyCallOut_alt = (
 	<HexWrapCallOut_ALT
 		{...callout_content_policy_alt}
-		themeId={1}
+		themeId={-1}
 		// styleOverides={{ backgroundColor: "transparent" }}
 	/>
 );

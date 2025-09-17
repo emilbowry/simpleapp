@@ -2,9 +2,13 @@
 
 import React from "react";
 import { ImageHexagon } from "../../../components/hexagons/Hexagons";
-import { Theme } from "../../../styles";
+import { genericSectionStyle, Theme } from "../../../styles";
 import { CallingCard } from "../../../components/callingcard/CallingCard";
-import testimage from "../../../assets/joeheadshot.png";
+import joefennelhs from "../../../assets/joeheadshot.png";
+import miranda from "../../../assets/miranda.jpg";
+import omar from "../../../assets/dude3.jpg";
+import ben from "../../../assets/dude2.jpg";
+import will from "../../../assets/dude1.jpg";
 interface IPersona {
 	image: string;
 	name: string;
@@ -15,20 +19,24 @@ interface IPersona {
 }
 const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
-	gridTemplateColumns: "30% 60%",
+	gridTemplateColumns: "40% 60%",
+	// gridTemplateColumns: "100%",
+	height: "100%",
 	// alignContent: "center",
-	justifyContent: "center",
+	justifyContent: "space-between",
 };
 export class Persona extends React.Component<IPersona> {
 	render() {
-		const { image, name, title, email, body, index = 0 } = this.props;
+		const { image, name, title, email, body, index = 2 } = this.props;
+		console.log(index);
 		let _index = 0;
-		if (index === -1) {
+		if (index === 0) {
 			_index = 0;
 		} else if (index % 2 === 0) {
 			_index = 1;
 		}
 		let theme = Theme(_index);
+		console.log(theme.backgroundColor);
 		const header = (
 			<div style={{ color: theme.tertiaryColor, fontSize: "2.5rem" }}>
 				<h3>
@@ -46,37 +54,73 @@ export class Persona extends React.Component<IPersona> {
 			</div>
 		);
 		const textual = (
-			<div style={{ padding: "2rem" }}>
+			<div style={{ padding: "2rem", margin: "auto 0" }}>
 				{header}
 				{descrition}
 			</div>
 		);
 
 		return (
-			<div style={personaWrapperStyle}>
-				<div>
-					<ImageHexagon args={{ img: image }} />
-				</div>
+			<div
+				style={{
+					// ...genericSectionStyle,
+					// border: "1px solid red",
+					display: "flex",
+					flexDirection: "column",
+					height: "100%",
+					margin: "auto",
+					padding: "auto",
+				}}
+			>
 				<div
 					style={{
-						backgroundColor: theme.backgroundColor,
-						borderRadius: "100px 0 0 100px",
+						// ...genericSectionStyle,
+						...personaWrapperStyle,
 					}}
 				>
-					{textual}
+					<div
+						style={{
+							// ...genericSectionStyle,
+
+							margin: "5%",
+
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+							alignContent: "center",
+						}}
+					>
+						<ImageHexagon args={{ img: image }} />
+					</div>
+					<div
+						style={{
+							// ...genericSectionStyle,
+
+							backgroundColor: theme.backgroundColor,
+							borderRadius: "100px 0 0 100px",
+							height: "100%",
+							// margin: "auto",
+							display: "flex",
+							flexDirection: "column",
+							// height: "100%",
+							margin: "auto 0",
+						}}
+					>
+						{textual}
+					</div>
 				</div>
 			</div>
 		);
 	}
 }
 
-export const demoPersona: React.FC = () => {
+export const DemoPersona: React.FC = () => {
 	return (
 		<CallingCard
 			components={[
 				<Persona
 					index={0}
-					image={testimage}
+					image={joefennelhs}
 					name="Joe Fennel"
 					title="Founder"
 					email="joe@aicompatible.co.uk"
@@ -88,7 +132,109 @@ the world’s biggest businesses, including Astra Zeneca,
 Vodafone, Accenture Song and more."
 				/>,
 			]}
+			fullSpread={true}
 			index={-1}
 		/>
 	);
 };
+
+export const OurTeam: React.FC = () => (
+	<div
+		style={{
+			display: "grid",
+			rowGap: "1%",
+			// gridTemplateRows: "20% 20% 20% 20% 20%",
+			width: "100%",
+			// height: "80%",
+			padding: "auto",
+			paddingBottom: "10%",
+		}}
+	>
+		<div style={{}}>
+			<DemoPersona />
+		</div>
+		<div>
+			<CallingCard
+				components={[
+					<Persona
+						index={1}
+						image={miranda}
+						name="Miranda Read"
+						title=" COO & Business Development Lead"
+						email="miranda@aicompatible.co.uk"
+						body="Miranda has 4 years of experience client-facing roles in
+Cybersecurity and Tech. Wearing multiple hats under
+the umbrella of Business Development, she has been
+instrumental in AI Compatibles product development,
+marketing strategy, operations and growth vision."
+					/>,
+				]}
+				index={-1}
+				fullSpread={true}
+			/>
+		</div>
+
+		<div>
+			<CallingCard
+				components={[
+					<Persona
+						index={2}
+						image={omar}
+						name="Omer Bilgin"
+						body="Omer is an AI ethics, policy, and governance researcher.
+His unique expertise is grounded in both his academic
+training in Practical Ethics at the University of Oxford,
+and his professional roles as Co-founder and Chief
+Ethics & Research Officer at an AI startup called
+deliberAIde and as a Technology & Data Ethics Advisor
+for Suffrago. "
+					/>,
+				]}
+				index={-1}
+				fullSpread={true}
+			/>
+		</div>
+
+		<div>
+			{" "}
+			<CallingCard
+				components={[
+					<Persona
+						index={2}
+						image={ben}
+						name="Benjamin Raho "
+						body="Benjamin is an economics graduate and EPM sales
+specialist, helping UK mid-market businesses optimize
+financial planning and analytics through Oracle
+NetSuite’s AI-powered tools. Bridging enterprise
+software and applied AI, Benjamin brings a practical,
+forward-thinking approach."
+					/>,
+				]}
+				index={-1}
+				fullSpread={true}
+			/>
+		</div>
+
+		<div>
+			<CallingCard
+				components={[
+					<Persona
+						index={2}
+						image={will}
+						name="William Swain "
+						body="Will has 10 years of experience as a Data and Reporting
+Analyst for Nintendo, PwC and Everfox. His expertise is
+in automation so founded Surrey Data Solutions (SDS),
+a specialist consultancy delivering practical, high-
+impact solutions in business intelligence, data
+analytics, process automation, and robotic process
+automation (RPA).  "
+					/>,
+				]}
+				index={-1}
+				fullSpread={true}
+			/>
+		</div>
+	</div>
+);

@@ -16,7 +16,9 @@ export const homePage: React.FC = () => {
 		>
 			<Hero />
 			{/* <ComponentShowcase /> */}
-			<AboutUsCallingCard />
+			{/* <AboutUsCallingCard /> */}
+
+			<OurTeam />
 			<AboutUsCallingCard_alt />
 		</div>
 	);
@@ -24,6 +26,7 @@ export const homePage: React.FC = () => {
 
 // export const HomePage = homePage;
 import { Page } from "../page";
+import { DemoPersona, OurTeam } from "./parts/OurTeam";
 // import { ComponentShowcase } from "../../styles2_copy";
 
 export const HomePage = (

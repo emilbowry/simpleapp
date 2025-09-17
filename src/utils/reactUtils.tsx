@@ -22,7 +22,7 @@ export const getImageEl = (
 	);
 
 export const BoxedImage: React.FC<{
-	image: string;
+	image: string | ValidComponent;
 
 	width?: string;
 	aspectRatio: string;
@@ -48,7 +48,10 @@ export const BoxedImage: React.FC<{
 
 		...wrapperStyling,
 	};
-	const imageEl = getImageEl(image, { minWidth: 0, ...imageStyling });
+	const imageEl = getImageEl(image as string, {
+		minWidth: 0,
+		...imageStyling,
+	});
 	return <div style={wrapperStyle}>{imageEl}</div>;
 };
 
