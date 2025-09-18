@@ -1,9 +1,9 @@
-// src/pages/homepage/impact.tsx
+// // src/pages/homepage/impact.tsx
 
-import React from "react";
-import { CallingCard } from "../../components/callingcard/CallingCard";
-import { TriPartCallout } from "../../components/callingcard/callout/CallOut";
-import { Theme } from "../../styles";
+// import React from "react";
+import { CallingCard } from "../../../../components/callingcard/CallingCard";
+// import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
+import { Theme } from "../../../../styles";
 const idx = 0;
 let theme = Theme(idx);
 
@@ -45,21 +45,56 @@ const stat_card_three = {
 export const ImpactCallingCard: React.FC = () => {
 	return (
 		<CallingCard
-			title={calling_card_title}
 			components={[
 				<TriPartCallout
 					{...stat_card_one}
-					index={0}
+					index={1}
 				/>,
 				<TriPartCallout
 					{...stat_card_two}
-					index={0}
+					index={1}
 				/>,
 				<TriPartCallout
 					{...stat_card_three}
-					index={0}
+					index={1}
 				/>,
 			]}
+			index={1}
 		/>
 	);
 };
+// src/pages/homepage/parts/AboutUS.tsx
+// src/pages/homepage/parts/AboutUS.tsx
+
+import React from "react";
+// import bulb from "../../../../assets/bulb.svg";
+
+import {
+	TriPartCallout,
+	TriPartCallout_ALT,
+} from "../../../../components/callingcard/callout/CallOut";
+import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
+
+const head = <h2>How is AI Impacting Business</h2>;
+
+const foot = (
+	<div>
+		<p style={{ fontStyle: "italic" }}>
+			‘We tend to overestimate the impact of a technology in the short
+			term, and underestimate the effect of a technology in the long run’
+		</p>
+		<p>
+			We strive for a world where AI goes right, and people are ready for
+			it.
+		</p>
+	</div>
+);
+
+export const ImpactCC: React.FC = () => (
+	<NewCallingCard
+		components={[ImpactCallingCard]}
+		title={head}
+		footer={foot}
+		index={1}
+	/>
+);

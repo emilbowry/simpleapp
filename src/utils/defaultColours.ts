@@ -16,7 +16,7 @@ export const purple = "#866070";
 export const orange = "#FF6F2D";
 export const grey = " #81989C";
 export const light_grey = " #C0CCCE";
-
+export const bgwhite = "#F0FCFD";
 export const title_font_colour = midnight_green;
 export const body_font_colour = l_midnight_green;
 export const subtitle_colour = logo_blue;

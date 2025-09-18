@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Hero } from "./parts/Hero";
-import { ImpactCallingCard } from "./impact";
+// import { ImpactCallingCard } from "./parts/impact";
 import { DemoLayout } from "../DemoLayout";
+import { ImpactCC } from "./parts/impact/impact";
 import {
 	AboutUsCallingCard,
 	AboutUsCallingCard_alt,
-} from "./parts/about-us.tsx/AboutUs";
+} from "./parts/about-us/AboutUs";
 import { LargePB } from "./parts/smallPartnershipBar";
 
 export const homePage: React.FC = () => {
@@ -16,10 +17,10 @@ export const homePage: React.FC = () => {
 		>
 			<Hero />
 			{/* <ComponentShowcase /> */}
-			{/* <AboutUsCallingCard /> */}
 
 			<OurTeam />
 			<AboutUsCallingCard_alt />
+			<ImpactCC />
 		</div>
 	);
 };

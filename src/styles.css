@@ -88,9 +88,9 @@ body {
   isolation: isolate;
   contain: paint;
 }
-/* * {
-cursor: none!;
-} */
+* {
+cursor: none !important;
+}
 .aos-ignore {
   isolation: isolate;
 } 

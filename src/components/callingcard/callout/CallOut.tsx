@@ -128,7 +128,7 @@ export class TriPartCallout extends CallOut<ITriPartCalloutProps> {
 // }
 
 import { ThemedComponent as ThemedComponent_ALT } from "../../../themecomp_v2";
-import { hexCallStyle } from "../../../pages/homepage/parts/about-us.tsx/AboutUs.styles";
+import { hexCallStyle } from "../../../pages/homepage/parts/about-us/AboutUs.styles";
 import { ThemedComponent } from "../../../themecomp_v1";
 type TName = `${string}_style`;
 

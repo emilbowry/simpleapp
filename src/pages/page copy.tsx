@@ -244,7 +244,7 @@ export class Page extends React.Component<{
 	useCursor?: boolean;
 }> {
 	render() {
-		const { page: Page, bg = false, useCursor = true } = this.props;
+		const { page: Page, bg = false, useCursor = false } = this.props;
 
 		return (
 			<>
@@ -257,6 +257,7 @@ export class Page extends React.Component<{
 						position: "relative",
 						display: "flex",
 						flexDirection: "column",
+						// cursor: "none",
 						...(useCursor ? { cursor: "none" } : {}),
 					}}
 				>

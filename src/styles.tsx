@@ -29,6 +29,7 @@ import {
 	logo_yellow,
 	light_mix_green,
 	lighter_logo_blue,
+	bgwhite,
 } from "./utils/defaultColours";
 
 export const genericSectionStyle: React.CSSProperties = {
@@ -38,7 +39,7 @@ export const genericSectionStyle: React.CSSProperties = {
 };
 export const Theme = (index: number) => {
 	const theme = {
-		backgroundColor: "#FFFFFF",
+		backgroundColor: bgwhite,
 		primaryColor: midnight_green,
 		secondaryColor: l_midnight_green,
 		tertiaryColor: logo_blue,
@@ -56,7 +57,6 @@ export const Theme = (index: number) => {
 	}
 	return theme;
 };
-
 /* 
 // src/styles.tsx
 The following is an excerpt of the file  src/styles.tsx, so dont worry about the missing imports, they exist in the actual file

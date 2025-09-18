@@ -10,7 +10,7 @@ export const titleStyle: React.CSSProperties = {
 };
 
 export const footerStyle: React.CSSProperties = {
-	fontSize: "1.5rem",
+	fontSize: "2rem",
 	textAlign: "center",
 };
 
@@ -27,5 +27,7 @@ export const hexCallStyle: React.CSSProperties = {
 	marginTop: "-15%",
 };
 export const HexWapStyle: React.CSSProperties = {
+	// backgroundColor: "white",
 	margin: "0 5%",
+	height: "100%",
 };

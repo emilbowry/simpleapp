@@ -51,7 +51,7 @@ export const lowerHalfWrapperStyle: React.CSSProperties = {
 };
 
 export const leftBodyColumnStyle: React.CSSProperties = {
-	marginRight: "1%",
+	marginRight: "2%",
 	display: "flex",
 	flexDirection: "column",
 	width: `${2 * (100 / 3)}%` /* Double since its half the container */,
@@ -80,7 +80,7 @@ export const textBodyContainerStyle: React.CSSProperties = {
 	marginBottom: "1%",
 	display: "flex",
 	alignItems: "flex-start",
-	fontSize: "1.5rem",
+	fontSize: "2rem",
 	textAlign: "left",
 };
 
@@ -114,7 +114,6 @@ export const rightBodyGridStyle: React.CSSProperties = {
 export const gridItemStyle: React.CSSProperties = {
 	height: "100%",
 	width: "100%",
-
 	justifyContent: "center",
 	alignContent: "center",
 
