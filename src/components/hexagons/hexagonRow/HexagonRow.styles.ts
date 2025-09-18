@@ -24,15 +24,17 @@ const rowGap = (
 	const verticalSpacing = relative_spacing;
 	return [verticalSpacing, absolute_spacing];
 };
-/*
-	SCALING CORRECTION FACTOR: k
-k(relative_space) scales, transformed % into % of orignal element (container/n)
-g:= col-gap
-Derivation:W.n = W'.n +(n-1).g
-g = Wx/100
-	W. (n-(n-1).(x/100))/n = W'
-let W=kW'
-k = n/(n-(n-1).(x/100))*/
+/** 
+	* SCALING CORRECTION FACTOR: k
+	* @derivation 
+		k(relative_space) scales, transformed % into % of orignal element (container/n)
+		g:= col-gap
+		Derivation:W.n = W'.n +(n-1).g
+		g = Wx/100
+			W. (n-(n-1).(x/100))/n = W'
+		let W=kW'
+		k = n/(n-(n-1).(x/100))
+ */
 const K = (relative_spacing: number = 0) => {
 	const gap = colGap(relative_spacing);
 	const k = n / (n - (n - 1) * (gap / 100));
@@ -136,7 +138,11 @@ const getCalc = (vals: number | [number, number], dual: boolean = false) => {
 const withCalc =
 	(fn: (...args: any[]) => number | [number, number], dual = false) =>
 	(...args: Parameters<typeof fn>) =>
-		getCalc(fn(...args), dual); /* Valid CSS of Mathematical Definitions */
+		getCalc(fn(...args), dual);
+
+/*
+ Valid CSS of Mathematical Definitions 
+*/
 const calculateRowGap = withCalc(rowGap);
 const calculateColGap = withCalc(colGap);
 const centreHexYShift = withCalc(centreYOffset, true);
@@ -202,6 +208,22 @@ export const midStyle = (
  * Grid container: grid-template-columns: repeat(3, 1fr).
  *
  * Each item spans 1/3 container width → explains /3 in gap formulas.
+
+ * @equivalent The GridAutoRows is essentially equivalent to:
+	
+		// const row_rel_spacing = _relative_spacing / length;
+			...
+		// rowGap: calculateRowGap(
+		// 	row_rel_spacing,
+		// 	absolute_spacing,
+		// 	length
+		// ) as string
+
+ * But it is now defined for "negative"/overlapping rows
+
+	Later work out why this doesnt work for templateCols
+	gridTemplateColumns: `repeat(${n}, ${1/3})`,
+
  */
 export const container = (
 	_relative_spacing: number = 0,
@@ -209,41 +231,16 @@ export const container = (
 	length: number = 1
 ): React.CSSProperties => {
 	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
-	const row_rel_spacing = _relative_spacing / length;
 	return {
-		/* background: border_background,*/
+		// height: "100%",
+		// marginTop: "10%",
 		position: "relative",
 		gridAutoRows: `calc(${
 			100 + _relative_spacing
 		}% / ${length} + ${absolute_spacing}px)`,
-		/*		**This is equivalent to**:
-		rowGap: calculateRowGap(
-			row_rel_spacing,
-			absolute_spacing,
-			length
-		) as string,		 */
 		columnGap: calculateColGap(col_rel_spacing, absolute_spacing) as string,
 		display: "grid",
-		/* gridTemplateColumns: `repeat(${n}, ${1/3})`, // Dont know why this doesnt work*/
 		gridTemplateColumns: `repeat(${n}, 1fr)`,
 		overflow: "visible",
 	};
 };
-
-/* Vert Hex Style (old) */
-
-export const vertContainer = (
-	containerWidth: number,
-	containerHeight: number
-): React.CSSProperties => ({
-	position: "relative",
-	width: containerWidth,
-	height: containerHeight,
-	margin: "0 auto",
-});
-
-export const vertHexStyle = (x: number, y: number): React.CSSProperties => ({
-	position: "absolute",
-	left: x,
-	top: y,
-});

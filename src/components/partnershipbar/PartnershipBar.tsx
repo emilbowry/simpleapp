@@ -67,13 +67,9 @@ class PartnerImage extends React.Component<
 		const imageEl = (
 			<div
 				style={{
-					// width: "100%",
-					// ...genericSectionStyle,
 					aspectRatio: "2.5", // ensures we can appropriately brick them
 					justifyContent: "center",
 					alignContent: "center",
-					// margin: "0 5%",
-					// margin: "auto",
 				}}
 			>
 				<img
@@ -89,8 +85,6 @@ class PartnerImage extends React.Component<
 							: "saturate(0)",
 						transition: "filter 0.3s ease-in-out",
 						justifyContent: "center",
-
-						// width: "100%",
 					}}
 				/>
 			</div>
@@ -147,7 +141,6 @@ export class PartnershipBar extends React.Component<
 	render() {
 		const { partners, size = "Small", index = 0 } = this.props;
 		const theme = Theme(index);
-		const isMarquee = size === "Small";
 		const { smallViewPort } = this.state;
 
 		if (size === "Large") {

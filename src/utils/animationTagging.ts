@@ -9,7 +9,8 @@ export const animationTagging = () => {
 				}
 			}
 		},
-		{ threshold: 0.1, root: null, rootMargin: "0px 0px -20px 0px" }
+		// { threshold: 0.1, root: null, rootMargin: "0px 0px -20px 0px" }
+		{ threshold: 0.1, root: null, rootMargin: "-1px -1px -1px -1px" }
 	);
 	const isHTMLElement = (el: Element): el is HTMLElement =>
 		el instanceof HTMLElement;
@@ -110,10 +111,7 @@ export const animationTagging = () => {
 						"--aos-order-index",
 						String(orderIndex)
 					);
-					el.style.setProperty(
-						"--aos-depth",
-						String(displayDepth * 10)
-					);
+					el.style.setProperty("--aos-depth", String(displayDepth));
 				}
 			}
 		});

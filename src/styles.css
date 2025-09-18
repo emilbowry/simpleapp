@@ -7,6 +7,7 @@ body {
   background: #fafafa;
   color: #333;
   font-weight: 300;
+  font-size: 2rem;
 }
 
 .title {
@@ -19,22 +20,22 @@ body {
 
 /* --- AOS globals --- */
 :root {
-  --aos-unit-delay: 10ms;
+  --aos-unit-delay: 100ms;
 }
 
 .aos {
   animation-delay: calc(var(--aos-depth, 0) * var(--aos-unit-delay));
   transition-delay: calc(var(--aos-depth, 0) * var(--aos-unit-delay));
-  transition: opacity 600ms ease-out, transform 600ms ease-out;
-  will-change: transform, opacity;
+  transition:  transform 600ms ease-out;
+  will-change: transform
 }
 
 
 /* :global(.is-visible) { */
-.is-visible {
+.aos .is-visible {
   /* opacity: 1; */
   /* transform: var(--user-transform) translateY(0); */
-  animation: fadeInUpAnimation 600ms ease-out forwards; 
+  animation: fadeInUpAnimation 800ms ease-out forwards; 
   /* animation-delay: calc(var(--aos-depth, 0) * var(--aos-unit-delay)); */
 }
 
@@ -42,11 +43,11 @@ body {
 
 @keyframes fadeInUpAnimation {
   from {
-    opacity: 0;
-    transform: translateY(20px);
+    /* opacity: 0; */
+    transform: translateY(-1000px);
   }
   to {
-    opacity: 1;
+    /* opacity: 1; */
     transform: translateY(0);
   }
 }
@@ -61,6 +62,18 @@ body {
     transform: var(--user-transform, none) !important;
   }
 }
+
+
+.no-aos {
+  isolation: isolate;
+  contain: paint;
+}
+* {
+cursor: none !important;
+}
+.aos-ignore {
+  isolation: isolate;
+} 
 /* 
 .typewriter {
   overflow: hidden;
@@ -80,17 +93,4 @@ body {
   to {
     width: 100%;
   }
-}
-.aos-ignore {
-  isolation: isolate;
-} */
-.no-aos {
-  isolation: isolate;
-  contain: paint;
-}
-* {
-cursor: none !important;
-}
-.aos-ignore {
-  isolation: isolate;
-} 
+}*/

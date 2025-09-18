@@ -48,6 +48,7 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 		let ContainerStyle = {
 			...containerStyle,
 			backgroundColor: theme.backgroundColor,
+			...styleOverrides,
 		};
 
 		const borderColor = header ? theme.tertiaryColor : undefined;
@@ -55,7 +56,7 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 		return (
 			<div
 				style={ContainerStyle}
-				className="aos-ignore"
+				// className="aos-ignore"
 			>
 				{header ? (
 					<div style={headerContainerStyle}>
@@ -89,7 +90,12 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 							) : null}
 
 							{footer ? (
-								<div style={textBodyContainerStyle}>
+								<div
+									style={{
+										...textBodyContainerStyle,
+										color: theme.secondaryColor,
+									}}
+								>
 									{formatComponent(footer)}
 								</div>
 							) : null}
@@ -100,7 +106,10 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 						<div style={RhGridStyle}>
 							{components.map((item, _index) => (
 								<div
-									style={gridItemStyle}
+									style={{
+										...gridItemStyle,
+										color: theme.secondaryColor,
+									}}
 									key={_index}
 								>
 									{formatComponent(item, true)}

@@ -21,7 +21,6 @@ const ScrollVisibilityDependent: React.FC<{
 	let _percentage = 0;
 	if (borders) {
 		_percentage = (borders[0] + borders[1]) / 2;
-		// console.log(_percentage);
 	}
 	const footerVH = 0.7;
 	const [isVisible, setIsVisible] = useState(false);
@@ -48,20 +47,8 @@ const ScrollVisibilityDependent: React.FC<{
 		} else {
 			_opacity = (currentScrollY - minVis) / (maxVis - minVis);
 		}
-		// _opacity = (currentScrollY - maxVis) / (maxVis - minVis);
 
-		// console.log(`${minVis},${maxVis}, ${currentScrollY}, ${_opacity}`);
-		// if (currentScrollY < minVis) {
-		// 	setOpacity(0);
-		// }
-		// if (currentScrollY >= minVis) {
-		// 	setOpacity(opacity);
-		// }
-		// if (currentScrollY >= maxVis) {
-		// setOpacity(_opacity);
-		// }
 		setOpacity(_opacity);
-		// console.log(opacity);
 
 		setIsVisible(currentScrollY >= minVis);
 	}, []);
@@ -75,10 +62,9 @@ const ScrollVisibilityDependent: React.FC<{
 	}, [handleScroll]);
 	const _styling: React.CSSProperties = {
 		...styling,
-		visibility: isVisible ? "visible" : "hidden", // Control visibility
-		opacity: opacity, // Optional: add a fade effect
-		// transition: "opacity 0.3s ease-in-out", // Optional: smooth transition
-		filter: `blur(${(1 - opacity) ** 2 * 16}px)`, // Optional: smooth transition
+		visibility: isVisible ? "visible" : "hidden",
+		opacity: opacity,
+		filter: `blur(${(1 - opacity) ** 2 * 16}px)`,
 	};
 	return <div style={_styling}>{formatComponent(element as any)}</div>;
 };
@@ -118,6 +104,7 @@ const Footer: React.FC<{
 		<div
 			style={{
 				marginTop: "calc(-70vh - 60px)",
+				fontSize: "1.5rem",
 				zIndex: "-15",
 			}}
 		>
@@ -179,12 +166,13 @@ export class Page extends React.Component<{
 			<>
 				<AppTitleBar />
 				{bg ? <DemoTiledBackground /> : null}
-
 				<main
 					key={location.pathname}
 					style={{
 						position: "relative",
 						height: "100%",
+						maxWidth: "100%",
+						overflow: "clip",
 						marginTop: "60px", //title bar offset
 						display: "flex",
 						flexDirection: "column",

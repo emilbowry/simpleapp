@@ -100,7 +100,7 @@ export class TitleBar<
 		const { activeLinkAlias } = this.state;
 		return (
 			<div
-				className="no-aos"
+				// className="no-aos"
 				style={this.titleBarStyles()}
 				onMouseLeave={() => this.handleInteractionWrapperMouseLeave()}
 			>

@@ -78,7 +78,6 @@ export const horizontalContentStyle = (): React.CSSProperties => {
 		alignItems: "center",
 	};
 };
-import { genericSectionStyle } from "../../styles";
 export const verticalContentStyle = (): React.CSSProperties => {
 	const left = `${((vertSafeZoneCoords.minX - 0) / 200) * 100}%`;
 	const top = `${((vertSafeZoneCoords.minY - -100) / 200) * 100}%`;
@@ -86,7 +85,6 @@ export const verticalContentStyle = (): React.CSSProperties => {
 	const height = `${(vertSafeZoneCoords.height / 200) * 100}%`;
 
 	return {
-		// ...genericSectionStyle, // adds background and border debugging
 		position: "absolute",
 		left,
 		top,
@@ -94,11 +92,7 @@ export const verticalContentStyle = (): React.CSSProperties => {
 		height,
 		maxHeight: height,
 		fontSize: "initial",
-		// fontSize: "1rem,",
 
-		// overflow: "visible",
-
-		// overflow: "hidden",
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",

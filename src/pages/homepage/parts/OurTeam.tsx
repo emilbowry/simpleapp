@@ -19,11 +19,13 @@ interface IPersona {
 }
 const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
-	gridTemplateColumns: "40% 60%",
+	gridTemplateColumns: "30% 70%",
 	// gridTemplateColumns: "100%",
 	height: "100%",
+	width: "100%",
 	// alignContent: "center",
-	justifyContent: "space-between",
+	// justifyContent: "space-between",
+	justifyContent: "center",
 };
 export class Persona extends React.Component<IPersona> {
 	render() {
@@ -54,7 +56,7 @@ export class Persona extends React.Component<IPersona> {
 			</div>
 		);
 		const textual = (
-			<div style={{ padding: "2rem", margin: "auto 0" }}>
+			<div style={{ padding: "2rem ", margin: "auto 0" }}>
 				{header}
 				{descrition}
 			</div>
@@ -62,15 +64,17 @@ export class Persona extends React.Component<IPersona> {
 
 		return (
 			<div
-				style={{
-					// ...genericSectionStyle,
-					// border: "1px solid red",
-					display: "flex",
-					flexDirection: "column",
-					height: "100%",
-					margin: "auto",
-					padding: "auto",
-				}}
+				style={
+					{
+						// ...genericSectionStyle,
+						// border: "1px solid red",
+						// display: "flex",
+						// flexDirection: "column",
+						// height: "100%",
+						// margin: "auto",
+						// padding: "auto",
+					}
+				}
 			>
 				<div
 					style={{
@@ -78,32 +82,54 @@ export class Persona extends React.Component<IPersona> {
 						...personaWrapperStyle,
 					}}
 				>
+					{/* <div style={{ height: "100%" }}> */}
 					<div
 						style={{
 							// ...genericSectionStyle,
+							boxSizing: "border-box",
 
-							margin: "5%",
+							// maxHeight: "80%",
+							maxHeight: "30vh",
+							minHeight: 0,
+							minWidth: 0,
+							maxWidth: "100%",
 
+							// // maxHeight: "10vh",
+							// height: "80%"
+							height: "100%",
+							// width: "100%",
+							aspectRatio: `${2 / Math.sqrt(3)}`,
+
+							// height: "inherit",
+							padding: "5%",
+							margin: "auto",
 							display: "flex",
 							flexDirection: "column",
 							justifyContent: "center",
 							alignContent: "center",
 						}}
 					>
-						<ImageHexagon args={{ img: image }} />
+						<ImageHexagon
+							args={{ img: image }}
+							// height="100%"
+						/>
 					</div>
+					{/* </div> */}
 					<div
 						style={{
 							// ...genericSectionStyle,
 
 							backgroundColor: theme.backgroundColor,
 							borderRadius: "100px 0 0 100px",
-							height: "100%",
-							// margin: "auto",
-							display: "flex",
-							flexDirection: "column",
 							// height: "100%",
-							margin: "auto 0",
+							// maxHeight: "30vh",
+							height: "30vh",
+
+							margin: "auto",
+							// display: "flex",
+							// flexDirection: "column",
+							// height: "100%",
+							// margin: "auto 0",
 						}}
 					>
 						{textual}

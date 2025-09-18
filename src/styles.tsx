@@ -50,10 +50,14 @@ export const Theme = (index: number) => {
 		theme.secondaryColor = lighter_logo_blue;
 		theme.tertiaryColor = logo_yellow;
 	} else if (index % 2 === 1) {
-		theme.backgroundColor = light_mix_green;
-		theme.primaryColor = dark_midnight_green;
-		theme.secondaryColor = dark_mix_green;
-		theme.tertiaryColor = midnight_green;
+		theme.backgroundColor = dark_midnight_green;
+		theme.primaryColor = light_logo_blue;
+		theme.secondaryColor = lighter_logo_blue;
+		theme.tertiaryColor = logo_yellow;
+		// theme.backgroundColor = light_mix_green;
+		// theme.primaryColor = dark_midnight_green;
+		// theme.secondaryColor = dark_mix_green;
+		// theme.tertiaryColor = midnight_green;
 	}
 	return theme;
 };

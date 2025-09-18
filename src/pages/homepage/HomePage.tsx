@@ -3,23 +3,18 @@ import { Hero } from "./parts/Hero";
 // import { ImpactCallingCard } from "./parts/impact";
 import { DemoLayout } from "../DemoLayout";
 import { ImpactCC } from "./parts/impact/impact";
-import {
-	AboutUsCallingCard,
-	AboutUsCallingCard_alt,
-} from "./parts/about-us/AboutUs";
+import { AboutUsCallingCard, VHexGrid } from "./parts/about-us/AboutUs";
 import { LargePB } from "./parts/smallPartnershipBar";
 
 export const homePage: React.FC = () => {
 	return (
 		<div
-			className="aos-ignore"
-			style={{ display: "grid", gridTemplateColumns: "100%" }}
+			// className="aos-ignore"
+			style={{}}
 		>
 			<Hero />
-			{/* <ComponentShowcase /> */}
-
 			<OurTeam />
-			<AboutUsCallingCard_alt />
+			<AboutUsCallingCard />
 			<ImpactCC />
 		</div>
 	);
@@ -28,6 +23,7 @@ export const homePage: React.FC = () => {
 // export const HomePage = homePage;
 import { Page } from "../page";
 import { DemoPersona, OurTeam } from "./parts/OurTeam";
+import { VerticalHexGridDemo } from "../../components/hexagons/hexagonRow/VHexRow";
 // import { ComponentShowcase } from "../../styles2_copy";
 
 export const HomePage = (

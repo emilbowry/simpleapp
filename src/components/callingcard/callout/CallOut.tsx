@@ -80,44 +80,44 @@ export interface ITriPartCalloutProps extends ICallOut {
 	footer?: ValidComponent;
 }
 
-export class TriPartCallout extends CallOut<ITriPartCalloutProps> {
-	static {
-		this.declareStyle("header_style", {
-			theme_args: {
-				primaryColor: ["color"],
-			},
-		});
-		this.declareStyle("footer_style", {
-			theme_args: {
-				secondaryColor: ["color"],
-			},
-		});
-	}
+// export class TriPartCallout extends CallOut<ITriPartCalloutProps> {
+// 	static {
+// 		this.declareStyle("header_style", {
+// 			theme_args: {
+// 				primaryColor: ["color"],
+// 			},
+// 		});
+// 		this.declareStyle("footer_style", {
+// 			theme_args: {
+// 				secondaryColor: ["color"],
+// 			},
+// 		});
+// 	}
 
-	Content = (): React.ReactNode => {
-		const { header, footer } = this.props;
-		return (
-			<>
-				{header ? (
-					<div style={this.getStyle("header_style")}>
-						{formatComponent(header)}
-					</div>
-				) : (
-					<></>
-				)}
-				{super.Content()}
+// 	Content = (): React.ReactNode => {
+// 		const { header, footer } = this.props;
+// 		return (
+// 			<>
+// 				{header ? (
+// 					<div style={this.getStyle("header_style")}>
+// 						{formatComponent(header)}
+// 					</div>
+// 				) : (
+// 					<></>
+// 				)}
+// 				{super.Content()}
 
-				{footer ? (
-					<div style={this.getStyle("footer_style")}>
-						{formatComponent(footer)}
-					</div>
-				) : (
-					<></>
-				)}
-			</>
-		);
-	};
-}
+// 				{footer ? (
+// 					<div style={this.getStyle("footer_style")}>
+// 						{formatComponent(footer)}
+// 					</div>
+// 				) : (
+// 					<></>
+// 				)}
+// 			</>
+// 		);
+// 	};
+// }
 
 // class HexWrapCallOut extends TriPartCallout {
 // 	static {

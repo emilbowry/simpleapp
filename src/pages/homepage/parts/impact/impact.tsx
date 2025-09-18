@@ -4,17 +4,24 @@
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 // import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
 import { Theme } from "../../../../styles";
-const idx = 0;
+const idx = 1;
 let theme = Theme(idx);
 
 const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
 	fontSize: "3rem",
 	fontWeight: "500",
+	justifySelf: "center",
+	backgroundColor: "red",
+	zIndex: "99",
 };
 const calling_card_title = <h2>How is AI impacting business</h2>;
 const stat_body_style: React.CSSProperties = {
-	borderTop: "1px solid",
+	color: theme.primaryColor,
+
+	borderTop: `1px solid ${theme.secondaryColor}`,
+	// marginTop: "-1%",
+	fontSize: "2rem",
 };
 const stat_card_one = {
 	header: <p style={stat_value_style}>$200 Billion</p>,
@@ -37,7 +44,7 @@ const stat_card_three = {
 	body: (
 		<p style={stat_body_style}>
 			of CEOs say AI will significantly change the way their company
-			creates value of the next 3 years <br />-{" "}
+			creates value of the next 3 years <br />-
 			<i>PwC Global CEO Survey 2024</i>.
 		</p>
 	),
@@ -46,15 +53,15 @@ export const ImpactCallingCard: React.FC = () => {
 	return (
 		<CallingCard
 			components={[
-				<TriPartCallout
+				<TriPartCallout_ALT
 					{...stat_card_one}
 					index={1}
 				/>,
-				<TriPartCallout
+				<TriPartCallout_ALT
 					{...stat_card_two}
 					index={1}
 				/>,
-				<TriPartCallout
+				<TriPartCallout_ALT
 					{...stat_card_three}
 					index={1}
 				/>,
@@ -69,32 +76,101 @@ export const ImpactCallingCard: React.FC = () => {
 import React from "react";
 // import bulb from "../../../../assets/bulb.svg";
 
-import {
-	TriPartCallout,
-	TriPartCallout_ALT,
-} from "../../../../components/callingcard/callout/CallOut";
+import { TriPartCallout_ALT } from "../../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
+import { VerticalHexagonGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
+import { VertHexagon } from "../../../../components/hexagons/Hexagons";
+import { FounderLetter } from "../FounderLetter";
 
 const head = <h2>How is AI Impacting Business</h2>;
 
 const foot = (
 	<div>
-		<p style={{ fontStyle: "italic" }}>
+		<p style={{ fontStyle: "italic", fontSize: "2.5rem" }}>
 			‘We tend to overestimate the impact of a technology in the short
 			term, and underestimate the effect of a technology in the long run’
 		</p>
-		<p>
+		<p style={{ fontSize: "2rem" }}>
 			We strive for a world where AI goes right, and people are ready for
 			it.
 		</p>
 	</div>
 );
 
+export const VHexGrid: React.FC = () => {
+	return (
+		<div
+			style={{
+				width: "100%",
+				zIndex: 25,
+			}}
+		>
+			<VerticalHexagonGrid
+				elements={[
+					<VertHexagon
+						args={{
+							// borderColor: theme.secondaryColor,
+							colour: theme.backgroundColor,
+						}}
+						element={
+							<TriPartCallout_ALT
+								{...stat_card_one}
+								index={1}
+							/>
+						}
+						opacity={1}
+					/>,
+					<VertHexagon
+						args={{
+							// borderColor: theme.secondaryColor,
+							colour: theme.backgroundColor,
+						}}
+						element={
+							<TriPartCallout_ALT
+								{...stat_card_two}
+								index={1}
+							/>
+						}
+						opacity={1}
+					/>,
+					<VertHexagon
+						args={{
+							// borderColor: theme.secondaryColor,
+							colour: theme.backgroundColor,
+						}}
+						element={
+							<TriPartCallout_ALT
+								{...stat_card_three}
+								index={1}
+							/>
+						}
+						opacity={1}
+					/>,
+				]}
+			/>
+		</div>
+	);
+};
+
 export const ImpactCC: React.FC = () => (
-	<NewCallingCard
-		components={[ImpactCallingCard]}
-		title={head}
-		footer={foot}
-		index={1}
-	/>
+	<>
+		<NewCallingCard
+			components={[
+				<div style={{ position: "relative" }}>
+					<FounderLetter index={1} />
+				</div>,
+			]}
+			title={head}
+			footer={foot}
+			index={1}
+			styleOverrides={{
+				paddingBottom: "20%",
+				marginBottom: "-20%",
+				paddingTop: "66%",
+				marginTop: "-66%",
+				zIndex: 5,
+			}}
+		/>
+		<VHexGrid />
+	</>
 );

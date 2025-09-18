@@ -12,22 +12,31 @@ const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	let theme = Theme(index);
 	return (
 		<div
-			style={{
-				scale: "0.5",
-				// justifyContent: "left",
-				marginLeft: "-700px",
-				// alignContent: "flex-start",
-			}}
+			style={
+				{
+					// scale: "0.5",
+					// justifyContent: "left",
+					// marginLeft: "-700px",
+					// alignContent: "flex-start",
+				}
+			}
 		>
 			<div
 				style={{
 					display: "grid",
 					gridTemplateColumns: "30% 70%",
-					alignContent: "center",
-					justifyContent: "left",
+					// alignContent: "center",
+					textAlign: "left",
+					width: "100%",
+					// justifyContent: "left",
 				}}
 			>
-				<div>{getImageEl(logo)}</div>
+				<div style={{ display: "flex", flexDirection: "column" }}>
+					{getImageEl(logo, {
+						aspectRatio: `${2 / Math.sqrt(3)}`,
+						width: "100%",
+					})}
+				</div>
 				<div style={{ alignContent: "center" }}>
 					<h3 style={{ color: theme.primaryColor }}>Joe Fennel</h3>
 					<h4 style={{ color: theme.tertiaryColor }}>
@@ -48,7 +57,8 @@ export const FFoouter: React.FC = () => {
 				style={{
 					display: "grid",
 					gridTemplateColumns: "1fr 1fr",
-					alignContent: "center",
+					// alignContent: "center",
+					// justifyContent: "left",
 				}}
 			>
 				<div>{getImageEl(cam)}</div>
@@ -59,31 +69,45 @@ export const FFoouter: React.FC = () => {
 };
 export const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	const letter = (
-		<div>
-			<p>
-				The Alignment Problem’ is the challenge of aligning powerful AI
-				systems with human values. That is, to make sure that AI systems
-				only ‘wants’ what we want.
-			</p>
-			<p>
-				There are lots of hardworking researchers, policymakers and
-				businesses working on the problem of how to align powerful AI
-				systems to human values. One of my favorite books on the
-				alignment problem is ‘Human Compatible’, by Stuart Russell.
-			</p>
+		<div
+			style={{
+				isolation: "isolate",
+				width: "100%",
+				// alignContent: "flex-end",
+				// justifyContent: "left",
+				// flexDirection: "row",
+			}}
+		>
+			<div style={{ textAlign: "left" }}>
+				<h2 style={{ color: Theme(index).primaryColor }}>
+					{" "}
+					A letter from our Founder
+				</h2>
+				<p>
+					The Alignment Problem’ is the challenge of aligning powerful
+					AI systems with human values. That is, to make sure that AI
+					systems only ‘wants’ what we want.
+				</p>
+				<p>
+					There are lots of hardworking researchers, policymakers and
+					businesses working on the problem of how to align powerful
+					AI systems to human values. One of my favorite books on the
+					alignment problem is ‘Human Compatible’, by Stuart Russell.
+				</p>
 
-			<p>
-				But Alignment from AI to humans isn’t enough: we need to do our
-				bit too. That is, we need to have values to begin with to be
-				aligned, and we need to be familiar enough with AI systems that
-				we are informed, able, and well-intentioned with the powerful AI
-				systems that are being released.
-			</p>
-			<p>
-				AI Compatible is a consultancy that works on this neglected side
-				of the alignment problem – the human side. We boost AI literacy,
-				familiarity, and ethics: in a word, compatibility.
-			</p>
+				<p>
+					But Alignment from AI to humans isn’t enough: we need to do
+					our bit too. That is, we need to have values to begin with
+					to be aligned, and we need to be familiar enough with AI
+					systems that we are informed, able, and well-intentioned
+					with the powerful AI systems that are being released.
+				</p>
+				<p>
+					AI Compatible is a consultancy that works on this neglected
+					side of the alignment problem – the human side. We boost AI
+					literacy, familiarity, and ethics: in a word, compatibility.
+				</p>
+			</div>
 			<div>
 				<LetterFooter index={index} />
 			</div>

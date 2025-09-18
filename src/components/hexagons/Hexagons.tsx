@@ -78,47 +78,49 @@ export class Hexagon
 		} = this.props;
 		const { defs, paths } = this.construct(args);
 		const ctor = this.constructor as typeof Hexagon;
-
+		// const { opacity = 0.8 } = styleProps;
 		return (
 			<div
-				className="no-aos"
+				// className="no-aos"
 				style={containerStyle(styleProps)}
 			>
-				<svg
-					style={{
-						...svgStyle(styleProps),
-					}}
-					viewBox={
-						!ctor.useVert
-							? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
-									(200 * Math.sqrt(3)) / 2
-							  }`
-							: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
-									(200 * Math.sqrt(3)) / 2
-							  } 200`
-					}
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<defs>
-						{defs.map((def, i) => (
-							<React.Fragment key={i}>{def}</React.Fragment>
-						))}
-					</defs>
-					{paths.map((path, i) => (
-						<React.Fragment key={i}>{path}</React.Fragment>
-					))}
-				</svg>
-				{element && (
-					<div
-						style={
+				<div>
+					<svg
+						style={{
+							...svgStyle(styleProps),
+						}}
+						viewBox={
 							!ctor.useVert
-								? horizontalContentStyle()
-								: verticalContentStyle()
+								? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
+										(200 * Math.sqrt(3)) / 2
+								  }`
+								: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
+										(200 * Math.sqrt(3)) / 2
+								  } 200`
 						}
+						xmlns="http://www.w3.org/2000/svg"
 					>
-						{formatComponent(element, true)}
-					</div>
-				)}
+						<defs>
+							{defs.map((def, i) => (
+								<React.Fragment key={i}>{def}</React.Fragment>
+							))}
+						</defs>
+						{paths.map((path, i) => (
+							<React.Fragment key={i}>{path}</React.Fragment>
+						))}
+					</svg>
+					{element && (
+						<div
+							style={
+								!ctor.useVert
+									? horizontalContentStyle()
+									: verticalContentStyle()
+							}
+						>
+							{formatComponent(element, true)}
+						</div>
+					)}
+				</div>
 			</div>
 		);
 	}
