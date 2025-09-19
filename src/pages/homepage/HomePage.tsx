@@ -10,7 +10,8 @@ export const homePage: React.FC = () => {
 	return (
 		<div
 			// className="aos-ignore"
-			style={{}}
+			// style={{}}
+			style={{ display: "grid", gridTemplateColumns: "100%" }}
 		>
 			<Hero />
 			<OurTeam />
