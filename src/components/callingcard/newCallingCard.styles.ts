@@ -11,6 +11,7 @@ export const containerStyle: React.CSSProperties = {
 	zIndex: 10,
 	padding: "2%",
 	flexDirection: "column",
+	borderTopLeftRadius: "80px 60px",
 };
 
 export const headerContainerStyle: React.CSSProperties = {

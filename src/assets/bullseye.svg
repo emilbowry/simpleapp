@@ -4,7 +4,8 @@
 
 fill="none"
 		stroke="url(#myGradient)"
-		stroke-width="1"
+		stroke-width="1.4px"
+	stroke-linecap="round"
 		 viewBox="0 0 34 34">
   <defs>
     <linearGradient id="myGradient" 					x1="10%"

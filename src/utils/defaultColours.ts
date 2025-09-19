@@ -1,13 +1,14 @@
 export const black = "#000000";
 export const white = "#FFFFFF";
 export const logo_yellow = "#FFDE59";
+export const light_logo_yellow = "#FFFBEB";
 export const logo_blue = "#0CC0DF";
 export const midnight_green = "#066070"; // Dark logo_blue
 export const dark_midnight_green = "#033038";
 export const l_midnight_green = "#458894";
 export const light_logo_blue = "#86E0EF";
 export const lighter_logo_blue = "#C3F0F7";
-
+export const o_mix_green = "#A4E4DF";
 export const mix_green = "#86CF9C";
 export const b_green = "#29ACB3";
 export const dark_mix_green = "#43684E";

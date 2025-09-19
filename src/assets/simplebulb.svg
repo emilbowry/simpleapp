@@ -5,7 +5,7 @@
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="url(#myGradient)"
-		stroke-width="1"
+		stroke-width="1px"
 		stroke-linecap="round"
 	>
   <defs>

@@ -1,7 +1,6 @@
 // src/components/callingcard/callout/hexCallout.tsx
 
 import React from "react";
-import { TriPartCallout } from "./CallOut";
 import { BoxedImage } from "../../../utils/reactUtils";
 
 import bulb from "../../../assets/bulb.svg";
@@ -37,12 +36,3 @@ export const footerStyle: React.CSSProperties = {
 	fontSize: "1.5rem",
 	textAlign: "center",
 };
-
-export class HexCallOut extends TriPartCallout {
-	CallOut_WrapperStyle(): React.CSSProperties | undefined {
-		return hexCallStyle;
-	}
-	render() {
-		return <div style={hexCallStyle}>{super.render()}</div>;
-	}
-}

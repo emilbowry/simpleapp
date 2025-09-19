@@ -3,21 +3,19 @@
 import React from "react";
 
 import backgroundPattern from "./assets/tileablebackground.png";
+import background from "./assets/Untitled.png";
 
 export const BackgroundStyle: React.CSSProperties = {
-	backgroundImage: `url(${backgroundPattern})`,
-	// backgroundPosition: "0 0",
+	backgroundImage: `url(${background})`,
 	backgroundRepeat: "repeat",
-	backgroundPosition: "center",
-	backgroundSize: "cover", // Some reason doesnt work with ContactPage
+
+	backgroundSize: "cover",
 	backgroundAttachment: "fixed",
+
 	width: "100vw",
-	height: "100vh",
 	position: "fixed",
-	zIndex: -1,
+	zIndex: -20,
 	inset: 0,
-	backgroundColor: "#f0f0f0",
-	paddingBottom: "100px",
 };
 import {
 	midnight_green,
@@ -30,6 +28,7 @@ import {
 	light_mix_green,
 	lighter_logo_blue,
 	bgwhite,
+	o_mix_green,
 } from "./utils/defaultColours";
 export const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%) 1`;
 export const genericSectionStyle: React.CSSProperties = {
@@ -52,7 +51,7 @@ export const Theme = (index: number) => {
 	} else if (index % 2 === 1) {
 		theme.backgroundColor = dark_midnight_green;
 		theme.primaryColor = light_logo_blue;
-		theme.secondaryColor = lighter_logo_blue;
+		theme.secondaryColor = o_mix_green;
 		theme.tertiaryColor = logo_yellow;
 		// theme.backgroundColor = light_mix_green;
 		// theme.primaryColor = dark_midnight_green;
@@ -61,104 +60,3 @@ export const Theme = (index: number) => {
 	}
 	return theme;
 };
-/* 
-// src/styles.tsx
-The following is an excerpt of the file  src/styles.tsx, so dont worry about the missing imports, they exist in the actual file
-*/
-
-// interface IPanelProps {
-// 	isActive?: boolean;
-// 	children?: React.ReactNode;
-// }
-
-// interface IPanelProps {
-// 	isActive?: boolean;
-// 	children?: React.ReactNode;
-// }
-
-// export class BasePanel extends ThemedComponent<IPanelProps> {
-// 	static {
-// 		this.styler.updateStyle("panel_style", {
-// 			def_static_css: {
-// 				padding: "20px",
-// 				border: "1px solid",
-// 				borderRadius: "8px",
-// 				transition: "all 0.2s ease-in-out",
-// 			},
-// 			def_theme_args: {
-// 				backgroundColor: ["backgroundColor"],
-// 				primaryColor: ["color"],
-// 				secondaryColor: ["borderColor"],
-// 			},
-// 			def_styling_function: (isActive: boolean) => {
-// 				console.log(`isa:${isActive}`);
-// 				return {
-// 					transform: isActive ? "scale(1.02)" : "scale(1)",
-// 					boxShadow: isActive ? "0px 4px 12px red" : "none",
-// 				};
-// 			},
-// 			def_default_args: [false],
-// 		});
-// 	}
-
-// 	render() {
-// 		const styler =
-// 			this.styler || (this.constructor as typeof ThemedComponent).styler;
-// 		const baseKey: TName = "panel_style";
-// 		const styleKey =
-// 			this.props.themeId !== undefined
-// 				? `${baseKey}.${this.props.themeId}`
-// 				: baseKey;
-// 		const finalStyle = styler[styleKey]?.call(this.props.isActive);
-
-// 		return <div style={finalStyle}>{this.props.children}</div>;
-// 	}
-// }
-
-// export class CardPanel extends BasePanel {
-// 	static {
-// 		this.styler.updateStyle("panel_style", {
-// 			def_static_css: {
-// 				borderRadius: "12px",
-// 				fontWeight: "bold",
-// 			},
-// 			def_theme_args: {
-// 				tertiaryColor: ["borderColor"],
-// 			},
-// 		});
-// 	}
-// }
-
-// export const ComponentShowcase: React.FC = () => {
-// 	const overrideStyle = CardPanel.styler.applyOverride("panel_style", {
-// 		borderStyle: "dashed",
-// 		color: "red",
-// 	});
-
-// 	return (
-// 		<div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-// 			<h3>Demonstrating CardPanel Variations:</h3>
-
-// 			<CardPanel>Default Card Panel (Inherited Style)</CardPanel>
-
-// 			<CardPanel isActive={true}>
-// 				Active Card Panel (Dynamic Style)
-// 			</CardPanel>
-
-// 			<CardPanel themeId={0}>
-// 				Card Panel with Theme 0 (Instance Style)
-// 			</CardPanel>
-
-// 			<CardPanel
-// 				themeId={1}
-// 				isActive={true}
-// 			>
-// 				Active Card Panel with Theme 1 (Instance + Dynamic)
-// 			</CardPanel>
-
-// 			<div style={{ ...overrideStyle }}>
-// 				A div with CardPanel's style + a runtime override
-// 			</div>
-// 		</div>
-// 	);
-// };

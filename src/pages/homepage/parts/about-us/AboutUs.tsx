@@ -10,15 +10,6 @@ import aicompwork from "../../../../assets/aicwork.jpg";
 import pen from "../../../../assets/pencil.svg";
 // import pen from "../../../../assets/pen.svg";
 
-import HM from "../../../../assets/HewardMills.png";
-import AZ from "../../../../assets/AZ.png";
-import AS from "../../../../assets/AS.png";
-import vf from "../../../../assets/vf.png";
-import dct from "../../../../assets/dct.png";
-import bm from "../../../../assets/BenchMark.png";
-import tb from "../../../../assets/TB.png";
-import wgif from "../../../../assets/WorkingMan.gif";
-
 import {
 	// TriPartCallout,
 	TriPartCallout_ALT,
@@ -38,8 +29,6 @@ import {
 	footerStyle,
 	HexWapStyle,
 } from "./AboutUs.styles";
-import { Partners } from "../../../../components/partnershipbar/PartnershipBar.types";
-import { genericSectionStyle } from "../../../../styles";
 import { VerticalHexagonGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
 import { bgwhite, logo_blue } from "../../../../utils/defaultColours";
 // const bgwhite = "transparent";
@@ -87,32 +76,19 @@ const foot = (
 		We strive for a world where AI goes right, and people are ready for it.
 	</p>
 );
+import { partners } from "../Partners";
 
-const partners = new Partners({
-	partners: [
-		{ image: HM },
-		{ image: AZ },
-		{ image: AS },
-		{ image: vf },
-		{ image: dct },
-		{ image: bm },
-		{ image: tb },
-	],
+const large_partners = {
+	...partners,
 	size: "Large",
-});
+};
 
 export class HexWrapCallOut extends TriPartCallout_ALT {
 	static {
 		this.styler.updateStyle("wrapperStyle_style", {
 			def_static_css: {
 				...hexCallStyle,
-				backgroundColor: "transparent",
-			},
-		});
 
-		this.styler.updateStyle("wrapperStyle_style", {
-			def_static_css: {
-				...hexCallStyle,
 				backgroundColor: "transparent",
 			},
 		});
@@ -192,34 +168,16 @@ const PolicyCallOut = (
 	<HexWrapCallOut
 		{...callout_content_policy}
 		themeId={-1}
-		// styleOverides={{ backgroundColor: "transparent" }}
 	/>
 );
-
-// const HexGridItem: React.FC<{
-// 	element: ValidComponent;
-// 	hexStyleOverride?: React.CSSProperties;
-// }> = ({
-// 	element,
-// 	hexStyleOverride = { borderColor: "black", colour: "transparent" },
-// }) => (
-// 	<div style={HexWapStyle}>
-// 		<VertHexagon
-// 			args={hexStyleOverride}
-// 			element={element}
-// 		/>
-// 	</div>
-// );
-// const comps = [
-// 	<HexGridItem element={ConsultancyCallout} />,
-// 	<HexGridItem element={TrainingCallout} />,
-// 	<HexGridItem element={PolicyCallOut} />,
-// ];
 
 const wGif = (
 	<div style={{ display: "flex", maxWidth: "100%" }}>
 		{/* {getImageEl(wgif, { width: "100%" })} */}
-		{getImageEl(aicompwork, { width: "100%" })}
+		{getImageEl(aicompwork, {
+			width: "100%",
+			borderRadius: "18px",
+		})}
 	</div>
 );
 export const AboutUsCallingCard: React.FC = () => (
@@ -237,7 +195,7 @@ export const AboutUsCallingCard: React.FC = () => (
 					}}
 				>
 					<PartnershipBar
-						{...partners}
+						{...(large_partners as any)}
 						index={-1}
 					/>
 				</div>

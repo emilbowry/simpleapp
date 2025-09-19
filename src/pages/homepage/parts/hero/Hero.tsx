@@ -3,16 +3,17 @@ import {
 	Hexagon,
 	LogoHexagon,
 	ImageHexagon,
-} from "../../../components/hexagons/Hexagons";
-import { HexagonGrid } from "../../../components/hexagons/hexagonRow/HexagonRow";
+} from "../../../../components/hexagons/Hexagons";
+import { HexagonGrid } from "../../../../components/hexagons/hexagonRow/HexagonRow";
 import {
 	purple,
 	l_midnight_green,
 	light_mix_green,
 	light_grey,
-} from "../../../utils/defaultColours";
-import hi1 from "../../../assets/heroimage1.jpg";
-import hi2 from "../../../assets/heroimage2.jpg";
+} from "../../../../utils/defaultColours";
+import hi1 from "../../../../assets/heroimage1.jpg";
+import hi2 from "../../../../assets/heroimage2.jpg";
+import hi3 from "../../../../assets/heroimage3.jpg";
 
 const textEl = (
 	<div
@@ -53,8 +54,7 @@ export const Hero: React.FC = () => {
 		null,
 		// <Hexagon args={{ colour: light_grey }} />,
 		null,
-
-		<Hexagon args={{ colour: l_midnight_green }} />,
+		<ImageHexagon args={{ img: hi3 }} />, //subclass of Hexagon
 	] as const;
 	const secondRow = [
 		<ImageHexagon args={{ img: hi1 }} />,

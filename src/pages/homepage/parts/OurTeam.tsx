@@ -1,5 +1,3 @@
-// src/pages/homepage/parts/OurTeam.tsx
-
 import React from "react";
 import { ImageHexagon } from "../../../components/hexagons/Hexagons";
 import { genericSectionStyle, Theme } from "../../../styles";
@@ -20,11 +18,8 @@ interface IPersona {
 const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "30% 70%",
-	// gridTemplateColumns: "100%",
 	height: "100%",
 	width: "100%",
-	// alignContent: "center",
-	// justifyContent: "space-between",
 	justifyContent: "center",
 };
 export class Persona extends React.Component<IPersona> {
@@ -65,46 +60,23 @@ export class Persona extends React.Component<IPersona> {
 				{descrition}
 			</div>
 		);
-
 		return (
-			<div
-				style={
-					{
-						// ...genericSectionStyle,
-						// border: "1px solid red",
-						// display: "flex",
-						// flexDirection: "column",
-						// height: "100%",
-						// margin: "auto",
-						// padding: "auto",
-					}
-				}
-			>
+			<div style={{}}>
 				<div
 					style={{
-						// ...genericSectionStyle,
 						...personaWrapperStyle,
 					}}
 				>
 					{/* <div style={{ height: "100%" }}> */}
 					<div
 						style={{
-							// ...genericSectionStyle,
 							boxSizing: "border-box",
-
-							// maxHeight: "80%",
 							maxHeight: "30vh",
 							minHeight: 0,
 							minWidth: 0,
 							maxWidth: "100%",
-
-							// // maxHeight: "10vh",
-							// height: "80%"
 							height: "100%",
-							// width: "100%",
 							aspectRatio: `${2 / Math.sqrt(3)}`,
-
-							// height: "inherit",
 							padding: "5%",
 							margin: "auto",
 							display: "flex",
@@ -113,27 +85,15 @@ export class Persona extends React.Component<IPersona> {
 							alignContent: "center",
 						}}
 					>
-						<ImageHexagon
-							args={{ img: image }}
-							// height="100%"
-						/>
+						<ImageHexagon args={{ img: image }} />
 					</div>
 					{/* </div> */}
 					<div
 						style={{
-							// ...genericSectionStyle,
-
 							backgroundColor: theme.backgroundColor,
 							borderRadius: "100px 0 0 100px",
-							// height: "100%",
-							// maxHeight: "30vh",
 							height: "30vh",
-
 							margin: "auto",
-							// display: "flex",
-							// flexDirection: "column",
-							// height: "100%",
-							// margin: "auto 0",
 						}}
 					>
 						{textual}
@@ -173,9 +133,7 @@ export const OurTeam: React.FC = () => (
 		style={{
 			display: "grid",
 			rowGap: "1%",
-			// gridTemplateRows: "20% 20% 20% 20% 20%",
 			width: "100%",
-			// height: "80%",
 			padding: "auto",
 			paddingBottom: "10%",
 		}}
@@ -203,7 +161,6 @@ marketing strategy, operations and growth vision."
 				fullSpread={true}
 			/>
 		</div>
-
 		<div>
 			<CallingCard
 				components={[
@@ -224,9 +181,7 @@ for Suffrago. "
 				fullSpread={true}
 			/>
 		</div>
-
 		<div>
-			{" "}
 			<CallingCard
 				components={[
 					<Persona
@@ -245,7 +200,6 @@ forward-thinking approach."
 				fullSpread={true}
 			/>
 		</div>
-
 		<div>
 			<CallingCard
 				components={[
