@@ -20,6 +20,7 @@ export const PartnerStyles: {
 	},
 	Large: {
 		// ...genericSectionStyle,
+		position: "relative",
 
 		justifyContent: "center",
 		alignItems: "center",
@@ -29,7 +30,6 @@ export const PartnerStyles: {
 };
 
 export const marqueeFrameStyle: React.CSSProperties = {
-	...genericSectionStyle,
 	margin: "0 10%",
 	position: "relative",
 	border: "1px solid",
@@ -39,6 +39,9 @@ export const marqueeFrameStyle: React.CSSProperties = {
 	zIndex: 99,
 
 	backgroundColor: "rgb(255 255 255 / 40%)",
+	background: `linear-gradient(to right, rgb(255 222 89 / 20%) 0%, rgb(12 192 223 / 20%)) 100%,
+
+		rgb(255 255 255 / 20%)`,
 	backdropFilter: "blur(8px)",
 };
 
@@ -67,7 +70,7 @@ export const marqueeContentStyle: React.CSSProperties = {
 
 export const partnerWrapperStyle: React.CSSProperties = {
 	flexShrink: 0,
-	// zIndex: -1,
+	zIndex: -1,
 	position: "relative",
 	margin: "0 30px",
 	justifyContent: "space-between",

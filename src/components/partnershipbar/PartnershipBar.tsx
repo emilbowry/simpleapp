@@ -81,8 +81,8 @@ class PartnerImage extends React.Component<
 						// ...genericSectionStyle,
 
 						filter: this.state.isHovered
-							? "saturate(1)"
-							: "saturate(0)",
+							? "saturate(1) grayscale(0)  brightness(1)"
+							: "saturate(0)  grayscale(1) brightness(0)",
 						transition: "filter 0.3s ease-in-out",
 						justifyContent: "center",
 					}}
@@ -182,7 +182,6 @@ export class PartnershipBar extends React.Component<
 
 				return (
 					<div
-						className="no-aos"
 						style={{
 							...staticStyle,
 							// gap: "-100px",

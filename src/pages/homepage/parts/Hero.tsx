@@ -9,6 +9,7 @@ import {
 	purple,
 	l_midnight_green,
 	light_mix_green,
+	light_grey,
 } from "../../../utils/defaultColours";
 import hi1 from "../../../assets/heroimage1.jpg";
 import hi2 from "../../../assets/heroimage2.jpg";
@@ -17,11 +18,15 @@ const textEl = (
 	<div
 		style={{
 			color: " #066070",
+			display: "flex",
+			flexDirection: "column",
+			maxHeight: "100%",
 		}}
 	>
 		<div
 			style={{
 				fontStyle: "italic",
+				fontSize: "200%",
 			}}
 		>
 			<div>
@@ -35,6 +40,7 @@ const textEl = (
 		<div
 			style={{
 				fontWeight: "bold",
+				fontSize: "1.4rem",
 			}}
 		>
 			- Joe Fennel
@@ -45,7 +51,8 @@ const textEl = (
 export const Hero: React.FC = () => {
 	const firstRow = [
 		null,
-		<Hexagon args={{ colour: light_mix_green }} />,
+		// <Hexagon args={{ colour: light_grey }} />,
+		null,
 
 		<Hexagon args={{ colour: l_midnight_green }} />,
 	] as const;
@@ -59,7 +66,7 @@ export const Hero: React.FC = () => {
 	const thirdRow = [
 		null,
 		<Hexagon
-			args={{ colour: purple }}
+			args={{ colour: light_mix_green }}
 			element={textEl}
 		/>,
 		null,

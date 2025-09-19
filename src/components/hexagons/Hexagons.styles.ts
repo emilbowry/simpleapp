@@ -41,7 +41,7 @@ export const containerStyle = ({
 		/* fontSize:0 is key to provent weird svg dimensioning issues, ensure we reset if includes jsx elements also */
 		fontSize: 0,
 		overflow: "visible",
-		opacity,
+		opacity: `${opacity} !important`,
 	};
 };
 

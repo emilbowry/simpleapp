@@ -152,7 +152,7 @@ export class ImageHexagon extends Hexagon {
 				<image
 					href={img}
 					width="1"
-					height="1"
+					height={`${2 / Math.sqrt(3)} `}
 					preserveAspectRatio="xMidYMid slice"
 				/>
 			</pattern>

@@ -1,13 +1,14 @@
 // src/pages/homepage/parts/AboutUS.tsx
 
 import React from "react";
-import bulb from "../../../../assets/bulb.svg";
-// import bulb from "../../../../assets/simplebulb.svg";
-// import target from "../../../../assets/bullseye.svg";
-import target from "../../../../assets/target.svg";
+// import bulb from "../../../../assets/bulb.svg";
+import bulb from "../../../../assets/simplebulb.svg";
+import target from "../../../../assets/bullseye.svg";
+// import target from "../../../../assets/target.svg";
+import aicompwork from "../../../../assets/aicwork.jpg";
 
-// import pen from "../../../../assets/pencil.svg";
-import pen from "../../../../assets/pen.svg";
+import pen from "../../../../assets/pencil.svg";
+// import pen from "../../../../assets/pen.svg";
 
 import HM from "../../../../assets/HewardMills.png";
 import AZ from "../../../../assets/AZ.png";
@@ -122,7 +123,7 @@ const callout_content_consultancy = {
 	header: (
 		<BoxedImage
 			image={bulb}
-			width="40%"
+			width="30%"
 			aspectRatio="1"
 			imageStyling={imageStyling}
 		/>
@@ -155,7 +156,7 @@ const callout_content_training = {
 	header: (
 		<BoxedImage
 			image={target}
-			width="40%"
+			width="30%"
 			aspectRatio="1"
 			imageStyling={imageStyling}
 		/>
@@ -181,7 +182,7 @@ const callout_content_policy = {
 	header: (
 		<BoxedImage
 			image={pen}
-			width="40%"
+			width="30%"
 			aspectRatio="1"
 			imageStyling={imageStyling}
 		/>
@@ -217,7 +218,8 @@ const PolicyCallOut = (
 
 const wGif = (
 	<div style={{ display: "flex", maxWidth: "100%" }}>
-		{getImageEl(wgif, { width: "100%" })}
+		{/* {getImageEl(wgif, { width: "100%" })} */}
+		{getImageEl(aicompwork, { width: "100%" })}
 	</div>
 );
 export const AboutUsCallingCard: React.FC = () => (

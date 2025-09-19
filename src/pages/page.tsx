@@ -26,12 +26,11 @@ const ScrollVisibilityDependent: React.FC<{
 	const [isVisible, setIsVisible] = useState(false);
 	const [opacity, setOpacity] = useState(0);
 
-	const viewportHeight = window.innerHeight;
-	const visability_mid = _percentage * viewportHeight * footerVH;
-	const visability_top = borders[0] * viewportHeight * footerVH;
-	const visability_bottom = borders[1] * viewportHeight * footerVH;
-
 	const handleScroll = useCallback(() => {
+		const viewportHeight = window.innerHeight;
+		const visability_mid = _percentage * viewportHeight * footerVH;
+		const visability_top = borders[0] * viewportHeight * footerVH;
+		const visability_bottom = borders[1] * viewportHeight * footerVH;
 		const currentScrollY = window.scrollY;
 		const docHeight = document.documentElement.scrollHeight;
 		const offset = docHeight - (1 + footerVH) * viewportHeight;
@@ -93,7 +92,7 @@ export const BackgroundStyle: React.CSSProperties = {
 const DemoTiledBackground = () => {
 	return <div style={BackgroundStyle}></div>;
 };
-import { demoSmallPartnershipBarData } from "./homepage/parts/smallPartnershipBar";
+import { partners } from "./homepage/parts/Partners";
 import { TestPillTitleBar as AppTitleBar } from "../components/titlebar/TitleBar";
 
 const Footer: React.FC<{
@@ -296,7 +295,7 @@ const footer_comp: React.FC = () => {
 					<ScrollVisibilityDependent
 						element={
 							<PartnershipBar
-								{...demoSmallPartnershipBarData}
+								{...partners}
 								index={-1}
 							/>
 						}
@@ -383,13 +382,13 @@ const footer_comp: React.FC = () => {
 					>
 						<ScrollVisibilityDependent
 							element={
-								<h2>
-									<BoxedImage
-										image={logo}
-										aspectRatio={`${Math.sqrt(3) / 2}`}
-										width={"50%"}
-									/>
-								</h2>
+								// <h2>
+								<BoxedImage
+									image={logo}
+									aspectRatio={`${Math.sqrt(3) / 2}`}
+									width={"50%"}
+								/>
+								// </h2>
 							}
 							styling={centerable}
 							percentage={0.5 * (1 / 3)}

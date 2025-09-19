@@ -47,7 +47,11 @@ export class Persona extends React.Component<IPersona> {
 						{title ? ` - ${title}` : null}
 					</span>
 				</h3>
-				{email ? <div>{email}</div> : <div></div>}
+				{email ? (
+					<div style={{ color: theme.primaryColor }}>{email}</div>
+				) : (
+					<div></div>
+				)}
 			</div>
 		);
 		const descrition = (

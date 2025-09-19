@@ -31,7 +31,7 @@ import {
 	lighter_logo_blue,
 	bgwhite,
 } from "./utils/defaultColours";
-
+export const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%) 1`;
 export const genericSectionStyle: React.CSSProperties = {
 	border: "1px solid black",
 	backgroundColor: "rgba(255, 0, 0, 0.2)",
@@ -41,7 +41,7 @@ export const Theme = (index: number) => {
 	const theme = {
 		backgroundColor: bgwhite,
 		primaryColor: midnight_green,
-		secondaryColor: l_midnight_green,
+		secondaryColor: dark_mix_green,
 		tertiaryColor: logo_blue,
 	};
 	if (index === -1) {

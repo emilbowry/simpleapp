@@ -329,7 +329,7 @@ export interface IThemedComponentProps {
 	debugStyles?: boolean | string[];
 }
 export const DebugSectionStyle: React.CSSProperties = {
-	border: "1px solid fuchsia !important", // Changed color to be obvious
+	border: "1px solid black !important", // Changed color to be obvious
 	backgroundColor: "rgba(255, 0, 255, 0.2) !important",
 	boxSizing: "border-box",
 };

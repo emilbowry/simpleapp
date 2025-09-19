@@ -4,7 +4,7 @@ import { Hero } from "./parts/Hero";
 import { DemoLayout } from "../DemoLayout";
 import { ImpactCC } from "./parts/impact/impact";
 import { AboutUsCallingCard, VHexGrid } from "./parts/about-us/AboutUs";
-import { LargePB } from "./parts/smallPartnershipBar";
+import { LargePB } from "./parts/Partners";
 
 export const homePage: React.FC = () => {
 	return (

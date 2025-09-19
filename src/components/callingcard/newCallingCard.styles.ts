@@ -1,7 +1,8 @@
 // src/components/callingcard/newCallingCard.styles.ts
 
 import React from "react";
-import { genericSectionStyle } from "../../styles";
+import { borderGrad, genericSectionStyle } from "../../styles";
+import { logo_blue, logo_yellow } from "../../utils/defaultColours";
 
 export const containerStyle: React.CSSProperties = {
 	// ...genericSectionStyle,
@@ -43,7 +44,10 @@ export const lowerContainerStyle = (
 	paddingTop: "2%",
 
 	display: "flex",
-	borderTop: borderColour ? `2px solid ${borderColour}` : "",
+	borderTop: borderColour ? `4px solid` : "",
+	borderImage: borderGrad,
+	// borderStyle: "solid",
+	// borderWidth: "2px",
 });
 export const lowerHalfWrapperStyle: React.CSSProperties = {
 	flexGrow: 1,

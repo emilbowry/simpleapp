@@ -1,4 +1,5 @@
 import React from "react";
+import { Theme } from "./styles";
 
 type TDefKey = `def_${string}`;
 type TDefEntries<T> = {
@@ -350,82 +351,101 @@ type GuardFn<TArgs extends any[], TResult> = (
 	...args: TArgs
 ) => TResult;
 
-// class Styler<T extends TDefinition, S extends Style<T>> {
-// 	[key: string]: S;
-// 	stype: S;
-// 	// /* convenience function as a guard */
-// 	constructor(style: S) {
-// 		this.stype = style;
-// 	}
-// 	private guard<TArgs extends any[], TTruthy, TFalsy>(
-// 		name: TName,
-// 		truthy: GuardFn<TArgs, TTruthy>,
-// 		falsy: GuardFn<TArgs, TFalsy>,
-// 		...args: TArgs
-// 	): TTruthy | TFalsy {
-// 		return this[name] ? truthy(name, ...args) : falsy(name, ...args);
-// 	}
+type ThemeMapping = {
+	[key in keyof ReturnType<typeof Theme>]?: (keyof React.CSSProperties)[];
+};
+class Styler<
+	T extends TDefinition & TOverridable,
+	S extends OverridableStyle<T>
+> {
+	[key: string]: any;
+	overrides: React.CSSProperties;
+	constructor(style: S, overrides: React.CSSProperties = {}, theme?: number) {
+		this.stype = style;
+		this.overrides = overrides;
+		// if (theme){
+		// 	// this.overrides
+		// }
+	}
 
-// 	private addStyle = (name: TName, update?: Partial<T>) => {
-// 		this[name] = new (this.stype as any)(update);
-// 		return this[name];
-// 	};
-// 	// private _updateStyle() {
-// 	// 	return [
-// 	// 		(name: TName, definition: Partial<IProtoStyle>) => {
-// 	// 			// const style = this[name];
-// 	// 			if (this[name].needsUpdating(definition)) {
-// 	// 				this[name].updateDef(definition);
-// 	// 			}
-// 	// 		},
-// 	// 		this.addStyle,
-// 	// 	] as const;
-// 	// }
+	protected addStyle = (name: TName, update: T) => {
+		let local_overrides = {};
+		if (update?.def_overrides) {
+			local_overrides = {
+				def_overrides: { ...local_overrides, ...this.overrides },
+			};
+		}
+		this[name] = new (this.stype as any)({
+			...update,
+			...this.applyOverrides(update),
+		});
+		return this[name];
+	};
 
-// 	// private _getStyle() {
-// 	// 	const truthyFn = (
-// 	// 		name: string,
-// 	// 		definition?: IProtoStyle,
-// 	// 		invoke?: boolean
-// 	// 	) => {
-// 	// 		return this[name];
-// 	// 	};
+	protected guard<TArgs extends any[], TTruthy, TFalsy>(
+		name: TName,
+		truthy: GuardFn<TArgs, TTruthy>,
+		falsy: GuardFn<TArgs, TFalsy>,
+		...args: TArgs
+	): TTruthy | TFalsy {
+		return this[name] ? truthy(name, ...args) : falsy(name, ...args);
+	}
+	private applyOverrides(update: Partial<T>) {
+		let local_overrides = {};
+		if (update?.def_overrides) {
+			local_overrides = {
+				def_overrides: { ...local_overrides, ...this.overrides },
+			};
+		}
+		return local_overrides;
+	}
+	private _getStyle() {
+		const truthyFn = (name: string, definition?: T, invoke?: boolean) => {
+			return this[name];
+		};
 
-// 	// 	const falsyFn = (
-// 	// 		name: string,
-// 	// 		definition?: IProtoStyle,
-// 	// 		invoke?: boolean
-// 	// 	) => {
-// 	// 		return this.addStyle(name as TName, definition);
-// 	// 	};
+		const falsyFn = (name: string, definition?: T, invoke?: boolean) => {
+			return this.addStyle(name as TName, definition!);
+		};
 
-// 	// 	return [truthyFn, falsyFn] as const;
-// 	// }
-// 	// updateStyle(name: TName, definition: IProtoStyle) {
-// 	// 	return this.guard(name, ...this._updateStyle(), definition);
-// 	// }
-// 	// getStyle(name: TName, definition?: IProtoStyle, invoke?: boolean) {
-// 	// 	return this.guard(name, ...this._getStyle(), definition, invoke);
-// 	// }
-// 	// public applyOverride(
-// 	// 	name: TName,
-// 	// 	css: React.CSSProperties = {}
-// 	// ): React.CSSProperties & ((...args: any[]) => React.CSSProperties) {
-// 	// 	const functor = (...runtimeArgs: any[]): React.CSSProperties => {
-// 	// 		const baseStyleObject = this.getStyle(name);
-// 	// 		if (!baseStyleObject) {
-// 	// 			return css;
-// 	// 		}
+		return [truthyFn, falsyFn] as const;
+	}
 
-// 	// 		const computedBase = baseStyleObject.call(...runtimeArgs);
+	protected getStyle(name: TName, definition?: T, invoke?: boolean) {
+		return this.guard(name, ...this._getStyle(), definition, invoke);
+	}
 
-// 	// 		return { ...computedBase, ...css };
-// 	// 	};
+	private _updateStyle() {
+		return [
+			(name: TName, definition: Partial<T>) => {
+				// if (this[name].needsUpdating(definition)) {
+				// 	this[name].updateDef(definition);
+				// }
+				this[name] = new this[name]({
+					...definition,
+					...this.applyOverrides(definition),
+				});
+			},
+			this.addStyle,
+		] as const;
+	}
+	protected updateStyle(name: TName, definition: T) {
+		return this.guard(name, ...this._updateStyle(), definition);
+	}
 
-// 	// 	const styleForSpreading = functor();
-
-// 	// 	Object.assign(functor, styleForSpreading);
-// 	// 	return functor as React.CSSProperties &
-// 	// 		((...args: any[]) => React.CSSProperties);
-// 	// }
-// }
+	private getThemedCSS(mapping: ThemeMapping): React.CSSProperties {
+		const cssProperties: React.CSSProperties = {};
+		for (const themeKey in mapping) {
+			if (Object.prototype.hasOwnProperty.call(this.theme, themeKey)) {
+				const cssPropertyNames =
+					mapping[themeKey as keyof ThemeMapping];
+				const colorValue =
+					this.theme[themeKey as keyof typeof this.theme];
+				cssPropertyNames?.forEach((cssPropertyName) => {
+					(cssProperties as any)[cssPropertyName] = colorValue;
+				});
+			}
+		}
+		return cssProperties;
+	}
+}

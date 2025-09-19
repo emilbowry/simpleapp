@@ -29,15 +29,21 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 	render() {
 		const { rows } = this.props;
 		const l = rows.length;
+		let margin_top = 0;
+		if (rows[0].elements[1] === null) {
+			margin_top = -(0.5 * 100) / l;
+		}
 		return (
-			<div style={container(rspacing, aspace, l)}>
-				{rows.map((row, _index) => (
-					<HexagonRow
-						key={_index}
-						elements={row.elements}
-						len={l}
-					/>
-				))}
+			<div style={{ marginTop: `${margin_top}%` }}>
+				<div style={container(rspacing, aspace, l)}>
+					{rows.map((row, _index) => (
+						<HexagonRow
+							key={_index}
+							elements={row.elements}
+							len={l}
+						/>
+					))}
+				</div>
 			</div>
 		);
 	}

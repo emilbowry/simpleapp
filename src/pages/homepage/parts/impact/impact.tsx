@@ -3,7 +3,7 @@
 // import React from "react";
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 // import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
-import { Theme } from "../../../../styles";
+import { borderGrad, Theme } from "../../../../styles";
 const idx = 1;
 let theme = Theme(idx);
 
@@ -11,15 +11,13 @@ const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
 	fontSize: "3rem",
 	fontWeight: "500",
-	justifySelf: "center",
-	backgroundColor: "red",
-	zIndex: "99",
 };
 const calling_card_title = <h2>How is AI impacting business</h2>;
 const stat_body_style: React.CSSProperties = {
 	color: theme.primaryColor,
 
-	borderTop: `1px solid ${theme.secondaryColor}`,
+	borderTop: `1px solid`,
+	borderImage: borderGrad,
 	// marginTop: "-1%",
 	fontSize: "2rem",
 };
@@ -49,27 +47,7 @@ const stat_card_three = {
 		</p>
 	),
 };
-export const ImpactCallingCard: React.FC = () => {
-	return (
-		<CallingCard
-			components={[
-				<TriPartCallout_ALT
-					{...stat_card_one}
-					index={1}
-				/>,
-				<TriPartCallout_ALT
-					{...stat_card_two}
-					index={1}
-				/>,
-				<TriPartCallout_ALT
-					{...stat_card_three}
-					index={1}
-				/>,
-			]}
-			index={1}
-		/>
-	);
-};
+
 // src/pages/homepage/parts/AboutUS.tsx
 // src/pages/homepage/parts/AboutUS.tsx
 
@@ -160,7 +138,7 @@ export const ImpactCC: React.FC = () => (
 					<FounderLetter index={1} />
 				</div>,
 			]}
-			title={head}
+			title={<></>}
 			footer={foot}
 			index={1}
 			styleOverrides={{

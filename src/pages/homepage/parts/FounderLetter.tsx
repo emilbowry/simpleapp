@@ -5,7 +5,7 @@ import logo from "../../../assets/logo.png";
 import cam from "../../../assets/cam.png";
 import LH from "../../../assets/leverCent.png";
 
-import { getImageEl } from "../../../utils/reactUtils";
+import { BoxedImage, getImageEl } from "../../../utils/reactUtils";
 import { Theme } from "../../../styles";
 import { CallingCard } from "../../../components/callingcard/CallingCard";
 const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
@@ -32,10 +32,11 @@ const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 				}}
 			>
 				<div style={{ display: "flex", flexDirection: "column" }}>
-					{getImageEl(logo, {
-						aspectRatio: `${2 / Math.sqrt(3)}`,
-						width: "100%",
-					})}
+					<BoxedImage
+						image={logo}
+						aspectRatio={`${Math.sqrt(3) / 2}`}
+						width={"50%"}
+					/>
 				</div>
 				<div style={{ alignContent: "center" }}>
 					<h3 style={{ color: theme.primaryColor }}>Joe Fennel</h3>
@@ -71,7 +72,7 @@ export const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	const letter = (
 		<div
 			style={{
-				isolation: "isolate",
+				// isolation: "isolate",
 				width: "100%",
 				// alignContent: "flex-end",
 				// justifyContent: "left",
