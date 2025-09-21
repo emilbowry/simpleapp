@@ -6,6 +6,7 @@ import { Theme } from "../../styles";
 import {
 	PartnerStyles,
 	imageStyle,
+	keyframes,
 	// keyframes,
 	marqueeContentStyle,
 	marqueeFrameStyle,
@@ -25,27 +26,8 @@ export const WallLayout = (n: number): [number, number, number] => {
 	const c = Math.floor((n + 1) / 3) - (((n + 1) % Math.min(n, 3)) % 2); // Calculates the bottom row
 	return [a, n - (a + c), c]; // invariant: exists x in {a, n-(a+c)} s.t c <= x
 };
-const keyframes = `
-  @keyframes slide-in {
-	from {
-	  transform: translateX(0%);
-	}
-	to {
-	  transform: translateX(-100%);
-	}
-  }
-`;
-const MarqueeKeyframes = () => {
-	React.useEffect(() => {
-		const styleTag = document.createElement("style");
-		styleTag.innerHTML = keyframes;
-		document.head.appendChild(styleTag);
-		return () => {
-			document.head.removeChild(styleTag);
-		};
-	}, []);
-	return null;
-};
+
+// const
 
 class PartnerImage extends React.Component<
 	IPartnerImageProps,
@@ -105,7 +87,17 @@ export class PartnershipBar extends React.Component<
 			smallViewPort: false,
 		};
 	}
-
+	MarqueeKeyframes() {
+		React.useEffect(() => {
+			const styleTag = document.createElement("style");
+			styleTag.innerHTML = keyframes;
+			document.head.appendChild(styleTag);
+			return () => {
+				document.head.removeChild(styleTag);
+			};
+		}, []);
+		return null;
+	}
 	checkViewportWidth = () => {
 		if (this.props.size !== "Large") return;
 
@@ -184,20 +176,11 @@ export class PartnershipBar extends React.Component<
 					<div
 						style={{
 							...staticStyle,
-							// gap: "-100px",
 							backgroundColor: "transparent",
 						}}
 					>
 						<div style={rowLayout(topCount, maxBricks)}>
 							{topRow.map((partner, _index) => (
-								/* 		<div //used for debugging
-									style={{
-										width: "200px",
-										height: "100px",
-
-										backgroundColor: "red",
-									}}
-								/> */
 								<PartnerImage
 									key={_index}
 									partner={partner}
@@ -212,13 +195,6 @@ export class PartnershipBar extends React.Component<
 									partner={partner}
 									size={size}
 								/>
-								/* 	<div //used for debugging
-									style={{
-										width: "200px",
-										height: "100px",
-										backgroundColor: "red",
-									}}
-								/> */
 							))}
 						</div>
 						<div style={rowLayout(bottomCount, maxBricks)}>
@@ -228,13 +204,6 @@ export class PartnershipBar extends React.Component<
 									partner={partner}
 									size={size}
 								/>
-								/* 	<div //used for debugging
-									style={{
-										width: "200px",
-										height: "100px",
-										backgroundColor: "red",
-									}}
-								/> */
 							))}
 						</div>
 					</div>
@@ -242,9 +211,10 @@ export class PartnershipBar extends React.Component<
 			}
 		} else if (size === "Small") {
 			const numSets = Array.from({ length: 3 }, (_, i) => i);
+
 			return (
 				<div className="no-aos">
-					<MarqueeKeyframes />
+					<this.MarqueeKeyframes />
 					<div style={marqueeFrameStyle}>
 						<div style={marqueeWindowStyle}>
 							<div style={marqueeContentStyle}>

@@ -199,12 +199,12 @@ class Style<TDefs extends TProtoStyle>
 	}
 
 	init_computer(proto_style: TDefs) {
-		const definitionsToProcess = getUpdate(proto_style) as TDefs; // SEEMS dumb as hell why not infered since it extends protostyle
+		const definitionsToProcess = getUpdate(proto_style);
 
 		for (const key in definitionsToProcess) {
 			if (key in this.processors) {
-				const processor = this.processors[key];
-				const value = definitionsToProcess[key];
+				const processor = this.processors[key as keyof TDefs];
+				const value = definitionsToProcess[key] as TDefs[keyof TDefs]; // SEEMS dumb as hell
 				processor(value);
 			}
 		}
@@ -263,3 +263,184 @@ const proto_style: TProtoStyle = {
 // interface IOverridableProtoStyle extends TProtoStyle {
 // 	;
 // }
+type TOverridable = { def_overrides: React.CSSProperties } & TProtoStyle;
+
+class OverridableStyle<T extends Required<TOverridable>> extends Style<T> {
+	getDefinitions() {
+		return { ...super.getDefinitions(), def_overrides: {} };
+	}
+
+	getProcessors() {
+		return {
+			...super.getProcessors(),
+			def_overrides: (overrides: React.CSSProperties) => {
+				this.definitions.def_overrides = overrides;
+
+				Object.assign(this, { ...overrides });
+			},
+		};
+	}
+	def_overrides(overrides: React.CSSProperties) {
+		this.definitions.def_overrides = overrides;
+
+		Object.assign(this, { ...overrides });
+	}
+
+	init_resolver(update: T, ...args: ArbitraryArgs) {
+		console.log("H");
+		super.init_resolver(update);
+		console.log(update);
+
+		const { def_overrides } = update;
+		console.log();
+		this.definitions.def_overrides = def_overrides;
+		console.log(this.definitions.def_overrides);
+
+		Object.assign(this, {
+			...this.definitions.def_overrides,
+		});
+	}
+	func_resolver(overrides: React.CSSProperties, ...arg: ArbitraryArgs) {
+		Object.assign(this.functor, {
+			...overrides,
+			...this.definitions.def_overrides,
+		});
+	}
+}
+
+console.log("\n--- Test Case 1: Simple Static Overrides ---");
+const staticBaseStyle: React.CSSProperties = {
+	backgroundColor: "blue",
+	padding: "10px",
+};
+const overrideStyle: React.CSSProperties = {
+	backgroundColor: "red", // Should override blue
+	borderRadius: "5px", // Should be added
+};
+
+const protoStyle1: TOverridable = {
+	def_default_static_css: staticBaseStyle,
+	def_overrides: overrideStyle,
+	def_default_styling_function: () => ({}), // No dynamic function for this test
+	def_default_args: [],
+};
+
+const s1 = new OverridableStyle<TOverridable>(protoStyle1) as any;
+
+console.log(s1);
+// Expected: { backgroundColor: 'red', padding: '10px', borderRadius: '5px' }
+console.log("s1 (callable):", s1());
+// Expected: { backgroundColor: 'red', padding: '10px', borderRadius: '5px' }
+// console.log("s1 (after call) === s1 (before call):", s1 === s1());
+// Expected: true (due to in-place mutation and return of self)
+
+// const f = () => {};
+
+type TStyle = `${string}_style${string | ""}`;
+
+type TName = `${string}_style`;
+type TThemeName = `${string}_style.${number}`;
+
+type GuardFn<TArgs extends any[], TResult> = (
+	name: TName,
+	...args: TArgs
+) => TResult;
+
+type ThemeMapping = {
+	[key in keyof ReturnType<typeof Theme>]?: (keyof React.CSSProperties)[];
+};
+class Styler<
+	T extends TDefinition & TOverridable,
+	S extends OverridableStyle<T>
+> {
+	[key: string]: any;
+	overrides: React.CSSProperties;
+	constructor(style: S, overrides: React.CSSProperties = {}, theme?: number) {
+		this.stype = style;
+		this.overrides = overrides;
+		// if (theme){
+		// 	// this.overrides
+		// }
+	}
+
+	protected addStyle = (name: TName, update: T) => {
+		let local_overrides = {};
+		if (update?.def_overrides) {
+			local_overrides = {
+				def_overrides: { ...local_overrides, ...this.overrides },
+			};
+		}
+		this[name] = new (this.stype as any)({
+			...update,
+			...this.applyOverrides(update),
+		});
+		return this[name];
+	};
+
+	protected guard<TArgs extends any[], TTruthy, TFalsy>(
+		name: TName,
+		truthy: GuardFn<TArgs, TTruthy>,
+		falsy: GuardFn<TArgs, TFalsy>,
+		...args: TArgs
+	): TTruthy | TFalsy {
+		return this[name] ? truthy(name, ...args) : falsy(name, ...args);
+	}
+	private applyOverrides(update: Partial<T>) {
+		let local_overrides = {};
+		if (update?.def_overrides) {
+			local_overrides = {
+				def_overrides: { ...local_overrides, ...this.overrides },
+			};
+		}
+		return local_overrides;
+	}
+	private _getStyle() {
+		const truthyFn = (name: string, definition?: T, invoke?: boolean) => {
+			return this[name];
+		};
+
+		const falsyFn = (name: string, definition?: T, invoke?: boolean) => {
+			return this.addStyle(name as TName, definition!);
+		};
+
+		return [truthyFn, falsyFn] as const;
+	}
+
+	protected getStyle(name: TName, definition?: T, invoke?: boolean) {
+		return this.guard(name, ...this._getStyle(), definition, invoke);
+	}
+
+	private _updateStyle() {
+		return [
+			(name: TName, definition: Partial<T>) => {
+				// if (this[name].needsUpdating(definition)) {
+				// 	this[name].updateDef(definition);
+				// }
+				this[name] = new this[name]({
+					...definition,
+					...this.applyOverrides(definition),
+				});
+			},
+			this.addStyle,
+		] as const;
+	}
+	protected updateStyle(name: TName, definition: T) {
+		return this.guard(name, ...this._updateStyle(), definition);
+	}
+
+	private getThemedCSS(mapping: ThemeMapping): React.CSSProperties {
+		const cssProperties: React.CSSProperties = {};
+		for (const themeKey in mapping) {
+			if (Object.prototype.hasOwnProperty.call(this.theme, themeKey)) {
+				const cssPropertyNames =
+					mapping[themeKey as keyof ThemeMapping];
+				const colorValue =
+					this.theme[themeKey as keyof typeof this.theme];
+				cssPropertyNames?.forEach((cssPropertyName) => {
+					(cssProperties as any)[cssPropertyName] = colorValue;
+				});
+			}
+		}
+		return cssProperties;
+	}
+}

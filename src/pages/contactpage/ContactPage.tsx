@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { CallOut } from "../../components/callingcard/callout/CallOut";
+import { CallOut as CallOut } from "../../components/callingcard/callout/CallOut";
 import { formatComponent, ValidComponent } from "../../utils/reactUtils";
 import { CallingCard } from "../../components/callingcard/CallingCard";
 import { BackgroundStyle } from "../../styles";

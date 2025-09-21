@@ -30,6 +30,10 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 		const { rows } = this.props;
 		const l = rows.length;
 		let margin_top = 0;
+		/*
+			To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
+			- may expand later to auto adjust based on bottom layout
+		*/
 		if (rows[0].elements[1] === null) {
 			margin_top = -(0.5 * 100) / l;
 		}

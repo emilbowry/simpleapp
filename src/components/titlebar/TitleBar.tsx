@@ -1,5 +1,7 @@
 // src/components/titlebar/TitleBar.tsx
-
+/**
+ * @improvement - this can be better generalised
+ */
 import React from "react";
 import logo from "../../assets/logo.png";
 import dropdownImage from "../../assets/dude1.jpg";
@@ -21,7 +23,6 @@ import {
 	navLinkStyles,
 	_titleBarStyles,
 	rightHandContainerStyles,
-	VISIBLE_TITLEBAR_HEIGHT,
 	pillBarOverrides,
 } from "./TitleBar.styles";
 import {

@@ -17,10 +17,60 @@ import {
 	rightBodyColumnStyle,
 	gridItemStyle,
 } from "./newCallingCard.styles";
-import { INewCallingCardProps } from "./newCallingCard.types";
+import {
+	I_NewCallingCardProps,
+	INewCallingCardProps,
+} from "./newCallingCard.types";
 // My css.d.ts file
 
-// function objToString(styleObj: any, parser?: import('./createParser').Parser): string;
+export class _NewCallingCard extends React.Component<I_NewCallingCardProps> {
+	theme: any;
+	generateContainer() {
+		const { styleOverrides = {} } = this.props;
+
+		let ContainerStyle = {
+			...containerStyle,
+			backgroundColor: this.theme.backgroundColor,
+			...styleOverrides,
+		};
+		return <div style={ContainerStyle}>{this.generateContent()}</div>;
+	}
+	generateContent() {
+		const {
+			components,
+			index = 0,
+			header,
+			body,
+			fullSpread = false,
+			styleOverrides = {},
+		} = this.props;
+		const borderColor = header ? this.theme.tertiaryColor : undefined;
+
+		return (
+			<>
+				{header ? (
+					<div style={headerContainerStyle}>
+						<div style={headerContentStyle}>
+							{formatComponent(header)}
+						</div>
+					</div>
+				) : null}
+
+				<div style={lowerContainerStyle(borderColor)}>
+					{formatComponent(body, true)}
+				</div>
+			</>
+		);
+	}
+	constructor(props: I_NewCallingCardProps) {
+		super(props);
+		this.theme = props.index ? Theme(props.index) : {};
+	}
+	render() {
+		return this.generateContainer();
+	}
+}
+
 export class NewCallingCard extends React.Component<INewCallingCardProps> {
 	render() {
 		const {
@@ -74,15 +124,11 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 					{footer || title ? (
 						<div style={leftBodyColumnStyle}>
 							{title ? (
-								<div
-									style={titleContainerStyle}
-									// className={s}
-								>
+								<div style={titleContainerStyle}>
 									<div
 										style={titleHeadingStyle(
 											theme.primaryColor
 										)}
-										// style={s}
 									>
 										{formatComponent(title)}
 									</div>
@@ -122,3 +168,12 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 		);
 	}
 }
+
+/* 
+
+I prefer this, but I think we can generalise it better. Lets omit the current footer logic from the original CallingCard
+We can generalise this into 2 sections, some flex header then a grid main block, same as the original calling card.
+
+We just now want a more specialised subclass of CallingCard that has the specific layout logic we want, i.e  _cardStyle ==
+
+*/

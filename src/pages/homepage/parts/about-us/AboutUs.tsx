@@ -11,7 +11,7 @@ import {
 
 import {
 	// TriPartCallout,
-	TriPartCallout_ALT,
+	TriPartCallout,
 } from "../../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
 import { VertHexagon } from "../../../../components/hexagons/Hexagons";
@@ -81,7 +81,7 @@ const large_partners = {
 	size: "Large",
 };
 
-export class HexWrapCallOut extends TriPartCallout_ALT {
+export class HexWrapCallOut extends TriPartCallout {
 	static {
 		this.styler.updateStyle("wrapperStyle_style", {
 			def_static_css: {
@@ -92,7 +92,6 @@ export class HexWrapCallOut extends TriPartCallout_ALT {
 		});
 	}
 }
-import pen from "../../../../assets/pencil.svg";
 
 const callout_content_consultancy = {
 	header: (

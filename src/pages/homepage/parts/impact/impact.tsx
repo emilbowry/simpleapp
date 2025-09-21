@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { TriPartCallout_ALT } from "../../../../components/callingcard/callout/CallOut";
+import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
 import { VerticalHexagonGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
 import { VertHexagon } from "../../../../components/hexagons/Hexagons";

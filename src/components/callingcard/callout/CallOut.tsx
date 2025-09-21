@@ -10,130 +10,16 @@ import {
 	_CallOutFooter_Style,
 } from "./CallOut.styles";
 
-import { ICallOut, IConstructedComponent } from "./CallOut.types";
+import {
+	ICallOut,
+	IConstructedComponent,
+	ITriPartCalloutProps,
+} from "./CallOut.types";
+
+import { ThemedComponent } from "../../../themecomp_v2";
 
 export class CallOut<P extends ICallOut = ICallOut>
 	extends ThemedComponent<P>
-	implements IConstructedComponent
-{
-	static {
-		this.declareStyle("CallOutBody", {
-			static_css: {
-				width: "100%",
-			},
-			theme_args: {
-				primaryColor: ["color"],
-			},
-		});
-		this.declareStyle("CallOutContainer", {
-			static_css: {
-				width: "100%",
-
-				display: "flex",
-				flexDirection: "column",
-			},
-			theme_args: {
-				backgroundColor: ["backgroundColor"],
-			},
-		});
-	}
-
-	constructor(props: P) {
-		super(props);
-	}
-
-	Container(arg?: any): React.ReactNode {
-		return (
-			<div
-				style={this.getStyle(
-					"CallOutContainer",
-					[],
-					this.props.styleOverides
-				)}
-			>
-				{this.Content()}
-			</div>
-		);
-	}
-	Content(): React.ReactNode {
-		return (
-			<div style={this.getStyle("CallOutBody")}>
-				{formatComponent(this.props.body)}
-			</div>
-		);
-	}
-
-	public generateNode(args?: any): React.ReactNode {
-		const wrapperStyle = this.getStyle("wrapperStyle");
-		return Object.keys(wrapperStyle).length ? (
-			<div style={wrapperStyle}>{this.Container(args)}</div>
-		) : (
-			<>{this.Container(args)}</>
-		);
-	}
-	render() {
-		return this.generateNode();
-	}
-}
-export interface ITriPartCalloutProps extends ICallOut {
-	header?: ValidComponent;
-	footer?: ValidComponent;
-}
-
-// export class TriPartCallout extends CallOut<ITriPartCalloutProps> {
-// 	static {
-// 		this.declareStyle("header_style", {
-// 			theme_args: {
-// 				primaryColor: ["color"],
-// 			},
-// 		});
-// 		this.declareStyle("footer_style", {
-// 			theme_args: {
-// 				secondaryColor: ["color"],
-// 			},
-// 		});
-// 	}
-
-// 	Content = (): React.ReactNode => {
-// 		const { header, footer } = this.props;
-// 		return (
-// 			<>
-// 				{header ? (
-// 					<div style={this.getStyle("header_style")}>
-// 						{formatComponent(header)}
-// 					</div>
-// 				) : (
-// 					<></>
-// 				)}
-// 				{super.Content()}
-
-// 				{footer ? (
-// 					<div style={this.getStyle("footer_style")}>
-// 						{formatComponent(footer)}
-// 					</div>
-// 				) : (
-// 					<></>
-// 				)}
-// 			</>
-// 		);
-// 	};
-// }
-
-// class HexWrapCallOut extends TriPartCallout {
-// 	static {
-// 		this.declareStyle("wrapperStyle", {
-// 			styleOverides: { ...hexCallStyle, backgroundColor: "transparent" },
-// 		});
-// 	}
-// }
-
-import { ThemedComponent as ThemedComponent_ALT } from "../../../themecomp_v2";
-import { hexCallStyle } from "../../../pages/homepage/parts/about-us/AboutUs.styles";
-import { ThemedComponent } from "../../../themecomp_v1";
-type TName = `${string}_style`;
-
-export class CallOut_ALT<P extends ICallOut = ICallOut> // <-- USES ORIGINAL INTERFACE
-	extends ThemedComponent_ALT<P>
 	implements IConstructedComponent
 {
 	static {
@@ -166,7 +52,7 @@ export class CallOut_ALT<P extends ICallOut = ICallOut> // <-- USES ORIGINAL INT
 			<div
 				style={{
 					...(this.styler?.["CallOutContainer_style"] ||
-						CallOut_ALT.styler["CallOutContainer_style"]),
+						CallOut.styler["CallOutContainer_style"]),
 				}}
 			>
 				{this.Content()}
@@ -179,7 +65,7 @@ export class CallOut_ALT<P extends ICallOut = ICallOut> // <-- USES ORIGINAL INT
 			<div
 				style={
 					this.styler?.["CallOutBody_style"] ||
-					(this.constructor as typeof CallOut_ALT).styler[
+					(this.constructor as typeof CallOut).styler[
 						"CallOutContainer_style"
 					]
 				}
@@ -206,7 +92,7 @@ export class CallOut_ALT<P extends ICallOut = ICallOut> // <-- USES ORIGINAL INT
 	}
 }
 
-export class TriPartCallout_ALT extends CallOut_ALT<ITriPartCalloutProps> {
+export class TriPartCallout extends CallOut<ITriPartCalloutProps> {
 	static {
 		this.styler.updateStyle("header_style", {
 			def_theme_args: {
@@ -225,7 +111,7 @@ export class TriPartCallout_ALT extends CallOut_ALT<ITriPartCalloutProps> {
 		return (
 			<>
 				{header && (
-					<div style={TriPartCallout_ALT.styler["header_style"]}>
+					<div style={TriPartCallout.styler["header_style"]}>
 						{formatComponent(header)}
 					</div>
 				)}
@@ -233,7 +119,7 @@ export class TriPartCallout_ALT extends CallOut_ALT<ITriPartCalloutProps> {
 				{super.Content()}
 
 				{footer && (
-					<div style={TriPartCallout_ALT.styler["footer_style"]}>
+					<div style={TriPartCallout.styler["footer_style"]}>
 						{formatComponent(footer)}
 					</div>
 				)}
@@ -242,9 +128,9 @@ export class TriPartCallout_ALT extends CallOut_ALT<ITriPartCalloutProps> {
 	};
 }
 
-// export class HexWrapCallOut_ALT extends TriPartCallout_ALT {
+// export class HexWrapCallOut extends TriPartCallout {
 // 	static {
-// 		HexWrapCallOut_ALT.styler.updateStyle("wrapperStyle_style", {
+// 		HexWrapCallOut.styler.updateStyle("wrapperStyle_style", {
 // 			def_static_css: {
 // 				...hexCallStyle,
 // 				// backgroundColor: "tranparent",

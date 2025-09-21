@@ -17,3 +17,7 @@ export interface IStructuredCalloutData {
 	header?: ValidComponent;
 	footer?: ValidComponent;
 }
+export interface ITriPartCalloutProps extends ICallOut {
+	header?: ValidComponent;
+	footer?: ValidComponent;
+}
