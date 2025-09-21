@@ -3,7 +3,10 @@
 
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-
+import {
+	fromSVGString as _fromSVGString,
+	stringifySVG as _stringifySVG,
+} from "./image-handelling";
 export interface BackgroundProps {
 	svg?: string | React.ReactElement;
 	styleOverrides?: React.CSSProperties;
@@ -13,10 +16,6 @@ export class Background<
 	P extends BackgroundProps = BackgroundProps
 > extends React.Component<P> {
 	state = { style: this.props.styleOverrides || ({} as React.CSSProperties) };
-
-	componentDidMount() {
-		this.computeStyle();
-	}
 
 	componentDidUpdate(prevProps: P) {
 		if (
@@ -28,14 +27,19 @@ export class Background<
 		}
 	}
 
+	/* 
 	static fromSVGString(svgString: string): string {
 		const uri = encodeURIComponent(svgString);
 		return `url("data:image/svg+xml,${uri}")`;
-	}
-
+	} 
+*/
+	static fromSVGString = _fromSVGString;
+	/* 
 	static stringifySVG(svg: React.ReactElement): string {
 		return ReactDOMServer.renderToStaticMarkup(svg);
 	}
+ */
+	static stringifySVG = _stringifySVG;
 
 	protected computeStyle(
 		svg?: string | React.ReactElement,
@@ -288,6 +292,7 @@ export class TiledBackground extends Background<TiledBackgroundProps> {
 // ========== Demo ==========
 
 import backgroundPattern from "../../assets/bavkground.png";
+import { fromSVGString } from "./image-handelling";
 
 export const _BackgroundStyle: React.CSSProperties = {
 	backgroundRepeat: "repeat",

@@ -19,15 +19,14 @@ const textEl = (
 	<div
 		style={{
 			color: " #066070",
-			display: "flex",
-			flexDirection: "column",
-			maxHeight: "100%",
 		}}
 	>
 		<div
 			style={{
 				fontStyle: "italic",
-				fontSize: "200%",
+				fontSize: "1.6vw",
+				width: "120%",
+				marginLeft: "-10%",
 			}}
 		>
 			<div>
@@ -41,7 +40,7 @@ const textEl = (
 		<div
 			style={{
 				fontWeight: "bold",
-				fontSize: "1.4rem",
+				fontSize: "1.6vw",
 			}}
 		>
 			- Joe Fennel

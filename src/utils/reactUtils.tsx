@@ -10,16 +10,22 @@ export const getImageEl = (
 	image: string | undefined | React.SVGElementType,
 	styling: React.CSSProperties = {},
 	imageProps: any = {}
-): React.ReactNode =>
-	image ? (
+): React.ReactNode => {
+	let _image = image;
+	if (React.isValidElement(image)) {
+		const _string = stringifySVG(image);
+		_image = get_data_uri(_string);
+	}
+	return _image ? (
 		<img
-			src={image}
+			src={_image}
 			{...imageProps}
 			style={styling}
 		></img>
 	) : (
 		<></>
 	);
+};
 
 export const BoxedImage: React.FC<{
 	image: string | ValidComponent;
@@ -111,3 +117,8 @@ import {
 	lighter_logo_blue,
 } from "./defaultColours";
 import { genericSectionStyle } from "../styles";
+import {
+	fromSVGString,
+	get_data_uri,
+	stringifySVG,
+} from "./misc/image-handelling";

@@ -33,7 +33,7 @@ export const marqueeFrameStyle: React.CSSProperties = {
 	margin: "0 10%",
 	position: "relative",
 	border: "1px solid",
-	borderColor: light_grey,
+	borderColor: "rgb(255 255 255 / 20%)",
 	height: "10vh",
 	borderRadius: "10vh",
 	zIndex: 99,

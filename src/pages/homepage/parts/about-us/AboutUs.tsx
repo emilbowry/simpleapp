@@ -1,14 +1,13 @@
 // src/pages/homepage/parts/AboutUS.tsx
 
 import React from "react";
-// import bulb from "../../../../assets/bulb.svg";
-import bulb from "../../../../assets/simplebulb.svg";
-import target from "../../../../assets/bullseye.svg";
-// import target from "../../../../assets/target.svg";
-import aicompwork from "../../../../assets/aicwork.jpg";
 
-import pen from "../../../../assets/pencil.svg";
-// import pen from "../../../../assets/pen.svg";
+import aicompwork from "../../../../assets/aicwork.jpg";
+import {
+	bullseye,
+	pencil,
+	bulb,
+} from "../../../../components/callingcard/callout/HexCallout";
 
 import {
 	// TriPartCallout,
@@ -30,8 +29,7 @@ import {
 	HexWapStyle,
 } from "./AboutUs.styles";
 import { VerticalHexagonGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
-import { bgwhite, logo_blue } from "../../../../utils/defaultColours";
-// const bgwhite = "transparent";
+import { bgwhite } from "../../../../utils/defaultColours";
 const hStyle = { /* borderColor: logo_blue,  */ colour: bgwhite };
 export const VHexGrid: React.FC = () => {
 	return (
@@ -94,6 +92,7 @@ export class HexWrapCallOut extends TriPartCallout_ALT {
 		});
 	}
 }
+import pen from "../../../../assets/pencil.svg";
 
 const callout_content_consultancy = {
 	header: (
@@ -131,7 +130,7 @@ const callout_content_training = {
 	),
 	header: (
 		<BoxedImage
-			image={target}
+			image={bullseye}
 			width="30%"
 			aspectRatio="1"
 			imageStyling={imageStyling}
@@ -157,7 +156,7 @@ const callout_content_policy = {
 	),
 	header: (
 		<BoxedImage
-			image={pen}
+			image={pencil}
 			width="30%"
 			aspectRatio="1"
 			imageStyling={imageStyling}

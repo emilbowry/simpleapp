@@ -92,7 +92,7 @@ export class Persona extends React.Component<IPersona> {
 						style={{
 							backgroundColor: theme.backgroundColor,
 							borderRadius: "100px 0 0 100px",
-							height: "30vh",
+							// height: "30vh",
 							margin: "auto",
 						}}
 					>

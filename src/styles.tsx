@@ -30,6 +30,7 @@ import {
 	bgwhite,
 	o_mix_green,
 } from "./utils/defaultColours";
+export const logoGrag = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%)`;
 export const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%) 1`;
 export const genericSectionStyle: React.CSSProperties = {
 	border: "1px solid black",

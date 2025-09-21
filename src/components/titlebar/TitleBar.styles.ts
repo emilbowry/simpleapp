@@ -1,5 +1,7 @@
 // src/components/titlebar/TitleBar.styles.ts
 import React from "react";
+import { logoGrag } from "../../styles";
+import { logo_blue } from "../../utils/defaultColours";
 export const hamburgerStyle: React.CSSProperties = {
 	background: "none",
 	border: "none",
@@ -48,12 +50,22 @@ export const rightHandContainerStyles: React.CSSProperties = {
 };
 export const navLinkStyles = (isUnderlined: boolean): React.CSSProperties => ({
 	textDecoration: isUnderlined ? "underline" : "none",
+	textDecorationColor: `${logo_blue}`,
+	backgroundOrigin: "content-box",
+	backgroundImage: `${logoGrag}`,
+	backgroundPosition: "bottom left",
+	backgroundRepeat: "no-repeat",
+	boxSizing: "border-box",
+	backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
+
+	transition: "background-size 0.3s ease-in",
 	color: "#333",
 	fontSize: "16px",
 	opacity: "inherit",
 	padding: "5px 0",
 	cursor: "none",
 });
+
 export const dropdownStyles: React.CSSProperties = {
 	left: "0",
 	right: "0",
