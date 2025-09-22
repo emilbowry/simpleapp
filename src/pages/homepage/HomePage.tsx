@@ -18,8 +18,8 @@ export const homePage: React.FC = () => {
 import { theJourneyPage } from "../thejourneypage/TheJourney";
 export const HomePage = (
 	<Page
-		// page={homePage}
-		page={theJourneyPage}
+		page={homePage}
+		// page={theJourneyPage}
 		bg={true}
 	/>
 );

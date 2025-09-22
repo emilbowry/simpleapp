@@ -19,7 +19,7 @@ const textEl = (
 	<div
 		style={{
 			color: " #066070",
-			marginTop: "25%",
+			marginTop: "10%",
 			textAlign: "center",
 		}}
 	>
