@@ -15,10 +15,11 @@ export const homePage: React.FC = () => {
 		</div>
 	);
 };
-
+import { theJourneyPage } from "../thejourneypage/TheJourney";
 export const HomePage = (
 	<Page
-		page={homePage}
+		// page={homePage}
+		page={theJourneyPage}
 		bg={true}
 	/>
 );

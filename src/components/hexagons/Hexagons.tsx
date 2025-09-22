@@ -13,6 +13,12 @@ import {
 	svgStyle,
 	horizontalContentStyle,
 	verticalContentStyle,
+	hexagonalContentStyle,
+	textSec,
+	RightCutout,
+	LeftCutout,
+	textSex,
+	_contentSection,
 } from "./Hexagons.styles";
 
 //
@@ -73,11 +79,19 @@ export class Hexagon
 		const {
 			args,
 			element = <></>,
-			useVert = false,
+			useVert = undefined,
 			...styleProps
 		} = this.props;
 		const { defs, paths } = this.construct(args);
 		const ctor = this.constructor as typeof Hexagon;
+		function rhHex(): React.CSSProperties | undefined {
+			throw new Error("Function not implemented.");
+		}
+		let _useVert = useVert;
+		if (_useVert === undefined) {
+			_useVert = ctor.useVert;
+		}
+		console.log(useVert);
 		// const { opacity = 0.8 } = styleProps;
 		return (
 			<div
@@ -90,7 +104,7 @@ export class Hexagon
 							...svgStyle(styleProps),
 						}}
 						viewBox={
-							!ctor.useVert
+							!_useVert
 								? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
 										(200 * Math.sqrt(3)) / 2
 								  }`
@@ -109,17 +123,22 @@ export class Hexagon
 							<React.Fragment key={i}>{path}</React.Fragment>
 						))}
 					</svg>
-					{element && (
-						<div
-							style={
-								!ctor.useVert
-									? horizontalContentStyle()
-									: verticalContentStyle()
-							}
-						>
-							{formatComponent(element, true)}
-						</div>
-					)}
+					{element &&
+						(_useVert ? (
+							<div style={verticalContentStyle()}>
+								{formatComponent(element)}
+							</div>
+						) : (
+							<div style={hexagonalContentStyle}>
+								<div style={textSec}>
+									<div style={LeftCutout}></div>
+									<div style={RightCutout}></div>
+									<div style={textSex}>
+										{formatComponent(element)}
+									</div>
+								</div>
+							</div>
+						))}
 				</div>
 			</div>
 		);
@@ -152,7 +171,7 @@ export class ImageHexagon extends Hexagon {
 				<image
 					href={img}
 					width="1"
-					height={`${2 / Math.sqrt(3)} `}
+					height={`${2 / Math.sqrt(3)}`}
 					preserveAspectRatio="xMidYMid slice"
 				/>
 			</pattern>

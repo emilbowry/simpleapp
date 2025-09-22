@@ -103,3 +103,36 @@ cursor: none !important;
     width: 100%;
   }
 }*/
+
+.text-section {
+  width: 100%;
+  height:  calc(100%); /* only way*/
+  /* min-height: 0; */
+
+  /* margin: 0 auto; */
+  
+  /* p {
+  text-align: justify;
+  } */
+}
+
+.wrap-before {
+    shape-outside: polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%);
+    /* clip-path:  polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%); */
+
+  /* background-color: rgb(255,0,0,40%); */
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.wrap-after {
+    shape-outside:  polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% ); 
+    /* clip-path:   polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% ); */
+
+  /* background-color: rgb(0,255,0,40%); */
+
+    float: right;
+    width: 50%;
+    height: 100%;
+}

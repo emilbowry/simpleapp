@@ -1,6 +1,7 @@
 // src/components/hexagons/hexagonRow/HexagonRow.styles.ts
 import React from "react";
 import { rspacing, aspace } from "./HexagonRow.consts";
+import { genericSectionStyle } from "../../../styles";
 /*
 	CONSTANT DEFINITIONS 
 */
@@ -179,6 +180,8 @@ export const sideStyle = (
 	const Xshifts = edgeHexXShift(relative_spacing, absolute_spacing);
 	const Yshifts = edgeHexYShift(relative_spacing, absolute_spacing);
 	return {
+		// ...genericSectionStyle,
+
 		/* background: bgAxis, */
 		...(isLeft
 			? {
@@ -199,6 +202,8 @@ export const midStyle = (
 ): React.CSSProperties => {
 	const Yshifts = centreHexYShift(relative_spacing, absolute_spacing);
 	return {
+		// ...genericSectionStyle,
+
 		/* background: bgAxis, */ marginTop: Yshifts[0],
 		marginBottom: Yshifts[1],
 	};
@@ -232,7 +237,8 @@ export const container = (
 ): React.CSSProperties => {
 	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
 	return {
-		// height: "100%",
+		// ...genericSectionStyle,
+
 		// marginTop: "10%",
 		position: "relative",
 		gridAutoRows: `calc(${

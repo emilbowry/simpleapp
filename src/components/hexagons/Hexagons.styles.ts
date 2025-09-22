@@ -2,6 +2,7 @@
 
 import React from "react";
 import { HexagonStyleParams } from "./Hexagons.types";
+import { genericSectionStyle } from "../../styles";
 
 const horizontalSafeZoneCoords = {
 	minX: 50,
@@ -38,6 +39,7 @@ export const containerStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
+		// ...genericSectionStyle,
 		/* fontSize:0 is key to provent weird svg dimensioning issues, ensure we reset if includes jsx elements also */
 		fontSize: 0,
 		overflow: "visible",
@@ -64,13 +66,11 @@ export const horizontalContentStyle = (): React.CSSProperties => {
 
 	return {
 		position: "absolute",
-		zIndex: "9999",
 		left,
 		top,
 		width,
 		fontSize: "initial",
 		height,
-		// overflow: "hidden",
 		display: "flex",
 		overflow: "visible",
 
@@ -97,4 +97,55 @@ export const verticalContentStyle = (): React.CSSProperties => {
 		justifyContent: "center",
 		alignItems: "center",
 	};
+};
+const verticalHexagonPoints =
+	"50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%";
+
+const horizontalHexagonPoints =
+	"25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%";
+
+export const LeftCutout: React.CSSProperties = {
+	shapeOutside: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
+	// clipPath: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
+	// backgroundColor: "rgb(0,255,0,40%)",
+	float: "left",
+	width: "50%",
+	height: `calc(100%)`,
+};
+export const RightCutout: React.CSSProperties = {
+	shapeOutside:
+		"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
+	// clipPath: "polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
+	// backgroundColor: "rgb(255,0,0,40%)",
+	float: "right",
+	width: "50%",
+	height: `calc(100%)`,
+};
+
+export const textSex: React.CSSProperties = {
+	width: "100%",
+	height: `calc(100%)`,
+};
+export const _contentSection: React.CSSProperties = {
+	width: "inherit",
+	height: `calc(100%)`,
+	position: "absolute",
+};
+export const textSec: React.CSSProperties = {
+	width: "100%",
+	display: "block",
+	height: `calc(100%)`, // 100% doesnt work out correct unles using calc
+};
+
+export const LWRap: React.CSSProperties = {
+	width: "100%",
+	height: "100%",
+};
+export const hexagonalContentStyle: React.CSSProperties = {
+	position: "absolute",
+	height: `calc(100%)`,
+	width: "100%",
+
+	left: 0,
+	top: 0,
 };

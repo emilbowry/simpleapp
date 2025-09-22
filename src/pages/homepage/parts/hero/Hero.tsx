@@ -19,6 +19,8 @@ const textEl = (
 	<div
 		style={{
 			color: " #066070",
+			marginTop: "25%",
+			textAlign: "center",
 		}}
 	>
 		<div
@@ -48,33 +50,6 @@ const textEl = (
 	</div>
 );
 
-const tl_textEl1 = (
-	<div
-		style={{
-			color: " #066070",
-		}}
-	>
-		<div
-			style={{
-				fontStyle: "italic",
-				fontSize: "1.6vw",
-				width: "120%",
-				marginLeft: "-10%",
-			}}
-		>
-			<h2>Nov 2022</h2>
-		</div>
-
-		<div
-			style={{
-				fontWeight: "bold",
-				fontSize: "1.6vw",
-			}}
-		>
-			<p>ChatGPT 3.5 is rek</p>
-		</div>
-	</div>
-);
 export const Hero: React.FC = () => {
 	const firstRow = [
 		null,
@@ -104,6 +79,7 @@ export const Hero: React.FC = () => {
 		{ elements: secondRow },
 		{ elements: thirdRow },
 	];
+
 	const tl_FirstRow = [
 		<Hexagon
 			args={{ colour: light_mix_green }}
