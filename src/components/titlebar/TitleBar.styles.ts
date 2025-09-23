@@ -8,6 +8,11 @@ export const hamburgerStyle: React.CSSProperties = {
 	cursor: "none",
 	marginLeft: "1rem",
 };
+
+/**
+	@improvement 
+	- VISIBLE_TITLEBAR_HEIGHT should be inferred and responsive (not px based)
+*/
 export const VISIBLE_TITLEBAR_HEIGHT = 60;
 export const interactionWrapperStyles: React.CSSProperties = {
 	width: "100vw",
@@ -49,8 +54,8 @@ export const rightHandContainerStyles: React.CSSProperties = {
 	alignItems: "center",
 };
 export const navLinkStyles = (isUnderlined: boolean): React.CSSProperties => ({
-	textDecoration: isUnderlined ? "underline" : "none",
-	textDecorationColor: `${logo_blue}`,
+	textDecoration: isUnderlined ? `underline ${logo_blue}` : "none",
+	// textDecorationColor: `${logo_blue}`,
 	backgroundOrigin: "content-box",
 	backgroundImage: `${logoGrag}`,
 	backgroundPosition: "bottom left",

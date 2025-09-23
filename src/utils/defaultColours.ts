@@ -21,17 +21,3 @@ export const bgwhite = "#F0FCFD";
 export const title_font_colour = midnight_green;
 export const body_font_colour = l_midnight_green;
 export const subtitle_colour = logo_blue;
-
-// const colours = ["#41b2b3", "#5D7F8C", "#7F81AF", "#697085", "#7E8180"];
-
-// export const stormy_light_green = "#41b2b3";
-// export const stormy_green = "#7E8180";
-// export const stormy_blue = "#5D7F8C";
-// export const stormy_violet = "#7F81AF";
-// export const stormy_grey = "#697085";
-
-// export const background_green = "#E4F1E9";
-
-// export const pistachio = "#A0C886";
-// export const midnight_blue = "#066070";
-// export const nyanza = "#DEF4CA";

@@ -1,5 +1,4 @@
 // src/components/callingcard/newCallingCard.types.ts
-// src/components/callingcard/newCallingCard.types.ts
 
 import { ValidComponent } from "../../utils/reactUtils";
 

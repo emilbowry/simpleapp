@@ -1,5 +1,9 @@
 // src/components/callingcard/callout/hexCallout.tsx
-
+/** 
+	@improvvement
+	- .styles convention
+	- Abstract svg into own file
+ */
 import React from "react";
 
 import { logo_blue, logo_yellow } from "../../../utils/defaultColours";

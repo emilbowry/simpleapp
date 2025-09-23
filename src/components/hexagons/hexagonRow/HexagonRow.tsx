@@ -3,14 +3,9 @@
 import React from "react";
 import { formatComponent } from "../../../utils/reactUtils";
 import { container, midStyle, sideStyle } from "./HexagonRow.styles";
-import {
-	IHexagonGridElements,
-	IHexagonRowElements,
-	_IHexagonRowElements,
-} from "./HexagonRow.types";
+import { IHexagonGridElements, _IHexagonRowElements } from "./HexagonRow.types";
 
 import { rspacing, aspace } from "./HexagonRow.consts";
-import { genericSectionStyle } from "../../../styles";
 
 export class HexagonRow extends React.Component<_IHexagonRowElements> {
 	render() {
@@ -36,34 +31,35 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 			rows,
 			relative_space = rspacing,
 			absolute_space = aspace,
+			containerStyle = {},
+			class_name,
 		} = this.props;
 		const l = rows.length;
 		let margin_top = 0;
+		let padding_top = 0;
 		let margin_bottom = 0;
 		let _rows = rows;
 		/*
 			To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
 			- may expand later to auto adjust based on bottom layout
+			- add overall height calculation for appropriate bottom white space
 		*/
 		if (rows[0].elements[1] === null) {
 			margin_top = -(0.5 * 100) / l;
 		} else {
-			margin_top = (1.5 * 100) / l;
+			margin_top = -(1.5 * 100) / l; // calculation slightly off
+			padding_top = 0.5 * 100 * l;
 		}
 
-		// if (rows[rows.length - 1].elements[0] !== null) {
-		// 	// _rows.push({ elements: [null, null, null] });
-		// 	margin_bottom = 2 * relative_space;
-		// }
 		return (
 			<div
+				className={class_name ?? ""}
 				style={{
-					// ...genericSectionStyle,
-					// height: "150%",
 					marginTop: `${margin_top}%`,
-					// paddingBottom: `calc(${relative_space}% + ${
-					// 	absolute_space * l
-					// }px)`,
+					paddingTop: padding_top,
+
+					paddingBottom: `calc(${relative_space * 1.5}% )`,
+					...containerStyle,
 				}}
 			>
 				<div style={container(relative_space, absolute_space, l)}>

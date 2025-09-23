@@ -1,5 +1,5 @@
 import React from "react";
-import { Theme } from "./styles";
+import { Theme } from "../../styles";
 
 type TDefKey = `def_${string}`;
 type TDefEntries<T> = {

@@ -1,8 +1,24 @@
-// src/pages/thejourneypage/TheJourney.tsx
-
 import React from "react";
 import { BackgroundStyle, genericSectionStyle } from "../../styles";
 
+import { Page } from "../page";
+import { Hexagon, ImageHexagon } from "../../components/hexagons/Hexagons";
+import { HexagonGrid } from "../../components/hexagons/hexagonRow/HexagonRow";
+
+import {
+	bgwhite,
+	dark_midnight_green,
+	logo_blue,
+	logo_yellow,
+	midnight_green,
+} from "../../utils/defaultColours";
+import { BoxedImage } from "../../utils/reactUtils";
+import {
+	bulb,
+	bullseye,
+	pencil,
+} from "../../components/callingcard/callout/HexCallout";
+import { imageStyling } from "../homepage/parts/about-us/AboutUs.styles";
 const generateGradient = (
 	n: number,
 
@@ -34,6 +50,7 @@ const TimelineData = [
 		date: "NOV 2022",
 		content:
 			"ChatGPT 3.5 is released - The 'ChatGPT' moment. Prompt Engineering goes mainstream ",
+		image: bw3,
 	},
 	{
 		date: "MAR 2023",
@@ -43,11 +60,13 @@ const TimelineData = [
 		date: "DEC 2023",
 		content:
 			"AI Compatible is founded and collates 2023s discoveries in prompt engineering into a methodology, to help people use AI effectively and ethically",
+		icon: bulb,
 	},
 	{
 		date: "JAN 2024",
 		content:
 			"AI Compatible (AIC) runs its first series of prompt engineering training workshops with live clients, using the new methodology. Initially delivered through AIC first partner, The Growth House who offer leadership and teamship corporate training",
+		icon: bullseye,
 	},
 	{
 		date: "MARCH 2024",
@@ -58,6 +77,7 @@ const TimelineData = [
 		date: "JUL 2024",
 		content:
 			"NotebookLM is released, everyone loves it, go try it now if you haven't",
+		image: bw1,
 	},
 	{
 		date: "SEP 2024",
@@ -73,6 +93,8 @@ const TimelineData = [
 		date: "JAN 2025",
 		content:
 			"January 2025, Deepseek R1 matches Open AI's o1 Benchmark performance. After a couple months of working closely with Heward Mills data protection officers and becoming an advisor and partner we add Policy assistance and consultancy to the services we offer.",
+		icon: pencil,
+		image: bw2,
 	},
 	{
 		date: "APRIL 2025",
@@ -80,27 +102,63 @@ const TimelineData = [
 			"Open AI O3 high gets 20% on 'Humanity's Last Exam', a compilation of problems that specialised human experts find particularly hard",
 	},
 ];
-
+/**
+@hack
+- NO-OP div ensures svg's lineheight calculation correct so remains geometrically precise
+ */
 const getEl = (date: string, content: string) => (
 	<div
 		style={{
-			// ...genericSectionStyle,
-
+			position: "relative",
 			height: "100%",
+			margin: "auto",
+			padding: "auto",
+			verticalAlign: "text-bottom",
 		}}
 	>
-		<div style={{ fontSize: 0 }}>
-			WHY THE HELL DO I NEED THIS TO EXIST AT 0 FONT SIZE FOR IT TO WORK
-		</div>
+		<div style={{ fontSize: 0 }}>no-op</div>
 		<div
 			style={{
+				height: "calc(100%)",
+
+				margin: "auto",
+				padding: "auto",
+
+				display: "block",
+
 				color: "black",
 				fontSize: "2rem",
 				textAlign: "center",
 			}}
 		>
-			<h3 style={{ color: dark_midnight_green }}>{date}</h3>
-			<p style={{ color: midnight_green }}>{content}</p>
+			<div
+				style={{
+					position: "relative",
+
+					height: "100%",
+
+					paddingTop: "10%",
+					paddingBottom: "10%",
+				}}
+			>
+				<h3
+					style={{
+						fontSize: "3vw",
+
+						color: dark_midnight_green,
+					}}
+				>
+					{date}
+				</h3>
+				<p
+					style={{
+						fontSize: "2.5vw",
+						color: midnight_green,
+					}}
+				>
+					{content}
+				</p>
+			</div>
 		</div>
 	</div>
 );
@@ -110,10 +168,48 @@ const getRows = () => {
 	let colours = generateGradient(len * 2);
 	colours = colours.reverse();
 
-	let _colours = generateGradient(len);
-	// _colours = _colours.reverse();
-
 	for (let i = 0; i < len; i++) {
+		let thirdHexagon = (
+			<Hexagon
+				args={{
+					colour: "transparent",
+				}}
+			/>
+		);
+
+		let _icon = i < len - 1 ? TimelineData[i + 1].icon : undefined;
+		let _image = i < len - 1 ? TimelineData[i].image : undefined;
+		if (_icon) {
+			thirdHexagon = (
+				<Hexagon
+					args={{
+						colour: "transparent",
+					}}
+					opacity={1}
+					element={
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "center",
+								margin: "auto",
+								height: "100%",
+								opacity: 1,
+							}}
+						>
+							<BoxedImage
+								image={_icon}
+								width="100%"
+								aspectRatio="1"
+								imageStyling={{ margin: "auto" }}
+							/>
+						</div>
+					}
+				/>
+			);
+		} else if (_image) {
+			thirdHexagon = <ImageHexagon args={{ img: _image }} />;
+		}
 		if (i % 2 == 0) {
 			rows.push({
 				elements: [
@@ -123,63 +219,40 @@ const getRows = () => {
 							TimelineData[i].date,
 							TimelineData[i].content
 						)}
+						opacity={1}
 					/>,
-					<Hexagon args={{ colour: _colours[len - 1 - i] }} />,
-					<Hexagon args={{ colour: bgwhite }} />,
+					<Hexagon args={{ colour: colours[2 * i + 1] }} />,
+					thirdHexagon,
 				] as const,
 			});
 		} else {
 			rows.push({
 				elements: [
-					<Hexagon args={{ colour: bgwhite }} />,
-					<Hexagon args={{ colour: _colours[len - 1 - i] }} />,
+					thirdHexagon,
+					<Hexagon args={{ colour: colours[2 * i] }} />,
 					<Hexagon
 						args={{ colour: bgwhite }}
 						element={getEl(
 							TimelineData[i].date,
 							TimelineData[i].content
 						)}
+						opacity={1}
 					/>,
 				] as const,
 			});
 		}
 	}
 
-	// for (let i = 0; i < len; i++) {
-	// 	if (i % 2 == 0) {
-	// 		rows.push({
-	// 			elements: [
-	// 				<Hexagon
-	// 					args={{ colour: colours[2 * i + 1] }}
-	// 					element={getEl(
-	// 						TimelineData[i].date,
-	// 						TimelineData[i].content
-	// 					)}
-	// 				/>,
-	// 				<Hexagon args={{ colour: colours[2 * i] }} />,
-	// 				<Hexagon args={{ colour: colours[2 * i + 1] }} />,
-	// 			] as const,
-	// 		});
-	// 	} else {
-	// 		rows.push({
-	// 			elements: [
-	// 				<Hexagon args={{ colour: colours[2 * i + 1] }} />,
-	// 				<Hexagon args={{ colour: colours[2 * i] }} />,
-	// 				<Hexagon
-	// 					args={{ colour: colours[2 * i + 1] }}
-	// 					element={getEl(
-	// 						TimelineData[i].date,
-	// 						TimelineData[i].content
-	// 					)}
-	// 				/>,
-	// 			] as const,
-	// 		});
-	// 	}
-	// }
 	return rows;
 };
+import bw1 from "../../assets/bw1.jpg";
+import bw2 from "../../assets/bw2.jpg";
+
+import bw3 from "../../assets/bw3.jpg";
+
 export const theJourneyPage: React.FC = () => {
-	const r = getRows();
+	let r = getRows();
+
 	return (
 		<div
 			style={{
@@ -188,24 +261,16 @@ export const theJourneyPage: React.FC = () => {
 		>
 			<HexagonGrid
 				rows={r}
-				relative_space={0}
-				absolute_space={20}
+				relative_space={15}
+				absolute_space={-30}
+				containerStyle={{
+					backdropFilter: "blur(8px)",
+				}}
+				class_name="aos-ignore"
 			/>
 		</div>
 	);
 };
-
-import { Page } from "../page";
-import { Hexagon } from "../../components/hexagons/Hexagons";
-import { HexagonGrid } from "../../components/hexagons/hexagonRow/HexagonRow";
-import {
-	bgwhite,
-	dark_midnight_green,
-	dark_mix_green,
-	logo_blue,
-	logo_yellow,
-	midnight_green,
-} from "../../utils/defaultColours";
 
 export const TheJourneyPage = (
 	<Page

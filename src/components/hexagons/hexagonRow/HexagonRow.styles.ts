@@ -1,7 +1,12 @@
 // src/components/hexagons/hexagonRow/HexagonRow.styles.ts
+/**
+	@improvement 
+	- Generalise for n >3
+	- integrate pointed top (VHex) hexagon logic into centralised styling system
+
+ */
 import React from "react";
 import { rspacing, aspace } from "./HexagonRow.consts";
-import { genericSectionStyle } from "../../../styles";
 /*
 	CONSTANT DEFINITIONS 
 */

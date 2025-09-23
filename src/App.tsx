@@ -14,6 +14,7 @@ import { DemoPage } from "./pages/demopage/DemoPage";
 import { HomePage } from "./pages/homepage/HomePage";
 import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
 import { ContactPage } from "./pages/contactpage/ContactPage";
+import { OurServices } from "./pages/ourservices/OurServices";
 
 const App: React.FC = () => {
 	const location = useLocation();
@@ -31,12 +32,12 @@ const App: React.FC = () => {
 					element={TheJourneyPage}
 				/>
 				<Route
-					path="/contact"
-					element={ContactPage}
+					path="/ourservices"
+					element={OurServices}
 				/>
 				<Route
-					path="/demo_page"
-					element={DemoPage}
+					path="/contact"
+					element={ContactPage}
 				/>
 			</Routes>
 		</>

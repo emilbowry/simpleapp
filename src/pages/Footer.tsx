@@ -1,5 +1,9 @@
 // src/pages/Footer.tsx
 
+/**
+@improvement 
+- Generalise this, most calculations should be implicit if our footer class takes in the vh as prop and some abstract representation of the grid layout
+ */
 import React, { useEffect, useState, useCallback } from "react";
 import {
 	BoxedImage,

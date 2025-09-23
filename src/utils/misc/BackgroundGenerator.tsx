@@ -1,4 +1,4 @@
-// Reference Page
+/* Reference Page - unused but neat mechanics */
 // src/utils/misc/BackgroundGenerator.tsx
 
 import React from "react";
@@ -27,18 +27,8 @@ export class Background<
 		}
 	}
 
-	/* 
-	static fromSVGString(svgString: string): string {
-		const uri = encodeURIComponent(svgString);
-		return `url("data:image/svg+xml,${uri}")`;
-	} 
-*/
 	static fromSVGString = _fromSVGString;
-	/* 
-	static stringifySVG(svg: React.ReactElement): string {
-		return ReactDOMServer.renderToStaticMarkup(svg);
-	}
- */
+
 	static stringifySVG = _stringifySVG;
 
 	protected computeStyle(

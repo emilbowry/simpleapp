@@ -11,7 +11,6 @@ import { formatComponent } from "../../utils/reactUtils";
 import {
 	containerStyle,
 	svgStyle,
-	horizontalContentStyle,
 	verticalContentStyle,
 	hexagonalContentStyle,
 	textSec,
@@ -24,7 +23,11 @@ import {
 //
 // ===== Hexagon =====
 //
-
+/**
+@improvement 
+- Integrate some vertical alignment logic for hexagonalContentStyle
+- If that vertical alignment logic solved, integrate verticalContentStyle into the shape-outside bounding logic
+					 */
 export class Hexagon
 	extends React.Component<any>
 	implements IHexagonConstruction
@@ -84,24 +87,20 @@ export class Hexagon
 		} = this.props;
 		const { defs, paths } = this.construct(args);
 		const ctor = this.constructor as typeof Hexagon;
-		function rhHex(): React.CSSProperties | undefined {
-			throw new Error("Function not implemented.");
-		}
+
 		let _useVert = useVert;
 		if (_useVert === undefined) {
 			_useVert = ctor.useVert;
 		}
-		console.log(useVert);
-		// const { opacity = 0.8 } = styleProps;
 		return (
-			<div
-				// className="no-aos"
-				style={containerStyle(styleProps)}
-			>
+			<div style={containerStyle(styleProps)}>
 				<div>
 					<svg
 						style={{
 							...svgStyle(styleProps),
+							// boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+							// filter: "drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))",
+							// background: `rgb(255 255 255 / 40%)`,
 						}}
 						viewBox={
 							!_useVert
@@ -123,6 +122,7 @@ export class Hexagon
 							<React.Fragment key={i}>{path}</React.Fragment>
 						))}
 					</svg>
+
 					{element &&
 						(_useVert ? (
 							<div style={verticalContentStyle()}>

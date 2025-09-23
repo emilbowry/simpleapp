@@ -23,40 +23,50 @@ body {
   --aos-unit-delay: 100ms;
 }
 
-.aos {
+/**
+* Some elements are randomly dispersed around the page, the solution is to either set baseline opacity to 0 
+* or make overflow hidden
+* however overflow hidden subtly changes the isVisible execution and delays it for some reason, we have to scroll past the element for it to animate
+* thus current solution is to just set opacity to 0
 
+
+*/
+.aos {
+ /* Needs to initially be zero since before visible, there are phantom elements everywhere */
   opacity: 0;
+ /*instead of opacity , downside it changes the is-visible behaviour*/
+   /* overflow: hidden; */
 }
 
-
-/* :global(.is-visible) { */
 .aos .is-visible {
-  /* opacity: 1; */
-  opacity: 0;
+  opacity: revert;
 
-  transform:  translateY(0);
+  transform:  translateX(0);
   animation: fadeInUpAnimation 1.5s ease forwards; 
   animation-delay: calc((var(--aos-base-depth, 0)+var(--aos-sibling-index, 0)) * var(--aos-unit-delay));
   animation-composition:  replace;
-  will-change: transform, opacity
+  will-change: transform, opacity;
+
+
 
 }
 
 .is-visible {
-  opacity: 1;
+  opacity: revert;
+  /* overflow: initial; */
+
 }
 @keyframes fadeInUpAnimation {
   from {
     opacity: 0;
     transform: translateX(calc(((10vw)*(var(--aos-base-depth)))* cos((var(--aos-sibling-index, 0) + var(--aos-base-depth, 0)) * pi)));
 
-    /* transform: translateY(-1000px); */
 
   }
   to {
-    opacity: unset;
+
+
     transform: translateX(0);
-    /* transform: translateY(0); */
 
   }
 }
@@ -67,8 +77,8 @@ body {
   .animated {
     animation: none !important;
     transition: none !important;
-    opacity: 1 !important;
-    transform: var(--user-transform, none) !important;
+    opacity: initial !important;
+    /* transform: var(--user-transform, none) !important; */
   }
 }
 
@@ -104,35 +114,7 @@ cursor: none !important;
   }
 }*/
 
-.text-section {
-  width: 100%;
-  height:  calc(100%); /* only way*/
-  /* min-height: 0; */
-
-  /* margin: 0 auto; */
-  
-  /* p {
-  text-align: justify;
-  } */
-}
-
-.wrap-before {
-    shape-outside: polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%);
-    /* clip-path:  polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%); */
-
-  /* background-color: rgb(255,0,0,40%); */
-    float: left;
-    width: 50%;
-    height: 100%;
-}
-
-.wrap-after {
-    shape-outside:  polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% ); 
-    /* clip-path:   polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% ); */
-
-  /* background-color: rgb(0,255,0,40%); */
-
-    float: right;
-    width: 50%;
-    height: 100%;
+.tVQpqQ::selection {
+    fill: var(--Ll7Axw);
+    background: transparent
 }

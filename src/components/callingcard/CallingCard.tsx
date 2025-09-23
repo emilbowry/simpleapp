@@ -1,5 +1,9 @@
 // src/components/callingcard/CallingCard.tsx
 
+/**
+	@improvement - Integrate as baseclass of NewCallingCard 
+
+ */
 import React from "react";
 import { formatComponent } from "../../utils/reactUtils";
 import { Theme } from "../../styles";

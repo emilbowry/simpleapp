@@ -1,4 +1,5 @@
 // src/components/cursor/Cursor.styles.ts
+
 import React from "react";
 import { logo_yellow, logo_blue } from "../../utils/defaultColours";
 const HEXAGON_CURSOR_SIZE = 20;

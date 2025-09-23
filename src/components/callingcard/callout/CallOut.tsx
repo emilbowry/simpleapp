@@ -80,10 +80,7 @@ export class CallOut<P extends ICallOut = ICallOut>
 		return wrapperStyle ? (
 			<div style={wrapperStyle}>{this.Container(args)}</div>
 		) : (
-			<>
-				{this.Container(args)}
-				{console.log("alt")}
-			</>
+			<>{this.Container(args)}</>
 		);
 	}
 

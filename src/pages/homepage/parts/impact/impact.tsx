@@ -25,7 +25,7 @@ const stat_value_style: React.CSSProperties = {
 	fontWeight: "500",
 	justifySelf: "center",
 };
-const calling_card_title = <h2>How is AI impacting business</h2>;
+
 const stat_body_style: React.CSSProperties = {
 	color: theme.primaryColor,
 	borderTop: `1px solid`,
@@ -88,6 +88,11 @@ export class HexWrapCallOut extends HWCO {
 		});
 	}
 }
+
+/**
+@improvement 
+- Generalise this into a more concrete FC since it is repeated 
+ */
 export const VHexGrid: React.FC = () => {
 	return (
 		<div

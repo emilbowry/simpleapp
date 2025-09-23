@@ -25,7 +25,6 @@ const personaWrapperStyle: React.CSSProperties = {
 export class Persona extends React.Component<IPersona> {
 	render() {
 		const { image, name, title, email, body, index = 2 } = this.props;
-		console.log(index);
 		let _index = 0;
 		if (index === 0) {
 			_index = 0;
@@ -33,7 +32,6 @@ export class Persona extends React.Component<IPersona> {
 			_index = 1;
 		}
 		let theme = Theme(_index);
-		console.log(theme.backgroundColor);
 		const header = (
 			<div style={{ color: theme.tertiaryColor, fontSize: "2.5rem" }}>
 				<h3>

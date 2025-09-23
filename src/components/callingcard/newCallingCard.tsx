@@ -3,7 +3,63 @@
 import React from "react";
 import { formatComponent } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
-// import { titleHeadingStyle } from "./CallingCard.styles";
+
+/**
+	@improvement - Abstract into baseclass CallingCard, directly integrate VHex footer logic additionally,
+	- Smarter zIndex logic
+
+	Perhaps something like the below
+
+ */
+
+// export class _CallingCard extends React.Component<I_NewCallingCardProps> {
+// 	theme: any;
+// 	generateContainer() {
+// 		const { styleOverrides = {} } = this.props;
+
+// 		let ContainerStyle = {
+// 			...containerStyle,
+// 			backgroundColor: this.theme.backgroundColor,
+// 			...styleOverrides,
+// 		};
+// 		return <div style={ContainerStyle}>{this.generateContent()}</div>;
+// 	}
+// 	generateContent() {
+// 		const {
+// 			components,
+// 			index = 0,
+// 			header,
+// 			body,
+// 			fullSpread = false,
+// 			styleOverrides = {},
+// 		} = this.props;
+// 		const borderColor = header ? this.theme.tertiaryColor : undefined;
+
+// 		return (
+// 			<>
+// 				{header ? (
+// 					<div style={headerContainerStyle}>
+// 						<div style={headerContentStyle}>
+// 							{formatComponent(header)}
+// 						</div>
+// 					</div>
+// 				) : null}
+
+// 				<div style={lowerContainerStyle(borderColor)}>
+// 					{formatComponent(body, true)}
+// 				</div>
+// 			</>
+// 		);
+// 	}
+// 	constructor(props: I_NewCallingCardProps) {
+// 		super(props);
+// 		this.theme = props.index ? Theme(props.index) : {};
+// 	}
+// 	render() {
+// 		return this.generateContainer();
+// 	}
+// }
+
 import {
 	rightBodyGridStyle,
 	titleHeadingStyle,
@@ -21,55 +77,6 @@ import {
 	I_NewCallingCardProps,
 	INewCallingCardProps,
 } from "./newCallingCard.types";
-// My css.d.ts file
-
-export class _NewCallingCard extends React.Component<I_NewCallingCardProps> {
-	theme: any;
-	generateContainer() {
-		const { styleOverrides = {} } = this.props;
-
-		let ContainerStyle = {
-			...containerStyle,
-			backgroundColor: this.theme.backgroundColor,
-			...styleOverrides,
-		};
-		return <div style={ContainerStyle}>{this.generateContent()}</div>;
-	}
-	generateContent() {
-		const {
-			components,
-			index = 0,
-			header,
-			body,
-			fullSpread = false,
-			styleOverrides = {},
-		} = this.props;
-		const borderColor = header ? this.theme.tertiaryColor : undefined;
-
-		return (
-			<>
-				{header ? (
-					<div style={headerContainerStyle}>
-						<div style={headerContentStyle}>
-							{formatComponent(header)}
-						</div>
-					</div>
-				) : null}
-
-				<div style={lowerContainerStyle(borderColor)}>
-					{formatComponent(body, true)}
-				</div>
-			</>
-		);
-	}
-	constructor(props: I_NewCallingCardProps) {
-		super(props);
-		this.theme = props.index ? Theme(props.index) : {};
-	}
-	render() {
-		return this.generateContainer();
-	}
-}
 
 export class NewCallingCard extends React.Component<INewCallingCardProps> {
 	render() {

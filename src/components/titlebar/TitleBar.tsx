@@ -37,6 +37,12 @@ const formatLabel = (key: string, alias?: string): string => {
 		.replace(/_/g, " ")
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
 };
+/**
+	@improvement 
+	- Active link logic now broken, **doesnt highlight current page**
+
+
+ */
 export class TitleBar<
 	P extends ITitleBarProps = ITitleBarProps,
 	S extends ITitleBarState = ITitleBarState
@@ -52,6 +58,7 @@ export class TitleBar<
 			this.initialActiveAlias = null as any;
 		} else {
 			const currentPath = window.location.pathname;
+			console.log(currentPath);
 			let foundAlias: string | null = null;
 			for (const linkGroup of props.links) {
 				const mainLink = linkGroup[0];
@@ -119,6 +126,9 @@ export class TitleBar<
 							mainLink.path,
 							mainLink.alias
 						);
+						console.log(activeLinkAlias);
+						// console.log(displayAlias);
+
 						return (
 							<div
 								key={displayAlias || `main-link-${index}`}
@@ -141,7 +151,9 @@ export class TitleBar<
 				</div>
 				<div style={rightHandContainerStyles}>
 					<button
-						style={hamburgerStyle}
+						style={
+							hamburgerStyle
+						} /* Think of some functional use */
 						aria-label="Menu"
 					>
 						<Menu size={24} />
@@ -350,9 +362,14 @@ export const TestPillTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
 		[
 			{ path: "/", alias: "Home", image: dropdownImage },
-			{ path: "/demo_page", alias: "Demo Page" },
+			{
+				path: "/demo_page",
+				alias: "Demo Page",
+			} /* Only used to verify dropdown logic */,
 		],
 		[{ path: "/thejourney", alias: "The Journey" }],
+		[{ path: "/ourservices", alias: "Our Services" }],
+		[{ path: "/contact", alias: "Contact" }],
 	];
 	return (
 		<PillTitleBar

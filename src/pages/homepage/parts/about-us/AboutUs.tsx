@@ -30,7 +30,32 @@ import {
 } from "./AboutUs.styles";
 import { VerticalHexagonGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
 import { bgwhite } from "../../../../utils/defaultColours";
-const hStyle = { /* borderColor: logo_blue,  */ colour: bgwhite };
+export const hStyle = { /* borderColor: logo_blue,  */ colour: bgwhite };
+
+const head = <h2>About Us</h2>;
+
+const foot = (
+	<p>
+		At AI Compatible, we believe not everyone needs to be an AI expert but
+		everyone should be AI compatible. That means being alert to the
+		opportunities and the risks: we help businesses navigate both, with
+		tailored sessions giving you the right tools, skills, and literacy.
+		<br />
+		<br />
+		We strive for a world where AI goes right, and people are ready for it.
+	</p>
+);
+import { partners } from "../Partners";
+
+const large_partners = {
+	...partners,
+	size: "Large",
+};
+
+/**
+@improvement 
+- Generalise this into a more concrete FC since it is repeated 
+ */
 export const VHexGrid: React.FC = () => {
 	return (
 		<div
@@ -61,26 +86,6 @@ export const VHexGrid: React.FC = () => {
 		</div>
 	);
 };
-const head = <h2>About Us</h2>;
-
-const foot = (
-	<p>
-		At AI Compatible, we believe not everyone needs to be an AI expert but
-		everyone should be AI compatible. That means being alert to the
-		opportunities and the risks: we help businesses navigate both, with
-		tailored sessions giving you the right tools, skills, and literacy.
-		<br />
-		<br />
-		We strive for a world where AI goes right, and people are ready for it.
-	</p>
-);
-import { partners } from "../Partners";
-
-const large_partners = {
-	...partners,
-	size: "Large",
-};
-
 export class HexWrapCallOut extends TriPartCallout {
 	static {
 		this.styler.updateStyle("wrapperStyle_style", {

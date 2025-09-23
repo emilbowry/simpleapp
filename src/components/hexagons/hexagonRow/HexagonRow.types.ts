@@ -14,4 +14,6 @@ export interface IHexagonGridElements {
 	rows: IHexagonRowElements[];
 	relative_space?: number;
 	absolute_space?: number;
+	containerStyle?: React.CSSProperties;
+	class_name?: string;
 }

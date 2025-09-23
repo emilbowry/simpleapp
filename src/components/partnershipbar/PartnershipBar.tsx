@@ -20,14 +20,16 @@ import {
 	IPartnerImageState,
 	IPartnershipBarState,
 } from "./PartnershipBar.types";
-import { genericSectionStyle } from "../../styles";
 export const WallLayout = (n: number): [number, number, number] => {
 	const a = (((n % 3) + 1) % 2) + Math.floor(n / Math.min(n, 3)); // Calculates the top row
 	const c = Math.floor((n + 1) / 3) - (((n + 1) % Math.min(n, 3)) % 2); // Calculates the bottom row
 	return [a, n - (a + c), c]; // invariant: exists x in {a, n-(a+c)} s.t c <= x
 };
 
-// const
+/**
+	@improvement 
+	- Smarter or better width calculations for "Small" partnership scrolling bar
+*/
 
 class PartnerImage extends React.Component<
 	IPartnerImageProps,

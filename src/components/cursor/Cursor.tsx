@@ -1,5 +1,9 @@
 // src/components/cursor/Cursor.tsx
-
+/**
+@improvement
+- general refinements
+- cursor baseline super class
+ */
 import React, { useEffect, useState } from "react";
 import {
 	keyframes,

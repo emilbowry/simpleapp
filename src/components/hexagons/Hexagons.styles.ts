@@ -2,16 +2,6 @@
 
 import React from "react";
 import { HexagonStyleParams } from "./Hexagons.types";
-import { genericSectionStyle } from "../../styles";
-
-const horizontalSafeZoneCoords = {
-	minX: 50,
-	maxX: 150,
-	minY: -86.6025,
-	maxY: 86.6025,
-	width: 100,
-	height: 173.205,
-};
 
 const vertSafeZoneCoords = {
 	minX: 13.3975,
@@ -39,14 +29,20 @@ export const containerStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
-		// ...genericSectionStyle,
-		/* fontSize:0 is key to provent weird svg dimensioning issues, ensure we reset if includes jsx elements also */
+		/* 
+	fontSize:0 is key to provent weird svg dimensioning issues, ensure we reset if includes jsx elements also
+	-	core fix such that HexagonRow works
+ */
+		// position: "relative",
+		// zIndex: "100",
 		fontSize: 0,
 		overflow: "visible",
-		opacity: `${opacity} !important`,
+
+		opacity: `${opacity}`,
 	};
 };
 
+// No-op
 export const svgStyle = ({
 	size = 500,
 	scale = 1,
@@ -58,6 +54,22 @@ export const svgStyle = ({
 //
 // ===== Content Zones =====
 //
+/**
+ * 
+ * @depreciated
+ Replaced with shape-outside methodology
+
+
+
+const horizontalSafeZoneCoords = {
+	minX: 50,
+	maxX: 150,
+	minY: -86.6025,
+	maxY: 86.6025,
+	width: 100,
+	height: 173.205,
+};
+
 export const horizontalContentStyle = (): React.CSSProperties => {
 	const left = `${((horizontalSafeZoneCoords.minX - 0) / 200) * 100}%`;
 	const top = `${((horizontalSafeZoneCoords.minY - -100) / 200) * 100}%`;
@@ -78,6 +90,8 @@ export const horizontalContentStyle = (): React.CSSProperties => {
 		alignItems: "center",
 	};
 };
+ */
+
 export const verticalContentStyle = (): React.CSSProperties => {
 	const left = `${((vertSafeZoneCoords.minX - 0) / 200) * 100}%`;
 	const top = `${((vertSafeZoneCoords.minY - -100) / 200) * 100}%`;
@@ -98,30 +112,37 @@ export const verticalContentStyle = (): React.CSSProperties => {
 		alignItems: "center",
 	};
 };
-const verticalHexagonPoints =
-	"50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%";
-
-const horizontalHexagonPoints =
-	"25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%";
+const s = 1;
 
 export const LeftCutout: React.CSSProperties = {
 	shapeOutside: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
+	/**
+	@debug - used to visually display the shape
+
+ */
+	shapeMargin: "2%",
+
 	// clipPath: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
 	// backgroundColor: "rgb(0,255,0,40%)",
 	float: "left",
-	width: "50%",
-	height: `calc(100%)`,
+	width: `${50 * s}%`,
+	height: `calc(${100 * s}%)`,
 };
 export const RightCutout: React.CSSProperties = {
 	shapeOutside:
 		"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
+	/**
+	@debug - used to visually display the shape
+
+ */
+	shapeMargin: "2%",
 	// clipPath: "polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
 	// backgroundColor: "rgb(255,0,0,40%)",
 	float: "right",
-	width: "50%",
-	height: `calc(100%)`,
+	width: `${50 * s}%`,
+	height: `calc(${100 * s}%)`,
 };
-
+/* some of these 100% and calc(100%) and inherit's are unnecessary but i cant remember which ones i can safely remove*/
 export const textSex: React.CSSProperties = {
 	width: "100%",
 	height: `calc(100%)`,
