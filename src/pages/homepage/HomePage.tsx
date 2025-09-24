@@ -17,9 +17,11 @@ export const homePage: React.FC = () => {
 };
 
 import { contactPage } from "../contactpage/ContactPage";
+import { theJourneyPage } from "../thejourneypage/TheJourney";
 export const HomePage = (
 	<Page
-		page={contactPage}
+		page={homePage}
+		// page={theJourneyPage}
 		bg={true}
 	/>
 );

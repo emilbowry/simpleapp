@@ -48,17 +48,17 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 			margin_top = -(0.5 * 100) / l;
 		} else {
 			margin_top = -(1.5 * 100) / l; // calculation slightly off
-			padding_top = 0.5 * 100 * l;
+			// padding_top = 0.5 * 100 * l;
 		}
 
 		return (
 			<div
 				className={class_name ?? ""}
 				style={{
-					marginTop: `${margin_top}%`,
-					paddingTop: padding_top,
+					// marginTop: `${margin_top}%`,
+					// paddingTop: padding_top,
 
-					paddingBottom: `calc(${relative_space * 1.5}% )`,
+					// paddingBottom: `calc(${relative_space * 1.5}% )`,
 					...containerStyle,
 				}}
 			>

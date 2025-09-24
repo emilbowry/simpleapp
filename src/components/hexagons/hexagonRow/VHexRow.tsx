@@ -122,3 +122,199 @@ export class VerticalHexagonGrid extends React.Component<
 		);
 	}
 }
+
+// src/components/hexagons/hexagonRow/VerticalHexagonFeatureGrid.tsx
+
+import { VerticalHexagonGrid as BaseVerticalHexagonGrid } from "./VHexRow"; // Renamed to avoid collision
+import { VertHexagon } from "../Hexagons";
+import { TriPartCallout } from "../../callingcard/callout/CallOut";
+
+import { ValidComponent } from "../../../utils/reactUtils";
+import { Theme } from "../../../styles";
+export const hexCallStyle: React.CSSProperties = {
+	display: "flex",
+	width: "100%",
+	minWidth: 0,
+	minHeight: 0,
+	margin: "0 auto",
+	marginTop: "-15%",
+};
+// Reusable base class for HexWrapCallOut, to be used by specific callouts.
+// This ensures that the wrapper style for HexCallouts is consistently applied.
+export class HexWrapCallOut extends TriPartCallout {
+	static {
+		this.styler.updateStyle("wrapperStyle_style", {
+			def_static_css: {
+				...hexCallStyle,
+				backgroundColor: "transparent", // Ensure transparency for hexagon overlap
+			},
+		});
+	}
+}
+
+interface IFeatureCalloutProps {
+	themeId?: number;
+	header?: ValidComponent;
+	body: ValidComponent;
+	footer?: ValidComponent;
+}
+
+// A generic Hexagon Callout wrapper that applies the shared HexWrapCallOut styling
+const GenericHexagonCallout: React.FC<IFeatureCalloutProps> = ({
+	themeId = -1, // Default to a theme that often implies transparency/light colors
+	header,
+	body,
+	footer,
+}) => (
+	<HexWrapCallOut
+		themeId={themeId}
+		header={header}
+		body={body}
+		footer={footer}
+	/>
+);
+
+interface VerticalHexagonFeatureGridProps {
+	/**
+	 * An array of feature callout configurations.
+	 */
+	featureCallouts: IFeatureCalloutProps[];
+	/**
+	 * Common style arguments for the VertHexagon wrapper.
+	 * Typically includes `colour` and `borderColor`.
+	 */
+	hexagonArgs: any; // Consider a more precise type if 'args' are well-defined
+	theme?: number;
+}
+
+/**
+ * A reusable component for displaying features within a vertical hexagon grid layout.
+ * It abstracts the common pattern of wrapping feature content in `VertHexagon`
+ * and `HexWrapCallOut` for consistent styling and layout.
+ */
+const getEl = (
+	image: ValidComponent = <></>,
+
+	title: ValidComponent = <></>,
+	content: ValidComponent = <></>,
+	themeid?: number
+) => {
+	const theme = themeid ? Theme(themeid) : undefined;
+	return (
+		<div
+			style={{
+				position: "relative",
+				height: "100%",
+				margin: 0,
+
+				verticalAlign: "text-bottom",
+			}}
+		>
+			<div
+				style={{
+					margin: 0,
+					fontSize: 0,
+				}}
+			>
+				no-op
+			</div>
+			<div
+				style={{
+					height: "calc(100%)",
+					fontSize: "2vw",
+
+					display: "block",
+					margin: 0,
+
+					textAlign: "center",
+				}}
+			>
+				<div
+					style={{
+						position: "relative",
+						padding: "0",
+					}}
+				>
+					<div
+						style={{
+							// fontSize: "3vw",
+							position: "relative",
+							visibility: "hidden",
+							top: 0,
+						}}
+					>
+						why does this need to be here
+					</div>
+					<div
+						style={{
+							fontSize: "2.5vw",
+							position: "relative",
+
+							height: "calc(100%)",
+							margin: "auto",
+						}}
+					>
+						{formatComponent(image)}
+					</div>
+					<div
+						style={{
+							fontSize: "3vw",
+							height: "calc(100%)",
+							// fontSize: "2rem",
+							fontWeight: "400",
+							textAlign: "center",
+							margin: "2%",
+
+							// margin: "auto",
+
+							color: theme ? theme.tertiaryColor : "",
+						}}
+					>
+						{formatComponent(title)}
+					</div>
+					<div
+						style={{
+							fontSize: "2.5vw",
+
+							height: "calc(100%)",
+							margin: "2%",
+
+							textAlign: "center",
+							color: theme ? theme.primaryColor : "",
+						}}
+					>
+						{formatComponent(content)}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export const VerticalHexagonFeatureGrid: React.FC<
+	VerticalHexagonFeatureGridProps
+> = ({ featureCallouts, hexagonArgs, theme }) => {
+	const elements = featureCallouts.map((calloutProps, index) => (
+		// const image = featureCallouts
+
+		<VertHexagon
+			key={index}
+			args={hexagonArgs}
+			element={getEl(
+				calloutProps.header,
+
+				calloutProps.body,
+				calloutProps.footer,
+				theme
+			)}
+			opacity={1} // Ensure full opacity for content visibility
+			useVerticalAlignment={true}
+		/>
+	));
+
+	return (
+		<div style={{ width: "100%", zIndex: 25 }}>
+			<BaseVerticalHexagonGrid elements={elements as any} />
+		</div>
+	);
+};

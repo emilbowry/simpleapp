@@ -1,7 +1,6 @@
 // src/pages/page.tsx
 
 import React from "react";
-import background from "../assets/Untitled.png";
 import { Footer } from "./Footer";
 import CustomCursor from "../components/cursor/Cursor";
 

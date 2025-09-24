@@ -8,22 +8,18 @@ import React from "react";
 import { Page } from "../page";
 import { NewCallingCard } from "../../components/callingcard/newCallingCard";
 
-import { VertHexagon } from "../../components/hexagons/Hexagons";
-import { VerticalHexagonGrid } from "../../components/hexagons/hexagonRow/VHexRow";
+import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/VHexRow";
 import { bgwhite } from "../../utils/defaultColours";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
-import {
-	hexCallStyle,
-	titleStyle,
-} from "../homepage/parts/about-us/AboutUs.styles";
+import { titleStyle } from "../homepage/parts/about-us/AboutUs.styles";
 
-import { TriPartCallout } from "../../components/callingcard/callout/CallOut";
 import {
 	formatComponent,
 	getImageEl,
 	ValidComponent,
 } from "../../utils/reactUtils";
 import qrcode from "../../assets/qrCode.png";
+import { logoGrag, Theme } from "../../styles";
 interface LearnMoreButtonProps {
 	href?: string;
 	content?: ValidComponent;
@@ -34,30 +30,47 @@ const LearnMoreButton: React.FC<LearnMoreButtonProps> = ({
 	content = "",
 }) => {
 	const buttonStyles: React.CSSProperties = {
-		padding: "2% 5%",
-		textDecoration: "underline",
+		// padding: "2% 5%",
+		textDecoration: "none",
+		color: "white",
+		fontSize: "3rem",
+		// display: "flex",
+		// flexDirection: "column",
+		textAlign: "center",
+		width: "100%",
+		// alignContent: "center",
+		// // verticalAlign: "middle",
+		// justifyContent: "center",
+		backgroundOrigin: "content-box",
+		backgroundImage: `${logoGrag}`,
+		backgroundPosition: "bottom left",
+		backgroundRepeat: "no-repeat",
+		boxSizing: "border-box",
+		backgroundSize: "100% 2px",
 	};
 
 	return (
-		<a
-			href={href}
-			style={buttonStyles}
+		<div
+			style={{
+				height: "10vw",
+				display: "flex",
+				flexDirection: "column",
+				alignContent: "center",
+				// verticalAlign: "middle",
+				color: "white",
+				justifyContent: "center",
+			}}
 		>
-			<div
-				style={{
-					height: "10vw",
-					display: "flex",
-					flexDirection: "column",
-					alignContent: "center",
-					// verticalAlign: "middle",
-					justifyContent: "center",
-					backgroundColor: "#4DB6AC",
-				}}
-			>
-				{formatComponent(content)}
+			{formatComponent(content)}
+			<div style={{}}>
+				<a
+					href={href}
+					style={buttonStyles}
+				>
+					Learn More
+				</a>
 			</div>
-		</a>
-		// </div>
+		</div>
 	);
 };
 
@@ -73,113 +86,6 @@ const foot = (
 		it. We strive for a world where AI goes right, and people are ready for
 		it.
 	</p>
-);
-/**
-@improvement 
-- Generalise this into a more concrete FC since it is repeated 
- */
-export const VHexGrid: React.FC = () => {
-	return (
-		<div
-			style={{
-				width: "100%",
-				zIndex: 25,
-			}}
-		>
-			<VerticalHexagonGrid
-				elements={[
-					<VertHexagon
-						args={hStyle}
-						element={BookCallOut}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={hStyle}
-						element={RequestCallOut}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={hStyle}
-						element={BuyCallOut}
-						opacity={1}
-					/>,
-				]}
-			/>
-		</div>
-	);
-};
-export class HexWrapCallOut extends TriPartCallout {
-	static {
-		this.styler.updateStyle("wrapperStyle_style", {
-			def_static_css: {
-				...hexCallStyle,
-
-				backgroundColor: "transparent",
-			},
-		});
-	}
-}
-
-const book_co = {
-	body: (
-		<LearnMoreButton
-			content={
-				<div style={titleStyle}>
-					<p>
-						Book a free 20 minute chat to find out how we could help
-						you or your business
-					</p>
-				</div>
-			}
-		/>
-	),
-};
-
-const BookCallOut = (
-	<HexWrapCallOut
-		{...book_co}
-		themeId={-1}
-	/>
-);
-
-const req_co = {
-	body: (
-		<LearnMoreButton
-			content={
-				<div style={titleStyle}>
-					<p>
-						Request an email of our services and offering and keep
-						up to date with AI Comaptible’s mailing list
-					</p>
-				</div>
-			}
-		/>
-	),
-};
-
-const RequestCallOut = (
-	<HexWrapCallOut
-		{...req_co}
-		themeId={-1}
-	/>
-);
-
-const buy_co = {
-	body: (
-		<LearnMoreButton
-			content={
-				<div style={titleStyle}>
-					<p>Buy 1-1 consultancy and training</p>
-				</div>
-			}
-		/>
-	),
-};
-const BuyCallOut = (
-	<HexWrapCallOut
-		{...buy_co}
-		themeId={-1}
-	/>
 );
 
 export const CUBody = (
@@ -203,6 +109,51 @@ export const CUBody = (
 		<div>{getImageEl(qrcode)}</div>
 	</div>
 );
+const contactFeatureCallouts = [
+	{
+		body: (
+			<LearnMoreButton
+				content={
+					<div style={titleStyle}>
+						<p>
+							Book a free 20 minute chat to find out how we could
+							help you or your business
+						</p>
+					</div>
+				}
+			/>
+		),
+		themeId: -1,
+	},
+	{
+		body: (
+			<LearnMoreButton
+				content={
+					<div style={titleStyle}>
+						<p>
+							Request an email of our services and offering and
+							keep up to date with AI Comaptible’s mailing list
+						</p>
+					</div>
+				}
+			/>
+		),
+		themeId: -1,
+	},
+	{
+		body: (
+			<LearnMoreButton
+				content={
+					<div style={titleStyle}>
+						<p>Buy 1-1 consultancy and training</p>
+					</div>
+				}
+			/>
+		),
+		themeId: -1,
+	},
+];
+
 export const CUCC: React.FC = () => (
 	<>
 		<NewCallingCard
@@ -216,7 +167,11 @@ export const CUCC: React.FC = () => (
 				zIndex: 0,
 			}}
 		/>
-		<VHexGrid />
+		<VerticalHexagonFeatureGrid
+			featureCallouts={contactFeatureCallouts}
+			hexagonArgs={{ colour: Theme(1).backgroundColor }}
+		/>
+		{/* <VHexGrid /> */}
 	</>
 );
 

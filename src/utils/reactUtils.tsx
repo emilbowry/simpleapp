@@ -1,5 +1,6 @@
 // src/utils/reactUtils.tsx
 import React from "react";
+import { get_data_uri, stringifySVG } from "./misc/image-handelling";
 
 export const wrapLink = (
 	link: string | undefined,
@@ -72,6 +73,7 @@ export type ValidComponent =
 	| null;
 
 const emptyEl = <></>;
+
 export const formatComponent = (
 	component: ValidComponent,
 	overlay = false,
@@ -79,10 +81,6 @@ export const formatComponent = (
 ): React.ReactNode | string => {
 	if (component === null) {
 		return emptyEl;
-	} else if (typeof component === "string") {
-		return component;
-	} else if (React.isValidElement(component)) {
-		return component;
 	} else if (Array.isArray(component)) {
 		return component.map((Comp, index) => (
 			<div
@@ -94,9 +92,7 @@ export const formatComponent = (
 		));
 	} else if (
 		typeof component === "function" ||
-		(typeof component === "object" &&
-			component !== null &&
-			(component as any).prototype instanceof React.Component)
+		(component as any).prototype instanceof React.Component
 	) {
 		const SingleComponent = component as React.ComponentType;
 		return <SingleComponent />;
@@ -104,21 +100,3 @@ export const formatComponent = (
 		return component;
 	}
 };
-
-import {
-	midnight_green,
-	dark_midnight_green,
-	logo_blue,
-	l_midnight_green,
-	dark_mix_green,
-	light_logo_blue,
-	logo_yellow,
-	light_mix_green,
-	lighter_logo_blue,
-} from "./defaultColours";
-import { genericSectionStyle } from "../styles";
-import {
-	fromSVGString,
-	get_data_uri,
-	stringifySVG,
-} from "./misc/image-handelling";

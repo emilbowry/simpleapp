@@ -1,8 +1,7 @@
 // src/components/callingcard/newCallingCard.styles.ts
 
 import React from "react";
-import { borderGrad, genericSectionStyle } from "../../styles";
-import { logo_blue, logo_yellow } from "../../utils/defaultColours";
+import { borderGrad } from "../../styles";
 
 export const containerStyle: React.CSSProperties = {
 	// ...genericSectionStyle,

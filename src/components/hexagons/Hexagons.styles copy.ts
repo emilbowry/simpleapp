@@ -1,6 +1,6 @@
 // src/components/hexagons/Hexagons.styles.ts
-import React from "react";
 
+import React from "react";
 import { HexagonStyleParams } from "./Hexagons.types";
 import { genericSectionStyle } from "../../styles";
 
@@ -101,11 +101,6 @@ export const verticalContentStyle = (): React.CSSProperties => {
 
 	return {
 		position: "absolute",
-		// height: `calc(100%)`,
-		// width: "100%",
-
-		// left: 0,
-		// top: 0,
 		left,
 		top,
 		width,
@@ -121,29 +116,21 @@ export const verticalContentStyle = (): React.CSSProperties => {
 const s = 1;
 
 export const LeftCutout: React.CSSProperties = {
-	position: "relative",
-
-	shapeOutside: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
-	shapeMargin: "5%",
-
+	// shapeOutside: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
+	// shapeMargin: "2%",
 	/**
 	@debug - used to visually display the shape
 
  */
-
 	// clipPath: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
 	// backgroundColor: "rgb(0,255,0,40%)",
-	float: "left",
-	width: `${50 * s}%`,
-	height: `calc(${100 * s}%)`,
+	// float: "left",
+	// width: `${50 * s}%`,
+	// height: `calc(${100 * s}%)`,
 };
 export const RightCutout: React.CSSProperties = {
-	position: "relative",
-
-	shapeOutside:
-		"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
-	shapeMargin: "5%",
-
+	// shapeOutside:
+	// 	"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
 	/**
 	shapeMargin: "2%",
 
@@ -152,13 +139,13 @@ export const RightCutout: React.CSSProperties = {
  */
 	// clipPath: "polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
 	// backgroundColor: "rgb(255,0,0,40%)",
-	float: "right",
-	width: `${50 * s}%`,
-	height: `calc(${100 * s}%)`,
+	// float: "right",
+	// width: `${50 * s}%`,
+	// height: `100%`,
 };
 /* some of these 100% and calc(100%) and inherit's are unnecessary but i cant remember which ones i can safely remove*/
 export const textSex: React.CSSProperties = {
-	// ...genericSectionStyle,
+	...genericSectionStyle,
 
 	width: "100%",
 	height: `calc(100%)`,
@@ -169,96 +156,16 @@ export const _contentSection: React.CSSProperties = {
 	position: "absolute",
 };
 export const textSec: React.CSSProperties = {
-	width: "100%",
+	// width: "100%",
 	display: "block",
 	height: `calc(100%)`, // 100% doesnt work out correct unles using calc
 };
 
-export const LWRap: React.CSSProperties = {
-	width: "100%",
-	height: "100%",
-};
 export const hexagonalContentStyle: React.CSSProperties = {
 	position: "absolute",
 	height: `calc(100%)`,
-	// height: "100%",
+	// width: "100%",
 
-	width: "100%",
-
-	// left: 0,
+	left: 0,
 	top: 0,
-};
-export const VertLeftCutout: React.CSSProperties = {
-	position: "relative",
-	shapeOutside: "polygon(0% 0%, 100% 0%, 0% 25%, 0% 100%, 100% 100%, 0% 75%)",
-	float: "left", // Still float left for shape-outside to work
-	width: `${50 * s}%`,
-	height: `calc(${100 * s}%)`,
-	// @debug - use clipPath for visual confirmation
-	// clipPath: "polygon(0% 0%, 98% 0%, 0% 25%, 0% 100%, 98% 100%, 0% 75%)",
-	// backgroundColor: "rgb(0,255,0,40%)", // Green for left
-	// 	position: "relative",
-
-	// 	shapeOutside: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
-	// 	shapeMargin: "5%",
-
-	// 	/**
-	// 	@debug - used to visually display the shape
-
-	//  */
-
-	// 	clipPath: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
-	// 	backgroundColor: "rgb(0,255,0,40%)",
-	// 	float: "left",
-	// 	width: `${50 * s}%`,
-	// 	height: `calc(${100 * s}%)`,
-};
-
-export const VertRightCutout: React.CSSProperties = {
-	position: "relative",
-
-	shapeOutside:
-		"polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 0% 100%, 100% 75%)",
-	// shapeMargin: "5%",
-	float: "right", // Still float right for shape-outside to work
-	width: `${50 * s}%`,
-	height: `calc(${100 * s}%)`,
-	// zIndex: 100,
-	// @debug - use clipPath for visual confirmation
-	// clipPath: "polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 2% 100%, 100% 75%)",
-	// backgroundColor: "rgb(255,0,0,40%)", // Red for right
-	// 	position: "relative",
-
-	// 	shapeOutside:
-	// 		"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
-	// 	shapeMargin: "5%",
-
-	// 	/**
-	// 	shapeMargin: "2%",
-
-	// 	@debug - used to visually display the shape
-
-	//  */
-	// 	clipPath: "polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
-	// 	backgroundColor: "rgb(255,0,0,40%)",
-	// 	float: "right",
-	// 	width: `${50 * s}%`,
-	// 	height: `calc(${100 * s}%)`,
-};
-export const vertHexagonalContentStyle: React.CSSProperties = {
-	position: "absolute",
-	height: `calc(100%)`,
-	width: "100%",
-	top: 0,
-};
-
-export const vertTextSec: React.CSSProperties = {
-	width: "100%",
-	display: "block",
-	height: `calc(100%)`,
-};
-
-export const vertTextContentWrapperStyle: React.CSSProperties = {
-	width: "100%",
-	height: `calc(100%)`, // Similar to textSex
 };

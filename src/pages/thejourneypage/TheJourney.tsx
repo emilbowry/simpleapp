@@ -1,5 +1,4 @@
 import React from "react";
-import { BackgroundStyle, genericSectionStyle } from "../../styles";
 
 import { Page } from "../page";
 import { Hexagon, ImageHexagon } from "../../components/hexagons/Hexagons";
@@ -13,19 +12,17 @@ import {
 	midnight_green,
 } from "../../utils/defaultColours";
 import { BoxedImage } from "../../utils/reactUtils";
-import {
-	bulb,
-	bullseye,
-	pencil,
-} from "../../components/callingcard/callout/HexCallout";
-import { imageStyling } from "../homepage/parts/about-us/AboutUs.styles";
+import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import bw1 from "../../assets/bw1.jpg";
+import bw2 from "../../assets/bw2.jpg";
 const generateGradient = (
 	n: number,
 
 	s: string = logo_yellow,
 	e: string = logo_blue
-): string[] =>
-	Array.from(
+): string[] => {
+	if (n <= 2) return [s, e];
+	return Array.from(
 		{ length: n },
 		(_, i) =>
 			"#" +
@@ -44,7 +41,7 @@ const generateGradient = (
 				.toString(16)
 				.slice(1)
 	);
-
+};
 const TimelineData = [
 	{
 		date: "NOV 2022",
@@ -111,39 +108,39 @@ const getEl = (date: string, content: string) => (
 		style={{
 			position: "relative",
 			height: "100%",
-			margin: "auto",
-			padding: "auto",
+			margin: 0,
+
 			verticalAlign: "text-bottom",
 		}}
 	>
-		<div style={{ fontSize: 0 }}>no-op</div>
+		<div
+			style={{
+				margin: 0,
+				fontSize: 0,
+			}}
+		>
+			no-op
+		</div>
 		<div
 			style={{
 				height: "calc(100%)",
 
-				margin: "auto",
-				padding: "auto",
-
 				display: "block",
+				margin: 0,
 
-				color: "black",
-				fontSize: "2rem",
 				textAlign: "center",
 			}}
 		>
 			<div
 				style={{
 					position: "relative",
-
-					height: "100%",
-
-					paddingTop: "10%",
-					paddingBottom: "10%",
+					padding: "0",
 				}}
 			>
 				<h3
 					style={{
 						fontSize: "3vw",
+						height: "calc(100%)",
 
 						color: dark_midnight_green,
 					}}
@@ -153,7 +150,10 @@ const getEl = (date: string, content: string) => (
 				<p
 					style={{
 						fontSize: "2.5vw",
+						// textAlign: "justify",
+
 						color: midnight_green,
+						height: "calc(100%)",
 					}}
 				>
 					{content}
@@ -162,92 +162,77 @@ const getEl = (date: string, content: string) => (
 		</div>
 	</div>
 );
-const getRows = () => {
-	let rows = [];
-	const len = TimelineData.length;
-	let colours = generateGradient(len * 2);
-	colours = colours.reverse();
 
-	for (let i = 0; i < len; i++) {
-		let thirdHexagon = (
+const getThirdHex = (index: number) => {
+	let thirdHexagon = (
+		<Hexagon
+			args={{
+				colour: "transparent",
+			}}
+		/>
+	);
+
+	let _icon =
+		index < TimelineData.length - 1
+			? TimelineData[index + 1].icon
+			: undefined;
+	let _image =
+		index < TimelineData.length - 1 ? TimelineData[index].image : undefined;
+	if (_icon) {
+		thirdHexagon = (
 			<Hexagon
 				args={{
 					colour: "transparent",
 				}}
+				opacity={1}
+				element={
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+							margin: "auto",
+							height: "100%",
+							opacity: 1,
+						}}
+					>
+						<BoxedImage
+							image={_icon}
+							width="100%"
+							aspectRatio="1"
+							imageStyling={{ margin: "auto" }}
+						/>
+					</div>
+				}
+			/>
+		);
+	} else if (_image) {
+		thirdHexagon = <ImageHexagon args={{ img: _image }} />;
+	}
+	return thirdHexagon;
+};
+
+const getRows = () => {
+	const colours = generateGradient(TimelineData.length).reverse();
+
+	return TimelineData.map((item, i) => {
+		const contentHex = (
+			<Hexagon
+				args={{ colour: bgwhite }}
+				element={getEl(item.date, item.content)}
+				opacity={1}
+				useVerticalAlignment={true}
 			/>
 		);
 
-		let _icon = i < len - 1 ? TimelineData[i + 1].icon : undefined;
-		let _image = i < len - 1 ? TimelineData[i].image : undefined;
-		if (_icon) {
-			thirdHexagon = (
-				<Hexagon
-					args={{
-						colour: "transparent",
-					}}
-					opacity={1}
-					element={
-						<div
-							style={{
-								display: "flex",
-								flexDirection: "column",
-								justifyContent: "center",
-								margin: "auto",
-								height: "100%",
-								opacity: 1,
-							}}
-						>
-							<BoxedImage
-								image={_icon}
-								width="100%"
-								aspectRatio="1"
-								imageStyling={{ margin: "auto" }}
-							/>
-						</div>
-					}
-				/>
-			);
-		} else if (_image) {
-			thirdHexagon = <ImageHexagon args={{ img: _image }} />;
-		}
-		if (i % 2 == 0) {
-			rows.push({
-				elements: [
-					<Hexagon
-						args={{ colour: bgwhite }}
-						element={getEl(
-							TimelineData[i].date,
-							TimelineData[i].content
-						)}
-						opacity={1}
-					/>,
-					<Hexagon args={{ colour: colours[2 * i + 1] }} />,
-					thirdHexagon,
-				] as const,
-			});
-		} else {
-			rows.push({
-				elements: [
-					thirdHexagon,
-					<Hexagon args={{ colour: colours[2 * i] }} />,
-					<Hexagon
-						args={{ colour: bgwhite }}
-						element={getEl(
-							TimelineData[i].date,
-							TimelineData[i].content
-						)}
-						opacity={1}
-					/>,
-				] as const,
-			});
-		}
-	}
+		const spineHex = <Hexagon args={{ colour: colours[i] }} />;
+		const baseRowElements = [contentHex, spineHex, getThirdHex(i)];
 
-	return rows;
+		return {
+			elements: i % 2 === 0 ? baseRowElements : baseRowElements.reverse(),
+		};
+	});
 };
-import bw1 from "../../assets/bw1.jpg";
-import bw2 from "../../assets/bw2.jpg";
-
 import bw3 from "../../assets/bw3.jpg";
 
 export const theJourneyPage: React.FC = () => {
@@ -260,9 +245,9 @@ export const theJourneyPage: React.FC = () => {
 			}}
 		>
 			<HexagonGrid
-				rows={r}
-				relative_space={15}
-				absolute_space={-30}
+				rows={r as any}
+				relative_space={10}
+				absolute_space={-15}
 				containerStyle={{
 					backdropFilter: "blur(8px)",
 				}}

@@ -4,14 +4,16 @@ import React from "react";
 
 import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
-import { VerticalHexagonGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
+import {
+	VerticalHexagonFeatureGrid,
+	VerticalHexagonGrid,
+} from "../../../../components/hexagons/hexagonRow/VHexRow";
 import { VertHexagon } from "../../../../components/hexagons/Hexagons";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import cam from "../../../../assets/cam.png";
 import LH from "../../../../assets/leverCent.png";
 import logo from "../../../../assets/logo.png";
 import { borderGrad, Theme } from "../../../../styles";
-import { HexWrapCallOut as HWCO } from "../about-us/AboutUs";
 import { hexCallStyle } from "../about-us/AboutUs.styles";
 
 const idx = 1;
@@ -36,32 +38,6 @@ const stat_body_style: React.CSSProperties = {
 	// marginTop: "-1%",
 	fontSize: "2rem",
 };
-const stat_card_one = {
-	header: <p style={stat_value_style}>$200 Billion</p>,
-	body: <p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
-};
-
-const stat_card_two = {
-	body: (
-		<p style={stat_body_style}>
-			confidence increase in people who take our sessions in thier use of
-			generative AI.
-		</p>
-	),
-	header: <p style={stat_value_style}>96%</p>,
-};
-
-const stat_card_three = {
-	header: <p style={stat_value_style}>70%</p>,
-
-	body: (
-		<p style={stat_body_style}>
-			of CEOs say AI will significantly change the way their company
-			creates value of the next 3 years <br />-
-			<i>PwC Global CEO Survey 2024</i>.
-		</p>
-	),
-};
 
 const head = <h2>How is AI Impacting Business</h2>;
 
@@ -77,76 +53,38 @@ const foot = (
 		</p>
 	</div>
 );
-export class HexWrapCallOut extends HWCO {
-	static {
-		this.styler.updateStyle("wrapperStyle_style", {
-			def_static_css: {
-				// ...hexCallStyle,
-				// display: "grid",
-				// marginTop: 0,
-			},
-		});
-	}
-}
 
 /**
 @improvement 
 - Generalise this into a more concrete FC since it is repeated 
  */
-export const VHexGrid: React.FC = () => {
-	return (
-		<div
-			style={{
-				width: "100%",
-				zIndex: 25,
-			}}
-		>
-			<VerticalHexagonGrid
-				elements={[
-					<VertHexagon
-						args={{
-							// borderColor: theme.secondaryColor,
-							colour: theme.backgroundColor,
-						}}
-						element={
-							<HWCO
-								{...stat_card_one}
-								index={1}
-							/>
-						}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={{
-							// borderColor: theme.secondaryColor,
-							colour: theme.backgroundColor,
-						}}
-						element={
-							<HWCO
-								{...stat_card_two}
-								index={1}
-							/>
-						}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={{
-							// borderColor: theme.secondaryColor,
-							colour: theme.backgroundColor,
-						}}
-						element={
-							<HWCO
-								{...stat_card_three}
-								index={1}
-							/>
-						}
-						opacity={1}
-					/>,
-				]}
-			/>
-		</div>
-	);
-};
+
+const impactFeatureCallouts = [
+	{
+		header: <p style={stat_value_style}>$200 Billion</p>,
+		body: <p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
+	},
+	{
+		body: (
+			<p style={stat_body_style}>
+				confidence increase in people who take our sessions in their use
+				of generative AI.
+			</p>
+		),
+		header: <p style={stat_value_style}>96%</p>,
+	},
+	{
+		header: <p style={stat_value_style}>70%</p>,
+		body: (
+			<p style={stat_body_style}>
+				of CEOs say AI will significantly change the way their company
+				creates value of the next 3 years <br />-
+				<i>PwC Global CEO Survey 2024</i>.
+			</p>
+		),
+	},
+];
+
 const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	let theme = Theme(index);
 	return (
@@ -275,6 +213,9 @@ export const ImpactCC: React.FC = () => (
 				zIndex: 5,
 			}}
 		/>
-		<VHexGrid />
+		<VerticalHexagonFeatureGrid
+			featureCallouts={impactFeatureCallouts}
+			hexagonArgs={{ colour: Theme(idx).backgroundColor }}
+		/>
 	</>
 );

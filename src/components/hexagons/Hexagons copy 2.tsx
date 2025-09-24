@@ -1,6 +1,6 @@
 // src/components/hexagons/Hexagons.tsx
-import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
 
+import React, { useLayoutEffect, useRef, useState } from "react";
 import {
 	logo_yellow,
 	logo_blue,
@@ -18,18 +18,119 @@ import {
 	LeftCutout,
 	textSex,
 	_contentSection,
-	vertHexagonalContentStyle,
-	VertLeftCutout,
-	VertRightCutout,
-	vertTextContentWrapperStyle,
-	vertTextSec,
 } from "./Hexagons.styles";
 import { genericSectionStyle } from "../../styles";
-let hexagonInstanceCounter = 0;
+
+//
+// ===== Hexagon =====
+//
+/**
+@improvement 
+- Integrate some vertical alignment logic for hexagonalContentStyle
+- If that vertical alignment logic solved, integrate verticalContentStyle into the shape-outside bounding logic
+					 */
+
+// src/components/hexagons/HexagonContent.tsx (New or updated file)
+// src/components/hexagons/HexagonContent.tsx
+
+interface HexagonContentProps {
+	element: React.ReactNode;
+	useVert: boolean;
+	contentRef: (node: HTMLDivElement | null) => void;
+	contentHeight: number;
+	containerHeight: number;
+}
+
+export const HexagonContent: React.FC<HexagonContentProps> = ({
+	element,
+	useVert,
+	contentRef,
+	contentHeight,
+	containerHeight,
+}) => {
+	const ref = useRef<HTMLInputElement | null>(null);
+	const [tooltipHeight, setTooltipHeight] = useState(0);
+	useLayoutEffect(() => {
+		const height = ref.current
+			? ref.current.getBoundingClientRect().height
+			: 0;
+		setTooltipHeight(height);
+		console.log(height);
+	}, []);
+	if (!element) {
+		return null;
+	}
+
+	if (useVert) {
+		// This part remains unchanged
+		return (
+			<div style={verticalContentStyle()}>{formatComponent(element)}</div>
+		);
+	}
+	let paddingTop = contentHeight > 0 ? containerHeight - 0 : 0;
+	console.log(
+		` containerHeight:${containerHeight}, contentHeight:${tooltipHeight}, paddingTop:${paddingTop}`
+	);
+	// let paddingTop = containerHeight - contentHeight;
+	return (
+		// This is the container we measure for total available height.
+		<div style={hexagonalContentStyle}>
+			<div
+				style={{
+					...textSec,
+					margin: 0,
+					// background: `linear-gradient(0deg, transparent calc(100% - ${contentHeight}px - 5px), blue calc(100% - ${contentHeight}px), transparent calc(100% - ${contentHeight}px + 5px))`,
+				}}
+			>
+				<div
+					style={{
+						...LeftCutout,
+					}}
+				></div>
+				<div
+					style={{
+						...RightCutout,
+					}}
+				></div>
+
+				<div
+					style={{
+						...textSex,
+						// paddingTop: `${paddingTop}px`,
+						// margin: 0,
+					}}
+					ref={contentRef}
+				>
+					<div
+						style={{
+							// ...genericSectionStyle,
+							// position: "relative",
+							// margin: 0,
+							paddingTop: `calc(100%)`,
+							// margin: 0,
+							// top: 0,
+							// borderTop: "1px solid black",
+							// boxSizing: "content-box",
+							// background: `linear-gradient(0deg, transparent calc(${containerHeight}px - 5px), blue ${containerHeight}px, transparent calc(${containerHeight}px + 5px))`,
+							// top: `calc((100% - ${paddingTop}px)/2)`,
+						}}
+						ref={ref}
+					>
+						{formatComponent(element)}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+type HexagonState = {
+	calculatedPadding: number;
+};
+
 export class Hexagon
 	extends React.Component<
 		any,
-		{ contentHeight: number | undefined; containerHeight: number }
+		{ contentHeight: number; containerHeight: number }
 	>
 	implements IHexagonConstruction
 {
@@ -44,77 +145,57 @@ export class Hexagon
 
 	private containerNode: Element | null = null;
 	private contentNode: Element | null = null;
-
-	private contentObserver: ResizeObserver | null = null;
 	hexPath: string;
-	private oscillations: number | undefined = undefined;
-	private instanceId: number;
 
 	constructor(props: any) {
 		super(props);
 		const ctor = this.constructor as typeof Hexagon;
 		this.hexPath = ctor.HexPath;
-		this.instanceId = ++hexagonInstanceCounter;
-		this.state = {
-			contentHeight: undefined,
 
+		this.state = {
+			contentHeight: 0,
 			containerHeight: 0,
 		};
 	}
-	componentWillUnmount() {
-		if (this.contentObserver) {
-			this.contentObserver.disconnect();
-		}
-	}
+
 	componentDidMount() {
-		this.measureContainer();
-		if (this.contentNode) {
-			this.contentObserver = new ResizeObserver((entries) => {
-				const entry = entries[0];
-				if (entry) {
-					const viewportWidth = window.innerWidth;
-					const dampingThreshold = viewportWidth * 0.02;
-					this.measureContainer();
-
-					const h_prime = this.state.contentHeight ?? 0;
-					const height = entry.contentRect.height;
-					const osc = this.oscillations ?? 0;
-					const delta = h_prime - height;
-					console.log(delta);
-					console.log(osc);
-
-					const pertubation = 2 * (osc % 2) - 1;
-					let activeHeight =
-						height + delta * +!!osc + pertubation * osc * +!!delta;
-
-					this.oscillations =
-						this.oscillations === undefined ? 0 : osc + 1;
-					if (Math.abs(h_prime - activeHeight) > dampingThreshold) {
-						this.setState({ contentHeight: activeHeight });
-					}
-				}
-			});
-
-			this.contentObserver.observe(this.contentNode);
-		}
+		this.calculateAndSetPadding();
 	}
 
 	componentDidUpdate(prevProps: any) {
-		this.measureContainer();
-		this.oscillations = 0;
+		if (this.props.element !== prevProps.element) {
+			this.calculateAndSetPadding();
+		}
 	}
 
-	measureContainer = () => {
-		if (this.containerNode) {
+	calculateAndSetPadding = () => {
+		if (this.containerNode && this.contentNode) {
 			const containerHeight = this.containerNode.clientHeight;
-			// console.log(containerHeight);
-			if (this.state.containerHeight !== containerHeight) {
-				this.setState({ containerHeight: containerHeight });
-			}
+			const contentHeight = this.contentNode.clientHeight;
+			// const contentHeight = document.documentElement.clientHeight;
+			// console.log(`${contentHeight}, ${containerHeight}`);
+			let paddingTop =
+				contentHeight > 0 ? containerHeight - contentHeight : 0;
+			console.log(
+				` containerHeight:${containerHeight}, contentHeight:${contentHeight}, paddingTop:${
+					contentHeight / containerHeight
+				}`
+			);
+			this.setState({ contentHeight: contentHeight });
+			this.setState({ containerHeight: containerHeight });
 		}
 	};
+
+	setContainerRef = (node: HTMLDivElement | null) => {
+		this.containerNode = node;
+	};
+
+	setContentRef = (node: HTMLDivElement | null) => {
+		this.contentNode = node;
+	};
+
 	public construct(args?: any) {
-		const _args = args || { colour: "#003845" };
+		const _args = args || { colour: "#003845" }; // Using a default hex for safety
 		const colour = _args.colour || "#003845";
 		const borderColor = _args.borderColor || undefined;
 		const borderWidth = borderColor
@@ -142,18 +223,11 @@ export class Hexagon
 		};
 	}
 
-	setContainerRef = (node: HTMLDivElement | null) => {
-		this.containerNode = node;
-	};
-	setContentRef = (node: HTMLDivElement | null) => {
-		this.contentNode = node;
-	};
 	render() {
 		const {
 			args,
 			element = <></>,
 			useVert = undefined,
-			useVerticalAlignment = false,
 			...styleProps
 		} = this.props;
 		const { defs, paths } = this.construct(args);
@@ -161,120 +235,50 @@ export class Hexagon
 
 		let _useVert = useVert === undefined ? ctor.useVert : useVert;
 
-		// Determine which content styles and cutouts to use
-		const currentHexagonalContentStyle = _useVert
-			? vertHexagonalContentStyle
-			: hexagonalContentStyle;
-		const currentTextSecStyle = _useVert ? vertTextSec : textSec;
-		const currentLeftCutout = _useVert ? VertLeftCutout : LeftCutout;
-		const currentRightCutout = _useVert ? VertRightCutout : RightCutout;
-		const currentTextContentWrapperStyle = _useVert
-			? vertTextContentWrapperStyle
-			: textSex; // Using textSex as default content wrapper
-
 		return (
-			<div style={containerStyle(styleProps)}>
-				<svg
-					style={svgStyle(styleProps)}
-					viewBox={
-						!_useVert
-							? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
-									(200 * Math.sqrt(3)) / 2
-							  }`
-							: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
-									(200 * Math.sqrt(3)) / 2
-							  } 200`
-					}
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<defs>
-						{defs.map((def, i) => (
-							<React.Fragment key={i}>{def}</React.Fragment>
-						))}
-					</defs>
-					{paths.map((path, i) => (
-						<React.Fragment key={i}>{path}</React.Fragment>
-					))}
-				</svg>
-
-				{/* {!_useVert ? (
-					<div
-						style={hexagonalContentStyle}
-						ref={this.setContainerRef}
+			<div
+				style={containerStyle(styleProps)}
+				ref={this.setContainerRef}
+			>
+				<div>
+					<svg
+						style={{
+							...svgStyle(styleProps),
+						}}
+						viewBox={
+							!_useVert
+								? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
+										(200 * Math.sqrt(3)) / 2
+								  }`
+								: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
+										(200 * Math.sqrt(3)) / 2
+								  } 200`
+						}
+						xmlns="http://www.w3.org/2000/svg"
 					>
-						<div
-							style={{
-								...textSec,
-							}}
-						>
-							<div style={LeftCutout}></div>
-							<div style={RightCutout}></div>
+						<defs>
+							{defs.map((def, i) => (
+								<React.Fragment key={i}>{def}</React.Fragment>
+							))}
+						</defs>
+						{paths.map((path, i) => (
+							<React.Fragment key={i}>{path}</React.Fragment>
+						))}
+					</svg>
 
-							<div
-								style={{
-									...textSex,
-
-									paddingTop: useVerticalAlignment
-										? `calc(${
-												(this.state.containerHeight -
-													this.state.contentHeight!) /
-												2
-										  }px)`
-										: 0,
-								}}
-							>
-								{useVerticalAlignment ? (
-									<div ref={this.setContentRef}>
-										{formatComponent(element)}
-									</div>
-								) : (
-									formatComponent(element)
-								)}
-							</div>
-						</div>
-					</div>
-				) : (
-					<div style={verticalContentStyle()}>
-						{formatComponent(element)}
-					</div>
-				)} */}
-				<div
-					style={currentHexagonalContentStyle} // Use chosen content style
-					ref={this.setContainerRef} // Ref attached here for container measurement
-				>
-					<div style={currentTextSecStyle}>
-						{/* Use chosen textSec style */}
-						<div style={currentLeftCutout}></div>
-						{/* Use chosen LeftCutout */}
-						<div style={currentRightCutout}></div>
-						{/* Use chosen RightCutout */}
-						<div
-							style={{
-								...currentTextContentWrapperStyle, // Use chosen text wrapper style
-								paddingTop: useVerticalAlignment
-									? `calc(${
-											(this.state.containerHeight -
-												this.state.contentHeight!) /
-											2
-									  }px)`
-									: 0,
-							}}
-						>
-							{useVerticalAlignment ? (
-								<div ref={this.setContentRef}>
-									{/* Ref attached here for content measurement */}
-									{formatComponent(element)}
-								</div>
-							) : (
-								formatComponent(element)
-							)}
-						</div>
-					</div>
+					<HexagonContent
+						element={element}
+						useVert={_useVert}
+						contentRef={this.setContentRef}
+						contentHeight={this.state.contentHeight}
+						containerHeight={this.state.containerHeight}
+					/>
 				</div>
 			</div>
 		);
 	}
 }
+
 //
 // ===== VertHexagon =====
 //

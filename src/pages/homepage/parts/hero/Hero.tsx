@@ -19,7 +19,7 @@ const textEl = (
 	<div
 		style={{
 			color: " #066070",
-			marginTop: "10%",
+			// marginTop: "10%",
 			textAlign: "center",
 		}}
 	>
@@ -28,7 +28,7 @@ const textEl = (
 				fontStyle: "italic",
 				fontSize: "1.6vw",
 				width: "120%",
-				marginLeft: "-10%",
+				// marginLeft: "-10%",
 			}}
 		>
 			<div>
@@ -69,6 +69,7 @@ export const Hero: React.FC = () => {
 		<Hexagon
 			args={{ colour: light_mix_green }}
 			element={textEl}
+			useVerticalAlignment={true}
 		/>,
 		null,
 	] as const;

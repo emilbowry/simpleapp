@@ -35,7 +35,7 @@ export const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_b
 export const genericSectionStyle: React.CSSProperties = {
 	border: "1px solid black",
 	backgroundColor: "rgba(255, 0, 0, 0.2)",
-	boxSizing: "border-box",
+	// boxSizing: "border-box",
 };
 export const Theme = (index: number) => {
 	const theme = {

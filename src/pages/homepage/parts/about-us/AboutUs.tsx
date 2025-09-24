@@ -7,29 +7,15 @@ import {
 	bullseye,
 	pencil,
 	bulb,
-} from "../../../../components/callingcard/callout/HexCallout";
+} from "../../../../components/callingcard/graphics";
 
-import {
-	// TriPartCallout,
-	TriPartCallout,
-} from "../../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
-import { VertHexagon } from "../../../../components/hexagons/Hexagons";
 import { PartnershipBar } from "../../../../components/partnershipbar/PartnershipBar";
-import {
-	BoxedImage,
-	getImageEl,
-	ValidComponent,
-} from "../../../../utils/reactUtils";
-import {
-	hexCallStyle,
-	imageStyling,
-	titleStyle,
-	footerStyle,
-	HexWapStyle,
-} from "./AboutUs.styles";
-import { VerticalHexagonGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
+import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
+import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
+import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
 import { bgwhite } from "../../../../utils/defaultColours";
+import { partners } from "../Partners";
 export const hStyle = { /* borderColor: logo_blue,  */ colour: bgwhite };
 
 const head = <h2>About Us</h2>;
@@ -45,134 +31,11 @@ const foot = (
 		We strive for a world where AI goes right, and people are ready for it.
 	</p>
 );
-import { partners } from "../Partners";
 
 const large_partners = {
 	...partners,
 	size: "Large",
 };
-
-/**
-@improvement 
-- Generalise this into a more concrete FC since it is repeated 
- */
-export const VHexGrid: React.FC = () => {
-	return (
-		<div
-			style={{
-				width: "100%",
-				zIndex: 25,
-			}}
-		>
-			<VerticalHexagonGrid
-				elements={[
-					<VertHexagon
-						args={hStyle}
-						element={ConsultancyCallout}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={hStyle}
-						element={TrainingCallout}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={hStyle}
-						element={PolicyCallOut}
-						opacity={1}
-					/>,
-				]}
-			/>
-		</div>
-	);
-};
-export class HexWrapCallOut extends TriPartCallout {
-	static {
-		this.styler.updateStyle("wrapperStyle_style", {
-			def_static_css: {
-				...hexCallStyle,
-
-				backgroundColor: "transparent",
-			},
-		});
-	}
-}
-
-const callout_content_consultancy = {
-	header: (
-		<BoxedImage
-			image={bulb}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>
-	),
-
-	body: <div style={titleStyle}>Consultancy</div>,
-	footer: (
-		<div style={footerStyle}>
-			Scoping <br /> Matching Tasks to Tools
-		</div>
-	),
-};
-
-const ConsultancyCallout = (
-	<HexWrapCallOut
-		{...callout_content_consultancy}
-		themeId={-1}
-	/>
-);
-
-const callout_content_training = {
-	body: <div style={titleStyle}>Training</div>,
-	footer: (
-		<div style={footerStyle}>
-			Prompt Engineering
-			<br />
-			AI Ethics Literacy
-		</div>
-	),
-	header: (
-		<BoxedImage
-			image={bullseye}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>
-	),
-};
-
-const TrainingCallout = (
-	<HexWrapCallOut
-		{...callout_content_training}
-		themeId={-1}
-	/>
-);
-
-const callout_content_policy = {
-	body: <div style={titleStyle}>Policy</div>,
-	footer: (
-		<div style={footerStyle}>
-			Drafting AI
-			<br />
-			Policy Reviewing AI Policy
-		</div>
-	),
-	header: (
-		<BoxedImage
-			image={pencil}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>
-	),
-};
-const PolicyCallOut = (
-	<HexWrapCallOut
-		{...callout_content_policy}
-		themeId={-1}
-	/>
-);
 
 const wGif = (
 	<div style={{ display: "flex", maxWidth: "100%" }}>
@@ -183,6 +46,64 @@ const wGif = (
 		})}
 	</div>
 );
+const aboutUsFeatureCallouts = [
+	{
+		header: (
+			<BoxedImage
+				image={bulb}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
+		body: <div style={titleStyle}>Consultancy</div>,
+		footer: (
+			<div style={footerStyle}>
+				Scoping <br /> Matching Tasks to Tools
+			</div>
+		),
+		themeId: -1,
+	},
+	{
+		body: <div style={titleStyle}>Training</div>,
+		footer: (
+			<div style={footerStyle}>
+				Prompt Engineering
+				<br />
+				AI Ethics Literacy
+			</div>
+		),
+		header: (
+			<BoxedImage
+				image={bullseye}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
+		themeId: -1,
+	},
+	{
+		body: <div style={titleStyle}>Policy</div>,
+		footer: (
+			<div style={footerStyle}>
+				Drafting AI
+				<br />
+				Policy Reviewing AI Policy
+			</div>
+		),
+		header: (
+			<BoxedImage
+				image={pencil}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
+		themeId: -1,
+	},
+];
+
 export const AboutUsCallingCard: React.FC = () => (
 	<>
 		<NewCallingCard
@@ -212,6 +133,10 @@ export const AboutUsCallingCard: React.FC = () => (
 				zIndex: 10,
 			}}
 		/>
-		<VHexGrid />
+		<VerticalHexagonFeatureGrid
+			featureCallouts={aboutUsFeatureCallouts}
+			hexagonArgs={hStyle}
+			theme={-1}
+		/>
 	</>
 );

@@ -1,8 +1,7 @@
 // src/components/partnershipbar/PartnershipBar.styles.ts
 
 import React from "react";
-import { light_grey, title_font_colour } from "../../utils/defaultColours";
-import { genericSectionStyle } from "../../styles";
+import { title_font_colour } from "../../utils/defaultColours";
 export const PartnerStyles: {
 	Small: React.CSSProperties;
 	Large: React.CSSProperties;

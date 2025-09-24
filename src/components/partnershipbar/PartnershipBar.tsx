@@ -1,11 +1,10 @@
 // src/components/partnershipbar/PartnershipBar.tsx
 
 import React from "react";
-import { wrapLink, getImageEl } from "../../utils/reactUtils";
+import { wrapLink } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
 import {
 	PartnerStyles,
-	imageStyle,
 	keyframes,
 	// keyframes,
 	marqueeContentStyle,

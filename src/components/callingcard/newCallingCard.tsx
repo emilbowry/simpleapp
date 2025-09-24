@@ -73,10 +73,7 @@ import {
 	rightBodyColumnStyle,
 	gridItemStyle,
 } from "./newCallingCard.styles";
-import {
-	I_NewCallingCardProps,
-	INewCallingCardProps,
-} from "./newCallingCard.types";
+import { INewCallingCardProps } from "./newCallingCard.types";
 
 export class NewCallingCard extends React.Component<INewCallingCardProps> {
 	render() {
@@ -175,12 +172,3 @@ export class NewCallingCard extends React.Component<INewCallingCardProps> {
 		);
 	}
 }
-
-/* 
-
-I prefer this, but I think we can generalise it better. Lets omit the current footer logic from the original CallingCard
-We can generalise this into 2 sections, some flex header then a grid main block, same as the original calling card.
-
-We just now want a more specialised subclass of CallingCard that has the specific layout logic we want, i.e  _cardStyle ==
-
-*/

@@ -4,22 +4,20 @@ import React from "react";
 import { Page } from "../page";
 import { NewCallingCard } from "../../components/callingcard/newCallingCard";
 import { bgwhite } from "../../utils/defaultColours";
-import { VerticalHexagonGrid } from "../../components/hexagons/hexagonRow/VHexRow";
+import {
+	VerticalHexagonFeatureGrid,
+	VerticalHexagonGrid,
+} from "../../components/hexagons/hexagonRow/VHexRow";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
 import { VertHexagon } from "../../components/hexagons/Hexagons";
-import pichart from "../../assets/pichart.svg";
 import { TriPartCallout } from "../../components/callingcard/callout/CallOut";
 import {
 	hexCallStyle,
 	imageStyling,
 	titleStyle,
 } from "../homepage/parts/about-us/AboutUs.styles";
-import {
-	bulb,
-	bullseye,
-	pencil,
-} from "../../components/callingcard/callout/HexCallout";
-import { BoxedImage, getImageEl } from "../../utils/reactUtils";
+import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import { BoxedImage } from "../../utils/reactUtils";
 
 const Services: React.FC<{ title: string; services: string[] }> = ({
 	title,
@@ -64,110 +62,45 @@ const tserv = {
 		"Inspire the art of the possible through – Practical AI Talks and Live demos" /** @ask what is uncomferences */,
 	],
 };
-/**
-@improvement 
-- Generalise this into a more concrete FC since it is repeated 
- */
-export const VHexGrid: React.FC = () => {
-	return (
-		<div
-			style={{
-				width: "100%",
-				zIndex: 25,
-			}}
-		>
-			<VerticalHexagonGrid
-				elements={[
-					<VertHexagon
-						args={hStyle}
-						element={ConsultancyCallout}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={hStyle}
-						element={TrainingCallout}
-						opacity={1}
-					/>,
-					<VertHexagon
-						args={hStyle}
-						element={PolicyCallOut}
-						opacity={1}
-					/>,
-				]}
+
+const ourServicesFeatureCallouts = [
+	{
+		header: (
+			<BoxedImage
+				image={bulb}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
 			/>
-		</div>
-	);
-};
-export class HexWrapCallOut extends TriPartCallout {
-	static {
-		this.styler.updateStyle("wrapperStyle_style", {
-			def_static_css: {
-				...hexCallStyle,
-
-				backgroundColor: "transparent",
-			},
-		});
-	}
-}
-
-const callout_content_consultancy = {
-	header: (
-		<BoxedImage
-			image={bulb}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>
-	),
-	footer: <></>,
-	body: <div style={titleStyle}>Our Work</div>,
-};
-
-const ConsultancyCallout = (
-	<HexWrapCallOut
-		{...callout_content_consultancy}
-		themeId={-1}
-	/>
-);
-
-const callout_content_training = {
-	body: <div style={titleStyle}>Our Vision</div>,
-
-	header: (
-		<BoxedImage
-			image={bullseye}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>
-	),
-};
-
-const TrainingCallout = (
-	<HexWrapCallOut
-		{...callout_content_training}
-		themeId={-1}
-	/>
-);
-
-const callout_content_policy = {
-	body: <div style={titleStyle}>Our Work</div>,
-
-	header: (
-		<BoxedImage
-			image={pencil}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>
-	),
-};
-const PolicyCallOut = (
-	<HexWrapCallOut
-		{...callout_content_policy}
-		themeId={-1}
-	/>
-);
+		),
+		body: <div style={titleStyle}>Our Work</div>,
+		themeId: -1,
+	},
+	{
+		body: <div style={titleStyle}>Our Vision</div>,
+		header: (
+			<BoxedImage
+				image={bullseye}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
+		themeId: -1,
+	},
+	{
+		body: <div style={titleStyle}>Our Work</div>,
+		header: (
+			<BoxedImage
+				image={pencil}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
+		themeId: -1,
+	},
+];
 
 import { PiChart } from "./pi_chart";
 export const OSCC: React.FC = () => (
@@ -197,7 +130,12 @@ export const OSCC: React.FC = () => (
 				zIndex: -5,
 			}}
 		/>
-		<VHexGrid />
+		<VerticalHexagonFeatureGrid
+			featureCallouts={ourServicesFeatureCallouts}
+			hexagonArgs={hStyle}
+		/>
+
+		{/* <VHexGrid /> */}
 	</>
 );
 
