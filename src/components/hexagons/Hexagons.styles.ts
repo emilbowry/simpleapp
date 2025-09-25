@@ -1,4 +1,5 @@
 // src/components/hexagons/Hexagons.styles.ts
+
 import React from "react";
 
 import { HexagonStyleParams } from "./Hexagons.types";
@@ -22,6 +23,7 @@ export const containerStyle = ({
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
 		fontSize: 0,
+		// position: "relative",
 		overflow: "visible",
 
 		opacity: `${opacity}`,
