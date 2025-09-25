@@ -114,7 +114,7 @@ export class VerticalHexagonGrid extends React.Component<
 
 	render() {
 		return (
-			<div style={{}}>
+			<div style={{ zIndex: 99 }}>
 				{this.state.isNarrow
 					? this.renderNarrowLayout()
 					: this.renderWideLayout()}
@@ -131,26 +131,6 @@ import { TriPartCallout } from "../../callingcard/callout/CallOut";
 
 import { ValidComponent } from "../../../utils/reactUtils";
 import { Theme } from "../../../styles";
-export const hexCallStyle: React.CSSProperties = {
-	display: "flex",
-	width: "100%",
-	minWidth: 0,
-	minHeight: 0,
-	margin: "0 auto",
-	marginTop: "-15%",
-};
-// Reusable base class for HexWrapCallOut, to be used by specific callouts.
-// This ensures that the wrapper style for HexCallouts is consistently applied.
-export class HexWrapCallOut extends TriPartCallout {
-	static {
-		this.styler.updateStyle("wrapperStyle_style", {
-			def_static_css: {
-				...hexCallStyle,
-				backgroundColor: "transparent", // Ensure transparency for hexagon overlap
-			},
-		});
-	}
-}
 
 interface IFeatureCalloutProps {
 	themeId?: number;
@@ -158,21 +138,6 @@ interface IFeatureCalloutProps {
 	body: ValidComponent;
 	footer?: ValidComponent;
 }
-
-// A generic Hexagon Callout wrapper that applies the shared HexWrapCallOut styling
-const GenericHexagonCallout: React.FC<IFeatureCalloutProps> = ({
-	themeId = -1, // Default to a theme that often implies transparency/light colors
-	header,
-	body,
-	footer,
-}) => (
-	<HexWrapCallOut
-		themeId={themeId}
-		header={header}
-		body={body}
-		footer={footer}
-	/>
-);
 
 interface VerticalHexagonFeatureGridProps {
 	/**
@@ -187,9 +152,9 @@ interface VerticalHexagonFeatureGridProps {
 	theme?: number;
 }
 
-/**
- * @improvement - formalise each part as a callout move to hex callout
- */
+// /**
+//  * @improvement - formalise each part as a callout move to hex callout
+//  */
 const getEl = (
 	image: ValidComponent = <></>,
 
@@ -233,16 +198,15 @@ const getEl = (
 						padding: "0",
 					}}
 				>
-					<div
+					{/* <div
 						style={{
-							// fontSize: "3vw",
 							position: "relative",
 							visibility: "hidden",
 							top: 0,
 						}}
 					>
-						why does this need to be here
-					</div>
+						no-op
+					</div> */}
 					<div
 						style={{
 							fontSize: "2.5vw",
@@ -289,6 +253,123 @@ const getEl = (
 	);
 };
 
+const getElHorizontal = (...components: ValidComponent[]) => {
+	return (
+		<div
+			style={{
+				position: "relative",
+				height: "100%",
+				margin: 0,
+			}}
+		>
+			<div
+				style={{
+					margin: 0,
+					padding: 0,
+					visibility: "hidden",
+					fontSize: 0,
+				}}
+			>
+				no-op
+			</div>
+			<div
+				style={{
+					margin: 0,
+					padding: 0,
+				}}
+			>
+				{components &&
+					components.map(
+						(item, _index) =>
+							item && (
+								<div
+									style={{
+										fontSize: "2.5vw",
+										margin: 0,
+									}}
+									key={_index}
+								>
+									{formatComponent(item)}
+								</div>
+							)
+					)}
+			</div>
+		</div>
+	);
+};
+
+const getElVertical = (...components: ValidComponent[]) => {
+	return (
+		<div
+			style={{
+				position: "relative",
+				// height: "100%",
+				margin: 0,
+
+				verticalAlign: "text-bottom",
+			}}
+		>
+			<div
+				style={{
+					margin: 0,
+					fontSize: 0,
+				}}
+			>
+				no-op
+			</div>
+			<div
+				style={{
+					fontSize: "2.5vw",
+
+					display: "block",
+					margin: 0,
+
+					textAlign: "center",
+				}}
+			>
+				<div
+					style={
+						{
+							// margin: 0,
+							// padding: 0,
+						}
+					}
+				>
+					<div
+						style={{
+							position: "relative",
+							visibility: "hidden",
+
+							// top: 0,
+						}}
+					>
+						no-op
+					</div>
+					{components &&
+						components.map(
+							(item, _index) =>
+								item && (
+									<div
+										style={
+											{
+												// position: "relative",
+												// fontSize: "2.5vw", // needs to also be redeclard here
+												// margin: 0,
+												// padding: 0,
+											}
+										}
+										key={_index}
+									>
+										{formatComponent(item)}
+									</div>
+								)
+						)}
+				</div>
+			</div>
+		</div>
+	);
+};
+
 export const VerticalHexagonFeatureGrid: React.FC<
 	VerticalHexagonFeatureGridProps
 > = ({ featureCallouts, hexagonArgs, theme }) => {
@@ -298,12 +379,11 @@ export const VerticalHexagonFeatureGrid: React.FC<
 		<VertHexagon
 			key={index}
 			args={hexagonArgs}
-			element={getEl(
+			element={getElVertical(
 				calloutProps.header,
 
 				calloutProps.body,
-				calloutProps.footer,
-				theme
+				calloutProps.footer
 			)}
 			opacity={1} // Ensure full opacity for content visibility
 			useVerticalAlignment={true}
@@ -311,8 +391,8 @@ export const VerticalHexagonFeatureGrid: React.FC<
 	));
 
 	return (
-		<div style={{ width: "100%", zIndex: 25 }}>
-			<BaseVerticalHexagonGrid elements={elements as any} />
-		</div>
+		// <div style={{ width: "100%", zIndex: 25, margin: 0, padding: 0 }}>
+		<BaseVerticalHexagonGrid elements={elements as any} />
+		// </div>
 	);
 };

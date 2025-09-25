@@ -11,21 +11,14 @@ import { formatComponent } from "../../utils/reactUtils";
 import {
 	containerStyle,
 	svgStyle,
-	verticalContentStyle,
 	hexagonalContentStyle,
-	textSec,
+	elementWrapper,
 	RightCutout,
 	LeftCutout,
-	textSex,
 	_contentSection,
-	vertHexagonalContentStyle,
-	VertLeftCutout,
-	VertRightCutout,
-	vertTextContentWrapperStyle,
-	vertTextSec,
+	elementSection,
 } from "./Hexagons.styles";
 import { genericSectionStyle } from "../../styles";
-let hexagonInstanceCounter = 0;
 export class Hexagon
 	extends React.Component<
 		any,
@@ -48,13 +41,11 @@ export class Hexagon
 	private contentObserver: ResizeObserver | null = null;
 	hexPath: string;
 	private oscillations: number | undefined = undefined;
-	private instanceId: number;
 
 	constructor(props: any) {
 		super(props);
 		const ctor = this.constructor as typeof Hexagon;
 		this.hexPath = ctor.HexPath;
-		this.instanceId = ++hexagonInstanceCounter;
 		this.state = {
 			contentHeight: undefined,
 
@@ -80,8 +71,6 @@ export class Hexagon
 					const height = entry.contentRect.height;
 					const osc = this.oscillations ?? 0;
 					const delta = h_prime - height;
-					console.log(delta);
-					console.log(osc);
 
 					const pertubation = 2 * (osc % 2) - 1;
 					let activeHeight =
@@ -107,7 +96,6 @@ export class Hexagon
 	measureContainer = () => {
 		if (this.containerNode) {
 			const containerHeight = this.containerNode.clientHeight;
-			// console.log(containerHeight);
 			if (this.state.containerHeight !== containerHeight) {
 				this.setState({ containerHeight: containerHeight });
 			}
@@ -161,17 +149,6 @@ export class Hexagon
 
 		let _useVert = useVert === undefined ? ctor.useVert : useVert;
 
-		// Determine which content styles and cutouts to use
-		const currentHexagonalContentStyle = _useVert
-			? vertHexagonalContentStyle
-			: hexagonalContentStyle;
-		const currentTextSecStyle = _useVert ? vertTextSec : textSec;
-		const currentLeftCutout = _useVert ? VertLeftCutout : LeftCutout;
-		const currentRightCutout = _useVert ? VertRightCutout : RightCutout;
-		const currentTextContentWrapperStyle = _useVert
-			? vertTextContentWrapperStyle
-			: textSex; // Using textSex as default content wrapper
-
 		return (
 			<div style={containerStyle(styleProps)}>
 				<svg
@@ -198,15 +175,15 @@ export class Hexagon
 				</svg>
 
 				<div
-					style={currentHexagonalContentStyle}
+					style={hexagonalContentStyle}
 					ref={this.setContainerRef}
 				>
-					<div style={currentTextSecStyle}>
-						<div style={currentLeftCutout}></div>
-						<div style={currentRightCutout}></div>
+					<div style={elementWrapper}>
+						<div style={LeftCutout(_useVert)}></div>
+						<div style={RightCutout(_useVert)}></div>
 						<div
 							style={{
-								...currentTextContentWrapperStyle,
+								...elementSection,
 								paddingTop: useVerticalAlignment
 									? `calc(${
 											(this.state.containerHeight -
@@ -217,7 +194,10 @@ export class Hexagon
 							}}
 						>
 							{useVerticalAlignment ? (
-								<div ref={this.setContentRef}>
+								<div
+									style={{}}
+									ref={this.setContentRef}
+								>
 									{formatComponent(element)}
 								</div>
 							) : (

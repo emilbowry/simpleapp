@@ -11,7 +11,11 @@ import {
 	logo_yellow,
 	midnight_green,
 } from "../../utils/defaultColours";
-import { BoxedImage } from "../../utils/reactUtils";
+import {
+	BoxedImage,
+	formatComponent,
+	ValidComponent,
+} from "../../utils/reactUtils";
 import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
 import bw1 from "../../assets/bw1.jpg";
 import bw2 from "../../assets/bw2.jpg";
@@ -104,66 +108,42 @@ const TimelineData = [
 - NO-OP div ensures svg's lineheight calculation correct so remains geometrically precise
 @improvement move and generalise in HexCallout
  */
-const getEl = (date: string, content: string) => (
-	<div
-		style={{
-			position: "relative",
-			height: "100%",
-			margin: 0,
 
-			verticalAlign: "text-bottom",
-		}}
-	>
+const getEl2 = (...components: ValidComponent[]) => {
+	return (
 		<div
 			style={{
+				position: "relative",
+				height: "100%",
 				margin: 0,
-				fontSize: 0,
-			}}
-		>
-			no-op
-		</div>
-		<div
-			style={{
-				height: "calc(100%)",
-
-				display: "block",
-				margin: 0,
-
-				textAlign: "center",
 			}}
 		>
 			<div
 				style={{
-					position: "relative",
-					padding: "0",
+					margin: 0,
+					padding: 0,
+					visibility: "hidden",
+					fontSize: 0,
 				}}
 			>
-				<h3
-					style={{
-						fontSize: "3vw",
-						height: "calc(100%)",
-
-						color: dark_midnight_green,
-					}}
-				>
-					{date}
-				</h3>
-				<p
-					style={{
-						fontSize: "2.5vw",
-						// textAlign: "justify",
-
-						color: midnight_green,
-						height: "calc(100%)",
-					}}
-				>
-					{content}
-				</p>
+				no-op
+			</div>
+			<div>
+				{components.map((item, _index) => (
+					<div
+						style={{
+							fontSize: "2.5vw",
+							margin: 0,
+						}}
+						key={_index}
+					>
+						{formatComponent(item)}
+					</div>
+				))}
 			</div>
 		</div>
-	</div>
-);
-
+	);
+};
 const getThirdHex = (index: number) => {
 	let thirdHexagon = (
 		<Hexagon
@@ -220,7 +200,29 @@ const getRows = () => {
 		const contentHex = (
 			<Hexagon
 				args={{ colour: bgwhite }}
-				element={getEl(item.date, item.content)}
+				element={getEl2(
+					<h3
+						style={{
+							fontSize: "3vw",
+							textAlign: "center",
+
+							color: dark_midnight_green,
+						}}
+					>
+						{item.date}
+					</h3>,
+					<p
+						style={{
+							fontSize: "2.5vw",
+							// textAlign: "justify",
+							textAlign: "center",
+
+							color: midnight_green,
+						}}
+					>
+						{item.content}
+					</p>
+				)}
 				opacity={1}
 				useVerticalAlignment={true}
 			/>

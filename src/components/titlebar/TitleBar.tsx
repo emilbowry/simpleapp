@@ -96,62 +96,78 @@ export class TitleBar<
 	titleBarStyles(): React.CSSProperties {
 		return _titleBarStyles();
 	}
-	protected constructNavLinks = (): React.ReactNode => {
+	protected renderLogo = (): React.ReactNode => {
+		return (
+			<div style={logoContainerStyles}>
+				<img
+					src={logo}
+					alt="Logo"
+					style={logoStyles}
+				/>
+			</div>
+		);
+	};
+	/* Think of some functional use */
+	protected renderMenuButton = (): React.ReactNode => {
+		return (
+			<div style={rightHandContainerStyles}>
+				<button
+					style={hamburgerStyle}
+					aria-label="Menu"
+				>
+					<Menu size={24} />
+				</button>
+			</div>
+		);
+	};
+
+	protected buildLinkElements = (): React.ReactNode[] => {
 		const { links } = this.props;
 		const { activeLinkAlias } = this.state;
+		const navLinkElements = new Array(links.length);
+
+		for (let i = 0; i < links.length; i++) {
+			const linkGroup = links[i];
+			const mainLink = linkGroup[0];
+
+			if (!mainLink) {
+				navLinkElements[i] = null;
+				continue;
+			}
+
+			const displayAlias = formatLabel(mainLink.path, mainLink.alias);
+
+			navLinkElements[i] = (
+				<div
+					key={displayAlias || `main-link-${i}`}
+					onMouseOver={() => this.handleLinkOver(displayAlias)}
+					onMouseLeave={() => this.handleLinkLeave()}
+				>
+					<NavLink
+						to={mainLink.path}
+						style={navLinkStyles(activeLinkAlias === displayAlias)}
+					>
+						{displayAlias}
+					</NavLink>
+				</div>
+			);
+		}
+		return navLinkElements;
+	};
+
+	protected constructNavLinks = (): React.ReactNode => {
+		const logoElement = this.renderLogo();
+		const linkElements = this.buildLinkElements();
+		const menuButtonElement = this.renderMenuButton();
+
 		return (
 			<div
 				style={this.titleBarStyles()}
 				onMouseLeave={() => this.handleInteractionWrapperMouseLeave()}
 			>
-				<div style={logoContainerStyles}>
-					<img
-						src={logo}
-						alt="Logo"
-						style={logoStyles}
-					/>
-				</div>
-				<div style={navLinksContainerStyles}>
-					{links.map((linkGroup, index) => {
-						const mainLink = linkGroup[0];
-						if (!mainLink) return null;
-						const displayAlias = formatLabel(
-							mainLink.path,
-							mainLink.alias
-						);
-						console.log(activeLinkAlias);
-						// console.log(displayAlias);
-
-						return (
-							<div
-								key={displayAlias || `main-link-${index}`}
-								onMouseOver={() =>
-									this.handleLinkOver(displayAlias)
-								}
-								onMouseLeave={() => this.handleLinkLeave()}
-							>
-								<NavLink
-									to={mainLink.path}
-									style={navLinkStyles(
-										activeLinkAlias === displayAlias
-									)}
-								>
-									{displayAlias}
-								</NavLink>
-							</div>
-						);
-					})}
-				</div>
-				<div style={rightHandContainerStyles}>
-					<button
-						style={
-							hamburgerStyle
-						} /* Think of some functional use */
-						aria-label="Menu"
-					>
-						<Menu size={24} />
-					</button>
-				</div>
+				{logoElement}
+				<div style={navLinksContainerStyles}>{linkElements}</div>
+				{menuButtonElement}
 			</div>
 		);
 	};
@@ -171,18 +187,7 @@ export class TitleBar<
 		return obj;
 	}
 }
-export const TestTitleBar: React.FC = () => {
-	const navLinks: ITitleBarLink[][] = [
-		[{ path: "/", alias: "Home" }],
-		[{ path: "/thejourney", alias: "The Journey" }],
-	];
-	return (
-		<TitleBar
-			logoSrc={logo}
-			links={navLinks}
-		/>
-	);
-};
+
 export class ExpandableTitleBar<
 	P extends ITitleBarProps = ITitleBarProps,
 	S extends ITitleBarState = ITitleBarState
@@ -205,23 +210,80 @@ export class ExpandableTitleBar<
 			activeLinkAlias: aLink,
 		});
 	}
-	protected renderDropdownContent = (): React.ReactNode => {
-		const { isActive, activeLinkAlias, isOverLink } = this.state;
+	protected findActiveLinkGroup = (): ITitleBarLink[] | undefined => {
 		const { links } = this.props;
-		if (!isOverLink && !isActive) {
-			return null;
-		}
-		const activeLinkGroup = links.find((linkGroup) => {
+		const { activeLinkAlias } = this.state;
+
+		return links.find((linkGroup) => {
 			const mainLink = linkGroup[0];
 			return (
 				mainLink &&
 				formatLabel(mainLink.path, mainLink.alias) === activeLinkAlias
 			);
 		});
+	};
+
+	protected renderLinkElements = (
+		linkGroup: ITitleBarLink[]
+	): React.ReactNode[] => {
+		const linkElements = new Array(linkGroup.length);
+
+		for (let i = 0; i < linkGroup.length; i++) {
+			const link = linkGroup[i];
+			linkElements[i] = (
+				<NavLink
+					key={`${link.path}-${i}`}
+					to={link.path}
+					style={dropdownLinkStyles}
+				>
+					{formatLabel(link.path, link.alias)}
+				</NavLink>
+			);
+		}
+
+		return linkElements;
+	};
+
+	protected renderDropdownImage = (
+		mainLink: ITitleBarLink
+	): React.ReactNode => {
+		if (!mainLink.image) {
+			return null;
+		}
+
+		return (
+			<div style={dropdownImageContainerStyles}>
+				<img
+					src={mainLink.image}
+					alt={`${formatLabel(
+						mainLink.path,
+						mainLink.alias
+					)} overview`}
+					style={dropdownImageStyles}
+				/>
+				<div style={dropdownImageViewOverviewStyles}>
+					View overview
+					<span style={{ marginLeft: "5px" }}>&rarr;</span>
+				</div>
+			</div>
+		);
+	};
+
+	protected renderDropdownContent = (): React.ReactNode => {
+		const { isActive, isOverLink } = this.state;
+		if (!isOverLink && !isActive) {
+			return null;
+		}
+
+		const activeLinkGroup = this.findActiveLinkGroup();
 		if (!activeLinkGroup || activeLinkGroup.length <= 1) {
 			return null;
 		}
+
 		const mainLink = activeLinkGroup[0];
+		const linkElements = this.renderLinkElements(activeLinkGroup);
+		const imageElement = this.renderDropdownImage(mainLink);
+
 		return (
 			<div
 				style={dropdownStyles}
@@ -232,35 +294,8 @@ export class ExpandableTitleBar<
 					)
 				}
 			>
-				{activeLinkGroup.length > 0 && (
-					<div style={dropdownLinksColumnStyles}>
-						{activeLinkGroup.map((link, index) => (
-							<NavLink
-								key={`${link.path}-${index}`}
-								to={link.path}
-								style={dropdownLinkStyles}
-							>
-								{formatLabel(link.path, link.alias)}
-							</NavLink>
-						))}
-					</div>
-				)}
-				{mainLink.image && (
-					<div style={dropdownImageContainerStyles}>
-						<img
-							src={mainLink.image}
-							alt={`${formatLabel(
-								mainLink.path,
-								mainLink.alias
-							)} overview`}
-							style={dropdownImageStyles}
-						/>
-						<div style={dropdownImageViewOverviewStyles}>
-							View overview
-							<span style={{ marginLeft: "5px" }}>&rarr;</span>
-						</div>
-					</div>
-				)}
+				<div style={dropdownLinksColumnStyles}>{linkElements}</div>
+				{imageElement}
 			</div>
 		);
 	};
@@ -286,21 +321,7 @@ export class ExpandableTitleBar<
 		);
 	}
 }
-export const TestExpandableTitleBar: React.FC = () => {
-	const navLinks: ITitleBarLink[][] = [
-		[
-			{ path: "/", alias: "Home", image: dropdownImage },
-			{ path: "/demo_page", alias: "Demo Page" },
-		],
-		[{ path: "/thejourney", alias: "The Journey" }],
-	];
-	return (
-		<ExpandableTitleBar
-			logoSrc={logo}
-			links={navLinks}
-		/>
-	);
-};
+
 export interface IPillTitleBarState extends ITitleBarState {
 	isScrolled: boolean;
 	hasReturned: boolean;
@@ -325,21 +346,11 @@ export class PillTitleBar extends ExpandableTitleBar<
 	}
 	protected handleScroll = (): void => {
 		const uThreshold = 10;
-		const dThreshold = 1;
-		if (!this.state.isScrolled) {
-			const scrolled = window.scrollY > dThreshold;
-			if (scrolled) {
-				console.log(scrolled);
-				this.setState({ isScrolled: scrolled });
-			}
-		} else if (this.state.isScrolled) {
-			const n_scrolled = window.scrollY < uThreshold;
-			if (n_scrolled) {
-				console.log(n_scrolled);
-				this.setState({ isScrolled: !n_scrolled });
-			}
-		}
+		const dThreshold = 2;
+		const threshold = this.state.isScrolled ? uThreshold : dThreshold;
+		this.setState({ isScrolled: window.scrollY >= threshold });
 	};
+
 	titleBarStyles(): React.CSSProperties {
 		const baseStyles = super.titleBarStyles();
 		const { isScrolled } = this.state;

@@ -24,8 +24,10 @@ export class Page extends React.Component<{
 
 		return (
 			<>
-				<AppTitleBar />
 				{bg ? <div style={BackgroundStyle}></div> : null}
+				{/* <AppTitleBar /> From here */}
+				{useCursor ? <CustomCursor /> : null}
+
 				<main
 					key={location.pathname}
 					style={{
@@ -39,7 +41,7 @@ export class Page extends React.Component<{
 						zIndex: "5",
 					}}
 				>
-					{useCursor ? <CustomCursor /> : null}
+					<AppTitleBar /> {/* Moved here */}
 					<section
 						className="aos-ignore"
 						style={{

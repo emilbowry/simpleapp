@@ -7,12 +7,12 @@ const theme = Theme(0);
 export const titleStyle: React.CSSProperties = {
 	fontSize: "2rem",
 	fontWeight: "400",
-	textAlign: "center",
+	// textAlign: "center",
 	color: theme.tertiaryColor,
 };
 export const footerStyle: React.CSSProperties = {
 	fontSize: "2rem",
-	textAlign: "center",
+	// textAlign: "center",
 	color: theme.primaryColor,
 };
 

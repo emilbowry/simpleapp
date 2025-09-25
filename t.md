@@ -496,5 +496,3 @@ adjusted smoothly.
 // 	},
 // ];
 
-
-dynamically insert p styling, h1,h2 styling h3+styling 

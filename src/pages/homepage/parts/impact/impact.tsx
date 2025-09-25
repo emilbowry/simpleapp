@@ -26,6 +26,7 @@ const stat_value_style: React.CSSProperties = {
 	height: "5rem",
 	fontWeight: "500",
 	justifySelf: "center",
+	// textAlign: "center",
 };
 
 const stat_body_style: React.CSSProperties = {
@@ -35,6 +36,7 @@ const stat_body_style: React.CSSProperties = {
 	margin: "auto 0",
 	padding: "1%",
 	height: "20rem",
+	// textAlign: "center",
 	// marginTop: "-1%",
 	fontSize: "2rem",
 };
@@ -215,7 +217,9 @@ export const ImpactCC: React.FC = () => (
 		/>
 		<VerticalHexagonFeatureGrid
 			featureCallouts={impactFeatureCallouts}
-			hexagonArgs={{ colour: Theme(idx).backgroundColor }}
+			hexagonArgs={{
+				colour: Theme(idx).backgroundColor,
+			}}
 		/>
 	</>
 );

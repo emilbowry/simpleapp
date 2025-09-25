@@ -134,37 +134,44 @@ export class Persona extends React.Component<IPersona> {
 	}
 }
 
-export const OurTeam: React.FC = () => (
-	<div
-		style={{
-			display: "grid",
-			rowGap: "1%",
-			width: "100%",
-			padding: "auto",
-			paddingBottom: "10%",
-		}}
-	>
-		{teamMembers.map((member, arrayIndex) => {
-			const personaIndex = member.title ? 1 : 2;
+export const OurTeam: React.FC = () => {
+	const memberElements = new Array(teamMembers.length);
 
-			return (
-				<div key={arrayIndex}>
-					<CallingCard
-						components={[
-							<Persona
-								index={personaIndex}
-								image={member.image}
-								name={member.name}
-								title={member.title}
-								email={member.email}
-								body={member.body}
-							/>,
-						]}
-						index={-1}
-						fullSpread={true}
-					/>
-				</div>
-			);
-		})}
-	</div>
-);
+	for (let i = 0; i < teamMembers.length; i++) {
+		const member = teamMembers[i];
+		const personaIndex = member.title ? 1 : 2;
+
+		memberElements[i] = (
+			<div key={i}>
+				<CallingCard
+					components={[
+						<Persona
+							index={personaIndex}
+							image={member.image}
+							name={member.name}
+							title={member.title}
+							email={member.email}
+							body={member.body}
+						/>,
+					]}
+					index={-1}
+					fullSpread={true}
+				/>
+			</div>
+		);
+	}
+
+	return (
+		<div
+			style={{
+				display: "grid",
+				rowGap: "1%",
+				width: "100%",
+				padding: "auto",
+				paddingBottom: "10%",
+			}}
+		>
+			{memberElements}
+		</div>
+	);
+};
