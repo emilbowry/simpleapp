@@ -13,7 +13,7 @@ import { NewCallingCard } from "../../../../components/callingcard/newCallingCar
 import { PartnershipBar } from "../../../../components/partnershipbar/PartnershipBar";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
-import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
+import { PointedTopHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { partners } from "../Partners";
 export const hStyle = { /* borderColor: logo_blue,  */ colour: bgwhite };
@@ -133,7 +133,7 @@ export const AboutUsCallingCard: React.FC = () => (
 				zIndex: 10,
 			}}
 		/>
-		<VerticalHexagonFeatureGrid
+		<PointedTopHexagonFeatureGrid
 			featureCallouts={aboutUsFeatureCallouts}
 			hexagonArgs={hStyle}
 			theme={-1}

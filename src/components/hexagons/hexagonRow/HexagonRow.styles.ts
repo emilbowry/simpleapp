@@ -27,8 +27,8 @@ const rowGap = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ): number | [number, number] => {
-	const verticalSpacing = relative_spacing;
-	return [verticalSpacing, absolute_spacing];
+	const PointedTopSpacing = relative_spacing;
+	return [PointedTopSpacing, absolute_spacing];
 };
 /** 
 	* SCALING CORRECTION FACTOR: k

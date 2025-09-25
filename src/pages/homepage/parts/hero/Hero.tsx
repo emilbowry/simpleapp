@@ -69,7 +69,7 @@ export const Hero: React.FC = () => {
 		<Hexagon
 			args={{ colour: light_mix_green }}
 			element={textEl}
-			useVerticalAlignment={true}
+			usePointedTopicalAlignment={true}
 		/>,
 		null,
 	] as const;

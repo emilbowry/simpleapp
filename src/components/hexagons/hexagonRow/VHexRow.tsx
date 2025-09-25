@@ -6,7 +6,7 @@ import { formatComponent } from "../../../utils/reactUtils";
 
 const LAYOUT_BREAKPOINT = 1500;
 
-interface IVerticalHexagonGridState {
+interface IPointedTopHexagonGridState {
 	isNarrow: boolean;
 }
 
@@ -48,9 +48,9 @@ const narrowBottomRowStyle: React.CSSProperties = {
 	marginTop: `${-(25 / Math.sqrt(3)) - 1}%`,
 };
 
-export class VerticalHexagonGrid extends React.Component<
+export class PointedTopHexagonGrid extends React.Component<
 	IHexagonRowElements,
-	IVerticalHexagonGridState
+	IPointedTopHexagonGridState
 > {
 	constructor(props: IHexagonRowElements) {
 		super(props);
@@ -114,7 +114,7 @@ export class VerticalHexagonGrid extends React.Component<
 
 	render() {
 		return (
-			<div style={{}}>
+			<div style={{ zIndex: 99 }}>
 				{this.state.isNarrow
 					? this.renderNarrowLayout()
 					: this.renderWideLayout()}
@@ -123,10 +123,10 @@ export class VerticalHexagonGrid extends React.Component<
 	}
 }
 
-// src/components/hexagons/hexagonRow/VerticalHexagonFeatureGrid.tsx
+// src/components/hexagons/hexagonRow/PointedTopHexagonFeatureGrid.tsx
 
-import { VerticalHexagonGrid as BaseVerticalHexagonGrid } from "./VHexRow"; // Renamed to avoid collision
-import { VertHexagon } from "../Hexagons";
+import { PointedTopHexagonGrid as BasePointedTopHexagonGrid } from "./VHexRow"; // Renamed to avoid collision
+import { getElPointedTop, PointedTopHexagon } from "../Hexagons";
 import { TriPartCallout } from "../../callingcard/callout/CallOut";
 
 import { ValidComponent } from "../../../utils/reactUtils";
@@ -174,133 +174,32 @@ const GenericHexagonCallout: React.FC<IFeatureCalloutProps> = ({
 	/>
 );
 
-interface VerticalHexagonFeatureGridProps {
-	/**
-	 * An array of feature callout configurations.
-	 */
+interface PointedTopHexagonFeatureGridProps {
 	featureCallouts: IFeatureCalloutProps[];
-	/**
-	 * Common style arguments for the VertHexagon wrapper.
-	 * Typically includes `colour` and `borderColor`.
-	 */
+
 	hexagonArgs: any; // Consider a more precise type if 'args' are well-defined
 	theme?: number;
 }
 
-export const getElHorizontal = (...components: ValidComponent[]) => {
-	return (
-		<div
-			style={{
-				position: "relative",
-				height: "100%",
-				margin: 0,
-			}}
-		>
-			<div
-				style={{
-					margin: 0,
-					padding: 0,
-					visibility: "hidden",
-					fontSize: 0,
-				}}
-			>
-				no-op
-			</div>
-			<div
-				style={{
-					margin: 0,
-					padding: 0,
-				}}
-			>
-				{components &&
-					components.map(
-						(item, _index) =>
-							item && (
-								<div
-									style={{
-										fontSize: "2.5vw",
-										margin: 0,
-									}}
-									key={_index}
-								>
-									{formatComponent(item)}
-								</div>
-							)
-					)}
-			</div>
-		</div>
-	);
-};
-export const getElVertical = (...components: ValidComponent[]) => {
-	return (
-		<div
-			style={{
-				position: "relative",
-				height: "100%",
-				margin: 0,
-			}}
-		>
-			<div
-				style={{
-					margin: 0,
-					fontSize: 0,
-				}}
-			>
-				no-op
-			</div>
-			<div
-				style={{
-					height: "calc(100%)",
-					fontSize: "2vw",
-
-					display: "block",
-					margin: 0,
-				}}
-			>
-				<div
-					style={{
-						visibility: "hidden",
-					}}
-				>
-					why does this need to be here, it breaks when fontSize is 0
-					too, so resorting to visability
-				</div>
-				{components &&
-					components.map(
-						(item, _index) =>
-							item && (
-								<div key={_index}>{formatComponent(item)}</div>
-							)
-					)}
-			</div>
-		</div>
-	);
-};
-
-export const VerticalHexagonFeatureGrid: React.FC<
-	VerticalHexagonFeatureGridProps
+export const PointedTopHexagonFeatureGrid: React.FC<
+	PointedTopHexagonFeatureGridProps
 > = ({ featureCallouts, hexagonArgs, theme }) => {
 	const elements = featureCallouts.map((calloutProps, index) => (
 		// const image = featureCallouts
 
-		<VertHexagon
+		<PointedTopHexagon
 			key={index}
 			args={hexagonArgs}
-			element={getElVertical(
+			element={[
 				calloutProps.header,
 
 				calloutProps.body,
-				calloutProps.footer
-				// theme
-			)}
+				calloutProps.footer,
+			]}
 			opacity={1} // Ensure full opacity for content visibility
-			useVerticalAlignment={true}
+			usePointedTopicalAlignment={true}
 		/>
 	));
 
-	return (
-		<div style={{ width: "100%", zIndex: 25 }}>
-			<BaseVerticalHexagonGrid elements={elements as any} />
-		</div>
-	);
+	return <BasePointedTopHexagonGrid elements={elements as any} />;
 };

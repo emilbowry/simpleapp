@@ -5,10 +5,10 @@ import React from "react";
 import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
 import {
-	VerticalHexagonFeatureGrid,
-	VerticalHexagonGrid,
+	PointedTopHexagonFeatureGrid,
+	PointedTopHexagonGrid,
 } from "../../../../components/hexagons/hexagonRow/VHexRow";
-import { VertHexagon } from "../../../../components/hexagons/Hexagons";
+import { PointedTopHexagon } from "../../../../components/hexagons/Hexagons";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import cam from "../../../../assets/cam.png";
 import LH from "../../../../assets/leverCent.png";
@@ -216,7 +216,7 @@ export const ImpactCC: React.FC = () => (
 				zIndex: 5,
 			}}
 		/>
-		<VerticalHexagonFeatureGrid
+		<PointedTopHexagonFeatureGrid
 			featureCallouts={impactFeatureCallouts}
 			hexagonArgs={{ colour: Theme(idx).backgroundColor }}
 		/>

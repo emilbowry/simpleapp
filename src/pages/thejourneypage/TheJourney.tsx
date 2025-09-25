@@ -156,7 +156,7 @@ const getRows = () => {
 		const contentHex = (
 			<Hexagon
 				args={{ colour: bgwhite }}
-				element={getElHorizontal(
+				element={[
 					<h3
 						style={{
 							fontSize: "3vw",
@@ -178,10 +178,10 @@ const getRows = () => {
 						}}
 					>
 						{item.content}
-					</p>
-				)}
+					</p>,
+				]}
 				opacity={1}
-				useVerticalAlignment={true}
+				usePointedTopicalAlignment={true}
 			/>
 		);
 
@@ -194,7 +194,7 @@ const getRows = () => {
 	});
 };
 import bw3 from "../../assets/bw3.jpg";
-import { getElHorizontal } from "../../components/hexagons/hexagonRow/VHexRow";
+import { getElHorizontal } from "../../components/hexagons/Hexagons";
 
 export const theJourneyPage: React.FC = () => {
 	let r = getRows();

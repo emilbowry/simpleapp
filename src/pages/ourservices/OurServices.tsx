@@ -5,11 +5,11 @@ import { Page } from "../page";
 import { NewCallingCard } from "../../components/callingcard/newCallingCard";
 import { bgwhite } from "../../utils/defaultColours";
 import {
-	VerticalHexagonFeatureGrid,
-	VerticalHexagonGrid,
+	PointedTopHexagonFeatureGrid,
+	PointedTopHexagonGrid,
 } from "../../components/hexagons/hexagonRow/VHexRow";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
-import { VertHexagon } from "../../components/hexagons/Hexagons";
+import { PointedTopHexagon } from "../../components/hexagons/Hexagons";
 import { TriPartCallout } from "../../components/callingcard/callout/CallOut";
 import {
 	hexCallStyle,
@@ -130,7 +130,7 @@ export const OSCC: React.FC = () => (
 				zIndex: -5,
 			}}
 		/>
-		<VerticalHexagonFeatureGrid
+		<PointedTopHexagonFeatureGrid
 			featureCallouts={ourServicesFeatureCallouts}
 			hexagonArgs={hStyle}
 		/>

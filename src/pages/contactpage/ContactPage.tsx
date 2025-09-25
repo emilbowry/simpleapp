@@ -8,7 +8,7 @@ import React from "react";
 import { Page } from "../page";
 import { NewCallingCard } from "../../components/callingcard/newCallingCard";
 
-import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/VHexRow";
+import { PointedTopHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/VHexRow";
 import { bgwhite } from "../../utils/defaultColours";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
 import { titleStyle } from "../homepage/parts/about-us/AboutUs.styles";
@@ -162,7 +162,7 @@ export const CUCC: React.FC = () => (
 				zIndex: 0,
 			}}
 		/>
-		<VerticalHexagonFeatureGrid
+		<PointedTopHexagonFeatureGrid
 			featureCallouts={contactFeatureCallouts}
 			hexagonArgs={{ colour: Theme(1).backgroundColor }}
 		/>
