@@ -99,70 +99,6 @@ const TimelineData = [
 			"Open AI O3 high gets 20% on 'Humanity's Last Exam', a compilation of problems that specialised human experts find particularly hard",
 	},
 ];
-/**
-@hack
-- NO-OP div ensures svg's lineheight calculation correct so remains geometrically precise
-@improvement move and generalise in HexCallout
- */
-const getEl = (date: string, content: string) => (
-	<div
-		style={{
-			position: "relative",
-			height: "100%",
-			margin: 0,
-
-			verticalAlign: "text-bottom",
-		}}
-	>
-		<div
-			style={{
-				margin: 0,
-				fontSize: 0,
-			}}
-		>
-			no-op
-		</div>
-		<div
-			style={{
-				height: "calc(100%)",
-
-				display: "block",
-				margin: 0,
-
-				textAlign: "center",
-			}}
-		>
-			<div
-				style={{
-					position: "relative",
-					padding: "0",
-				}}
-			>
-				<h3
-					style={{
-						fontSize: "3vw",
-						height: "calc(100%)",
-
-						color: dark_midnight_green,
-					}}
-				>
-					{date}
-				</h3>
-				<p
-					style={{
-						fontSize: "2.5vw",
-						// textAlign: "justify",
-
-						color: midnight_green,
-						height: "calc(100%)",
-					}}
-				>
-					{content}
-				</p>
-			</div>
-		</div>
-	</div>
-);
 
 const getThirdHex = (index: number) => {
 	let thirdHexagon = (
@@ -220,7 +156,30 @@ const getRows = () => {
 		const contentHex = (
 			<Hexagon
 				args={{ colour: bgwhite }}
-				element={getEl(item.date, item.content)}
+				element={getElHorizontal(
+					<h3
+						style={{
+							fontSize: "3vw",
+							height: "calc(100%)",
+							textAlign: "center",
+
+							color: dark_midnight_green,
+						}}
+					>
+						{item.date}
+					</h3>,
+					<p
+						style={{
+							fontSize: "2.5vw",
+							textAlign: "center",
+
+							color: midnight_green,
+							height: "calc(100%)",
+						}}
+					>
+						{item.content}
+					</p>
+				)}
 				opacity={1}
 				useVerticalAlignment={true}
 			/>
@@ -235,6 +194,7 @@ const getRows = () => {
 	});
 };
 import bw3 from "../../assets/bw3.jpg";
+import { getElHorizontal } from "../../components/hexagons/hexagonRow/VHexRow";
 
 export const theJourneyPage: React.FC = () => {
 	let r = getRows();

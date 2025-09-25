@@ -187,17 +187,51 @@ interface VerticalHexagonFeatureGridProps {
 	theme?: number;
 }
 
-/**
- * @improvement - formalise each part as a callout move to hex callout
- */
-const getEl = (
-	image: ValidComponent = <></>,
-
-	title: ValidComponent = <></>,
-	content: ValidComponent = <></>,
-	themeid?: number
-) => {
-	const theme = themeid ? Theme(themeid) : undefined;
+export const getElHorizontal = (...components: ValidComponent[]) => {
+	return (
+		<div
+			style={{
+				position: "relative",
+				height: "100%",
+				margin: 0,
+			}}
+		>
+			<div
+				style={{
+					margin: 0,
+					padding: 0,
+					visibility: "hidden",
+					fontSize: 0,
+				}}
+			>
+				no-op
+			</div>
+			<div
+				style={{
+					margin: 0,
+					padding: 0,
+				}}
+			>
+				{components &&
+					components.map(
+						(item, _index) =>
+							item && (
+								<div
+									style={{
+										fontSize: "2.5vw",
+										margin: 0,
+									}}
+									key={_index}
+								>
+									{formatComponent(item)}
+								</div>
+							)
+					)}
+			</div>
+		</div>
+	);
+};
+export const getElVertical = (...components: ValidComponent[]) => {
 	return (
 		<div
 			style={{
@@ -235,7 +269,6 @@ const getEl = (
 				>
 					<div
 						style={{
-							// fontSize: "3vw",
 							position: "relative",
 							visibility: "hidden",
 							top: 0,
@@ -243,46 +276,25 @@ const getEl = (
 					>
 						why does this need to be here
 					</div>
-					<div
-						style={{
-							fontSize: "2.5vw",
-							position: "relative",
+					{components &&
+						components.map(
+							(item, _index) =>
+								item && (
+									<div
+										style={{
+											fontSize: "2.5vw",
 
-							height: "calc(100%)",
-							margin: "auto",
-						}}
-					>
-						{formatComponent(image)}
-					</div>
-					<div
-						style={{
-							fontSize: "3vw",
-							height: "calc(100%)",
-							// fontSize: "2rem",
-							fontWeight: "400",
-							textAlign: "center",
-							margin: "2%",
+											height: "calc(100%)",
+											margin: "2%",
 
-							// margin: "auto",
-
-							color: theme ? theme.tertiaryColor : "",
-						}}
-					>
-						{formatComponent(title)}
-					</div>
-					<div
-						style={{
-							fontSize: "2.5vw",
-
-							height: "calc(100%)",
-							margin: "2%",
-
-							textAlign: "center",
-							color: theme ? theme.primaryColor : "",
-						}}
-					>
-						{formatComponent(content)}
-					</div>
+											textAlign: "center",
+										}}
+										key={_index}
+									>
+										{formatComponent(item)}
+									</div>
+								)
+						)}
 				</div>
 			</div>
 		</div>
@@ -298,12 +310,12 @@ export const VerticalHexagonFeatureGrid: React.FC<
 		<VertHexagon
 			key={index}
 			args={hexagonArgs}
-			element={getEl(
+			element={getElVertical(
 				calloutProps.header,
 
 				calloutProps.body,
-				calloutProps.footer,
-				theme
+				calloutProps.footer
+				// theme
 			)}
 			opacity={1} // Ensure full opacity for content visibility
 			useVerticalAlignment={true}
