@@ -26,6 +26,7 @@ const stat_value_style: React.CSSProperties = {
 	height: "5rem",
 	fontWeight: "500",
 	justifySelf: "center",
+	textAlign: "center",
 };
 
 const stat_body_style: React.CSSProperties = {
@@ -34,6 +35,8 @@ const stat_body_style: React.CSSProperties = {
 	borderImage: borderGrad,
 	margin: "auto 0",
 	padding: "1%",
+	textAlign: "center",
+
 	height: "20rem",
 	// marginTop: "-1%",
 	fontSize: "2rem",

@@ -238,8 +238,6 @@ export const getElVertical = (...components: ValidComponent[]) => {
 				position: "relative",
 				height: "100%",
 				margin: 0,
-
-				verticalAlign: "text-bottom",
 			}}
 		>
 			<div
@@ -257,45 +255,23 @@ export const getElVertical = (...components: ValidComponent[]) => {
 
 					display: "block",
 					margin: 0,
-
-					textAlign: "center",
 				}}
 			>
 				<div
 					style={{
-						position: "relative",
-						padding: "0",
+						visibility: "hidden",
 					}}
 				>
-					<div
-						style={{
-							position: "relative",
-							visibility: "hidden",
-							top: 0,
-						}}
-					>
-						why does this need to be here
-					</div>
-					{components &&
-						components.map(
-							(item, _index) =>
-								item && (
-									<div
-										style={{
-											fontSize: "2.5vw",
-
-											height: "calc(100%)",
-											margin: "2%",
-
-											textAlign: "center",
-										}}
-										key={_index}
-									>
-										{formatComponent(item)}
-									</div>
-								)
-						)}
+					why does this need to be here, it breaks when fontSize is 0
+					too, so resorting to visability
 				</div>
+				{components &&
+					components.map(
+						(item, _index) =>
+							item && (
+								<div key={_index}>{formatComponent(item)}</div>
+							)
+					)}
 			</div>
 		</div>
 	);
