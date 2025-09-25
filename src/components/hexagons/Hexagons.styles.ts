@@ -197,21 +197,6 @@ export const VertLeftCutout: React.CSSProperties = {
 	// @debug - use clipPath for visual confirmation
 	// clipPath: "polygon(0% 0%, 98% 0%, 0% 25%, 0% 100%, 98% 100%, 0% 75%)",
 	// backgroundColor: "rgb(0,255,0,40%)", // Green for left
-	// 	position: "relative",
-
-	// 	shapeOutside: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
-	// 	shapeMargin: "5%",
-
-	// 	/**
-	// 	@debug - used to visually display the shape
-
-	//  */
-
-	// 	clipPath: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
-	// 	backgroundColor: "rgb(0,255,0,40%)",
-	// 	float: "left",
-	// 	width: `${50 * s}%`,
-	// 	height: `calc(${100 * s}%)`,
 };
 
 export const VertRightCutout: React.CSSProperties = {
@@ -228,22 +213,6 @@ export const VertRightCutout: React.CSSProperties = {
 	// clipPath: "polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 2% 100%, 100% 75%)",
 	// backgroundColor: "rgb(255,0,0,40%)", // Red for right
 	// 	position: "relative",
-
-	// 	shapeOutside:
-	// 		"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
-	// 	shapeMargin: "5%",
-
-	// 	/**
-	// 	shapeMargin: "2%",
-
-	// 	@debug - used to visually display the shape
-
-	//  */
-	// 	clipPath: "polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
-	// 	backgroundColor: "rgb(255,0,0,40%)",
-	// 	float: "right",
-	// 	width: `${50 * s}%`,
-	// 	height: `calc(${100 * s}%)`,
 };
 export const vertHexagonalContentStyle: React.CSSProperties = {
 	position: "absolute",
