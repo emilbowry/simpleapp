@@ -197,60 +197,16 @@ export class Hexagon
 					))}
 				</svg>
 
-				{/* {!_useVert ? (
-					<div
-						style={hexagonalContentStyle}
-						ref={this.setContainerRef}
-					>
-						<div
-							style={{
-								...textSec,
-							}}
-						>
-							<div style={LeftCutout}></div>
-							<div style={RightCutout}></div>
-
-							<div
-								style={{
-									...textSex,
-
-									paddingTop: useVerticalAlignment
-										? `calc(${
-												(this.state.containerHeight -
-													this.state.contentHeight!) /
-												2
-										  }px)`
-										: 0,
-								}}
-							>
-								{useVerticalAlignment ? (
-									<div ref={this.setContentRef}>
-										{formatComponent(element)}
-									</div>
-								) : (
-									formatComponent(element)
-								)}
-							</div>
-						</div>
-					</div>
-				) : (
-					<div style={verticalContentStyle()}>
-						{formatComponent(element)}
-					</div>
-				)} */}
 				<div
-					style={currentHexagonalContentStyle} // Use chosen content style
-					ref={this.setContainerRef} // Ref attached here for container measurement
+					style={currentHexagonalContentStyle}
+					ref={this.setContainerRef}
 				>
 					<div style={currentTextSecStyle}>
-						{/* Use chosen textSec style */}
 						<div style={currentLeftCutout}></div>
-						{/* Use chosen LeftCutout */}
 						<div style={currentRightCutout}></div>
-						{/* Use chosen RightCutout */}
 						<div
 							style={{
-								...currentTextContentWrapperStyle, // Use chosen text wrapper style
+								...currentTextContentWrapperStyle,
 								paddingTop: useVerticalAlignment
 									? `calc(${
 											(this.state.containerHeight -
@@ -262,7 +218,6 @@ export class Hexagon
 						>
 							{useVerticalAlignment ? (
 								<div ref={this.setContentRef}>
-									{/* Ref attached here for content measurement */}
 									{formatComponent(element)}
 								</div>
 							) : (

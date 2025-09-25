@@ -30,17 +30,13 @@ const LearnMoreButton: React.FC<LearnMoreButtonProps> = ({
 	content = "",
 }) => {
 	const buttonStyles: React.CSSProperties = {
-		// padding: "2% 5%",
 		textDecoration: "none",
 		color: "white",
 		fontSize: "3rem",
-		// display: "flex",
-		// flexDirection: "column",
+
 		textAlign: "center",
 		width: "100%",
-		// alignContent: "center",
-		// // verticalAlign: "middle",
-		// justifyContent: "center",
+
 		backgroundOrigin: "content-box",
 		backgroundImage: `${logoGrag}`,
 		backgroundPosition: "bottom left",
@@ -56,7 +52,6 @@ const LearnMoreButton: React.FC<LearnMoreButtonProps> = ({
 				display: "flex",
 				flexDirection: "column",
 				alignContent: "center",
-				// verticalAlign: "middle",
 				color: "white",
 				justifyContent: "center",
 			}}

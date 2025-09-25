@@ -30,12 +30,6 @@ export const containerStyle = ({
 }: HexagonStyleParams): React.CSSProperties => {
 	const { width, height } = getFinalDimensions({ size, scale });
 	return {
-		/* 
-	fontSize:0 is key to provent weird svg dimensioning issues, ensure we reset if includes jsx elements also
-	-	core fix such that HexagonRow works
- */
-		// position: "relative",
-		// zIndex: "100",
 		fontSize: 0,
 		overflow: "visible",
 
@@ -181,17 +175,17 @@ export const LWRap: React.CSSProperties = {
 export const hexagonalContentStyle: React.CSSProperties = {
 	position: "absolute",
 	height: `calc(100%)`,
-	// height: "100%",
 
 	width: "100%",
 
-	// left: 0,
 	top: 0,
 };
 export const VertLeftCutout: React.CSSProperties = {
 	position: "relative",
 	shapeOutside: "polygon(0% 0%, 100% 0%, 0% 25%, 0% 100%, 100% 100%, 0% 75%)",
-	float: "left", // Still float left for shape-outside to work
+	shapeMargin: "5%",
+
+	float: "left",
 	width: `${50 * s}%`,
 	height: `calc(${100 * s}%)`,
 	// @debug - use clipPath for visual confirmation
@@ -204,11 +198,10 @@ export const VertRightCutout: React.CSSProperties = {
 
 	shapeOutside:
 		"polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 0% 100%, 100% 75%)",
-	// shapeMargin: "5%",
-	float: "right", // Still float right for shape-outside to work
+	shapeMargin: "5%",
+	float: "right",
 	width: `${50 * s}%`,
 	height: `calc(${100 * s}%)`,
-	// zIndex: 100,
 	// @debug - use clipPath for visual confirmation
 	// clipPath: "polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 2% 100%, 100% 75%)",
 	// backgroundColor: "rgb(255,0,0,40%)", // Red for right
@@ -229,5 +222,5 @@ export const vertTextSec: React.CSSProperties = {
 
 export const vertTextContentWrapperStyle: React.CSSProperties = {
 	width: "100%",
-	height: `calc(100%)`, // Similar to textSex
+	height: `calc(100%)`,
 };

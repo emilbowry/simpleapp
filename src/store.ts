@@ -1,3 +1,6 @@
+// src/store.ts
+
+import React from "react";
 // import { configureStore } from '@reduxjs/toolkit';
 // // import other slice reducers...
 

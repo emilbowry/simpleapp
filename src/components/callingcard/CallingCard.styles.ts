@@ -16,16 +16,10 @@ export const innerStyle = (fullSpread: boolean): React.CSSProperties => ({
 
 export const itemStyle: React.CSSProperties = {
 	minWidth: 0,
-	// margin: "0",
-	// margin: "20px",
 };
 export const cardStyle = (_colour: string): React.CSSProperties => ({
 	color: _colour,
 	display: "grid",
-	// height: "100%",
-
-	// columnGap: "20%",
-	// justifyContent: "space-evenly",
 });
 
 export const titleHeadingStyle = (_colour: string): React.CSSProperties => ({

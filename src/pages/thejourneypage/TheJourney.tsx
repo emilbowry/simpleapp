@@ -102,6 +102,7 @@ const TimelineData = [
 /**
 @hack
 - NO-OP div ensures svg's lineheight calculation correct so remains geometrically precise
+@improvement move and generalise in HexCallout
  */
 const getEl = (date: string, content: string) => (
 	<div

@@ -51,33 +51,26 @@ export class TitleBar<
 	state: S;
 	constructor(props: P) {
 		super(props);
-		if (props.links.length === 0 || props.links[0].length === 0) {
-			console.warn(
-				"TitleBar created with no links. Defaulting activeLinkAlias to null."
-			);
-			this.initialActiveAlias = null as any;
-		} else {
-			const currentPath = window.location.pathname;
-			console.log(currentPath);
-			let foundAlias: string | null = null;
-			for (const linkGroup of props.links) {
-				const mainLink = linkGroup[0];
-				if (mainLink && mainLink.path === currentPath) {
+
+		const currentPath = window.location.pathname;
+		let foundAlias: string | null = null;
+		for (const linkGroup of props.links) {
+			const mainLink = linkGroup[0];
+			if (mainLink && mainLink.path === currentPath) {
+				foundAlias = formatLabel(mainLink.path, mainLink.alias);
+				break;
+			}
+			for (const subLink of linkGroup.slice(1)) {
+				if (subLink.path === currentPath) {
 					foundAlias = formatLabel(mainLink.path, mainLink.alias);
 					break;
 				}
-				for (const subLink of linkGroup.slice(1)) {
-					if (subLink.path === currentPath) {
-						foundAlias = formatLabel(mainLink.path, mainLink.alias);
-						break;
-					}
-				}
-				if (foundAlias) break;
 			}
-			this.initialActiveAlias =
-				foundAlias ||
-				formatLabel(props.links[0][0].path, props.links[0][0].alias);
+			if (foundAlias) break;
 		}
+		this.initialActiveAlias =
+			foundAlias ||
+			formatLabel(props.links[0][0].path, props.links[0][0].alias);
 		this.state = {
 			isOverLink: false,
 			activeLinkAlias: this.initialActiveAlias,

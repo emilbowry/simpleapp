@@ -22,6 +22,38 @@ const personaWrapperStyle: React.CSSProperties = {
 	width: "100%",
 	justifyContent: "center",
 };
+
+export const teamMembers: IPersona[] = [
+	{
+		image: joefennelhs,
+		name: "Joe Fennel",
+		title: "Founder",
+		email: "joe@aicompatible.co.uk",
+		body: "Since 2019, Joe has been grappling with the question of  how to adjust to a world being transformed by AI. He spent 4 years tackling this question at the University of Cambridge, and the last 2 years tackling it with some of the world’s biggest businesses, including Astra Zeneca, Vodafone, Accenture Song and more.",
+	},
+	{
+		image: miranda,
+		name: "Miranda Read",
+		title: " COO & Business Development Lead",
+		email: "miranda@aicompatible.co.uk",
+		body: "Miranda has 4 years of experience client-facing roles in Cybersecurity and Tech. Wearing multiple hats under the umbrella of Business Development, she has been instrumental in AI Compatibles product development, marketing strategy, operations and growth vision.",
+	},
+	{
+		image: omar,
+		name: "Omer Bilgin",
+		body: "Omer is an AI ethics, policy, and governance researcher. His unique expertise is grounded in both his academic training in Practical Ethics at the University of Oxford, and his professional roles as Co-founder and Chief Ethics & Research Officer at an AI startup called deliberAIde and as a Technology & Data Ethics Advisor for Suffrago.",
+	},
+	{
+		image: ben,
+		name: "Benjamin Raho ",
+		body: "Benjamin is an economics graduate and EPM sales specialist, helping UK mid-market businesses optimize financial planning and analytics through Oracle NetSuite’s AI-powered tools. Bridging enterprise software and applied AI, Benjamin brings a practical, forward-thinking approach",
+	},
+	{
+		image: will,
+		name: "William Swain ",
+		body: "Will has 10 years of experience as a Data and Reporting Analyst for Nintendo, PwC and Everfox. His expertise is in automation so founded Surrey Data Solutions (SDS), a specialist consultancy delivering practical, high- impact solutions in business intelligence, data analytics, process automation, and robotic process automation (RPA).",
+	},
+];
 export class Persona extends React.Component<IPersona> {
 	render() {
 		const { image, name, title, email, body, index = 2 } = this.props;
@@ -102,30 +134,6 @@ export class Persona extends React.Component<IPersona> {
 	}
 }
 
-export const DemoPersona: React.FC = () => {
-	return (
-		<CallingCard
-			components={[
-				<Persona
-					index={0}
-					image={joefennelhs}
-					name="Joe Fennel"
-					title="Founder"
-					email="joe@aicompatible.co.uk"
-					body="Since 2019, Joe has been grappling with the question of 
-how to adjust to a world being transformed by AI. He
-spent 4 years tackling this question at the University of
-Cambridge, and the last 2 years tackling it with some of
-the world’s biggest businesses, including Astra Zeneca,
-Vodafone, Accenture Song and more."
-				/>,
-			]}
-			fullSpread={true}
-			index={-1}
-		/>
-	);
-};
-
 export const OurTeam: React.FC = () => (
 	<div
 		style={{
@@ -136,87 +144,27 @@ export const OurTeam: React.FC = () => (
 			paddingBottom: "10%",
 		}}
 	>
-		<div style={{}}>
-			<DemoPersona />
-		</div>
-		<div>
-			<CallingCard
-				components={[
-					<Persona
-						index={1}
-						image={miranda}
-						name="Miranda Read"
-						title=" COO & Business Development Lead"
-						email="miranda@aicompatible.co.uk"
-						body="Miranda has 4 years of experience client-facing roles in
-Cybersecurity and Tech. Wearing multiple hats under
-the umbrella of Business Development, she has been
-instrumental in AI Compatibles product development,
-marketing strategy, operations and growth vision."
-					/>,
-				]}
-				index={-1}
-				fullSpread={true}
-			/>
-		</div>
-		<div>
-			<CallingCard
-				components={[
-					<Persona
-						index={2}
-						image={omar}
-						name="Omer Bilgin"
-						body="Omer is an AI ethics, policy, and governance researcher.
-His unique expertise is grounded in both his academic
-training in Practical Ethics at the University of Oxford,
-and his professional roles as Co-founder and Chief
-Ethics & Research Officer at an AI startup called
-deliberAIde and as a Technology & Data Ethics Advisor
-for Suffrago. "
-					/>,
-				]}
-				index={-1}
-				fullSpread={true}
-			/>
-		</div>
-		<div>
-			<CallingCard
-				components={[
-					<Persona
-						index={2}
-						image={ben}
-						name="Benjamin Raho "
-						body="Benjamin is an economics graduate and EPM sales
-specialist, helping UK mid-market businesses optimize
-financial planning and analytics through Oracle
-NetSuite’s AI-powered tools. Bridging enterprise
-software and applied AI, Benjamin brings a practical,
-forward-thinking approach."
-					/>,
-				]}
-				index={-1}
-				fullSpread={true}
-			/>
-		</div>
-		<div>
-			<CallingCard
-				components={[
-					<Persona
-						index={2}
-						image={will}
-						name="William Swain "
-						body="Will has 10 years of experience as a Data and Reporting
-Analyst for Nintendo, PwC and Everfox. His expertise is
-in automation so founded Surrey Data Solutions (SDS),
-a specialist consultancy delivering practical, high-
-impact solutions in business intelligence, data
-analytics, process automation, and robotic process
-automation (RPA).  "
-					/>,
-				]}
-				index={-1}
-				fullSpread={true}
-			/>
-		</div>
+		{teamMembers.map((member, arrayIndex) => {
+			const personaIndex = member.title ? 1 : 2;
+
+			return (
+				<div key={arrayIndex}>
+					<CallingCard
+						components={[
+							<Persona
+								index={personaIndex}
+								image={member.image}
+								name={member.name}
+								title={member.title}
+								email={member.email}
+								body={member.body}
+							/>,
+						]}
+						index={-1}
+						fullSpread={true}
+					/>
+				</div>
+			);
+		})}
 	</div>
 );

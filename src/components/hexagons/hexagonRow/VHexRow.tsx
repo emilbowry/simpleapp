@@ -188,9 +188,7 @@ interface VerticalHexagonFeatureGridProps {
 }
 
 /**
- * A reusable component for displaying features within a vertical hexagon grid layout.
- * It abstracts the common pattern of wrapping feature content in `VertHexagon`
- * and `HexWrapCallOut` for consistent styling and layout.
+ * @improvement - formalise each part as a callout move to hex callout
  */
 const getEl = (
 	image: ValidComponent = <></>,
