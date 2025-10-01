@@ -2,6 +2,7 @@
 import React from "react";
 import { logoGrag } from "../../styles";
 import { logo_blue } from "../../utils/defaultColours";
+import { VISIBLE_TITLEBAR_HEIGHT } from "./TitleBar.consts";
 export const hamburgerStyle: React.CSSProperties = {
 	background: "none",
 	border: "none",
@@ -13,7 +14,7 @@ export const hamburgerStyle: React.CSSProperties = {
 	@improvement 
 	- VISIBLE_TITLEBAR_HEIGHT should be inferred and responsive (not px based)
 */
-export const VISIBLE_TITLEBAR_HEIGHT = 60;
+// export const VISIBLE_TITLEBAR_HEIGHT = 5;
 export const interactionWrapperStyles: React.CSSProperties = {
 	width: "100vw",
 	position: "fixed",
@@ -26,9 +27,9 @@ export const _titleBarStyles = (): React.CSSProperties => {
 		alignContent: "center",
 		alignItems: "center",
 		justifyContent: "space-between",
-		height: `${VISIBLE_TITLEBAR_HEIGHT}px`,
+		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
 		backgroundColor: "rgb(255 255 255 / 90%)",
-		padding: "10px",
+		// padding: "10px",
 		minWidth: `max-content`,
 	};
 };
@@ -90,8 +91,8 @@ export const dropdownContainerStyles: React.CSSProperties = {
 	right: "0",
 	cursor: "none",
 	margin: "0 auto",
-	top: `-${VISIBLE_TITLEBAR_HEIGHT}px`,
-	marginTop: `${VISIBLE_TITLEBAR_HEIGHT - 10}px`,
+	top: `-${VISIBLE_TITLEBAR_HEIGHT}vh`,
+	marginTop: `calc(${VISIBLE_TITLEBAR_HEIGHT}vh - 10px)`,
 	backgroundColor: "transparent",
 	paddingTop: "10px",
 	width: "fit-content",
@@ -131,7 +132,7 @@ export const dropdownImageViewOverviewStyles: React.CSSProperties = {
 };
 
 export const pillBarOverrides: React.CSSProperties = {
-	borderRadius: "40px",
+	borderRadius: "5vh",
 	boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
 	backgroundColor: "rgb(255 255 255 / 40%)",
 	background: `linear-gradient(to right, rgb(255 222 89 / 10%), rgb(12 192 223 / 10%)),

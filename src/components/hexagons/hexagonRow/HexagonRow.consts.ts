@@ -4,5 +4,5 @@
  * Mainly used for debugging background logic
 
  */
-export const rspacing: number = 30;
-export const aspace = -30;
+export const rspacing: number = 20;
+export const aspace = -20;

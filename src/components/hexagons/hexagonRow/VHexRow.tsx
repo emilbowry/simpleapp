@@ -33,7 +33,7 @@ const narrowTopRowStyle: React.CSSProperties = {
 const lItemStyle = (index: number): React.CSSProperties => {
 	if (index == 0) return { marginLeft: "1%", marginRight: "-1%" };
 	else if (index == 2) return { marginLeft: "-1%", marginRight: "1%" };
-	else return { marginLeft: "-1%", marginRight: "-1%" };
+	else return {};
 };
 const sItemStyle = (index: number): React.CSSProperties => {
 	if (index == 0) return { marginLeft: "1%", marginRight: "-1%" };
@@ -114,7 +114,7 @@ export class VerticalHexagonGrid extends React.Component<
 
 	render() {
 		return (
-			<div style={{}}>
+			<div style={{ zIndex: 50 }}>
 				{this.state.isNarrow
 					? this.renderNarrowLayout()
 					: this.renderWideLayout()}
@@ -126,7 +126,7 @@ export class VerticalHexagonGrid extends React.Component<
 // src/components/hexagons/hexagonRow/VerticalHexagonFeatureGrid.tsx
 
 import { VerticalHexagonGrid as BaseVerticalHexagonGrid } from "./VHexRow"; // Renamed to avoid collision
-import { VertHexagon } from "../Hexagons";
+import { PointedTopHexagon } from "../Hexagons";
 import { TriPartCallout } from "../../callingcard/callout/CallOut";
 
 import { ValidComponent } from "../../../utils/reactUtils";
@@ -180,127 +180,32 @@ interface VerticalHexagonFeatureGridProps {
 	 */
 	featureCallouts: IFeatureCalloutProps[];
 	/**
-	 * Common style arguments for the VertHexagon wrapper.
+	 * Common style arguments for the PointedTopHexagon wrapper.
 	 * Typically includes `colour` and `borderColor`.
 	 */
 	hexagonArgs: any; // Consider a more precise type if 'args' are well-defined
 	theme?: number;
+	useVerticalAlignment?: boolean;
 }
-
-export const getElHorizontal = (...components: ValidComponent[]) => {
-	return (
-		<div
-			style={{
-				position: "relative",
-				height: "100%",
-				margin: 0,
-			}}
-		>
-			<div
-				style={{
-					margin: 0,
-					padding: 0,
-					visibility: "hidden",
-					fontSize: 0,
-				}}
-			>
-				no-op
-			</div>
-			<div
-				style={{
-					margin: 0,
-					padding: 0,
-				}}
-			>
-				{components &&
-					components.map(
-						(item, _index) =>
-							item && (
-								<div
-									style={{
-										fontSize: "2.5vw",
-										margin: 0,
-									}}
-									key={_index}
-								>
-									{formatComponent(item)}
-								</div>
-							)
-					)}
-			</div>
-		</div>
-	);
-};
-export const getElVertical = (...components: ValidComponent[]) => {
-	return (
-		<div
-			style={{
-				position: "relative",
-				height: "100%",
-				margin: 0,
-			}}
-		>
-			<div
-				style={{
-					margin: 0,
-					fontSize: 0,
-				}}
-			>
-				no-op
-			</div>
-			<div
-				style={{
-					height: "calc(100%)",
-					fontSize: "2vw",
-
-					display: "block",
-					margin: 0,
-				}}
-			>
-				<div
-					style={{
-						visibility: "hidden",
-					}}
-				>
-					why does this need to be here, it breaks when fontSize is 0
-					too, so resorting to visability
-				</div>
-				{components &&
-					components.map(
-						(item, _index) =>
-							item && (
-								<div key={_index}>{formatComponent(item)}</div>
-							)
-					)}
-			</div>
-		</div>
-	);
-};
 
 export const VerticalHexagonFeatureGrid: React.FC<
 	VerticalHexagonFeatureGridProps
-> = ({ featureCallouts, hexagonArgs, theme }) => {
+> = ({ featureCallouts, hexagonArgs, useVerticalAlignment = false }) => {
+	console.log(useVerticalAlignment);
 	const elements = featureCallouts.map((calloutProps, index) => (
-		// const image = featureCallouts
-
-		<VertHexagon
+		<PointedTopHexagon
 			key={index}
 			args={hexagonArgs}
-			element={getElVertical(
+			element={[
 				calloutProps.header,
 
 				calloutProps.body,
-				calloutProps.footer
-				// theme
-			)}
+				calloutProps.footer,
+			]}
 			opacity={1} // Ensure full opacity for content visibility
-			useVerticalAlignment={true}
+			useVerticalAlignment={useVerticalAlignment}
 		/>
 	));
 
-	return (
-		<div style={{ width: "100%", zIndex: 25 }}>
-			<BaseVerticalHexagonGrid elements={elements as any} />
-		</div>
-	);
+	return <BaseVerticalHexagonGrid elements={elements as any} />;
 };

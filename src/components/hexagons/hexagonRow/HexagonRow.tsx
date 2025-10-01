@@ -38,6 +38,7 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 		let margin_top = 0;
 		let padding_top = 0;
 		let margin_bottom = 0;
+		let othercss = {};
 		let _rows = rows;
 		/*
 			To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
@@ -45,9 +46,23 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 			- add overall height calculation for appropriate bottom white space
 		*/
 		if (rows[0].elements[1] === null) {
-			margin_top = -(0.5 * 100) / l;
+			// margin_top = -(0.5 * 100) / l;
+			othercss = {
+				marginTop: `calc(${-(0.5 * 100) / l}% + ${
+					relative_space / 2
+				}% + ${absolute_space}px)`,
+			};
 		} else {
-			margin_top = -(1.5 * 100) / l; // calculation slightly off
+			othercss = {
+				paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
+					absolute_space / 2
+				}px)`,
+				paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
+					absolute_space / 2
+				}px)`,
+				backdropFilter: "blur(8px)",
+			};
+			// margin_top = -(1.5 * 100) / l; // calculation slightly off
 			// padding_top = 0.5 * 100 * l;
 		}
 
@@ -55,9 +70,10 @@ export class HexagonGrid extends React.Component<IHexagonGridElements> {
 			<div
 				className={class_name ?? ""}
 				style={{
-					// marginTop: `${margin_top}%`,
+					marginTop: `${margin_top}%`,
+					// height: "140%",
 					// paddingTop: padding_top,
-
+					...othercss,
 					// paddingBottom: `calc(${relative_space * 1.5}% )`,
 					...containerStyle,
 				}}

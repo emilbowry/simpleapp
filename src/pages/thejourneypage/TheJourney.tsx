@@ -156,7 +156,7 @@ const getRows = () => {
 		const contentHex = (
 			<Hexagon
 				args={{ colour: bgwhite }}
-				element={getElHorizontal(
+				element={[
 					<h3
 						style={{
 							fontSize: "3vw",
@@ -178,8 +178,8 @@ const getRows = () => {
 						}}
 					>
 						{item.content}
-					</p>
-				)}
+					</p>,
+				]}
 				opacity={1}
 				useVerticalAlignment={true}
 			/>
@@ -194,24 +194,34 @@ const getRows = () => {
 	});
 };
 import bw3 from "../../assets/bw3.jpg";
-import { getElHorizontal } from "../../components/hexagons/hexagonRow/VHexRow";
 
 export const theJourneyPage: React.FC = () => {
 	let r = getRows();
 
 	return (
 		<div
-			style={{
-				height: "100%",
-			}}
+			style={
+				{
+					// paddingBottom: "200px", //need to make these scale
+					// paddingTop: "200px",
+					// marginTop: "-200px",
+					// backdropFilter: "blur(8px)",
+				}
+			}
 		>
 			<HexagonGrid
 				rows={r as any}
 				relative_space={10}
 				absolute_space={-15}
-				containerStyle={{
-					backdropFilter: "blur(8px)",
-				}}
+				containerStyle={
+					{
+						// paddingBottom: "200px", //need to make these scale
+						// paddingTop: "200px",
+						// marginTop: "-200px",
+						// backdropFilter: "blur(8px)",
+						// backdropFilter: "blur(8px)", //blur doesnt cover the top half or the top hex, or bottom half of bottom
+					}
+				}
 				class_name="aos-ignore"
 			/>
 		</div>

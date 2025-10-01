@@ -11,12 +11,22 @@ import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
 import { ContactPage } from "./pages/contactpage/ContactPage";
 import { OurServices } from "./pages/ourservices/OurServices";
 
+function ScrollToTop() {
+	const { pathname } = useLocation();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
+
+	return null; // doesn’t render anything
+}
 const App: React.FC = () => {
 	const location = useLocation();
 
 	useEffect(animationTagging, [location.pathname]);
 	return (
 		<>
+			<ScrollToTop />
 			<Routes>
 				<Route
 					path="/"

@@ -8,7 +8,7 @@ import {
 	VerticalHexagonFeatureGrid,
 	VerticalHexagonGrid,
 } from "../../../../components/hexagons/hexagonRow/VHexRow";
-import { VertHexagon } from "../../../../components/hexagons/Hexagons";
+import { PointedTopHexagon } from "../../../../components/hexagons/Hexagons";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import cam from "../../../../assets/cam.png";
 import LH from "../../../../assets/leverCent.png";
@@ -24,9 +24,13 @@ const stat_value_style: React.CSSProperties = {
 	fontSize: "3rem",
 	margin: "1%",
 	height: "5rem",
+	minHeight: "5rem",
+	maxHeight: "5rem",
+
 	fontWeight: "500",
 	justifySelf: "center",
 	textAlign: "center",
+	overflow: "visible",
 };
 
 const stat_body_style: React.CSSProperties = {
@@ -35,9 +39,12 @@ const stat_body_style: React.CSSProperties = {
 	borderImage: borderGrad,
 	margin: "auto 0",
 	padding: "1%",
+	// margin: "2%",
+	// position: "relative",
+	// top: 0,
 	textAlign: "center",
-
-	height: "20rem",
+	overflow: "visible",
+	// height: "20rem",
 	// marginTop: "-1%",
 	fontSize: "2rem",
 };

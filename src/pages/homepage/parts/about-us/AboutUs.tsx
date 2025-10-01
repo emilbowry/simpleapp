@@ -103,11 +103,12 @@ const aboutUsFeatureCallouts = [
 		themeId: -1,
 	},
 ];
-
+import { MarkdownRenderer } from "../../../dpotool/tool";
 export const AboutUsCallingCard: React.FC = () => (
 	<>
 		<NewCallingCard
-			components={[wGif]}
+			// components={[wGif]}
+			components={[<MarkdownRenderer />]}
 			header={
 				<div
 					style={{
@@ -135,6 +136,7 @@ export const AboutUsCallingCard: React.FC = () => (
 		/>
 		<VerticalHexagonFeatureGrid
 			featureCallouts={aboutUsFeatureCallouts}
+			useVerticalAlignment={true}
 			hexagonArgs={hStyle}
 			theme={-1}
 		/>

@@ -226,7 +226,7 @@ export const PiChart: React.FC<PiChartProps> = ({
 								onMouseLeave={handleMouseLeave}
 								onClick={() => handleClick(slice.name)}
 								style={{
-									cursor: "pointer",
+									// cursor: "pointer",
 									transform: groupTransform,
 									transition:
 										"transform 0.15s ease-out, opacity 0.15s ease-out",

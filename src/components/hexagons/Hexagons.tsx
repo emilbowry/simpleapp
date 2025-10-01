@@ -1,415 +1,101 @@
-// // src/components/hexagons/Hexagons.tsx
-// import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
-
-// import {
-// 	logo_yellow,
-// 	logo_blue,
-// 	midnight_green,
-// } from "../../utils/defaultColours";
-// import { IHexagonConstruction } from "./Hexagons.types";
-// import { formatComponent } from "../../utils/reactUtils";
-// import {
-// 	containerStyle,
-// 	svgStyle,
-// 	verticalContentStyle,
-// 	hexagonalContentStyle,
-// 	textSec,
-// 	RightCutout,
-// 	LeftCutout,
-// 	textSex,
-// 	_contentSection,
-// 	vertHexagonalContentStyle,
-// 	VertLeftCutout,
-// 	VertRightCutout,
-// 	vertTextContentWrapperStyle,
-// 	vertTextSec,
-// } from "./Hexagons.styles";
-// import { genericSectionStyle } from "../../styles";
-// let hexagonInstanceCounter = 0;
-// export class Hexagon
-// 	extends React.Component<
-// 		any,
-// 		{ contentHeight: number | undefined; containerHeight: number }
-// 	>
-// 	implements IHexagonConstruction
-// {
-// 	static useVert = false;
-// 	static defaultHexPath =
-// 		"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
-// 	static vertHexPath =
-// 		"M 13.3975 -50 l 0 100 l 86.6025 50 l 86.6025 -50 l -0 -100 l -86.6025 -50 Z";
-// 	static get HexPath() {
-// 		return this.useVert ? this.vertHexPath : this.defaultHexPath;
-// 	}
-
-// 	private containerNode: Element | null = null;
-// 	private contentNode: Element | null = null;
-
-// 	private contentObserver: ResizeObserver | null = null;
-// 	hexPath: string;
-// 	private oscillations: number | undefined = undefined;
-// 	private instanceId: number;
-
-// 	constructor(props: any) {
-// 		super(props);
-// 		const ctor = this.constructor as typeof Hexagon;
-// 		this.hexPath = ctor.HexPath;
-// 		this.instanceId = ++hexagonInstanceCounter;
-// 		this.state = {
-// 			contentHeight: undefined,
-
-// 			containerHeight: 0,
-// 		};
-// 	}
-// 	componentWillUnmount() {
-// 		if (this.contentObserver) {
-// 			this.contentObserver.disconnect();
-// 		}
-// 	}
-// 	componentDidMount() {
-// 		this.measureContainer();
-// 		if (this.contentNode) {
-// 			this.contentObserver = new ResizeObserver((entries) => {
-// 				const entry = entries[0];
-// 				if (entry) {
-// 					const viewportWidth = window.innerWidth;
-// 					const dampingThreshold = viewportWidth * 0.02;
-// 					this.measureContainer();
-
-// 					const h_prime = this.state.contentHeight ?? 0;
-// 					const height = entry.contentRect.height;
-// 					const osc = this.oscillations ?? 0;
-// 					const delta = h_prime - height;
-// 					console.log(delta);
-// 					console.log(osc);
-
-// 					const pertubation = 2 * (osc % 2) - 1;
-// 					let activeHeight =
-// 						height + delta * +!!osc + pertubation * osc * +!!delta;
-
-// 					this.oscillations =
-// 						this.oscillations === undefined ? 0 : osc + 1;
-// 					if (Math.abs(h_prime - activeHeight) > dampingThreshold) {
-// 						this.setState({ contentHeight: activeHeight });
-// 					}
-// 				}
-// 			});
-
-// 			this.contentObserver.observe(this.contentNode);
-// 		}
-// 	}
-
-// 	componentDidUpdate(prevProps: any) {
-// 		this.measureContainer();
-// 		this.oscillations = 0;
-// 	}
-
-// 	measureContainer = () => {
-// 		if (this.containerNode) {
-// 			const containerHeight = this.containerNode.clientHeight;
-// 			// console.log(containerHeight);
-// 			if (this.state.containerHeight !== containerHeight) {
-// 				this.setState({ containerHeight: containerHeight });
-// 			}
-// 		}
-// 	};
-// 	public construct(args?: any) {
-// 		const _args = args || { colour: "#003845" };
-// 		const colour = _args.colour || "#003845";
-// 		const borderColor = _args.borderColor || undefined;
-// 		const borderWidth = borderColor
-// 			? _args.borderWidth || "2px"
-// 			: undefined;
-
-// 		return {
-// 			defs: [
-// 				<mask id="hexagon">
-// 					<path
-// 						d={this.hexPath}
-// 						fill="white"
-// 					/>
-// 				</mask>,
-// 			],
-// 			paths: [
-// 				<path
-// 					d={this.hexPath}
-// 					mask="url(#hexagon)"
-// 					fill={colour}
-// 					stroke={borderColor}
-// 					strokeWidth={borderWidth}
-// 				/>,
-// 			],
-// 		};
-// 	}
-
-// 	setContainerRef = (node: HTMLDivElement | null) => {
-// 		this.containerNode = node;
-// 	};
-// 	setContentRef = (node: HTMLDivElement | null) => {
-// 		this.contentNode = node;
-// 	};
-// 	render() {
-// 		const {
-// 			args,
-// 			element = <></>,
-// 			useVert = undefined,
-// 			useVerticalAlignment = false,
-// 			...styleProps
-// 		} = this.props;
-// 		const { defs, paths } = this.construct(args);
-// 		const ctor = this.constructor as typeof Hexagon;
-
-// 		let _useVert = useVert === undefined ? ctor.useVert : useVert;
-
-// 		// Determine which content styles and cutouts to use
-// 		const currentHexagonalContentStyle = _useVert
-// 			? vertHexagonalContentStyle
-// 			: hexagonalContentStyle;
-// 		const currentTextSecStyle = _useVert ? vertTextSec : textSec;
-// 		const currentLeftCutout = _useVert ? VertLeftCutout : LeftCutout;
-// 		const currentRightCutout = _useVert ? VertRightCutout : RightCutout;
-// 		const currentTextContentWrapperStyle = _useVert
-// 			? vertTextContentWrapperStyle
-// 			: textSex; // Using textSex as default content wrapper
-
-// 		return (
-// 			<div style={containerStyle(styleProps)}>
-// 				<svg
-// 					style={svgStyle(styleProps)}
-// 					viewBox={
-// 						!_useVert
-// 							? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
-// 									(200 * Math.sqrt(3)) / 2
-// 							  }`
-// 							: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
-// 									(200 * Math.sqrt(3)) / 2
-// 							  } 200`
-// 					}
-// 					xmlns="http://www.w3.org/2000/svg"
-// 				>
-// 					<defs>
-// 						{defs.map((def, i) => (
-// 							<React.Fragment key={i}>{def}</React.Fragment>
-// 						))}
-// 					</defs>
-// 					{paths.map((path, i) => (
-// 						<React.Fragment key={i}>{path}</React.Fragment>
-// 					))}
-// 				</svg>
-
-// 				<div
-// 					style={currentHexagonalContentStyle}
-// 					ref={this.setContainerRef}
-// 				>
-// 					<div style={currentTextSecStyle}>
-// 						<div style={currentLeftCutout}></div>
-// 						<div style={currentRightCutout}></div>
-// 						<div
-// 							style={{
-// 								...currentTextContentWrapperStyle,
-// 								paddingTop: useVerticalAlignment
-// 									? `calc(${
-// 											(this.state.containerHeight -
-// 												this.state.contentHeight!) /
-// 											2
-// 									  }px)`
-// 									: 0,
-// 							}}
-// 						>
-// 							{useVerticalAlignment ? (
-// 								<div ref={this.setContentRef}>
-// 									{formatComponent(element)}
-// 								</div>
-// 							) : (
-// 								formatComponent(element)
-// 							)}
-// 						</div>
-// 					</div>
-// 				</div>
-// 			</div>
-// 		);
-// 	}
-// }
-// //
-// // ===== VertHexagon =====
-// //
-
-// export class VertHexagon extends Hexagon {
-// 	static useVert = true;
-// }
-
-// //
-// // ===== ImageHexagon =====
-// //
-
-// export class ImageHexagon extends Hexagon {
-// 	public construct(args: { img: string }) {
-// 		const { img } = args;
-// 		let components = super.construct();
-// 		components.defs.push(
-// 			<pattern
-// 				id="img1"
-// 				patternContentUnits="objectBoundingBox"
-// 				width="1"
-// 				height="1"
-// 			>
-// 				<image
-// 					href={img}
-// 					width="1"
-// 					height={`${2 / Math.sqrt(3)}`}
-// 					preserveAspectRatio="xMidYMid slice"
-// 				/>
-// 			</pattern>
-// 		);
-// 		components.paths[0] = React.cloneElement(components.paths[0], {
-// 			fill: "url(#img1)",
-// 		});
-// 		return components;
-// 	}
-// }
-
-// //
-// // ===== LogoHexagon =====
-// //
-// export class LogoHexagon extends Hexagon {
-// 	public construct(args: { withGap: boolean }) {
-// 		const _args = args || { withGap: false };
-// 		const withGap = _args.withGap || false;
-// 		const chevCutour =
-// 			"M 25 86.6025 l 50 -86.6025 l -50 -86.6025 h 25 l 50 86.6025 l -50 86.6025 Z";
-// 		const chevColour =
-// 			"M 37.8305 -96.7441 L 93.4715 -0.224 L 37.0735 100.4596 L 185.8279 111.8149 L 233.1417 -14.9859 L 191.8841 -96.7441 Z";
-// 		const diamondColour =
-// 			"M -21.0101 0.0202 L 15.8088 -105.7362 L 89.4466 -0.3715 L 25.2093 85.8005 L -21.2164 0.1027 Z";
-// 		const chevSplit = "M 95 0 v 5 h120 v -10 h-120 v5";
-
-// 		const components = {
-// 			defs: [
-// 				<linearGradient
-// 					id="chevronGradient"
-// 					x1="10%"
-// 					y1="50%"
-// 					x2="100%"
-// 					y2="50%"
-// 				>
-// 					<stop
-// 						offset="0%"
-// 						stopColor={logo_yellow}
-// 					/>
-// 					<stop
-// 						offset="100%"
-// 						stopColor={logo_blue}
-// 					/>
-// 				</linearGradient>,
-// 				<mask id="hexagon"></mask>,
-// 			],
-// 			paths: [
-// 				<path
-// 					d={diamondColour}
-// 					fill={logo_yellow}
-// 					mask="url(#logoCutout)"
-// 				/>,
-// 				<path
-// 					d={chevColour}
-// 					fill="url(#chevronGradient)"
-// 					mask="url(#logoCutout)"
-// 				/>,
-// 			],
-// 		};
-
-// 		if (withGap == true) {
-// 			components.defs.push(
-// 				<mask id="logoCutout">
-// 					<path
-// 						d={this.hexPath}
-// 						fill="white"
-// 					/>
-// 					<path
-// 						d={chevCutour}
-// 						fill="black"
-// 					/>
-// 					<path
-// 						d={chevSplit}
-// 						fill="black"
-// 					/>
-// 				</mask>
-// 			);
-// 		} else {
-// 			components.defs.push(
-// 				<mask id="logoCutout">
-// 					<path
-// 						d={this.hexPath}
-// 						fill="white"
-// 					/>
-// 					<path
-// 						d={chevCutour}
-// 						fill="black"
-// 					/>
-// 				</mask>
-// 			);
-// 		}
-// 		return components;
-// 	}
-// }
-
-// //
-// // ===== CutHexagon =====
-// //
-// export class CutHexagon extends Hexagon {
-// 	public construct({ isLeftHanded = true, colour = midnight_green } = {}) {
-// 		const flip = isLeftHanded ? -1 : 100;
-// 		const cutPath = `M ${flip} 0 l 50 -86.6025 h1 l 50 86.6025  l -50 86.6025  h -1 z`;
-
-// 		return {
-// 			defs: [
-// 				<mask id="cutoutMask">
-// 					<path
-// 						d={this.hexPath}
-// 						fill="white"
-// 					/>
-// 					<path
-// 						d={cutPath}
-// 						fill="black"
-// 					/>
-// 				</mask>,
-// 				<linearGradient
-// 					id="chevronGradient"
-// 					x1="10%"
-// 					y1="50%"
-// 					x2="100%"
-// 					y2="50%"
-// 				>
-// 					<stop
-// 						offset="0%"
-// 						stopColor={logo_yellow}
-// 					/>
-// 					<stop
-// 						offset="100%"
-// 						stopColor={logo_blue}
-// 					/>
-// 				</linearGradient>,
-// 			],
-// 			paths: [
-// 				<path
-// 					d={this.hexPath}
-// 					mask="url(#cutoutMask)"
-// 					fill={colour}
-// 				/>,
-// 			],
-// 		};
-// 	}
-// }
-
-// src/components/hexagons/Hexagons.tsx
 import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
+const getElFlatTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
+	return (
+		<div
+			style={{
+				position: "relative",
+				height: "100%",
+				margin: 0,
+			}}
+		>
+			<div
+				style={{
+					margin: 0,
+					padding: 0,
+					visibility: "hidden",
+					fontSize: 0,
+				}}
+			>
+				no-op
+			</div>
+			<div
+				style={{
+					margin: 0,
+					padding: 0,
+				}}
+			>
+				{components &&
+					components.map(
+						(item, _index) =>
+							item && (
+								<div
+									style={{
+										// fontSize: `${fontSize}vw`,
+										fontSize: `calc(max(${fontSize}vw,1px))`,
+										margin: 0,
+									}}
+									key={_index}
+								>
+									{formatComponent(item)}
+								</div>
+							)
+					)}
+			</div>
+		</div>
+	);
+};
+const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
+	return (
+		<div
+			style={{
+				position: "relative",
+				height: "100%",
+				margin: 0,
+			}}
+		>
+			<div
+				style={{
+					margin: 0,
+					fontSize: 0,
+				}}
+			>
+				no-op
+			</div>
+			<div
+				style={{
+					height: "calc(100%)",
+					fontSize: `calc(max(${fontSize}vw,1px))`,
 
+					display: "block",
+					margin: 0,
+				}}
+			>
+				<div
+					style={{
+						visibility: "hidden",
+					}}
+				>
+					why does this need to be here, it breaks when fontSize is 0
+					too, so resorting to visability
+				</div>
+				{components &&
+					components.map(
+						(item, _index) =>
+							item && (
+								<div key={_index}>{formatComponent(item)}</div>
+							)
+					)}
+			</div>
+		</div>
+	);
+};
 import {
 	logo_yellow,
 	logo_blue,
 	midnight_green,
 } from "../../utils/defaultColours";
 import { IHexagonConstruction } from "./Hexagons.types";
-import { formatComponent } from "../../utils/reactUtils";
+import { formatComponent, ValidComponent } from "../../utils/reactUtils";
 import {
 	containerStyle,
 	svgStyle,
@@ -424,17 +110,21 @@ import { genericSectionStyle } from "../../styles";
 export class Hexagon
 	extends React.Component<
 		any,
-		{ contentHeight: number | undefined; containerHeight: number }
+		{
+			contentHeight: number | undefined;
+			containerHeight: number;
+			fontSize: number;
+		}
 	>
 	implements IHexagonConstruction
 {
-	static useVert = false;
+	static usePointedTop = false;
 	static defaultHexPath =
 		"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
-	static vertHexPath =
+	static altHexPath =
 		"M 13.3975 -50 l 0 100 l 86.6025 50 l 86.6025 -50 l -0 -100 l -86.6025 -50 Z";
 	static get HexPath() {
-		return this.useVert ? this.vertHexPath : this.defaultHexPath;
+		return this.usePointedTop ? this.altHexPath : this.defaultHexPath;
 	}
 
 	private containerNode: Element | null = null;
@@ -443,15 +133,19 @@ export class Hexagon
 	private contentObserver: ResizeObserver | null = null;
 	hexPath: string;
 	private oscillations: number | undefined = undefined;
-
+	usePointedTop: boolean;
 	constructor(props: any) {
 		super(props);
+		const { usePointedTop = undefined } = this.props;
 		const ctor = this.constructor as typeof Hexagon;
-		this.hexPath = ctor.HexPath;
+
+		this.usePointedTop = usePointedTop ?? ctor.usePointedTop;
+		this.hexPath = !this.usePointedTop ? ctor.HexPath : ctor.altHexPath;
 		this.state = {
 			contentHeight: undefined,
 
 			containerHeight: 0,
+			fontSize: 2.5,
 		};
 	}
 	componentWillUnmount() {
@@ -459,30 +153,56 @@ export class Hexagon
 			this.contentObserver.disconnect();
 		}
 	}
+	private nudgeHeight = (
+		height_prime: number,
+		height: number,
+		oscillations: number
+	) => {
+		const delta = height_prime - height;
+
+		const pertubation = 2 * (oscillations % 2) - 1;
+		return (
+			height +
+			delta * +!!oscillations +
+			pertubation * oscillations * +!!delta
+		);
+	};
+
+	private updateGuard(height_prime: number, height: number) {
+		const viewportWidth = window.innerWidth;
+		const dampingThreshold = viewportWidth * 0.02;
+		if (Math.abs(height_prime - height) > dampingThreshold) {
+			this.setState({ contentHeight: height });
+		}
+	}
 	componentDidMount() {
-		this.measureContainer();
 		if (this.contentNode) {
+			const text = this.contentNode.textContent ?? "";
+			const text_length = Array.from(text).length;
 			this.contentObserver = new ResizeObserver((entries) => {
 				const entry = entries[0];
 				if (entry) {
-					const viewportWidth = window.innerWidth;
-					const dampingThreshold = viewportWidth * 0.02;
-					this.measureContainer();
-
-					const h_prime = this.state.contentHeight ?? 0;
 					const height = entry.contentRect.height;
-					const osc = this.oscillations ?? 0;
-					const delta = h_prime - height;
 
-					const pertubation = 2 * (osc % 2) - 1;
-					let activeHeight =
-						height + delta * +!!osc + pertubation * osc * +!!delta;
+					this.setState({
+						containerHeight: this.containerNode
+							? this.containerNode.clientHeight
+							: 400,
+					});
+
+					const letter_space = Math.sqrt(text_length);
+					const hex_space = this.state.containerHeight ** 2;
+					this.setState({
+						fontSize: letter_space / hex_space,
+					});
+					const h_prime = this.state.contentHeight ?? 0;
+					const osc = this.oscillations ?? 0;
+
+					const activeHeight = this.nudgeHeight(h_prime, height, osc);
 
 					this.oscillations =
 						this.oscillations === undefined ? 0 : osc + 1;
-					if (Math.abs(h_prime - activeHeight) > dampingThreshold) {
-						this.setState({ contentHeight: activeHeight });
-					}
+					this.updateGuard(h_prime, activeHeight);
 				}
 			});
 
@@ -490,19 +210,10 @@ export class Hexagon
 		}
 	}
 
-	componentDidUpdate(prevProps: any) {
-		this.measureContainer();
+	componentDidUpdate() {
 		this.oscillations = 0;
 	}
 
-	measureContainer = () => {
-		if (this.containerNode) {
-			const containerHeight = this.containerNode.clientHeight;
-			if (this.state.containerHeight !== containerHeight) {
-				this.setState({ containerHeight: containerHeight });
-			}
-		}
-	};
 	public construct(args?: any) {
 		const _args = args || { colour: "#003845" };
 		const colour = _args.colour || "#003845";
@@ -541,22 +252,25 @@ export class Hexagon
 	render() {
 		const {
 			args,
-			element = <></>,
-			useVert = undefined,
+			element = undefined,
+
 			useVerticalAlignment = false,
 			...styleProps
 		} = this.props;
 		const { defs, paths } = this.construct(args);
-		const ctor = this.constructor as typeof Hexagon;
-
-		let _useVert = useVert === undefined ? ctor.useVert : useVert;
+		let _element = element;
+		if (Array.isArray(element)) {
+			_element = this.usePointedTop
+				? getElPointedTop(this.state.fontSize, ...element)
+				: getElFlatTop(this.state.fontSize, ...element);
+		}
 
 		return (
 			<div style={containerStyle(styleProps)}>
 				<svg
 					style={svgStyle(styleProps)}
 					viewBox={
-						!_useVert
+						!this.usePointedTop
 							? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
 									(200 * Math.sqrt(3)) / 2
 							  }`
@@ -576,48 +290,50 @@ export class Hexagon
 					))}
 				</svg>
 
-				<div
-					style={hexagonalContentStyle}
-					ref={this.setContainerRef}
-				>
-					<div style={elementWrapper}>
-						<div style={LeftCutout(_useVert)}></div>
-						<div style={RightCutout(_useVert)}></div>
-						<div
-							style={{
-								...elementSection,
-								paddingTop: useVerticalAlignment
-									? `calc(${
-											(this.state.containerHeight -
-												this.state.contentHeight!) /
-											2
-									  }px)`
-									: 0,
-							}}
-						>
-							{useVerticalAlignment ? (
-								<div
-									style={{}}
-									ref={this.setContentRef}
-								>
-									{formatComponent(element)}
-								</div>
-							) : (
-								formatComponent(element)
-							)}
+				{element && (
+					<div
+						style={hexagonalContentStyle}
+						ref={this.setContainerRef}
+					>
+						<div style={elementWrapper}>
+							<div style={LeftCutout(this.usePointedTop)} />
+							<div style={RightCutout(this.usePointedTop)} />
+							<div
+								style={{
+									...elementSection,
+									paddingTop: useVerticalAlignment
+										? `calc(${
+												(this.state.containerHeight -
+													this.state.contentHeight!) /
+												2
+										  }px)`
+										: 0,
+								}}
+							>
+								{useVerticalAlignment ? (
+									<div
+										style={{}}
+										ref={this.setContentRef}
+									>
+										{formatComponent(_element)}
+									</div>
+								) : (
+									formatComponent(_element)
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		);
 	}
 }
 //
-// ===== VertHexagon =====
+// ===== PointedTopHexagon =====
 //
 
-export class VertHexagon extends Hexagon {
-	static useVert = true;
+export class PointedTopHexagon extends Hexagon {
+	static usePointedTop = true;
 }
 
 //

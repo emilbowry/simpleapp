@@ -94,7 +94,7 @@ export const Hero: React.FC = () => {
 		<div
 			style={{
 				height: "100%",
-				margin: "auto 10%",
+				margin: "auto 5%",
 				marginTop: `calc(10%)`,
 				// paddingTop: "10%",
 			}}

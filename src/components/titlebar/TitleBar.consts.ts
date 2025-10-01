@@ -1,0 +1,1 @@
+export const VISIBLE_TITLEBAR_HEIGHT = 5;

@@ -10,6 +10,7 @@ export const baseCursorStyle: React.CSSProperties = {
 	position: "fixed",
 	backgroundColor: "white",
 	borderRadius: "50%",
+
 	pointerEvents: "none",
 	mixBlendMode: "difference",
 	zIndex: 9999,

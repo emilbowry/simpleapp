@@ -9,7 +9,7 @@ import {
 	VerticalHexagonGrid,
 } from "../../components/hexagons/hexagonRow/VHexRow";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
-import { VertHexagon } from "../../components/hexagons/Hexagons";
+import { PointedTopHexagon } from "../../components/hexagons/Hexagons";
 import { TriPartCallout } from "../../components/callingcard/callout/CallOut";
 import {
 	hexCallStyle,
@@ -133,6 +133,7 @@ export const OSCC: React.FC = () => (
 		<VerticalHexagonFeatureGrid
 			featureCallouts={ourServicesFeatureCallouts}
 			hexagonArgs={hStyle}
+			useVerticalAlignment={true}
 		/>
 
 		{/* <VHexGrid /> */}
