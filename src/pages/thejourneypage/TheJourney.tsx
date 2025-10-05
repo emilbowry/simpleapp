@@ -1,5 +1,6 @@
-import React from "react";
+// src/pages/thejourneypage/TheJourney.tsx
 
+import React from "react";
 import { Page } from "../page";
 import { Hexagon, ImageHexagon } from "../../components/hexagons/Hexagons";
 import { HexagonGrid } from "../../components/hexagons/hexagonRow/HexagonRow";
@@ -15,7 +16,7 @@ import { BoxedImage } from "../../utils/reactUtils";
 import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
 import bw1 from "../../assets/bw1.jpg";
 import bw2 from "../../assets/bw2.jpg";
-const generateGradient = (
+export const generateGradient = (
 	n: number,
 
 	s: string = logo_yellow,

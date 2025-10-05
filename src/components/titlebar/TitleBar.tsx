@@ -383,8 +383,10 @@ export const TestPillTitleBar: React.FC = () => {
 			{ path: "/demo_page", alias: "Demo Page" },
 		],
 		[{ path: "/thejourney", alias: "The Journey" }],
+
 		[{ path: "/ourservices", alias: "Our Services" }],
 		[{ path: "/contact", alias: "Contact" }],
+		[{ path: "/dpotool", alias: "DPO Tool" }],
 	];
 	return (
 		<PillTitleBar

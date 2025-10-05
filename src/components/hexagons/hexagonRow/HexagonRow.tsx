@@ -7,89 +7,86 @@ import { IHexagonGridElements, _IHexagonRowElements } from "./HexagonRow.types";
 
 import { rspacing, aspace } from "./HexagonRow.consts";
 
-export class HexagonRow extends React.Component<_IHexagonRowElements> {
-	render() {
-		const { elements, relative_space, absolute_space } = this.props;
-		return (
-			<>
-				<div style={sideStyle(relative_space, absolute_space, true)}>
-					{formatComponent(elements[0], true)}
-				</div>
-				<div style={midStyle(relative_space, absolute_space)}>
-					{formatComponent(elements[1], true)}
-				</div>
-				<div style={sideStyle(relative_space, absolute_space, false)}>
-					{formatComponent(elements[2], true)}
-				</div>
-			</>
-		);
-	}
-}
-export class HexagonGrid extends React.Component<IHexagonGridElements> {
-	render() {
-		const {
-			rows,
-			relative_space = rspacing,
-			absolute_space = aspace,
-			containerStyle = {},
-			class_name,
-		} = this.props;
-		const l = rows.length;
-		let margin_top = 0;
-		let padding_top = 0;
-		let margin_bottom = 0;
-		let othercss = {};
-		let _rows = rows;
-		/*
-			To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
-			- may expand later to auto adjust based on bottom layout
-			- add overall height calculation for appropriate bottom white space
-		*/
-		if (rows[0].elements[1] === null) {
-			// margin_top = -(0.5 * 100) / l;
-			othercss = {
-				marginTop: `calc(${-(0.5 * 100) / l}% + ${
-					relative_space / 2
-				}% + ${absolute_space}px)`,
-			};
-		} else {
-			othercss = {
-				paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
-					absolute_space / 2
-				}px)`,
-				paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
-					absolute_space / 2
-				}px)`,
-				backdropFilter: "blur(8px)",
-			};
-			// margin_top = -(1.5 * 100) / l; // calculation slightly off
-			// padding_top = 0.5 * 100 * l;
-		}
-
-		return (
-			<div
-				className={class_name ?? ""}
-				style={{
-					marginTop: `${margin_top}%`,
-					// height: "140%",
-					// paddingTop: padding_top,
-					...othercss,
-					// paddingBottom: `calc(${relative_space * 1.5}% )`,
-					...containerStyle,
-				}}
-			>
-				<div style={container(relative_space, absolute_space, l)}>
-					{_rows.map((row, _index) => (
-						<HexagonRow
-							key={_index}
-							elements={row.elements}
-							relative_space={relative_space}
-							absolute_space={absolute_space}
-							len={l}
-						/>
-					))}
-				</div>
+export const HexagonRow: React.FC<_IHexagonRowElements> = (props) => {
+	const { elements, relative_space, absolute_space } = props;
+	return (
+		<>
+			<div style={sideStyle(relative_space, absolute_space, true)}>
+				{formatComponent(elements[0], true)}
 			</div>
-		);
+			<div style={midStyle(relative_space, absolute_space)}>
+				{formatComponent(elements[1], true)}
+			</div>
+			<div style={sideStyle(relative_space, absolute_space, false)}>
+				{formatComponent(elements[2], true)}
+			</div>
+		</>
+	);
+};
+
+export const HexagonGrid: React.FC<IHexagonGridElements> = (props) => {
+	const {
+		rows,
+		relative_space = rspacing,
+		absolute_space = aspace,
+		containerStyle = {},
+		class_name,
+	} = props;
+	const l = rows.length;
+	let margin_top = 0;
+	let padding_top = 0;
+	let margin_bottom = 0;
+	let othercss = {};
+	const _rows = rows;
+	/*
+		To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
+		- may expand later to auto adjust based on bottom layout
+		- add overall height calculation for appropriate bottom white space
+	*/
+	if (rows[0].elements[1] === null) {
+		// margin_top = -(0.5 * 100) / l;
+		othercss = {
+			marginTop: `calc(${-(0.5 * 100) / l}% + ${
+				relative_space / 2
+			}% + ${absolute_space}px)`,
+		};
+	} else {
+		othercss = {
+			paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
+				absolute_space / 2
+			}px)`,
+			paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
+				absolute_space / 2
+			}px)`,
+			backdropFilter: "blur(8px)",
+		};
+		// margin_top = -(1.5 * 100) / l; // calculation slightly off
+		// padding_top = 0.5 * 100 * l;
 	}
-}
+
+	return (
+		<div
+			className={class_name ?? ""}
+			style={{
+				marginTop: `${margin_top}%`,
+				// height: "140%",
+				// paddingTop: padding_top,
+				...othercss,
+				// paddingBottom: `calc(${relative_space * 1.5}% )`,
+				...containerStyle,
+			}}
+		>
+			<div style={container(relative_space, absolute_space, l)}>
+				{_rows.map((row, _index) => (
+					<HexagonRow
+						key={_index}
+						elements={row.elements}
+						relative_space={relative_space}
+						absolute_space={absolute_space}
+						len={l}
+					/>
+				))}
+			</div>
+		</div>
+	);
+};

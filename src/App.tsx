@@ -10,6 +10,7 @@ import { HomePage } from "./pages/homepage/HomePage";
 import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
 import { ContactPage } from "./pages/contactpage/ContactPage";
 import { OurServices } from "./pages/ourservices/OurServices";
+import { ToolPage } from "./pages/dpotool/tool";
 
 function ScrollToTop() {
 	const { pathname } = useLocation();
@@ -43,6 +44,10 @@ const App: React.FC = () => {
 				<Route
 					path="/contact"
 					element={ContactPage}
+				/>
+				<Route
+					path="/dpotool"
+					element={ToolPage}
 				/>
 			</Routes>
 		</>

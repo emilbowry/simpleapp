@@ -10,7 +10,7 @@ import {
 } from "../../../../components/callingcard/graphics";
 
 import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
-import { PartnershipBar } from "../../../../components/partnershipbar/PartnershipBar";
+import { PartnershipWall } from "../../../../components/partnershipbar/PartnershipBar";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
 import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
@@ -103,12 +103,12 @@ const aboutUsFeatureCallouts = [
 		themeId: -1,
 	},
 ];
-import { MarkdownRenderer } from "../../../dpotool/tool";
+import { PolicyAnalyzer } from "../../../dpotool/tool";
 export const AboutUsCallingCard: React.FC = () => (
 	<>
 		<NewCallingCard
-			// components={[wGif]}
-			components={[<MarkdownRenderer />]}
+			components={[wGif]}
+			// components={[<PolicyAnalyzer />]}
 			header={
 				<div
 					style={{
@@ -119,7 +119,7 @@ export const AboutUsCallingCard: React.FC = () => (
 						justifyContent: "center",
 					}}
 				>
-					<PartnershipBar
+					<PartnershipWall
 						{...(large_partners as any)}
 						index={-1}
 					/>

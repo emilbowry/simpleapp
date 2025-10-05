@@ -1,246 +1,229 @@
-// src/components/partnershipbar/PartnershipBar.tsx
-
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { wrapLink } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
 import {
 	PartnerStyles,
 	keyframes,
-	// keyframes,
 	marqueeContentStyle,
 	marqueeFrameStyle,
 	marqueeWindowStyle,
 	partnerWrapperStyle,
 	rowLayout,
 } from "./PartnershipBar.styles";
-import {
-	IPartnershipBarProps,
-	IPartnerImageProps,
-	IPartnerImageState,
-	IPartnershipBarState,
-} from "./PartnershipBar.types";
-export const WallLayout = (n: number): [number, number, number] => {
-	const a = (((n % 3) + 1) % 2) + Math.floor(n / Math.min(n, 3)); // Calculates the top row
-	const c = Math.floor((n + 1) / 3) - (((n + 1) % Math.min(n, 3)) % 2); // Calculates the bottom row
-	return [a, n - (a + c), c]; // invariant: exists x in {a, n-(a+c)} s.t c <= x
+import { IPartner } from "./PartnershipBar.types";
+
+export interface IPartnershipWallProps {
+	partners: readonly IPartner[];
+	index?: number;
+}
+
+export interface IPartnershipMarqueeProps {
+	partners: readonly IPartner[];
+
+	index?: number;
+}
+
+const PartnerImage: React.FC<{ partner: IPartner }> = ({ partner }) => {
+	const [isHovered, setIsHovered] = useState(false);
+	const { image, link } = partner;
+
+	const imageEl = (
+		<div
+			style={{
+				aspectRatio: "2.5",
+				justifyContent: "center",
+				alignContent: "center",
+			}}
+		>
+			<img
+				src={image}
+				width={"250"}
+				onMouseOver={() => setIsHovered(true)}
+				onMouseOut={() => setIsHovered(false)}
+				style={{
+					filter: isHovered
+						? "saturate(1) grayscale(0) brightness(1)"
+						: "saturate(0) grayscale(1) brightness(0)",
+					transition: "filter 0.3s ease-in-out",
+					justifyContent: "center",
+				}}
+			/>
+		</div>
+	);
+	return wrapLink(link, imageEl);
 };
 
-/**
-	@improvement 
-	- Smarter or better width calculations for "Small" partnership scrolling bar
-*/
+/**  
 
-class PartnerImage extends React.Component<
-	IPartnerImageProps,
-	IPartnerImageState
-> {
-	constructor(props: IPartnerImageProps) {
-		super(props);
-		this.state = {
-			isHovered: false,
+	Calculates a "bricked" wall tiling, maximum of 3 rows, given n bricks that is strictly not bottom heavy
+	@returns as tuple [a,b,c]
+	a := top row
+	c := bottom row
+	b = n - (a+c)
+
+	invariant: exists x in {a, n-(a+c)} s.t c <= x 
+
+
+	I wonder since sign =`math.floor(x / (abs(x) + 1))
+		- math.floor(-x / (abs(x) + 1))` if we can join it somehow with 
+
+ Math.max(1, Math.floor(n / 3)))
+
+	*/
+
+export const WallLayout = (n: number): [number, number, number] => {
+	const a =
+		Math.sign(n) * ((((n % 3) + 1) % 2) + Math.max(1, Math.floor(n / 3)));
+	const c =
+		Math.floor((n + 1) / 3) - (((n + 1) % Math.max(1, Math.min(n, 3))) % 2);
+	return [a, n - (a + c), c];
+};
+
+const useResponsiveLayout = (partnerCount: number) => {
+	const [isCompactView, setIsCompactView] = useState(false);
+
+	useEffect(() => {
+		const checkViewportWidth = () => {
+			console.log(Math.sign(0));
+			console.log(WallLayout(0));
+			const layout = WallLayout(partnerCount);
+			let maxBricks = Math.max(layout[0], layout[1]);
+			if (maxBricks % 2 === 0) {
+				maxBricks = maxBricks + 1;
+			}
+			const PARTNER_EFFECTIVE_WIDTH = 350;
+			const threshold = PARTNER_EFFECTIVE_WIDTH * maxBricks;
+
+			setIsCompactView(window.innerWidth < threshold);
 		};
-	}
-	handleMouseOver = () => this.setState({ isHovered: true });
-	handleMouseOut = () => this.setState({ isHovered: false });
 
-	render() {
-		const { partner } = this.props;
-		const { image, link } = partner;
+		checkViewportWidth();
+		window.addEventListener("resize", checkViewportWidth);
+		return () => window.removeEventListener("resize", checkViewportWidth);
+	}, [partnerCount]);
 
-		const imageEl = (
-			<div
-				style={{
-					aspectRatio: "2.5", // ensures we can appropriately brick them
-					justifyContent: "center",
-					alignContent: "center",
-				}}
-			>
-				<img
-					src={image}
-					width={"250"}
-					onMouseOver={this.handleMouseOver}
-					onMouseOut={this.handleMouseOut}
-					style={{
-						// ...genericSectionStyle,
+	return isCompactView;
+};
 
-						filter: this.state.isHovered
-							? "saturate(1) grayscale(0)  brightness(1)"
-							: "saturate(0)  grayscale(1) brightness(0)",
-						transition: "filter 0.3s ease-in-out",
-						justifyContent: "center",
-					}}
-				/>
-			</div>
-		);
+const PartnerRow: React.FC<{
+	partners: readonly IPartner[];
+	style: React.CSSProperties;
+}> = ({ partners, style }) => (
+	<div style={style}>
+		{partners.map((partner, index) => (
+			<PartnerImage
+				key={index}
+				partner={partner}
+			/>
+		))}
+	</div>
+);
 
-		const linkedEl = wrapLink(link, imageEl); // No op since no link
-		return linkedEl;
-	}
-}
+export const PartnershipWall: React.FC<IPartnershipWallProps> = ({
+	partners,
+	index = 0,
+}) => {
+	const isCompactView = useResponsiveLayout(partners.length);
+	const theme = Theme(index);
 
-export class PartnershipBar extends React.Component<
-	IPartnershipBarProps,
-	IPartnershipBarState
-> {
-	constructor(props: IPartnershipBarProps) {
-		super(props);
-		this.state = {
-			smallViewPort: false,
+	const { rows, maxBricks } = useMemo(() => {
+		const [topCount, midCount, bottomCount] = WallLayout(partners.length);
+		let offset = 0;
+		const calculatedRows = {
+			top: partners.slice(offset, (offset += topCount)),
+			mid: partners.slice(offset, (offset += midCount)),
+			bottom: partners.slice(offset, offset + bottomCount),
 		};
-	}
-	MarqueeKeyframes() {
-		React.useEffect(() => {
-			const styleTag = document.createElement("style");
-			styleTag.innerHTML = keyframes;
-			document.head.appendChild(styleTag);
-			return () => {
-				document.head.removeChild(styleTag);
-			};
-		}, []);
-		return null;
-	}
-	checkViewportWidth = () => {
-		if (this.props.size !== "Large") return;
-
-		const { partners } = this.props;
-		const bricks = partners.length;
-		const layout = WallLayout(bricks);
-		let maxBricks = layout[1] > layout[0] ? layout[1] : layout[0];
-		if (maxBricks % 2 == 0) {
-			maxBricks = maxBricks + 1;
+		let calculatedMaxBricks = Math.max(topCount, midCount);
+		if (calculatedMaxBricks % 2 === 0) {
+			calculatedMaxBricks += 1;
 		}
+		return { rows: calculatedRows, maxBricks: calculatedMaxBricks };
+	}, [partners]);
 
-		const threshold = 350 * maxBricks;
-		const currentIsSmallViewport = window.innerWidth < threshold;
-
-		if (currentIsSmallViewport !== this.state.smallViewPort) {
-			this.setState({ smallViewPort: currentIsSmallViewport });
-		}
+	const staticStyle: React.CSSProperties = {
+		...PartnerStyles["Large"],
+		borderColor: theme.tertiaryColor,
 	};
 
-	componentDidMount() {
-		if (this.props.size === "Large") {
-			this.checkViewportWidth();
-			window.addEventListener("resize", this.checkViewportWidth);
-		}
+	if (isCompactView) {
+		return (
+			<div
+				style={{
+					...staticStyle,
+					display: "flex",
+					flexWrap: "wrap",
+					gap: "20px",
+				}}
+			>
+				{partners.map((partner, _index) => (
+					<PartnerImage
+						key={_index}
+						partner={partner}
+					/>
+				))}
+			</div>
+		);
 	}
 
-	componentWillUnmount() {
-		if (this.props.size === "Large") {
-			window.removeEventListener("resize", this.checkViewportWidth);
-		}
-	}
+	return (
+		<div style={{ ...staticStyle, backgroundColor: "transparent" }}>
+			<PartnerRow
+				partners={rows.top}
+				style={rowLayout(rows.top.length, maxBricks)}
+			/>
+			<PartnerRow
+				partners={rows.mid}
+				style={rowLayout(rows.mid.length, maxBricks)}
+			/>
+			<PartnerRow
+				partners={rows.bottom}
+				style={rowLayout(rows.bottom.length, maxBricks)}
+			/>
+		</div>
+	);
+};
 
-	render() {
-		const { partners, size = "Small", index = 0 } = this.props;
-		const theme = Theme(index);
-		const { smallViewPort } = this.state;
+const MarqueeKeyframes: React.FC = () => {
+	useEffect(() => {
+		const styleTag = document.createElement("style");
+		styleTag.innerHTML = keyframes;
+		document.head.appendChild(styleTag);
+		return () => {
+			document.head.removeChild(styleTag);
+		};
+	}, []);
 
-		if (size === "Large") {
-			let staticStyle: React.CSSProperties = { ...PartnerStyles[size] };
-			staticStyle.borderColor = theme.tertiaryColor;
+	return null;
+};
 
-			if (smallViewPort) {
-				return (
-					<div
-						style={{
-							...staticStyle,
-							display: "flex",
-							flexWrap: "wrap",
+export const PartnershipMarquee: React.FC<IPartnershipMarqueeProps> = ({
+	partners,
+}) => {
+	const MARQUEE_COPY_COUNT = 3;
+	const numSets = Array.from({ length: MARQUEE_COPY_COUNT }, (_, i) => i);
 
-							gap: "20px",
-						}}
-					>
-						{partners.map((partner, _index) => (
-							<PartnerImage
-								key={_index}
-								partner={partner}
-								size={size}
-							/>
+	return (
+		<div className="no-aos">
+			<MarqueeKeyframes />
+			<div style={marqueeFrameStyle}>
+				<div style={marqueeWindowStyle}>
+					<div style={marqueeContentStyle}>
+						{numSets.map((setIndex) => (
+							<React.Fragment key={`set-${setIndex}`}>
+								{partners.map((partner, partnerIndex) => (
+									<div
+										key={`partner-${setIndex}-${partnerIndex}`}
+										style={partnerWrapperStyle}
+									>
+										<PartnerImage partner={partner} />
+									</div>
+								))}
+							</React.Fragment>
 						))}
 					</div>
-				);
-			} else {
-				const bricks = partners.length;
-				const [topCount, midCount, bottomCount] = WallLayout(bricks);
-
-				let offset = 0;
-				const topRow = partners.slice(offset, (offset += topCount));
-				const midRow = partners.slice(offset, (offset += midCount));
-				const bottomRow = partners.slice(offset, offset + bottomCount);
-				let maxBricks = Math.max(topCount, midCount);
-				if (maxBricks % 2 == 0) {
-					maxBricks = maxBricks + 1; // increasing this seems to work
-				}
-
-				return (
-					<div
-						style={{
-							...staticStyle,
-							backgroundColor: "transparent",
-						}}
-					>
-						<div style={rowLayout(topCount, maxBricks)}>
-							{topRow.map((partner, _index) => (
-								<PartnerImage
-									key={_index}
-									partner={partner}
-									size={size}
-								/>
-							))}
-						</div>
-						<div style={rowLayout(midCount, maxBricks)}>
-							{midRow.map((partner, _index) => (
-								<PartnerImage
-									key={_index}
-									partner={partner}
-									size={size}
-								/>
-							))}
-						</div>
-						<div style={rowLayout(bottomCount, maxBricks)}>
-							{bottomRow.map((partner, _index) => (
-								<PartnerImage
-									key={_index}
-									partner={partner}
-									size={size}
-								/>
-							))}
-						</div>
-					</div>
-				);
-			}
-		} else if (size === "Small") {
-			const numSets = Array.from({ length: 3 }, (_, i) => i);
-
-			return (
-				<div className="no-aos">
-					<this.MarqueeKeyframes />
-					<div style={marqueeFrameStyle}>
-						<div style={marqueeWindowStyle}>
-							<div style={marqueeContentStyle}>
-								{numSets.map((setIndex) => (
-									<React.Fragment key={`set-${setIndex}`}>
-										{partners.map(
-											(partner, partnerIndex) => (
-												<div
-													key={`partner-${setIndex}-${partnerIndex}`}
-													style={partnerWrapperStyle}
-												>
-													<PartnerImage
-														partner={partner}
-														size={size}
-													/>
-												</div>
-											)
-										)}
-									</React.Fragment>
-								))}
-							</div>
-						</div>
-					</div>
 				</div>
-			);
-		}
-	}
-}
+			</div>
+		</div>
+	);
+};

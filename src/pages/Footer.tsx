@@ -11,7 +11,7 @@ import {
 	ValidComponent,
 } from "../utils/reactUtils";
 import logo from "../assets/logo.png";
-import { PartnershipBar } from "../components/partnershipbar/PartnershipBar";
+import { PartnershipMarquee } from "../components/partnershipbar/PartnershipBar";
 import { partners } from "./homepage/parts/Partners";
 
 const ScrollVisibilityDependent: React.FC<{
@@ -225,7 +225,7 @@ const footer_comp: React.FC = () => {
 
 					<ScrollVisibilityDependent
 						element={
-							<PartnershipBar
+							<PartnershipMarquee
 								{...partners}
 								index={-1}
 							/>

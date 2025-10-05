@@ -59,7 +59,8 @@ export class Page extends React.Component<{
 						<Page />
 					</section>
 				</main>
-				{Footer}
+
+				{bg ? Footer : null}
 			</>
 		);
 	}

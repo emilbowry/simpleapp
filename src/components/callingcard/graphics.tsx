@@ -63,8 +63,8 @@ export const pencil = (
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="url(#logoGradient)"
-		stroke-width="1px"
-		stroke-linecap="round"
+		strokeWidth="1px"
+		strokeLinecap="round"
 	>
 		{svg_logo_grad}
 
@@ -86,8 +86,8 @@ export const bulb = (
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="url(#logoGradient)"
-		stroke-width="1px"
-		stroke-linecap="round"
+		strokeWidth="1px"
+		strokeLinecap="round"
 	>
 		{svg_logo_grad}
 
