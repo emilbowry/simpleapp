@@ -127,10 +127,8 @@ export class VerticalHexagonGrid extends React.Component<
 
 import { VerticalHexagonGrid as BaseVerticalHexagonGrid } from "./VHexRow"; // Renamed to avoid collision
 import { PointedTopHexagon } from "../Hexagons";
-import { TriPartCallout } from "../../callingcard/callout/CallOut";
 
 import { ValidComponent } from "../../../utils/reactUtils";
-import { Theme } from "../../../styles";
 export const hexCallStyle: React.CSSProperties = {
 	display: "flex",
 	width: "100%",
@@ -139,18 +137,6 @@ export const hexCallStyle: React.CSSProperties = {
 	margin: "0 auto",
 	marginTop: "-15%",
 };
-// Reusable base class for HexWrapCallOut, to be used by specific callouts.
-// This ensures that the wrapper style for HexCallouts is consistently applied.
-export class HexWrapCallOut extends TriPartCallout {
-	static {
-		this.styler.updateStyle("wrapperStyle_style", {
-			def_static_css: {
-				...hexCallStyle,
-				backgroundColor: "transparent", // Ensure transparency for hexagon overlap
-			},
-		});
-	}
-}
 
 interface IFeatureCalloutProps {
 	themeId?: number;
@@ -158,21 +144,6 @@ interface IFeatureCalloutProps {
 	body: ValidComponent;
 	footer?: ValidComponent;
 }
-
-// A generic Hexagon Callout wrapper that applies the shared HexWrapCallOut styling
-const GenericHexagonCallout: React.FC<IFeatureCalloutProps> = ({
-	themeId = -1, // Default to a theme that often implies transparency/light colors
-	header,
-	body,
-	footer,
-}) => (
-	<HexWrapCallOut
-		themeId={themeId}
-		header={header}
-		body={body}
-		footer={footer}
-	/>
-);
 
 interface VerticalHexagonFeatureGridProps {
 	/**

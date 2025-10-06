@@ -1,13 +1,13 @@
 import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
+
+export const ELWrapperStyle: React.CSSProperties = {
+	position: "relative",
+	height: "100%",
+	margin: 0,
+};
 const getElFlatTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 	return (
-		<div
-			style={{
-				position: "relative",
-				height: "100%",
-				margin: 0,
-			}}
-		>
+		<div style={ELWrapperStyle}>
 			<div
 				style={{
 					margin: 0,
@@ -46,13 +46,7 @@ const getElFlatTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 };
 const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 	return (
-		<div
-			style={{
-				position: "relative",
-				height: "100%",
-				margin: 0,
-			}}
-		>
+		<div style={ELWrapperStyle}>
 			<div
 				style={{
 					margin: 0,
@@ -106,7 +100,13 @@ import {
 	_contentSection,
 	elementSection,
 } from "./Hexagons.styles";
-import { genericSectionStyle } from "../../styles";
+
+/** 
+
+Due to render timings around componentDidUpdate, this needs to be a component,
+- Cannot naively use an FC for this since there will be no reset event, or it always resets, needs to be some object state.
+- Perhaps may have to use useLayoutEffect + useEffect to effectively stagger and condition the scalling logic
+ */
 export class Hexagon
 	extends React.Component<
 		any,

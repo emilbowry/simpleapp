@@ -32,8 +32,24 @@ export const Footer: React.FC<IFooterProps> = ({ content }) => {
 	return content ? formatComponent(content) : null;
 };
 
-export const GridItem: React.FC<IGridItemProps> = ({ content, item_key }) =>
-	content ? (
+// export const GridItem: React.FC<IGridItemProps> = ({ content, item_key }) =>
+// 	content ? (
+// 		<CompWrapper
+// 			content={content}
+// 			wrapper_style={GridItemStyle}
+// 			key={item_key}
+// 		/>
+// 	) : (
+// 		<div
+// 			style={GridItemStyle}
+// 			key={item_key}
+// 		/>
+// 	);
+export const GridItem = ({
+	content,
+	item_key,
+}: IGridItemProps): React.ReactNode => {
+	return content ? (
 		<CompWrapper
 			content={content}
 			wrapper_style={GridItemStyle}
@@ -45,7 +61,7 @@ export const GridItem: React.FC<IGridItemProps> = ({ content, item_key }) =>
 			key={item_key}
 		/>
 	);
-
+};
 export const GridBody: React.FC<IGridBodyProps> = ({
 	components,
 	styleOverrides = {},
@@ -58,12 +74,17 @@ export const GridBody: React.FC<IGridBodyProps> = ({
 
 	return (
 		<div style={{ ...GridBodyStyle, ...colOverrides, ...styleOverrides }}>
-			{components.map((item, index) => (
-				<GridItem
-					content={item}
-					item_key={index}
-				/>
-			))}
+			{components.map(
+				(item, index) => GridItem({ content: item, item_key: index })
+
+				/* 	
+				// Old FC version caused key err logs
+				// <GridItem
+				// 	content={item}
+				// 	item_key={index}
+				// /> 
+				*/
+			)}
 		</div>
 	);
 };

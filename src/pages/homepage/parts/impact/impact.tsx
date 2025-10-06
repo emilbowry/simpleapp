@@ -2,19 +2,13 @@
 
 import React from "react";
 
-import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
 import { NewCallingCard } from "../../../../components/callingcard/CallingCard";
-import {
-	VerticalHexagonFeatureGrid,
-	VerticalHexagonGrid,
-} from "../../../../components/hexagons/hexagonRow/VHexRow";
-import { PointedTopHexagon } from "../../../../components/hexagons/Hexagons";
+import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import cam from "../../../../assets/cam.png";
 import LH from "../../../../assets/leverCent.png";
 import logo from "../../../../assets/logo.png";
 import { borderGrad, Theme } from "../../../../styles";
-import { hexCallStyle } from "../about-us/AboutUs.styles";
 
 const idx = 1;
 let theme = Theme(idx);

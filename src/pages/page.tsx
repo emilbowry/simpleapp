@@ -11,7 +11,6 @@ import { VISIBLE_TITLEBAR_HEIGHT } from "../components/titlebar/TitleBar.consts"
 const pageStyle: React.CSSProperties = {
 	flexGrow: "1",
 	position: "relative",
-	// marginTop: "5%",
 	flexDirection: "column", // Have to do both
 };
 

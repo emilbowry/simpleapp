@@ -55,6 +55,27 @@ export const teamMembers: IPersona[] = [
 		body: "Will has 10 years of experience as a Data and Reporting Analyst for Nintendo, PwC and Everfox. His expertise is in automation so founded Surrey Data Solutions (SDS), a specialist consultancy delivering practical, high- impact solutions in business intelligence, data analytics, process automation, and robotic process automation (RPA).",
 	},
 ];
+
+export const PersonaTextStyle: React.CSSProperties = {
+	borderRadius: "100px 0 0 100px",
+	margin: "auto",
+};
+
+export const PersonaHeadshotStyle: React.CSSProperties = {
+	boxSizing: "border-box",
+	maxHeight: "30vh",
+	minHeight: 0,
+	minWidth: 0,
+	maxWidth: "100%",
+	height: "100%",
+	aspectRatio: `${2 / Math.sqrt(3)}`,
+	padding: "5%",
+	margin: "auto",
+	display: "flex",
+	flexDirection: "column",
+	justifyContent: "center",
+	alignContent: "center",
+};
 export class Persona extends React.Component<IPersona> {
 	render() {
 		const { image, name, title, email, body, index = 2 } = this.props;
@@ -92,39 +113,15 @@ export class Persona extends React.Component<IPersona> {
 			</div>
 		);
 		return (
-			<div style={{}}>
-				<div
-					style={{
-						...personaWrapperStyle,
-					}}
-				>
-					{/* <div style={{ height: "100%" }}> */}
-					<div
-						style={{
-							boxSizing: "border-box",
-							maxHeight: "30vh",
-							minHeight: 0,
-							minWidth: 0,
-							maxWidth: "100%",
-							height: "100%",
-							aspectRatio: `${2 / Math.sqrt(3)}`,
-							padding: "5%",
-							margin: "auto",
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: "center",
-							alignContent: "center",
-						}}
-					>
+			<div>
+				<div style={personaWrapperStyle}>
+					<div style={PersonaHeadshotStyle}>
 						<ImageHexagon args={{ img: image }} />
 					</div>
-					{/* </div> */}
 					<div
 						style={{
 							backgroundColor: theme.backgroundColor,
-							borderRadius: "100px 0 0 100px",
-							// height: "30vh",
-							margin: "auto",
+							...PersonaTextStyle,
 						}}
 					>
 						{textual}

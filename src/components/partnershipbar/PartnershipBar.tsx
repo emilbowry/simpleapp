@@ -64,10 +64,10 @@ const PartnerImage: React.FC<{ partner: IPartner }> = ({ partner }) => {
 	invariant: exists x in {a, n-(a+c)} s.t c <= x 
 
 
-	I wonder since sign =`math.floor(x / (abs(x) + 1))
-		- math.floor(-x / (abs(x) + 1))` if we can join it somehow with 
+	I wonder since sign(x) =`floor(x / (abs(x) + 1))
+		- floor(-x / (abs(x) + 1))` if we can join it somehow with  
+		`max(1, floor(x / 3)))` since that is a rectified version of ` floor(x / min(x, 3))`
 
- Math.max(1, Math.floor(n / 3)))
 
 	*/
 
