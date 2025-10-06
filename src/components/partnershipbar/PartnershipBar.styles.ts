@@ -100,3 +100,13 @@ export const rowLayout = (
 		gridTemplateColumns: `repeat(${n_bricks}, ${100 / maxBricks}%)`,
 	};
 };
+export const PartnerImageWrapperStyle: React.CSSProperties = {
+	aspectRatio: "2.5",
+	justifyContent: "center",
+	alignContent: "center",
+};
+export const CompactViewStyle: React.CSSProperties = {
+	display: "flex",
+	flexWrap: "wrap",
+	gap: "20px",
+};

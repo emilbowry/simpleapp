@@ -22,3 +22,8 @@ export class Partners {
 		this.size = partnersObj.size ?? "Small";
 	}
 }
+
+export interface IPartnershipBar {
+	partners: readonly IPartner[];
+	index?: number;
+}

@@ -200,29 +200,11 @@ export const theJourneyPage: React.FC = () => {
 	let r = getRows();
 
 	return (
-		<div
-			style={
-				{
-					// paddingBottom: "200px", //need to make these scale
-					// paddingTop: "200px",
-					// marginTop: "-200px",
-					// backdropFilter: "blur(8px)",
-				}
-			}
-		>
+		<div>
 			<HexagonGrid
 				rows={r as any}
 				relative_space={10}
 				absolute_space={-15}
-				containerStyle={
-					{
-						// paddingBottom: "200px", //need to make these scale
-						// paddingTop: "200px",
-						// marginTop: "-200px",
-						// backdropFilter: "blur(8px)",
-						// backdropFilter: "blur(8px)", //blur doesnt cover the top half or the top hex, or bottom half of bottom
-					}
-				}
 				class_name="aos-ignore"
 			/>
 		</div>

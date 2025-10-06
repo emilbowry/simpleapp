@@ -3,47 +3,22 @@
 import React from "react";
 
 import { NewCallingCard } from "../../../../components/callingcard/CallingCard";
-import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
+import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/verticalHexagonRow/VHexRow";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import cam from "../../../../assets/cam.png";
 import LH from "../../../../assets/leverCent.png";
 import logo from "../../../../assets/logo.png";
 import { borderGrad, Theme } from "../../../../styles";
+import {
+	FounderLetterWrapperStyle,
+	LetterFooterContainerStyle,
+	LetterFooterWrapperStyle,
+	stat_body_style,
+	stat_value_style,
+} from "./impact.styles";
+import { NewCallingCardOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 
-const idx = 1;
-let theme = Theme(idx);
-
-const stat_value_style: React.CSSProperties = {
-	color: theme.tertiaryColor,
-	fontSize: "3rem",
-	margin: "1%",
-	height: "5rem",
-	minHeight: "5rem",
-	maxHeight: "5rem",
-
-	fontWeight: "500",
-	justifySelf: "center",
-	textAlign: "center",
-	overflow: "visible",
-};
-
-const stat_body_style: React.CSSProperties = {
-	color: theme.primaryColor,
-	borderTop: `1px solid`,
-	borderImage: borderGrad,
-	margin: "auto 0",
-	padding: "1%",
-	// margin: "2%",
-	// position: "relative",
-	// top: 0,
-	textAlign: "center",
-	overflow: "visible",
-	// height: "20rem",
-	// marginTop: "-1%",
-	fontSize: "2rem",
-};
-
-const head = <h2>How is AI Impacting Business</h2>;
+// const head = <h2>How is AI Impacting Business</h2>;
 
 const foot = (
 	<div>
@@ -92,26 +67,8 @@ const impactFeatureCallouts = [
 const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	let theme = Theme(index);
 	return (
-		<div
-			style={
-				{
-					// scale: "0.5",
-					// justifyContent: "left",
-					// marginLeft: "-700px",
-					// alignContent: "flex-start",
-				}
-			}
-		>
-			<div
-				style={{
-					display: "grid",
-					gridTemplateColumns: "30% 70%",
-					// alignContent: "center",
-					textAlign: "left",
-					width: "100%",
-					// justifyContent: "left",
-				}}
-			>
+		<div style={LetterFooterWrapperStyle}>
+			<div style={LetterFooterContainerStyle}>
 				<div style={{ display: "flex", flexDirection: "column" }}>
 					<BoxedImage
 						image={logo}
@@ -135,15 +92,7 @@ const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 
 const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	const letter = (
-		<div
-			style={{
-				// isolation: "isolate",
-				width: "100%",
-				// alignContent: "flex-end",
-				// justifyContent: "left",
-				// flexDirection: "row",
-			}}
-		>
+		<div style={FounderLetterWrapperStyle}>
 			<div style={{ textAlign: "left" }}>
 				<h2 style={{ color: Theme(index).primaryColor }}>
 					A letter from our Founder
@@ -182,55 +131,23 @@ const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	return letter;
 };
 
-// export const ImpactCC: React.FC = () => (
-// 	<>
-// 		<NewCallingCard
-// 			components={[
-// 				<div style={{ position: "relative" }}>
-// 					<FounderLetter index={1} />
-// 				</div>,
-// 			]}
-// 			title={<></>}
-// 			footer={foot}
-// 			index={1}
-// 			styleOverrides={{
-// 				paddingBottom: "20%",
-// 				marginBottom: "-20%",
-// 				paddingTop: "66%",
-// 				marginTop: "-66%",
-// 				zIndex: 5,
-// 			}}
-// 		/>
-// 		<VerticalHexagonFeatureGrid
-// 			featureCallouts={impactFeatureCallouts}
-// 			hexagonArgs={{ colour: Theme(idx).backgroundColor }}
-// 		/>
-// 	</>
-// );
-
-export const ImpactCC: React.FC = () => (
+export const ImpactCC: React.FC<{ index?: number }> = ({ index = 1 }) => (
 	<>
 		<NewCallingCard
 			components={[
 				<div style={{ position: "relative" }}>
-					<FounderLetter index={1} />
+					<FounderLetter index={index} />
 				</div>,
 			]}
 			sideBar={{ components: [foot] }}
 			footer={
 				<VerticalHexagonFeatureGrid
 					featureCallouts={impactFeatureCallouts}
-					hexagonArgs={{ colour: Theme(idx).backgroundColor }}
+					hexagonArgs={{ colour: Theme(index).backgroundColor }}
 				/>
 			}
 			index={1}
-			styleOverrides={{
-				paddingBottom: "20%",
-				marginBottom: "-20%",
-				paddingTop: "66%",
-				marginTop: "-66%",
-				zIndex: 5,
-			}}
+			styleOverrides={NewCallingCardOverlapStyle}
 		/>
 	</>
 );

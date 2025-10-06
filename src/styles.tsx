@@ -61,3 +61,19 @@ export const Theme = (index: number) => {
 	}
 	return theme;
 };
+
+export const linkStyle = (isUnderlined = true): React.CSSProperties => ({
+	textDecoration: isUnderlined ? `underline` : "none",
+	textDecorationColor: `${logo_blue}`,
+	backgroundOrigin: "content-box",
+	backgroundImage: `${logoGrag}`,
+	backgroundPosition: "bottom left",
+	backgroundRepeat: "no-repeat",
+	boxSizing: "border-box",
+	backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
+
+	// transition: "background-size 0.3s ease-in",
+	color: "#333",
+	fontSize: "16px",
+	padding: "5px 0",
+});

@@ -4,7 +4,7 @@ import React from "react";
 import { Page } from "../page";
 import { NewCallingCard } from "../../components/callingcard/CallingCard";
 import { bgwhite } from "../../utils/defaultColours";
-import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/VHexRow";
+import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/verticalHexagonRow/VHexRow";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
 
 import {
@@ -102,7 +102,6 @@ export const OSCC: React.FC = () => (
 	<>
 		<NewCallingCard
 			components={[<Services {...cserv} />, <Services {...tserv} />]}
-			// header={<></>}
 			sideBar={{
 				header: <h2>Our Services</h2>,
 				components: [
@@ -137,8 +136,6 @@ export const OSCC: React.FC = () => (
 				zIndex: -5,
 			}}
 		/>
-
-		{/* <VHexGrid /> */}
 	</>
 );
 

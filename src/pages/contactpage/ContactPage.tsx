@@ -5,7 +5,7 @@ import React from "react";
 import { Page } from "../page";
 import { NewCallingCard } from "../../components/callingcard/CallingCard";
 
-import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/VHexRow";
+import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/verticalHexagonRow/VHexRow";
 import { bgwhite, logo_blue } from "../../utils/defaultColours";
 
 export const titleStyle: React.CSSProperties = {
@@ -20,33 +20,18 @@ import {
 	ValidComponent,
 } from "../../utils/reactUtils";
 import qrcode from "../../assets/qrCode.png";
-import { logoGrag, Theme } from "../../styles";
+import { linkStyle, logoGrag, Theme } from "../../styles";
 interface LearnMoreButtonProps {
 	href?: string;
 	content?: ValidComponent;
 	isUnderlined?: boolean;
 }
-const StyledLink: React.FC<LearnMoreButtonProps> = ({
+
+export const StyledLink: React.FC<LearnMoreButtonProps> = ({
 	href = "#",
 	content = "",
 	isUnderlined = true,
 }) => {
-	const linkStyle = (isUnderlined = true): React.CSSProperties => ({
-		textDecoration: isUnderlined ? `underline` : "",
-		textDecorationColor: `${logo_blue}`,
-		backgroundOrigin: "content-box",
-		backgroundImage: `${logoGrag}`,
-		backgroundPosition: "bottom left",
-		backgroundRepeat: "no-repeat",
-		boxSizing: "border-box",
-		backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
-
-		// transition: "background-size 0.3s ease-in",
-		color: "#333",
-		fontSize: "16px",
-		padding: "5px 0",
-		...titleStyle,
-	});
 	return (
 		<div
 			style={{
@@ -59,16 +44,13 @@ const StyledLink: React.FC<LearnMoreButtonProps> = ({
 			<div>
 				<a
 					href={href}
-					style={linkStyle(isUnderlined)}
+					style={{ ...linkStyle(isUnderlined), ...titleStyle }}
 				>
 					{formatComponent(content)}
 				</a>
 			</div>
 		</div>
 	);
-};
-const LearnMoreButton: React.FC<LearnMoreButtonProps> = (props) => {
-	return <StyledLink {...props} />;
 };
 
 const foot = (
@@ -132,7 +114,7 @@ const contactFeatureCallouts = [
 	},
 ];
 
-export const CUCC: React.FC = () => (
+export const contactPage: React.FC = () => (
 	<>
 		<NewCallingCard
 			components={[CUBody]}
@@ -157,13 +139,9 @@ export const CUCC: React.FC = () => (
 	</>
 );
 
-export const contactPage: React.FC = () => {
-	return <CUCC />;
-};
-
 export const ContactPage = (
 	<Page
-		page={CUCC}
+		page={contactPage}
 		bg={true}
 	/>
 );

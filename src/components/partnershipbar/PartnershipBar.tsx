@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { wrapLink } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
 import {
+	CompactViewStyle,
+	PartnerImageWrapperStyle,
 	PartnerStyles,
 	keyframes,
 	marqueeContentStyle,
@@ -10,31 +12,14 @@ import {
 	partnerWrapperStyle,
 	rowLayout,
 } from "./PartnershipBar.styles";
-import { IPartner } from "./PartnershipBar.types";
-
-export interface IPartnershipWallProps {
-	partners: readonly IPartner[];
-	index?: number;
-}
-
-export interface IPartnershipMarqueeProps {
-	partners: readonly IPartner[];
-
-	index?: number;
-}
+import { IPartner, IPartnershipBar } from "./PartnershipBar.types";
 
 const PartnerImage: React.FC<{ partner: IPartner }> = ({ partner }) => {
 	const [isHovered, setIsHovered] = useState(false);
 	const { image, link } = partner;
 
 	const imageEl = (
-		<div
-			style={{
-				aspectRatio: "2.5",
-				justifyContent: "center",
-				alignContent: "center",
-			}}
-		>
+		<div style={PartnerImageWrapperStyle}>
 			<img
 				src={image}
 				width={"250"}
@@ -84,8 +69,6 @@ const useResponsiveLayout = (partnerCount: number) => {
 
 	useEffect(() => {
 		const checkViewportWidth = () => {
-			console.log(Math.sign(0));
-			console.log(WallLayout(0));
 			const layout = WallLayout(partnerCount);
 			let maxBricks = Math.max(layout[0], layout[1]);
 			if (maxBricks % 2 === 0) {
@@ -119,7 +102,7 @@ const PartnerRow: React.FC<{
 	</div>
 );
 
-export const PartnershipWall: React.FC<IPartnershipWallProps> = ({
+export const PartnershipWall: React.FC<IPartnershipBar> = ({
 	partners,
 	index = 0,
 }) => {
@@ -151,9 +134,7 @@ export const PartnershipWall: React.FC<IPartnershipWallProps> = ({
 			<div
 				style={{
 					...staticStyle,
-					display: "flex",
-					flexWrap: "wrap",
-					gap: "20px",
+					...CompactViewStyle,
 				}}
 			>
 				{partners.map((partner, _index) => (
@@ -197,9 +178,7 @@ const MarqueeKeyframes: React.FC = () => {
 	return null;
 };
 
-export const PartnershipMarquee: React.FC<IPartnershipMarqueeProps> = ({
-	partners,
-}) => {
+export const PartnershipMarquee: React.FC<IPartnershipBar> = ({ partners }) => {
 	const MARQUEE_COPY_COUNT = 3;
 	const numSets = Array.from({ length: MARQUEE_COPY_COUNT }, (_, i) => i);
 

@@ -1,38 +1,42 @@
-import React, { useLayoutEffect, useRef, useEffect, useState } from "react";
+import React from "react";
+import {
+	logo_blue,
+	logo_yellow,
+	midnight_green,
+} from "../../utils/defaultColours";
+import { formatComponent, ValidComponent } from "../../utils/reactUtils";
+import {
+	_contentSection,
+	containerStyle,
+	elementSection,
+	elementWrapper,
+	ELWrapperStyle,
+	flattop_ElContainerStyle,
+	flattop_ElGhostStyle,
+	flattop_ElItemStyle,
+	hexagonalContentStyle,
+	LeftCutout,
+	pointedtop_ElContainerStyle,
+	pointedtop_ElInnerGhostStyle,
+	pointedtop_ElTopLevelGhostStyle,
+	RightCutout,
+	svgStyle,
+} from "./Hexagons.styles";
+import { IHexagonConstruction } from "./Hexagons.types";
 
-export const ELWrapperStyle: React.CSSProperties = {
-	position: "relative",
-	height: "100%",
-	margin: 0,
-};
 const getElFlatTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 	return (
 		<div style={ELWrapperStyle}>
-			<div
-				style={{
-					margin: 0,
-					padding: 0,
-					visibility: "hidden",
-					fontSize: 0,
-				}}
-			>
-				no-op
-			</div>
-			<div
-				style={{
-					margin: 0,
-					padding: 0,
-				}}
-			>
+			<div style={flattop_ElGhostStyle}>no-op</div>
+			<div style={flattop_ElContainerStyle}>
 				{components &&
 					components.map(
 						(item, _index) =>
 							item && (
 								<div
 									style={{
-										// fontSize: `${fontSize}vw`,
+										...flattop_ElItemStyle,
 										fontSize: `calc(max(${fontSize}vw,1px))`,
-										margin: 0,
 									}}
 									key={_index}
 								>
@@ -47,31 +51,14 @@ const getElFlatTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 	return (
 		<div style={ELWrapperStyle}>
+			<div style={pointedtop_ElTopLevelGhostStyle}>no-op</div>
 			<div
 				style={{
-					margin: 0,
-					fontSize: 0,
-				}}
-			>
-				no-op
-			</div>
-			<div
-				style={{
-					height: "calc(100%)",
+					...pointedtop_ElContainerStyle,
 					fontSize: `calc(max(${fontSize}vw,1px))`,
-
-					display: "block",
-					margin: 0,
 				}}
 			>
-				<div
-					style={{
-						visibility: "hidden",
-					}}
-				>
-					why does this need to be here, it breaks when fontSize is 0
-					too, so resorting to visability
-				</div>
+				<div style={pointedtop_ElInnerGhostStyle}>inner-no-op</div>
 				{components &&
 					components.map(
 						(item, _index) =>
@@ -83,23 +70,6 @@ const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 		</div>
 	);
 };
-import {
-	logo_yellow,
-	logo_blue,
-	midnight_green,
-} from "../../utils/defaultColours";
-import { IHexagonConstruction } from "./Hexagons.types";
-import { formatComponent, ValidComponent } from "../../utils/reactUtils";
-import {
-	containerStyle,
-	svgStyle,
-	hexagonalContentStyle,
-	elementWrapper,
-	RightCutout,
-	LeftCutout,
-	_contentSection,
-	elementSection,
-} from "./Hexagons.styles";
 
 /** 
 

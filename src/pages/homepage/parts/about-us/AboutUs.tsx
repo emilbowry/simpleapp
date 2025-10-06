@@ -13,7 +13,7 @@ import { NewCallingCard } from "../../../../components/callingcard/CallingCard";
 import { PartnershipWall } from "../../../../components/partnershipbar/PartnershipBar";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
-import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/VHexRow";
+import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/verticalHexagonRow/VHexRow";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { partners } from "../Partners";
 export const hStyle = { /* borderColor: logo_blue,  */ colour: bgwhite };

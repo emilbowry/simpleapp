@@ -1,28 +1,20 @@
 import React from "react";
-import { ImageHexagon } from "../../../components/hexagons/Hexagons";
-import { genericSectionStyle, Theme } from "../../../styles";
-import { CallingCard } from "../../../components/callingcard/CallingCard";
+import { ImageHexagon } from "../../../../components/hexagons/Hexagons";
+import { genericSectionStyle, Theme } from "../../../../styles";
+import { CallingCard } from "../../../../components/callingcard/CallingCard";
 
-import joefennelhs from "../../../assets/joeheadshot.png";
-import miranda from "../../../assets/miranda.jpg";
-import omar from "../../../assets/dude3.jpg";
-import ben from "../../../assets/dude2.jpg";
-import will from "../../../assets/dude1.jpg";
-interface IPersona {
-	image: string;
-	name: string;
-	title?: string;
-	email?: string;
-	body: string;
-	index?: number;
-}
-const personaWrapperStyle: React.CSSProperties = {
-	display: "grid",
-	gridTemplateColumns: "30% 70%",
-	height: "100%",
-	width: "100%",
-	justifyContent: "center",
-};
+import joefennelhs from "../../../../assets/joeheadshot.png";
+import miranda from "../../../../assets/miranda.jpg";
+import omar from "../../../../assets/dude3.jpg";
+import ben from "../../../../assets/dude2.jpg";
+import will from "../../../../assets/dude1.jpg";
+import {
+	personaWrapperStyle,
+	PersonaHeadshotStyle,
+	PersonaTextStyle,
+	OurTeamContainerStyle,
+} from "./OurTeam.styles";
+import { IPersona } from "./OurTeam.types";
 
 export const teamMembers: IPersona[] = [
 	{
@@ -56,26 +48,6 @@ export const teamMembers: IPersona[] = [
 	},
 ];
 
-export const PersonaTextStyle: React.CSSProperties = {
-	borderRadius: "100px 0 0 100px",
-	margin: "auto",
-};
-
-export const PersonaHeadshotStyle: React.CSSProperties = {
-	boxSizing: "border-box",
-	maxHeight: "30vh",
-	minHeight: 0,
-	minWidth: 0,
-	maxWidth: "100%",
-	height: "100%",
-	aspectRatio: `${2 / Math.sqrt(3)}`,
-	padding: "5%",
-	margin: "auto",
-	display: "flex",
-	flexDirection: "column",
-	justifyContent: "center",
-	alignContent: "center",
-};
 export class Persona extends React.Component<IPersona> {
 	render() {
 		const { image, name, title, email, body, index = 2 } = this.props;
@@ -133,15 +105,7 @@ export class Persona extends React.Component<IPersona> {
 }
 
 export const OurTeam: React.FC = () => (
-	<div
-		style={{
-			display: "grid",
-			rowGap: "1%",
-			width: "100%",
-			padding: "auto",
-			paddingBottom: "10%",
-		}}
-	>
+	<div style={OurTeamContainerStyle}>
 		{teamMembers.map((member, arrayIndex) => {
 			const personaIndex = member.title ? 1 : 2;
 

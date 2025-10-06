@@ -6,26 +6,22 @@ import {
 } from "./parts/about-us/AboutUs";
 import { Hero } from "./parts/hero/Hero";
 import { ImpactCC } from "./parts/impact/impact";
-import { OurTeam } from "./parts/OurTeam";
+import { OurTeam } from "./parts/ourteam/OurTeam";
 
 export const homePage: React.FC = () => {
 	return (
 		<div style={{ display: "grid", gridTemplateColumns: "100%" }}>
 			<Hero />
 			<OurTeam />
-			{/* <AboutUsCallingCard /> */}
 			<AboutUsCallingCard />
 			<ImpactCC />
 		</div>
 	);
 };
 
-import { contactPage } from "../contactpage/ContactPage";
-import { theJourneyPage } from "../thejourneypage/TheJourney";
 export const HomePage = (
 	<Page
 		page={homePage}
-		// page={theJourneyPage}
 		bg={true}
 	/>
 );

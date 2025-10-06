@@ -20,3 +20,10 @@ export const containerStyle: React.CSSProperties = {
 	flexDirection: "column",
 	height: "100%",
 };
+export const NewCallingCardOverlapStyle: React.CSSProperties = {
+	paddingBottom: "20%",
+	marginBottom: "-20%",
+	paddingTop: "66%",
+	marginTop: "-66%",
+	zIndex: 5,
+};

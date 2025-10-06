@@ -115,3 +115,41 @@ export const hexagonalContentStyle: React.CSSProperties = {
 	// left: 0,
 	top: 0,
 };
+
+export const ELWrapperStyle: React.CSSProperties = {
+	position: "relative",
+	height: "100%",
+	margin: 0,
+};
+
+export const flattop_ElGhostStyle: React.CSSProperties = {
+	margin: 0,
+	padding: 0,
+	visibility: "hidden",
+	fontSize: 0,
+};
+
+export const flattop_ElContainerStyle: React.CSSProperties = {
+	margin: 0,
+	padding: 0,
+};
+
+export const pointedtop_ElTopLevelGhostStyle: React.CSSProperties = {
+	margin: 0,
+	fontSize: 0,
+};
+
+export const pointedtop_ElInnerGhostStyle: React.CSSProperties = {
+	visibility: "hidden",
+};
+
+export const pointedtop_ElContainerStyle: React.CSSProperties = {
+	height: "calc(100%)",
+
+	display: "block",
+	margin: 0,
+};
+
+export const flattop_ElItemStyle: React.CSSProperties = {
+	margin: 0,
+};

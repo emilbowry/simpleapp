@@ -54,21 +54,11 @@ export const rightHandContainerStyles: React.CSSProperties = {
 	justifyContent: "flex-end",
 	alignItems: "center",
 };
-export const navLinkStyles = (isUnderlined: boolean): React.CSSProperties => ({
-	textDecoration: isUnderlined ? `underline` : "none",
-	textDecorationColor: `${logo_blue}`,
-	backgroundOrigin: "content-box",
-	backgroundImage: `${logoGrag}`,
-	backgroundPosition: "bottom left",
-	backgroundRepeat: "no-repeat",
-	boxSizing: "border-box",
-	backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
-
+import { linkStyle } from "../../styles";
+export const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
+	...linkStyle(isUnderlined),
 	transition: "background-size 0.3s ease-in",
-	color: "#333",
-	fontSize: "16px",
-	opacity: "inherit",
-	padding: "5px 0",
+
 	cursor: "none",
 });
 
