@@ -55,8 +55,8 @@ export const rightHandContainerStyles: React.CSSProperties = {
 	alignItems: "center",
 };
 export const navLinkStyles = (isUnderlined: boolean): React.CSSProperties => ({
-	textDecoration: isUnderlined ? `underline ${logo_blue}` : "none",
-	// textDecorationColor: `${logo_blue}`,
+	textDecoration: isUnderlined ? `underline` : "none",
+	textDecorationColor: `${logo_blue}`,
 	backgroundOrigin: "content-box",
 	backgroundImage: `${logoGrag}`,
 	backgroundPosition: "bottom left",
