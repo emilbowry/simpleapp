@@ -9,12 +9,7 @@ import ReactMarkdown from "react-markdown";
 import type { Components } from "react-markdown";
 import type { Element } from "hast";
 import { Page } from "../page";
-// import { Page } from "../page"; // Assuming this path is correct for your project
-
-// --- UTILITY FUNCTION AND CONSTANTS ---
-// As requested, from src/pages/thejourneypage/TheJourney.tsx
-const logo_yellow = "#FFD700"; // Example value for gold/yellow
-const logo_blue = "#4169E1"; // Example value for royal blue
+import { logo_blue, logo_yellow } from "../../utils/defaultColours";
 
 export const generateGradient = (
 	n: number,

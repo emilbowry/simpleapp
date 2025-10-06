@@ -2,17 +2,12 @@
 
 import React from "react";
 import { Page } from "../page";
-import { NewCallingCard } from "../../components/callingcard/newCallingCard";
+import { NewCallingCard } from "../../components/callingcard/CallingCard";
 import { bgwhite } from "../../utils/defaultColours";
-import {
-	VerticalHexagonFeatureGrid,
-	VerticalHexagonGrid,
-} from "../../components/hexagons/hexagonRow/VHexRow";
+import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/VHexRow";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
-import { PointedTopHexagon } from "../../components/hexagons/Hexagons";
-import { TriPartCallout } from "../../components/callingcard/callout/CallOut";
+
 import {
-	hexCallStyle,
 	imageStyling,
 	titleStyle,
 } from "../homepage/parts/about-us/AboutUs.styles";
@@ -108,20 +103,32 @@ export const OSCC: React.FC = () => (
 		<NewCallingCard
 			components={[<Services {...cserv} />, <Services {...tserv} />]}
 			// header={<></>}
-			title={<h2>Our Services</h2>}
-			footer={
-				<div>
-					<div style={{ marginBottom: "5%" }}>
-						<span style={{ color: "red", fontWeight: "bolder" }}>
-							Probably needs an introduction <br />
-						</span>
-						Source: BCG Build for the Future 2024 Global Study
-						(merged with DAI)
-					</div>
+			sideBar={{
+				header: <h2>Our Services</h2>,
+				components: [
 					<div>
-						<PiChart />
-					</div>
-				</div>
+						<div style={{ marginBottom: "5%" }}>
+							<span
+								style={{ color: "red", fontWeight: "bolder" }}
+							>
+								Probably needs an introduction <br />
+							</span>
+							Source: BCG Build for the Future 2024 Global Study
+							(merged with DAI)
+						</div>
+						<div>
+							<PiChart />
+						</div>
+					</div>,
+				],
+			}}
+			// title={<h2>Our Services</h2>}
+			footer={
+				<VerticalHexagonFeatureGrid
+					featureCallouts={ourServicesFeatureCallouts}
+					hexagonArgs={hStyle}
+					useVerticalAlignment={true}
+				/>
 			}
 			styleOverrides={{
 				backgroundColor: bgwhite,
@@ -129,11 +136,6 @@ export const OSCC: React.FC = () => (
 				marginBottom: "-20%",
 				zIndex: -5,
 			}}
-		/>
-		<VerticalHexagonFeatureGrid
-			featureCallouts={ourServicesFeatureCallouts}
-			hexagonArgs={hStyle}
-			useVerticalAlignment={true}
 		/>
 
 		{/* <VHexGrid /> */}

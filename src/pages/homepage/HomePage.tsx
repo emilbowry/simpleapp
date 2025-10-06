@@ -1,6 +1,9 @@
 import React from "react";
 import { Page } from "../page";
-import { AboutUsCallingCard } from "./parts/about-us/AboutUs";
+import {
+	// AboutUsCallingCard,
+	AboutUsCallingCard,
+} from "./parts/about-us/AboutUs";
 import { Hero } from "./parts/hero/Hero";
 import { ImpactCC } from "./parts/impact/impact";
 import { OurTeam } from "./parts/OurTeam";
@@ -10,6 +13,7 @@ export const homePage: React.FC = () => {
 		<div style={{ display: "grid", gridTemplateColumns: "100%" }}>
 			<Hero />
 			<OurTeam />
+			{/* <AboutUsCallingCard /> */}
 			<AboutUsCallingCard />
 			<ImpactCC />
 		</div>

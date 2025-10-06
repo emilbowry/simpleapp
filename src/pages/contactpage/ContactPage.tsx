@@ -1,18 +1,19 @@
 // src/pages/contactpage/ContactPage.tsx
-/**
- * @improvement 
-	- Non-critical style synergy and improvements **do last**
- */
+
 import React from "react";
 
 import { Page } from "../page";
-import { NewCallingCard } from "../../components/callingcard/newCallingCard";
+import { NewCallingCard } from "../../components/callingcard/CallingCard";
 
 import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/VHexRow";
-import { bgwhite } from "../../utils/defaultColours";
-import { hStyle } from "../homepage/parts/about-us/AboutUs";
-import { titleStyle } from "../homepage/parts/about-us/AboutUs.styles";
+import { bgwhite, logo_blue } from "../../utils/defaultColours";
 
+export const titleStyle: React.CSSProperties = {
+	fontSize: "2rem",
+	fontWeight: "400",
+	textAlign: "center",
+	color: logo_blue,
+};
 import {
 	formatComponent,
 	getImageEl,
@@ -23,50 +24,51 @@ import { logoGrag, Theme } from "../../styles";
 interface LearnMoreButtonProps {
 	href?: string;
 	content?: ValidComponent;
+	isUnderlined?: boolean;
 }
-
-const LearnMoreButton: React.FC<LearnMoreButtonProps> = ({
+const StyledLink: React.FC<LearnMoreButtonProps> = ({
 	href = "#",
 	content = "",
+	isUnderlined = true,
 }) => {
-	const buttonStyles: React.CSSProperties = {
-		textDecoration: "none",
-		color: "white",
-		fontSize: "3rem",
-
-		textAlign: "center",
-		width: "100%",
-
+	const linkStyle = (isUnderlined = true): React.CSSProperties => ({
+		textDecoration: isUnderlined ? `underline` : "",
+		textDecorationColor: `${logo_blue}`,
 		backgroundOrigin: "content-box",
 		backgroundImage: `${logoGrag}`,
 		backgroundPosition: "bottom left",
 		backgroundRepeat: "no-repeat",
 		boxSizing: "border-box",
-		backgroundSize: "100% 2px",
-	};
+		backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
 
+		// transition: "background-size 0.3s ease-in",
+		color: "#333",
+		fontSize: "16px",
+		padding: "5px 0",
+		...titleStyle,
+	});
 	return (
 		<div
 			style={{
-				height: "10vw",
+				flex: 2,
 				display: "flex",
-				flexDirection: "column",
-				alignContent: "center",
-				color: "white",
 				justifyContent: "center",
+				gap: "15px",
 			}}
 		>
-			{formatComponent(content)}
-			<div style={{}}>
+			<div>
 				<a
 					href={href}
-					style={buttonStyles}
+					style={linkStyle(isUnderlined)}
 				>
-					Learn More
+					{formatComponent(content)}
 				</a>
 			</div>
 		</div>
 	);
+};
+const LearnMoreButton: React.FC<LearnMoreButtonProps> = (props) => {
+	return <StyledLink {...props} />;
 };
 
 const foot = (
@@ -85,66 +87,47 @@ const foot = (
 
 export const CUBody = (
 	<div>
-		<div>
-			<a href="https://community.mindstone.com/events">
-				Join the Mindstone online events
-			</a>
-		</div>
-		<div>
-			<a href="https://controlai.com/take-action/uk">Take Action</a>
-		</div>
-		<div>
-			<a href="https://www.linkedin.com/in/joe-fennell-379466170">
-				Hear more from Joe on LinkedIn
-			</a>
-		</div>
-		<div>
-			<a href="#">Podcast COMING SOON</a>
-		</div>
-		<div>{getImageEl(qrcode)}</div>
+		<StyledLink
+			href="https://community.mindstone.com/events"
+			content="Join the Mindstone online events"
+		/>
+		<StyledLink
+			href="https://controlai.com/take-action/uk"
+			content="Take Action"
+		/>
+		<StyledLink
+			href="https://www.linkedin.com/in/joe-fennell-379466170"
+			content="Hear more from Joe on LinkedIn"
+		/>
+		<StyledLink
+			href="#"
+			content="Podcast COMING SOON"
+		/>
 	</div>
 );
 const contactFeatureCallouts = [
 	{
 		body: (
-			<LearnMoreButton
-				content={
-					<div style={titleStyle}>
-						<p>
-							Book a free 20 minute chat to find out how we could
-							help you or your business
-						</p>
-					</div>
-				}
+			<StyledLink
+				content={`Book a free 20 minute chat to find out how we could
+							help you or your business`}
 			/>
 		),
 		themeId: -1,
 	},
 	{
 		body: (
-			<LearnMoreButton
-				content={
-					<div style={titleStyle}>
-						<p>
+			<StyledLink
+				content={`
 							Request an email of our services and offering and
 							keep up to date with AI Comaptible’s mailing list
-						</p>
-					</div>
-				}
+						`}
 			/>
 		),
 		themeId: -1,
 	},
 	{
-		body: (
-			<LearnMoreButton
-				content={
-					<div style={titleStyle}>
-						<p>Buy 1-1 consultancy and training</p>
-					</div>
-				}
-			/>
-		),
+		body: <StyledLink content={`Buy 1-1 consultancy and training`} />,
 		themeId: -1,
 	},
 ];
@@ -153,8 +136,17 @@ export const CUCC: React.FC = () => (
 	<>
 		<NewCallingCard
 			components={[CUBody]}
-			title={<h2>Join The Conversation</h2>}
-			footer={foot}
+			sideBar={{
+				components: [foot],
+				header: <h2>Join The Conversation</h2>,
+			}}
+			footer={
+				<VerticalHexagonFeatureGrid
+					featureCallouts={contactFeatureCallouts}
+					hexagonArgs={{ colour: Theme(1).backgroundColor }}
+					useVerticalAlignment={true}
+				/>
+			}
 			styleOverrides={{
 				backgroundColor: bgwhite,
 				paddingBottom: "20%",
@@ -162,11 +154,6 @@ export const CUCC: React.FC = () => (
 				zIndex: 0,
 			}}
 		/>
-		<VerticalHexagonFeatureGrid
-			featureCallouts={contactFeatureCallouts}
-			hexagonArgs={{ colour: Theme(1).backgroundColor }}
-		/>
-		{/* <VHexGrid /> */}
 	</>
 );
 
@@ -176,7 +163,7 @@ export const contactPage: React.FC = () => {
 
 export const ContactPage = (
 	<Page
-		page={contactPage}
+		page={CUCC}
 		bg={true}
 	/>
 );

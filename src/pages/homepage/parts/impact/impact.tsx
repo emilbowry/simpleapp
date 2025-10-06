@@ -3,7 +3,7 @@
 import React from "react";
 
 import { TriPartCallout } from "../../../../components/callingcard/callout/CallOut";
-import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
+import { NewCallingCard } from "../../../../components/callingcard/CallingCard";
 import {
 	VerticalHexagonFeatureGrid,
 	VerticalHexagonGrid,
@@ -204,6 +204,32 @@ export const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	return letter;
 };
 
+// export const ImpactCC: React.FC = () => (
+// 	<>
+// 		<NewCallingCard
+// 			components={[
+// 				<div style={{ position: "relative" }}>
+// 					<FounderLetter index={1} />
+// 				</div>,
+// 			]}
+// 			title={<></>}
+// 			footer={foot}
+// 			index={1}
+// 			styleOverrides={{
+// 				paddingBottom: "20%",
+// 				marginBottom: "-20%",
+// 				paddingTop: "66%",
+// 				marginTop: "-66%",
+// 				zIndex: 5,
+// 			}}
+// 		/>
+// 		<VerticalHexagonFeatureGrid
+// 			featureCallouts={impactFeatureCallouts}
+// 			hexagonArgs={{ colour: Theme(idx).backgroundColor }}
+// 		/>
+// 	</>
+// );
+
 export const ImpactCC: React.FC = () => (
 	<>
 		<NewCallingCard
@@ -212,8 +238,13 @@ export const ImpactCC: React.FC = () => (
 					<FounderLetter index={1} />
 				</div>,
 			]}
-			title={<></>}
-			footer={foot}
+			sideBar={{ components: [foot] }}
+			footer={
+				<VerticalHexagonFeatureGrid
+					featureCallouts={impactFeatureCallouts}
+					hexagonArgs={{ colour: Theme(idx).backgroundColor }}
+				/>
+			}
 			index={1}
 			styleOverrides={{
 				paddingBottom: "20%",
@@ -222,10 +253,6 @@ export const ImpactCC: React.FC = () => (
 				marginTop: "-66%",
 				zIndex: 5,
 			}}
-		/>
-		<VerticalHexagonFeatureGrid
-			featureCallouts={impactFeatureCallouts}
-			hexagonArgs={{ colour: Theme(idx).backgroundColor }}
 		/>
 	</>
 );

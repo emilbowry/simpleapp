@@ -9,7 +9,7 @@ import {
 	bulb,
 } from "../../../../components/callingcard/graphics";
 
-import { NewCallingCard } from "../../../../components/callingcard/newCallingCard";
+import { NewCallingCard } from "../../../../components/callingcard/CallingCard";
 import { PartnershipWall } from "../../../../components/partnershipbar/PartnershipBar";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
@@ -104,11 +104,49 @@ const aboutUsFeatureCallouts = [
 	},
 ];
 import { PolicyAnalyzer } from "../../../dpotool/tool";
+// import { _NewCallingCard } from "../../../../components/callingcard/improvedCallingCard";
+// export const AboutUsCallingCard: React.FC = () => (
+// 	<>
+// 		<NewCallingCard
+// 			components={[wGif]}
+// 			header={
+// 				<div
+// 					style={{
+// 						width: "100%",
+// 						minHeight: "30vh",
+// 						display: "flex",
+// 						flexDirection: "column",
+// 						justifyContent: "center",
+// 					}}
+// 				>
+// 					<PartnershipWall
+// 						{...(large_partners as any)}
+// 						index={-1}
+// 					/>
+// 				</div>
+// 			}
+// 			title={head}
+// 			footer={foot}
+// 			styleOverrides={{
+// 				backgroundColor: bgwhite,
+// 				paddingBottom: "20%",
+// 				marginBottom: "-20%",
+// 				zIndex: 10,
+// 			}}
+// 		/>
+// 		<VerticalHexagonFeatureGrid
+// 			featureCallouts={aboutUsFeatureCallouts}
+// 			useVerticalAlignment={true}
+// 			hexagonArgs={hStyle}
+// 			theme={-1}
+// 		/>
+// 	</>
+// );
+
 export const AboutUsCallingCard: React.FC = () => (
 	<>
 		<NewCallingCard
 			components={[wGif]}
-			// components={[<PolicyAnalyzer />]}
 			header={
 				<div
 					style={{
@@ -125,20 +163,22 @@ export const AboutUsCallingCard: React.FC = () => (
 					/>
 				</div>
 			}
-			title={head}
-			footer={foot}
+			sideBar={{ components: [foot], header: head }}
+			// title={head}
+			footer={
+				<VerticalHexagonFeatureGrid
+					featureCallouts={aboutUsFeatureCallouts}
+					useVerticalAlignment={true}
+					hexagonArgs={hStyle}
+					theme={-1}
+				/>
+			}
 			styleOverrides={{
 				backgroundColor: bgwhite,
 				paddingBottom: "20%",
 				marginBottom: "-20%",
 				zIndex: 10,
 			}}
-		/>
-		<VerticalHexagonFeatureGrid
-			featureCallouts={aboutUsFeatureCallouts}
-			useVerticalAlignment={true}
-			hexagonArgs={hStyle}
-			theme={-1}
 		/>
 	</>
 );

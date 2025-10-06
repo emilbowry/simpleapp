@@ -1,80 +1,147 @@
 // src/components/callingcard/CallingCard.tsx
 
-/**
-	@improvement - Integrate as baseclass of NewCallingCard 
-
- */
 import React from "react";
-import { formatComponent } from "../../utils/reactUtils";
-import { Theme } from "../../styles";
-
+import { formatComponent, ValidComponent } from "../../utils/reactUtils";
+import { borderGrad, Theme } from "../../styles";
 import {
-	cardStyle,
-	innerStyle,
-	titleHeadingStyle,
-	style_CallingCardStyle,
-	itemStyle,
+	ICallingCardProps,
+	ICallOutProps,
+	IFooterProps,
+	IGridBodyProps,
+	IGridItemProps,
+	IHeaderProps,
+} from "./CallingCard.types";
+import {
+	containerStyle,
+	GridBodyStyle,
+	GridItemStyle,
 } from "./CallingCard.styles";
-import { ICallingCardProps } from "./CallingCard.types";
 
-export class CallingCard extends React.Component<ICallingCardProps> {
-	render() {
-		const {
-			components,
-			index = 0,
-			title,
-			footer,
-			fullSpread = false,
-			styleOverrides = {},
-		} = this.props;
+export const CompWrapper: React.FC<ICallOutProps> = ({
+	content,
+	wrapper_style = {},
+}) => {
+	return content ? (
+		<div style={wrapper_style}>{formatComponent(content)}</div>
+	) : null;
+};
+export const Header: React.FC<IHeaderProps> = (props) => (
+	<CompWrapper {...props} />
+);
+export const Footer: React.FC<IFooterProps> = ({ content }) => {
+	return content ? formatComponent(content) : null;
+};
 
-		let gridTemplate = "";
-		if (Array.isArray(components)) {
-			gridTemplate = `repeat(${components.length}, 1fr)`;
-		}
+export const GridItem: React.FC<IGridItemProps> = ({ content, item_key }) =>
+	content ? (
+		<CompWrapper
+			content={content}
+			wrapper_style={GridItemStyle}
+			key={item_key}
+		/>
+	) : (
+		<div
+			style={GridItemStyle}
+			key={item_key}
+		/>
+	);
 
-		let theme = Theme(index);
-		let _cardStyle = cardStyle(theme.secondaryColor);
-		_cardStyle.gridTemplateColumns = gridTemplate;
-		let _innerstyle = innerStyle(fullSpread);
-		let _titleHeadingStyle = titleHeadingStyle(theme.primaryColor);
+export const GridBody: React.FC<IGridBodyProps> = ({
+	components,
+	styleOverrides = {},
+	columnOverrides = undefined,
+}) => {
+	const colOverrides = {
+		gridTemplateColumns:
+			columnOverrides ?? `repeat(${components.length}, 1fr)`,
+	};
 
-		_innerstyle.backgroundColor = theme.backgroundColor;
+	return (
+		<div style={{ ...GridBodyStyle, ...colOverrides, ...styleOverrides }}>
+			{components.map((item, index) => (
+				<GridItem
+					content={item}
+					item_key={index}
+				/>
+			))}
+		</div>
+	);
+};
 
-		return (
+export const CallingCard: React.FC<ICallingCardProps> = ({
+	components,
+	index = 0,
+	header,
+	footer,
+	fullSpread = false,
+	styleOverrides = {},
+	isPageElement = false,
+}) => {
+	let theme = Theme(index);
+	const columnOverrides = isPageElement
+		? `${100 / 3}% ${200 / 3}%`
+		: undefined;
+
+	const bodyOverrides = isPageElement
+		? {
+				marginTop: "1%",
+				paddingTop: "2%",
+				borderTop: header ? `4px solid` : "",
+		  }
+		: {
+				padding: !fullSpread ? "2%" : "0",
+				borderRadius: !fullSpread ? "50px 10px" : "",
+		  };
+
+	return (
+		<>
 			<div
 				style={{
-					...style_CallingCardStyle(fullSpread),
+					...containerStyle,
+					color: theme.secondaryColor,
+					backgroundColor: theme.backgroundColor,
+					padding: !fullSpread ? "2%" : "0",
+					borderTopLeftRadius: isPageElement ? "80px 60px" : "",
+
 					...styleOverrides,
 				}}
 			>
-				<div style={_innerstyle}>
-					{title ? (
-						<div>
-							<h2
-								style={{
-									..._titleHeadingStyle,
-									margin: "10px",
-								}}
-							>
-								{formatComponent(title)}
-							</h2>
-						</div>
-					) : null}
-					<div style={_cardStyle}>
-						{components.map((item, _index) => (
-							<div
-								style={itemStyle}
-								key={_index}
-							>
-								{formatComponent(item)}
-							</div>
-						))}
-					</div>
+				<Header
+					content={header}
+					wrapper_style={{ color: theme.primaryColor }}
+				/>
 
-					{footer ? <div>{formatComponent(footer)}</div> : null}
-				</div>
+				<GridBody
+					components={components}
+					columnOverrides={columnOverrides}
+					styleOverrides={bodyOverrides}
+				/>
 			</div>
-		);
-	}
-}
+			<Footer content={footer} />
+		</>
+	);
+};
+
+export const NewCallingCard: React.FC<
+	ICallingCardProps & { sideBar?: ICallingCardProps }
+> = (props) => {
+	const { components, isPageElement = true, sideBar } = props;
+
+	return (
+		<CallingCard
+			{...props}
+			components={
+				sideBar
+					? [
+							<CallingCard
+								{...sideBar}
+								index={props.index}
+							/>,
+							<GridBody components={components} />,
+					  ]
+					: components
+			}
+			isPageElement={isPageElement}
+		/>
+	);
+};

@@ -2,6 +2,7 @@ import React from "react";
 import { ImageHexagon } from "../../../components/hexagons/Hexagons";
 import { genericSectionStyle, Theme } from "../../../styles";
 import { CallingCard } from "../../../components/callingcard/CallingCard";
+
 import joefennelhs from "../../../assets/joeheadshot.png";
 import miranda from "../../../assets/miranda.jpg";
 import omar from "../../../assets/dude3.jpg";
