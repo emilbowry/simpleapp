@@ -132,24 +132,8 @@ const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 		</div>
 	);
 };
-export const FFoouter: React.FC = () => {
-	return (
-		<section>
-			<div
-				style={{
-					display: "grid",
-					gridTemplateColumns: "1fr 1fr",
-					// alignContent: "center",
-					// justifyContent: "left",
-				}}
-			>
-				<div>{getImageEl(cam)}</div>
-				<div>{getImageEl(LH)}</div>
-			</div>
-		</section>
-	);
-};
-export const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
+
+const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	const letter = (
 		<div
 			style={{

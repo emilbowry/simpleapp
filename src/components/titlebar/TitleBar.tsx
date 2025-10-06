@@ -345,37 +345,6 @@ export const PillTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 	);
 };
 
-//== Test/Example Components (Unchanged) ==//
-
-export const TestTitleBar: React.FC = () => {
-	const navLinks: ITitleBarLink[][] = [
-		[{ path: "/", alias: "Home" }],
-		[{ path: "/thejourney", alias: "The Journey" }],
-	];
-	return (
-		<TitleBar
-			logoSrc={logo}
-			links={navLinks}
-		/>
-	);
-};
-
-export const TestExpandableTitleBar: React.FC = () => {
-	const navLinks: ITitleBarLink[][] = [
-		[
-			{ path: "/", alias: "Home", image: dropdownImage },
-			{ path: "/demo_page", alias: "Demo Page" },
-		],
-		[{ path: "/thejourney", alias: "The Journey" }],
-	];
-	return (
-		<ExpandableTitleBar
-			logoSrc={logo}
-			links={navLinks}
-		/>
-	);
-};
-
 export const TestPillTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
 		[

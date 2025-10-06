@@ -17,7 +17,3 @@ export const footerStyle: React.CSSProperties = {
 };
 
 export const imageStyling: React.CSSProperties = {};
-export const hexCallStyle: React.CSSProperties = {};
-export const HexWapStyle: React.CSSProperties = {
-	backgroundColor: "white",
-};

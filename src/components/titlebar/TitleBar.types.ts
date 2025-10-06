@@ -8,9 +8,3 @@ export interface ITitleBarProps {
 	logoSrc: string;
 	links: ITitleBarLink[][];
 }
-
-export interface ITitleBarState {
-	isOverLink: boolean;
-	activeLinkAlias: string | null;
-	isActive: boolean;
-}

@@ -22,18 +22,3 @@ export class Partners {
 		this.size = partnersObj.size ?? "Small";
 	}
 }
-
-export interface IPartnershipBarProps extends Partners {
-	index?: number;
-}
-
-export interface IPartnerImageProps {
-	partner: IPartner;
-	size: TPartnerSize;
-}
-export interface IPartnerImageState {
-	isHovered: boolean;
-}
-export interface IPartnershipBarState {
-	smallViewPort: boolean;
-}

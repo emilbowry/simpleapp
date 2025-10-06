@@ -84,11 +84,6 @@ export const keyframes = `
 	}
   }
 `;
-export const imageStyle: React.CSSProperties = {
-	alignContent: "center",
-	justifyContent: "center",
-	alignItems: "center",
-};
 
 export const rowLayout = (
 	n_bricks: number,
