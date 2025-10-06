@@ -144,9 +144,8 @@ export const pointedtop_ElInnerGhostStyle: React.CSSProperties = {
 };
 
 export const pointedtop_ElContainerStyle: React.CSSProperties = {
-	height: "calc(100%)",
+	height: "100%",
 
-	display: "block",
 	margin: 0,
 };
 

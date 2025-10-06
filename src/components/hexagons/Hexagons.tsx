@@ -48,17 +48,42 @@ const getElFlatTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 		</div>
 	);
 };
+// const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
+// 	return (
+// 		<div style={ELWrapperStyle}>
+// 			<div style={pointedtop_ElTopLevelGhostStyle}>no-op</div>
+// 			<div
+// 				style={{
+// 					...pointedtop_ElContainerStyle,
+// 					fontSize: `calc(max(${fontSize}vw,1px))`,
+// 				}}
+// 			>
+// 				<div style={pointedtop_ElInnerGhostStyle}>inner-no-op</div>
+// 				{components &&
+// 					components.map(
+// 						(item, _index) =>
+// 							item && (
+// 								<div key={_index}>{formatComponent(item)}</div>
+// 							)
+// 					)}
+// 			</div>
+// 		</div>
+// 	);
+// };
 const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 	return (
 		<div style={ELWrapperStyle}>
-			<div style={pointedtop_ElTopLevelGhostStyle}>no-op</div>
+			{/* <div style={pointedtop_ElTopLevelGhostStyle}>no-op</div> */}
 			<div
 				style={{
-					...pointedtop_ElContainerStyle,
 					fontSize: `calc(max(${fontSize}vw,1px))`,
+					...pointedtop_ElContainerStyle,
 				}}
 			>
-				<div style={pointedtop_ElInnerGhostStyle}>inner-no-op</div>
+				<div style={pointedtop_ElInnerGhostStyle}>
+					this needs to be sufficiently long in order to properly
+					render. this makes no sense
+				</div>
 				{components &&
 					components.map(
 						(item, _index) =>
@@ -70,7 +95,6 @@ const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
 		</div>
 	);
 };
-
 /** 
 
 Due to render timings around componentDidUpdate, this needs to be a component,
