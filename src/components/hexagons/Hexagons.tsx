@@ -8,93 +8,130 @@ import { formatComponent, ValidComponent } from "../../utils/reactUtils";
 import {
 	_contentSection,
 	containerStyle,
+	ElContainerStyle,
 	elementSection,
+	PolyCutout,
 	elementWrapper,
 	ELWrapperStyle,
-	flattop_ElContainerStyle,
 	flattop_ElGhostStyle,
-	flattop_ElItemStyle,
 	hexagonalContentStyle,
-	LeftCutout,
-	pointedtop_ElContainerStyle,
 	pointedtop_ElInnerGhostStyle,
-	pointedtop_ElTopLevelGhostStyle,
-	RightCutout,
 	svgStyle,
 } from "./Hexagons.styles";
 import { IHexagonConstruction } from "./Hexagons.types";
 
-const getElFlatTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
-	return (
-		<div style={ELWrapperStyle}>
-			<div style={flattop_ElGhostStyle}>no-op</div>
-			<div style={flattop_ElContainerStyle}>
-				{components &&
-					components.map(
-						(item, _index) =>
-							item && (
-								<div
-									style={{
-										...flattop_ElItemStyle,
-										fontSize: `calc(max(${fontSize}vw,1px))`,
-									}}
-									key={_index}
-								>
-									{formatComponent(item)}
-								</div>
-							)
-					)}
-			</div>
-		</div>
+const ElContainer: React.FC<{
+	contentRef?: (node: HTMLDivElement | null) => void;
+	children?: React.ReactNode;
+}> = ({ contentRef, children }) => (
+	<div ref={contentRef}>
+		<div style={ELWrapperStyle}>{children}</div>
+	</div>
+);
+
+const ElMap: React.FC<{
+	element: ValidComponent[];
+}> = ({ element }) => (
+	<React.Fragment>
+		{element &&
+			element.map(
+				(item, _index) =>
+					item && (
+						<React.Fragment key={_index}>
+							{formatComponent(item)}
+						</React.Fragment>
+					)
+			)}
+	</React.Fragment>
+);
+const GetEl: React.FC<{
+	fontSize: number;
+	element: ValidComponent[] | ValidComponent;
+	useFlatTop: boolean;
+	contentRef?: (node: HTMLDivElement | null) => void;
+}> = ({ fontSize, element, useFlatTop, contentRef }) => {
+	if (Array.isArray(element)) {
+		if (useFlatTop) {
+			return (
+				<ElContainer contentRef={contentRef}>
+					<div
+						style={flattop_ElGhostStyle}
+						/* I think this ensures lineheight is calculated correctly */
+					>
+						no-op
+					</div>
+					<div
+						style={{
+							...ElContainerStyle,
+							fontSize: `calc(max(${fontSize}vw,1px))`,
+						}}
+					>
+						<ElMap element={element} />
+					</div>
+				</ElContainer>
+			);
+		} else {
+			return (
+				<ElContainer contentRef={contentRef}>
+					<div
+						style={{
+							fontSize: `calc(max(${fontSize}vw,1px))`,
+							...ElContainerStyle,
+						}}
+						/* className="no-aos" // fixes AboutUs layout issue but breaks impact.tsx layout*/
+					>
+						<div
+							style={pointedtop_ElInnerGhostStyle}
+							/* Fixes both, don't understand why, needs to be sufficiently long to fix*/
+						>
+							this needs to be sufficiently long in order to
+							properly render. this makes no sense
+						</div>
+						<ElMap element={element} />
+					</div>
+				</ElContainer>
+			);
+		}
+	}
+	return contentRef ? (
+		<ElContainer contentRef={contentRef}>
+			{formatComponent(element)}
+		</ElContainer>
+	) : (
+		formatComponent(element)
 	);
 };
-// const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
-// 	return (
-// 		<div style={ELWrapperStyle}>
-// 			<div style={pointedtop_ElTopLevelGhostStyle}>no-op</div>
-// 			<div
-// 				style={{
-// 					...pointedtop_ElContainerStyle,
-// 					fontSize: `calc(max(${fontSize}vw,1px))`,
-// 				}}
-// 			>
-// 				<div style={pointedtop_ElInnerGhostStyle}>inner-no-op</div>
-// 				{components &&
-// 					components.map(
-// 						(item, _index) =>
-// 							item && (
-// 								<div key={_index}>{formatComponent(item)}</div>
-// 							)
-// 					)}
-// 			</div>
-// 		</div>
-// 	);
-// };
-const getElPointedTop = (fontSize = 2.5, ...components: ValidComponent[]) => {
-	return (
-		<div style={ELWrapperStyle}>
-			{/* <div style={pointedtop_ElTopLevelGhostStyle}>no-op</div> */}
-			<div
-				style={{
-					fontSize: `calc(max(${fontSize}vw,1px))`,
-					...pointedtop_ElContainerStyle,
-				}}
-			>
-				<div style={pointedtop_ElInnerGhostStyle}>
-					this needs to be sufficiently long in order to properly
-					render. this makes no sense
-				</div>
-				{components &&
-					components.map(
-						(item, _index) =>
-							item && (
-								<div key={_index}>{formatComponent(item)}</div>
-							)
-					)}
-			</div>
-		</div>
-	);
-};
+
+export const HexSVG: React.FC<{
+	styles: any;
+	useFlatTop: boolean;
+	defs: React.ReactElement[];
+	paths: React.ReactElement[];
+}> = ({ styles, useFlatTop, defs, paths }) => (
+	<svg
+		style={svgStyle(styles)}
+		viewBox={
+			useFlatTop
+				? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
+						(200 * Math.sqrt(3)) / 2
+				  }`
+				: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
+						(200 * Math.sqrt(3)) / 2
+				  } 200`
+		}
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<defs>
+			{defs.map((def, i) => (
+				<React.Fragment key={i}>{def}</React.Fragment>
+			))}
+		</defs>
+		{paths.map((path, i) => (
+			<React.Fragment key={i}>{path}</React.Fragment>
+		))}
+	</svg>
+);
+
 /** 
 
 Due to render timings around componentDidUpdate, this needs to be a component,
@@ -252,37 +289,15 @@ export class Hexagon
 			...styleProps
 		} = this.props;
 		const { defs, paths } = this.construct(args);
-		let _element = element;
-		if (Array.isArray(element)) {
-			_element = this.usePointedTop
-				? getElPointedTop(this.state.fontSize, ...element)
-				: getElFlatTop(this.state.fontSize, ...element);
-		}
 
 		return (
 			<div style={containerStyle(styleProps)}>
-				<svg
-					style={svgStyle(styleProps)}
-					viewBox={
-						!this.usePointedTop
-							? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
-									(200 * Math.sqrt(3)) / 2
-							  }`
-							: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
-									(200 * Math.sqrt(3)) / 2
-							  } 200`
-					}
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<defs>
-						{defs.map((def, i) => (
-							<React.Fragment key={i}>{def}</React.Fragment>
-						))}
-					</defs>
-					{paths.map((path, i) => (
-						<React.Fragment key={i}>{path}</React.Fragment>
-					))}
-				</svg>
+				<HexSVG
+					styles={styleProps}
+					useFlatTop={!this.usePointedTop}
+					defs={defs}
+					paths={paths}
+				/>
 
 				{element && (
 					<div
@@ -290,21 +305,24 @@ export class Hexagon
 						ref={this.setContainerRef}
 					>
 						<div style={elementWrapper}>
-							<div style={LeftCutout(this.usePointedTop)} />
-							<div style={RightCutout(this.usePointedTop)} />
+							<div style={PolyCutout(this.usePointedTop, true)} />
+							<div
+								style={PolyCutout(this.usePointedTop, false)}
+							/>
 							<div
 								style={{
 									...elementSection,
 									paddingTop: useVerticalAlignment
 										? `calc(${
 												(this.state.containerHeight -
-													this.state.contentHeight!) /
+													(this.state.contentHeight ??
+														0)) /
 												2
 										  }px)`
 										: 0,
 								}}
 							>
-								{useVerticalAlignment ? (
+								{/* {useVerticalAlignment ? (
 									<div
 										style={{}}
 										ref={this.setContentRef}
@@ -313,7 +331,17 @@ export class Hexagon
 									</div>
 								) : (
 									formatComponent(_element)
-								)}
+								)} */}
+								<GetEl
+									element={element}
+									useFlatTop={!this.usePointedTop}
+									contentRef={
+										useVerticalAlignment
+											? this.setContentRef
+											: undefined
+									}
+									fontSize={this.state.fontSize}
+								/>
 							</div>
 						</div>
 					</div>

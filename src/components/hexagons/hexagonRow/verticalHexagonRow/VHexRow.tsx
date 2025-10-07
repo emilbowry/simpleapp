@@ -72,7 +72,10 @@ export class VerticalHexagonGrid extends React.Component<
 			<div style={narrowLayoutContainerStyle}>
 				<div style={narrowTopRowStyle}>
 					{topRowElements.map((element, index) => (
-						<div style={sItemStyle(index)}>
+						<div
+							style={sItemStyle(index)}
+							key={index}
+						>
 							{formatComponent(element)}
 						</div>
 					))}
@@ -98,20 +101,17 @@ export class VerticalHexagonGrid extends React.Component<
 export const VerticalHexagonFeatureGrid: React.FC<
 	VerticalHexagonFeatureGridProps
 > = ({ featureCallouts, hexagonArgs, useVerticalAlignment = false }) => {
-	const elements = featureCallouts.map((calloutProps, index) => (
-		<PointedTopHexagon
-			key={index}
-			args={hexagonArgs}
-			element={[
-				calloutProps.header,
-
-				calloutProps.body,
-				calloutProps.footer,
-			]}
-			opacity={1} // Ensure full opacity for content visibility
-			useVerticalAlignment={useVerticalAlignment}
-		/>
-	));
+	const elements = featureCallouts.map((calloutProps, index) => {
+		return (
+			<PointedTopHexagon
+				key={index}
+				args={hexagonArgs}
+				element={calloutProps}
+				opacity={1}
+				useVerticalAlignment={useVerticalAlignment}
+			/>
+		);
+	});
 
 	return <VerticalHexagonGrid elements={elements as any} />;
 };

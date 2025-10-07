@@ -39,52 +39,44 @@ export const svgStyle = ({
 
 const s = 1;
 
-export const LeftCutout = (usePointedTop: boolean): React.CSSProperties => {
+const pointedLeftCutout =
+	"polygon(0% 0%, 100% 0%, 0% 25%, 0% 100%, 100% 100%, 0% 75%)";
+const pointedRightCutout =
+	"polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 0% 100%, 100% 75%)";
+const flattopLeftCutout =
+	"polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)";
+const flattopRightCutout =
+	"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0%)";
+const leftCutout = (usePointedTop: boolean) =>
+	usePointedTop ? pointedLeftCutout : flattopLeftCutout;
+const rightCutout = (usePointedTop: boolean) =>
+	usePointedTop ? pointedRightCutout : flattopRightCutout;
+export const PolyCutout = (
+	usePointedTop: boolean,
+	isLeft: boolean
+): React.CSSProperties => {
 	return {
 		position: "relative",
 
-		shapeOutside: usePointedTop
-			? "polygon(0% 0%, 100% 0%, 0% 25%, 0% 100%, 100% 100%, 0% 75%)"
-			: "polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
+		shapeOutside: isLeft
+			? leftCutout(usePointedTop)
+			: rightCutout(usePointedTop),
 		shapeMargin: "5%",
 
 		/**
     @debug - used to visually display the shape
-
+		// clipPath:  isLeft
+		// 	? leftCutout(usePointedTop)
+		// 	: rightCutout(usePointedTop)
+		// backgroundColor: isLeft? "rgb(0,255,0,40%)":"rgb(255,0,0,40%)",
  */
 
-		// clipPath:  usePointedTop? "polygon(0% 0%, 100% 0%, 0% 25%, 0% 100%, 100% 100%, 0% 75%)":"polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)",
-		// backgroundColor: "rgb(0,255,0,40%)",
-		float: "left",
+		float: isLeft ? "left" : "right",
 		width: `${50 * s}%`,
 		height: `calc(${100 * s}%)`,
 	};
 };
-export const RightCutout = (usePointedTop: boolean): React.CSSProperties => {
-	return {
-		position: "relative",
 
-		shapeOutside: usePointedTop
-			? "polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 0% 100%, 100% 75%)"
-			: "polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
-		shapeMargin: "5%",
-
-		/**
-    shapeMargin: "2%",
-
-    @debug - used to visually display the shape
-
- */
-		// clipPath: usePointedTop
-		//  ? "polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 0% 100%, 100% 75%)"
-		//  : "polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0% )",
-
-		// backgroundColor: "rgb(255,0,0,40%)",
-		float: "right",
-		width: `${50 * s}%`,
-		height: `calc(${100 * s}%)`,
-	};
-};
 /* some of these 100% and calc(100%) and inherit's are unnecessary but i cant remember which ones i can safely remove*/
 export const elementSection: React.CSSProperties = {
 	position: "relative",
@@ -129,26 +121,13 @@ export const flattop_ElGhostStyle: React.CSSProperties = {
 	fontSize: 0,
 };
 
-export const flattop_ElContainerStyle: React.CSSProperties = {
+export const ElContainerStyle: React.CSSProperties = {
+	position: "relative",
 	margin: 0,
 	padding: 0,
-};
-
-export const pointedtop_ElTopLevelGhostStyle: React.CSSProperties = {
-	margin: 0,
-	fontSize: 0,
+	height: "100%",
 };
 
 export const pointedtop_ElInnerGhostStyle: React.CSSProperties = {
 	visibility: "hidden",
-};
-
-export const pointedtop_ElContainerStyle: React.CSSProperties = {
-	height: "100%",
-
-	margin: 0,
-};
-
-export const flattop_ElItemStyle: React.CSSProperties = {
-	margin: 0,
 };

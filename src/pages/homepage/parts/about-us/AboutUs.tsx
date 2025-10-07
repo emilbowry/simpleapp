@@ -47,102 +47,47 @@ const wGif = (
 	</div>
 );
 const aboutUsFeatureCallouts = [
-	{
-		header: (
-			<BoxedImage
-				image={bulb}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
-		body: <div style={titleStyle}>Consultancy</div>,
-		footer: (
-			<div style={footerStyle}>
-				Scoping <br /> Matching Tasks to Tools
-			</div>
-		),
-		themeId: -1,
-	},
-	{
-		body: <div style={titleStyle}>Training</div>,
-		footer: (
-			<div style={footerStyle}>
-				Prompt Engineering
-				<br />
-				AI Ethics Literacy
-			</div>
-		),
-		header: (
-			<BoxedImage
-				image={bullseye}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
-		themeId: -1,
-	},
-	{
-		body: <div style={titleStyle}>Policy</div>,
-		footer: (
-			<div style={footerStyle}>
-				Drafting AI
-				<br />
-				Policy Reviewing AI Policy
-			</div>
-		),
-		header: (
-			<BoxedImage
-				image={pencil}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
-		themeId: -1,
-	},
+	[
+		<BoxedImage
+			image={bulb}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+		<div style={titleStyle}>Consultancy</div>,
+		<div style={footerStyle}>
+			Scoping <br /> Matching Tasks to Tools
+		</div>,
+	],
+	[
+		<BoxedImage
+			image={bullseye}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+		<div style={titleStyle}>Training</div>,
+		<div style={footerStyle}>
+			Prompt Engineering
+			<br />
+			AI Ethics Literacy
+		</div>,
+	],
+	[
+		<BoxedImage
+			image={pencil}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+		<div style={titleStyle}>Policy</div>,
+		<div style={footerStyle}>
+			Drafting AI
+			<br />
+			Policy Reviewing AI Policy
+		</div>,
+	],
 ];
-import { PolicyAnalyzer } from "../../../dpotool/tool";
-// import { _NewCallingCard } from "../../../../components/callingcard/improvedCallingCard";
-// export const AboutUsCallingCard: React.FC = () => (
-// 	<>
-// 		<NewCallingCard
-// 			components={[wGif]}
-// 			header={
-// 				<div
-// 					style={{
-// 						width: "100%",
-// 						minHeight: "30vh",
-// 						display: "flex",
-// 						flexDirection: "column",
-// 						justifyContent: "center",
-// 					}}
-// 				>
-// 					<PartnershipWall
-// 						{...(large_partners as any)}
-// 						index={-1}
-// 					/>
-// 				</div>
-// 			}
-// 			title={head}
-// 			footer={foot}
-// 			styleOverrides={{
-// 				backgroundColor: bgwhite,
-// 				paddingBottom: "20%",
-// 				marginBottom: "-20%",
-// 				zIndex: 10,
-// 			}}
-// 		/>
-// 		<VerticalHexagonFeatureGrid
-// 			featureCallouts={aboutUsFeatureCallouts}
-// 			useVerticalAlignment={true}
-// 			hexagonArgs={hStyle}
-// 			theme={-1}
-// 		/>
-// 	</>
-// );
-
 export const AboutUsCallingCard: React.FC = () => (
 	<>
 		<NewCallingCard

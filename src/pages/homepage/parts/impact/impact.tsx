@@ -38,32 +38,52 @@ const foot = (
 - Generalise this into a more concrete FC since it is repeated 
  */
 
+// const impactFeatureCallouts = [
+// 	{
+// 		header: <p style={stat_value_style}>$200 Billion</p>,
+// 		body: <p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
+// 	},
+// 	{
+// 		body: (
+// 			<p style={stat_body_style}>
+// 				confidence increase in people who take our sessions in their use
+// 				of generative AI.
+// 			</p>
+// 		),
+// 		header: <p style={stat_value_style}>96%</p>,
+// 	},
+// 	{
+// 		header: <p style={stat_value_style}>70%</p>,
+// 		body: (
+// 			<p style={stat_body_style}>
+// 				of CEOs say AI will significantly change the way their company
+// 				creates value of the next 3 years <br />-
+// 				<i>PwC Global CEO Survey 2024</i>.
+// 			</p>
+// 		),
+// 	},
+// ];
 const impactFeatureCallouts = [
-	{
-		header: <p style={stat_value_style}>$200 Billion</p>,
-		body: <p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
-	},
-	{
-		body: (
-			<p style={stat_body_style}>
-				confidence increase in people who take our sessions in their use
-				of generative AI.
-			</p>
-		),
-		header: <p style={stat_value_style}>96%</p>,
-	},
-	{
-		header: <p style={stat_value_style}>70%</p>,
-		body: (
-			<p style={stat_body_style}>
-				of CEOs say AI will significantly change the way their company
-				creates value of the next 3 years <br />-
-				<i>PwC Global CEO Survey 2024</i>.
-			</p>
-		),
-	},
+	[
+		<p style={stat_value_style}>$200 Billion</p>,
+		<p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
+	],
+	[
+		<p style={stat_value_style}>96%</p>,
+		<p style={stat_body_style}>
+			confidence increase in people who take our sessions in their use of
+			generative AI.
+		</p>,
+	],
+	[
+		<p style={stat_value_style}>70%</p>,
+		<p style={stat_body_style}>
+			of CEOs say AI will significantly change the way their company
+			creates value of the next 3 years <br />-
+			<i>PwC Global CEO Survey 2024</i>.
+		</p>,
+	],
 ];
-
 const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	let theme = Theme(index);
 	return (
