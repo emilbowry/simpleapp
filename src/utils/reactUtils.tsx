@@ -27,7 +27,22 @@ export const getImageEl = (
 		<></>
 	);
 };
-
+export const ElMap: React.FC<{
+	element: ValidComponent[];
+	formatting_args?: any[];
+}> = ({ element, formatting_args = [] }) => (
+	<React.Fragment>
+		{element &&
+			element.map(
+				(item, _index) =>
+					item && (
+						<React.Fragment key={_index}>
+							{formatComponent(item, ...formatting_args)}
+						</React.Fragment>
+					)
+			)}
+	</React.Fragment>
+);
 export const BoxedImage: React.FC<{
 	image: string | ValidComponent;
 

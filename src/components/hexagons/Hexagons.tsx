@@ -1,10 +1,11 @@
 import React from "react";
+
 import {
 	logo_blue,
 	logo_yellow,
 	midnight_green,
 } from "../../utils/defaultColours";
-import { formatComponent, ValidComponent } from "../../utils/reactUtils";
+import { ElMap, formatComponent, ValidComponent } from "../../utils/reactUtils";
 import {
 	containerStyle,
 	ElContainerStyle,
@@ -17,120 +18,30 @@ import {
 	pointedtop_ElInnerGhostStyle,
 	svgStyle,
 } from "./Hexagons.styles";
-import { IHexagonConstruction } from "./Hexagons.types";
-type TSanitationFunction = (
-	args: TOptionalParameters,
-	optional_f_params: any
-) => any;
-type ValidInput =
-	| object
-	| TSanitationFunction
-	| string
-	| number
-	| boolean
-	| bigint
-	| symbol
-	| null
-	| undefined;
-
-type TOptionalParameters = any;
-
-interface IOptionalParametersAssignments {
-	key: string;
-	key_alias?: string;
-	return_value: ValidInput;
-
-	optional_f_params?: any;
-}
-
-const ElContainer: React.FC<{
-	contentRef?: (node: HTMLDivElement | null) => void;
-	children?: React.ReactNode;
-}> = ({ contentRef, children }) => (
-	<div ref={contentRef}>
-		<div style={ELWrapperStyle}>{children}</div>
-	</div>
-);
-
-const ElMap: React.FC<{
-	element: ValidComponent[];
-}> = ({ element }) => (
-	<React.Fragment>
-		{element &&
-			element.map(
-				(item, _index) =>
-					item && (
-						<React.Fragment key={_index}>
-							{formatComponent(item)}
-						</React.Fragment>
-					)
-			)}
-	</React.Fragment>
-);
-const GetEl: React.FC<{
-	fontSize: number;
-	element: ValidComponent[] | ValidComponent;
-	useFlatTop: boolean;
-	contentRef?: (node: HTMLDivElement | null) => void;
-}> = ({ fontSize, element, useFlatTop, contentRef }) => {
-	if (Array.isArray(element)) {
-		if (useFlatTop) {
-			return (
-				<ElContainer contentRef={contentRef}>
-					<div
-						style={flattop_ElGhostStyle}
-						/* I think this ensures lineheight is calculated correctly */
-					>
-						no-op
-					</div>
-					<div
-						style={{
-							...ElContainerStyle,
-							fontSize: `calc(max(${fontSize}vw,1px))`,
-						}}
-					>
-						<ElMap element={element} />
-					</div>
-				</ElContainer>
-			);
-		} else {
-			return (
-				<ElContainer contentRef={contentRef}>
-					<div
-						style={{
-							fontSize: `calc(max(${fontSize}vw,1px))`,
-							...ElContainerStyle,
-						}}
-						/* className="no-aos" // fixes AboutUs layout issue but breaks impact.tsx layout*/
-					>
-						<div
-							style={pointedtop_ElInnerGhostStyle}
-							/* Fixes both, don't understand why, needs to be sufficiently long to fix*/
-						>
-							this needs to be sufficiently long in order to
-							properly render. this makes no sense
-						</div>
-						<ElMap element={element} />
-					</div>
-				</ElContainer>
-			);
-		}
-	}
-	return contentRef ? (
-		<ElContainer contentRef={contentRef}>
-			{formatComponent(element)}
-		</ElContainer>
-	) : (
-		formatComponent(element)
-	);
-};
+import {
+	IHexagonConstruction,
+	IHexObjState,
+	IOptionalParametersAssignments,
+	TContentObserver,
+	THexFC,
+	TOscillation,
+	TRefNode,
+} from "./Hexagons.types";
+import {
+	Flattop_Hex_Path,
+	Pointedtop_Hex_Path,
+	Logo_Chev_Diamond,
+	Logo_Chev_Colour_Mask,
+	Logo_Chev_Cutout,
+	Logo_Chev_Split,
+	Hex_Starting_State,
+} from "./Hexagons.consts";
 
 export const HexSVG: React.FC<{
 	styles: any;
 	useFlatTop: boolean;
-	defs: React.ReactElement[];
-	paths: React.ReactElement[];
-}> = ({ styles, useFlatTop, defs, paths }) => (
+	children: React.ReactNode;
+}> = ({ styles, useFlatTop, children }) => (
 	<svg
 		style={svgStyle(styles)}
 		viewBox={
@@ -144,175 +55,117 @@ export const HexSVG: React.FC<{
 		}
 		xmlns="http://www.w3.org/2000/svg"
 	>
-		<defs>
-			{defs.map((def, i) => (
-				<React.Fragment key={i}>{def}</React.Fragment>
-			))}
-		</defs>
-		{paths.map((path, i) => (
-			<React.Fragment key={i}>{path}</React.Fragment>
-		))}
+		{children}
 	</svg>
 );
+const NoOpFC: React.FC<
+	{
+		children?: React.ReactNode;
+	} & any
+> = ({ children }) => <>{children}</>;
 
-const BoundingShape: React.FC<{ usePointedTop: boolean }> = ({
-	usePointedTop,
-}) => (
-	<>
-		<div style={PolyCutout(usePointedTop, true)} />
-		<div style={PolyCutout(usePointedTop, false)} />
-	</>
-);
-
-const CenterAlignedElement: React.FC<{
-	fontSize: number;
-	containerHeight: number;
-	contentHeight: number | undefined;
-	element: ValidComponent[] | ValidComponent;
-	useVerticalAlignment: boolean;
-	usePointedTop: boolean;
-	contentRef?: (node: HTMLDivElement | null) => void;
-	containerRef?: (node: HTMLDivElement | null) => void;
-}> = ({
-	fontSize,
-	containerHeight,
-	contentHeight,
-	element,
-	useVerticalAlignment,
-	usePointedTop,
-	contentRef,
-	containerRef,
-}) => {
-	return element ? (
-		<div
-			style={hexagonalContentStyle}
-			ref={containerRef}
-		>
-			<div style={elementWrapper}>
-				<BoundingShape usePointedTop={usePointedTop} />
-				<div
-					style={{
-						...elementSection,
-						paddingTop: useVerticalAlignment
-							? `calc(${
-									(containerHeight - (contentHeight ?? 0)) / 2
-							  }px)`
-							: 0,
-					}}
-				>
-					<GetEl
-						element={element}
-						useFlatTop={!usePointedTop}
-						contentRef={
-							useVerticalAlignment ? contentRef : undefined
-						}
-						fontSize={fontSize}
-					/>
-				</div>
-			</div>
-		</div>
-	) : null;
-};
-
-const FlattopHexPath =
-	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
-const PointedtopHexPath =
-	"M 13.3975 -50 l 0 100 l 86.6025 50 l 86.6025 -50 l -0 -100 l -86.6025 -50 Z";
 export class Hexagon
-	extends React.Component<
-		any,
-		{
-			contentHeight: number | undefined;
-			containerHeight: number;
-			fontSize: number;
-		}
-	>
+	extends React.Component<any, IHexObjState>
 	implements IHexagonConstruction
 {
 	static usePointedTop = false;
-	static defaultHexPath = FlattopHexPath;
-	static altHexPath = PointedtopHexPath;
+	static defaultHexPath = Flattop_Hex_Path;
+	static altHexPath = Pointedtop_Hex_Path;
 
-	static starting_state = {
-		contentHeight: undefined,
-		containerHeight: 0,
-		fontSize: 2.5,
-	};
-	private containerNode: Element | null = null;
-	private contentNode: Element | null = null;
-	private contentObserver: ResizeObserver | null = null;
-	// private oscillations: number | undefined = undefined;
-	// private hasUpdated = false;
-	private _oscillations: undefined | number = undefined;
+	static starting_state = Hex_Starting_State;
+	private containerNode: TRefNode<Element> = null;
+	private contentNode: TRefNode<Element> = null;
+	private contentObserver: TContentObserver = null;
+	private _oscillations: TOscillation = undefined;
 	private dampingThreshold = 0.02;
+
 	hexPath!: string;
 	usePointedTop!: boolean;
-	AEl: React.FC = () => <></>;
-	ContainedElement: React.FC<{
-		element: ValidComponent[] | ValidComponent;
-		useVerticalAlignment: boolean;
-	}> = ({ element, useVerticalAlignment }) => {
-		const contentRef = useVerticalAlignment
-			? this.setContentRef
-			: undefined;
-		if (Array.isArray(element)) {
-			if (!this.usePointedTop) {
-				return (
-					<ElContainer contentRef={contentRef}>
-						<div
-							style={flattop_ElGhostStyle}
-							/* I think this ensures lineheight is calculated correctly */
-						>
-							no-op
-						</div>
-						<div
-							style={{
-								...ElContainerStyle,
-								fontSize: `calc(max(${this.state.fontSize}vw,1px))`,
-							}}
-						>
-							<ElMap element={element} />
-						</div>
-					</ElContainer>
-				);
-			} else {
-				return (
-					<ElContainer contentRef={contentRef}>
-						<div
-							style={{
-								fontSize: `calc(max(${this.state.fontSize}vw,1px))`,
-								...ElContainerStyle,
-							}}
-							/* className="no-aos" // fixes AboutUs layout issue but breaks impact.tsx layout*/
-						>
-							<div
-								style={pointedtop_ElInnerGhostStyle}
-								/* Fixes both, don't understand why, needs to be sufficiently long to fix*/
-							>
-								this needs to be sufficiently long in order to
-								properly render. this makes no sense
-							</div>
-							<ElMap element={element} />
-						</div>
-					</ElContainer>
-				);
-			}
-		}
-		return contentRef ? (
-			<ElContainer contentRef={contentRef}>
-				{formatComponent(element)}
-			</ElContainer>
-		) : (
-			formatComponent(element)
+
+	get containerHeight() {
+		return this.containerNode ? this.containerNode.clientHeight : 400;
+	}
+
+	get contentHeight() {
+		return this.state.contentHeight ?? 0;
+	}
+
+	get oscillations() {
+		return this._oscillations ?? 0;
+	}
+	set oscillations(value: number) {
+		this._oscillations = (this._oscillations ?? 0) + value;
+	}
+	BoundingShape: React.FC = () => (
+		<>
+			<div style={PolyCutout(this.usePointedTop, true)} />
+			<div style={PolyCutout(this.usePointedTop, false)} />
+		</>
+	);
+
+	ContentWrapper: React.FC<{
+		children?: React.ReactNode;
+	}> = ({ children }) => (
+		<div ref={this.setContentRef}>
+			<div style={ELWrapperStyle}>{children}</div>
+		</div>
+	);
+
+	ComposedHexSVG: THexFC = ({ styles }) => {
+		const { defs, paths } = this.construct();
+
+		return (
+			<HexSVG
+				styles={styles}
+				useFlatTop={!this.usePointedTop}
+			>
+				<defs>
+					{defs.map((def, i) => (
+						<React.Fragment key={i}>{def}</React.Fragment>
+					))}
+				</defs>
+				{paths.map((path, i) => (
+					<React.Fragment key={i}>{path}</React.Fragment>
+				))}
+			</HexSVG>
 		);
 	};
 
-	CenterAlignedElement: React.FC<{
-		element: ValidComponent[] | ValidComponent;
-		useVerticalAlignment: boolean;
-	}> = ({ element, useVerticalAlignment }) => {
-		const ContainedElement = (element && this.ContainedElement) as any;
+	ScallingWrapper: THexFC = ({ children }) => (
+		<div
+			style={{
+				...ElContainerStyle,
+				fontSize: `calc(max(${this.state.fontSize}vw,1px))`,
+			}}
+		>
+			{children}
+		</div>
+	);
 
+	ContainedElement: THexFC = ({ element, useVerticalAlignment }) => {
+		let ScallingWrapper = NoOpFC;
+		let ContentWrapper = this.ContentWrapper;
+		let Inner: React.ReactNode;
+
+		if (!Array.isArray(element)) {
+			Inner = formatComponent(element);
+			if (!useVerticalAlignment) {
+				ContentWrapper = NoOpFC;
+			}
+		} else {
+			Inner = <ElMap element={element} />;
+			ScallingWrapper = this.ScallingWrapper;
+		}
+		return (
+			<ContentWrapper>
+				<ScallingWrapper>{Inner}</ScallingWrapper>
+			</ContentWrapper>
+		);
+	};
+
+	CenterAlignedElement: THexFC = ({ element, useVerticalAlignment }) => {
+		const ContainedElement = (element && this.ContainedElement) as any;
+		const BoundingShape = this.BoundingShape;
 		/**
 
 		Bound assignment prevents this err:
@@ -321,34 +174,47 @@ export class Hexagon
 		You likely forgot to export your component from the file it's defined 
 		in, or you might have mixed up default and named imports.` 
 		*/
-		return element ? (
-			<div
-				style={hexagonalContentStyle}
-				ref={this.setContainerRef}
-			>
-				<div style={elementWrapper}>
-					<BoundingShape usePointedTop={this.usePointedTop} />
-					<div
-						style={{
-							...elementSection,
-							paddingTop: useVerticalAlignment
-								? `calc(${
-										(this.containerHeight -
-											this.contentHeight) /
-										2
-								  }px)`
-								: 0,
-						}}
-					>
-						<ContainedElement
-							element={element}
-							useVerticalAlignment={useVerticalAlignment}
-						/>
+		return (
+			element && (
+				<div
+					style={hexagonalContentStyle}
+					ref={this.setContainerRef}
+				>
+					<div style={elementWrapper}>
+						<BoundingShape />
+						<div
+							style={{
+								...elementSection,
+								paddingTop: useVerticalAlignment
+									? `calc(${
+											(this.containerHeight -
+												this.contentHeight) /
+											2
+									  }px)`
+									: 0,
+							}}
+						>
+							<ContainedElement
+								element={element}
+								useVerticalAlignment={useVerticalAlignment}
+							/>
+						</div>
 					</div>
 				</div>
-			</div>
-		) : null;
+			)
+		);
 	};
+	setContainerRef = (node: TRefNode<HTMLDivElement>) => {
+		this.containerNode = node;
+	};
+	setContentRef = (node: TRefNode<Element>) => {
+		this.contentNode = node;
+	};
+	constructor(props: any) {
+		super(props);
+		this.setOrientation();
+		this.state = Hexagon.starting_state;
+	}
 	santiseOptionalParameters() {
 		const { args } = this.props;
 		const sanitisedArgs: any = {};
@@ -381,70 +247,7 @@ export class Hexagon
 			},
 		];
 	}
-	constructor(props: any) {
-		super(props);
-		this.setOrientation();
-		this.state = Hexagon.starting_state;
-	}
 
-	private setOrientation() {
-		const ctor = this.constructor as typeof Hexagon;
-		this.usePointedTop = this.props.usePointedTop ?? ctor.usePointedTop;
-		this.hexPath = !this.usePointedTop
-			? ctor.defaultHexPath
-			: ctor.altHexPath;
-	}
-	private nudgeHeight = (height: number) => {
-		const delta = this.contentHeight - height;
-		const pertubation = 2 * (this.oscillations % 2) - 1;
-		return (
-			height +
-			delta * +!!this.oscillations +
-			pertubation * this.oscillations * +!!delta
-		);
-	};
-	HexSVG: React.FC<{
-		styles: any;
-	}> = ({ styles }) => {
-		const { defs, paths } = this.construct();
-
-		return (
-			<svg
-				style={svgStyle(styles)}
-				viewBox={
-					!this.usePointedTop
-						? `0 -${(200 * Math.sqrt(3)) / 4} 200 ${
-								(200 * Math.sqrt(3)) / 2
-						  }`
-						: `${100 - (200 * Math.sqrt(3)) / 4} -100 ${
-								(200 * Math.sqrt(3)) / 2
-						  } 200`
-				}
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<defs>
-					{defs.map((def, i) => (
-						<React.Fragment key={i}>{def}</React.Fragment>
-					))}
-				</defs>
-				{paths.map((path, i) => (
-					<React.Fragment key={i}>{path}</React.Fragment>
-				))}
-			</svg>
-		);
-	};
-	private updateGuard(height: number) {
-		let newHeight = undefined;
-		if (this.state.contentHeight === undefined) {
-			newHeight = height;
-		} else if (
-			Math.abs(this.contentHeight - height) >
-			window.innerWidth * this.dampingThreshold
-		) {
-			newHeight = height;
-		}
-		newHeight && this.setState({ contentHeight: height });
-	}
 	componentWillUnmount() {
 		this.contentObserver && this.contentObserver.disconnect();
 	}
@@ -474,21 +277,6 @@ export class Hexagon
 		this._oscillations = undefined;
 	}
 
-	get containerHeight() {
-		return this.containerNode ? this.containerNode.clientHeight : 400;
-	}
-
-	get contentHeight() {
-		return this.state.contentHeight ?? 0;
-	}
-
-	get oscillations() {
-		return this._oscillations ?? 0;
-	}
-	set oscillations(value: number) {
-		this._oscillations = (this._oscillations ?? 0) + value;
-	}
-
 	construct() {
 		const { color, borderColor, borderWidth } =
 			this.santiseOptionalParameters();
@@ -514,12 +302,6 @@ export class Hexagon
 		};
 	}
 
-	setContainerRef = (node: HTMLDivElement | null) => {
-		this.containerNode = node;
-	};
-	setContentRef = (node: HTMLDivElement | null) => {
-		this.contentNode = node;
-	};
 	render() {
 		const {
 			args,
@@ -529,7 +311,7 @@ export class Hexagon
 		} = this.props;
 		return (
 			<div style={containerStyle(styleProps)}>
-				<this.HexSVG styles={styleProps} />
+				<this.ComposedHexSVG styles={styleProps} />
 
 				<this.CenterAlignedElement
 					element={element}
@@ -537,6 +319,36 @@ export class Hexagon
 				/>
 			</div>
 		);
+	}
+
+	protected setOrientation() {
+		const ctor = this.constructor as typeof Hexagon;
+		this.usePointedTop = this.props.usePointedTop ?? ctor.usePointedTop;
+		this.hexPath = !this.usePointedTop
+			? ctor.defaultHexPath
+			: ctor.altHexPath;
+	}
+	private nudgeHeight = (height: number) => {
+		const delta = this.contentHeight - height;
+		const pertubation = 2 * (this.oscillations % 2) - 1;
+		return (
+			height +
+			delta * +!!this.oscillations +
+			pertubation * this.oscillations * +!!delta
+		);
+	};
+
+	private updateGuard(height: number) {
+		let newHeight = undefined;
+		if (this.state.contentHeight === undefined) {
+			newHeight = height;
+		} else if (
+			Math.abs(this.contentHeight - height) >
+			window.innerWidth * this.dampingThreshold
+		) {
+			newHeight = height;
+		}
+		newHeight && this.setState({ contentHeight: height });
 	}
 }
 
@@ -582,13 +394,6 @@ export class ImageHexagon extends Hexagon {
 // ===== LogoHexagon =====
 //
 
-const LogoChevCutout =
-	"M 25 86.6025 l 50 -86.6025 l -50 -86.6025 h 25 l 50 86.6025 l -50 86.6025 Z";
-const LogoChevColourMask =
-	"M 37.8305 -96.7441 L 93.4715 -0.224 L 37.0735 100.4596 L 185.8279 111.8149 L 233.1417 -14.9859 L 191.8841 -96.7441 Z";
-const LogoChevDiamond =
-	"M -21.0101 0.0202 L 15.8088 -105.7362 L 89.4466 -0.3715 L 25.2093 85.8005 L -21.2164 0.1027 Z";
-const LogoChevSplit = "M 95 0 v 5 h120 v -10 h-120 v5";
 export class LogoHexagon extends Hexagon {
 	getDefaultAssignments() {
 		return [
@@ -621,12 +426,12 @@ export class LogoHexagon extends Hexagon {
 			],
 			paths: [
 				<path
-					d={LogoChevDiamond}
+					d={Logo_Chev_Diamond}
 					fill={logo_yellow}
 					mask="url(#logoCutout)"
 				/>,
 				<path
-					d={LogoChevColourMask}
+					d={Logo_Chev_Colour_Mask}
 					fill="url(#chevronGradient)"
 					mask="url(#logoCutout)"
 				/>,
@@ -641,11 +446,11 @@ export class LogoHexagon extends Hexagon {
 						fill="white"
 					/>
 					<path
-						d={LogoChevCutout}
+						d={Logo_Chev_Cutout}
 						fill="black"
 					/>
 					<path
-						d={LogoChevSplit}
+						d={Logo_Chev_Split}
 						fill="black"
 					/>
 				</mask>
@@ -658,7 +463,7 @@ export class LogoHexagon extends Hexagon {
 						fill="white"
 					/>
 					<path
-						d={LogoChevCutout}
+						d={Logo_Chev_Cutout}
 						fill="black"
 					/>
 				</mask>

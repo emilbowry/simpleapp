@@ -17,7 +17,7 @@ import { VerticalHexagonFeatureGridProps } from "./VHexRow.types";
 
 const LAYOUT_BREAKPOINT = 1500;
 
-export const VerticalHexagonGrid: React.FC<IHexagonRowElements> = ({
+export const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({
 	elements,
 }) => {
 	const [isNarrow, setIsNarrow] = useState(false);
@@ -95,5 +95,5 @@ export const VerticalHexagonFeatureGrid: React.FC<
 		);
 	});
 
-	return <VerticalHexagonGrid elements={elements as any} />;
+	return <PointedtopHexagonGrid elements={elements as any} />;
 };

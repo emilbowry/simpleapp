@@ -53,12 +53,12 @@ export const PolyCutout = (
 
 		/**
     @debug - used to visually display the shape
-		// clipPath:  isLeft
-		// 	? leftCutout(usePointedTop)
-		// 	: rightCutout(usePointedTop)
-		// backgroundColor: isLeft? "rgb(0,255,0,40%)":"rgb(255,0,0,40%)",
- */
 
+ */
+		// clipPath: isLeft
+		// 	? leftCutout(usePointedTop)
+		// 	: rightCutout(usePointedTop),
+		// backgroundColor: isLeft ? "rgb(0,255,0,40%)" : "rgb(255,0,0,40%)",
 		float: isLeft ? "left" : "right",
 		width: `${50 * s}%`,
 		height: `calc(${100 * s}%)`,
