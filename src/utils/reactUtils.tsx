@@ -39,7 +39,6 @@ export const BoxedImage: React.FC<{
 	image,
 	aspectRatio,
 	width = "100%",
-
 	imageStyling = {},
 	wrapperStyling = {},
 }) => {
@@ -49,6 +48,9 @@ export const BoxedImage: React.FC<{
 		width,
 		margin: width === "100%" ? "" : "auto",
 		aspectRatio,
+		// height: "10px",
+		// padding: 0,
+
 		justifyContent: "center",
 		alignContent: "center",
 		alignItems: "center",
@@ -57,6 +59,8 @@ export const BoxedImage: React.FC<{
 	};
 	const imageEl = getImageEl(image as string, {
 		minWidth: 0,
+		minHeight: 0,
+
 		...imageStyling,
 	});
 	return <div style={wrapperStyle}>{imageEl}</div>;

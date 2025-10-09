@@ -61,7 +61,7 @@ export const PolyCutout = (
 		shapeOutside: isLeft
 			? leftCutout(usePointedTop)
 			: rightCutout(usePointedTop),
-		shapeMargin: "5%",
+		// shapeMargin: "5%",
 
 		/**
     @debug - used to visually display the shape
@@ -80,6 +80,7 @@ export const PolyCutout = (
 /* some of these 100% and calc(100%) and inherit's are unnecessary but i cant remember which ones i can safely remove*/
 export const elementSection: React.CSSProperties = {
 	position: "relative",
+	top: 0,
 
 	// ...genericSectionStyle,
 	width: "100%",
@@ -126,6 +127,7 @@ export const ElContainerStyle: React.CSSProperties = {
 	margin: 0,
 	padding: 0,
 	height: "100%",
+	top: 0,
 };
 
 export const pointedtop_ElInnerGhostStyle: React.CSSProperties = {

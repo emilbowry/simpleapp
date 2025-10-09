@@ -50,7 +50,7 @@ const aboutUsFeatureCallouts = [
 	[
 		<BoxedImage
 			image={bulb}
-			width="30%"
+			width="20%"
 			aspectRatio="1"
 			imageStyling={imageStyling}
 		/>,
@@ -60,12 +60,12 @@ const aboutUsFeatureCallouts = [
 		</div>,
 	],
 	[
-		<BoxedImage
-			image={bullseye}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>,
+		// <BoxedImage
+		// 	image={bullseye}
+		// 	width="30%"
+		// 	aspectRatio="1"
+		// 	imageStyling={imageStyling}
+		// />,
 		<div style={titleStyle}>Training</div>,
 		<div style={footerStyle}>
 			Prompt Engineering
@@ -74,17 +74,25 @@ const aboutUsFeatureCallouts = [
 		</div>,
 	],
 	[
-		<BoxedImage
-			image={pencil}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>,
-		<div style={titleStyle}>Policy</div>,
-		<div style={footerStyle}>
-			Drafting AI
-			<br />
-			Policy Reviewing AI Policy
+		<div style={{}}>
+			<BoxedImage
+				image={pencil}
+				width="20%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+				wrapperStyling={{
+					position: "relative",
+					top: 0,
+					display: "block",
+				}}
+			/>
+			,<div style={titleStyle}>Policy</div>,
+			<div style={footerStyle}>
+				Drafting AI
+				<br />
+				Policy Reviewing AI Policy
+			</div>
+			,
 		</div>,
 	],
 ];

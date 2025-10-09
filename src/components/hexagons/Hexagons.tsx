@@ -132,12 +132,6 @@ export const HexSVG: React.FC<{
 	</svg>
 );
 
-/** 
-
-Due to render timings around componentDidUpdate, this needs to be a component,
-- Cannot naively use an FC for this since there will be no reset event, or it always resets, needs to be some object state.
-- Perhaps may have to use useLayoutEffect + useEffect to effectively stagger and condition the scalling logic
- */
 export class Hexagon
 	extends React.Component<
 		any,
@@ -160,11 +154,12 @@ export class Hexagon
 
 	private containerNode: Element | null = null;
 	private contentNode: Element | null = null;
-
 	private contentObserver: ResizeObserver | null = null;
-	hexPath: string;
 	private oscillations: number | undefined = undefined;
+
+	hexPath: string;
 	usePointedTop: boolean;
+
 	constructor(props: any) {
 		super(props);
 		const { usePointedTop = undefined } = this.props;
@@ -200,6 +195,11 @@ export class Hexagon
 	};
 
 	private updateGuard(height_prime: number, height: number) {
+		if (this.state.contentHeight === undefined) {
+			this.setState({ contentHeight: height });
+
+			return;
+		}
 		const viewportWidth = window.innerWidth;
 		const dampingThreshold = viewportWidth * 0.02;
 		if (Math.abs(height_prime - height) > dampingThreshold) {
@@ -208,8 +208,6 @@ export class Hexagon
 	}
 	componentDidMount() {
 		if (this.contentNode) {
-			const text = this.contentNode.textContent ?? "";
-			const text_length = Array.from(text).length;
 			this.contentObserver = new ResizeObserver((entries) => {
 				const entry = entries[0];
 				if (entry) {
@@ -221,11 +219,6 @@ export class Hexagon
 							: 400,
 					});
 
-					const letter_space = Math.sqrt(text_length);
-					const hex_space = this.state.containerHeight ** 2;
-					this.setState({
-						fontSize: letter_space / hex_space,
-					});
 					const h_prime = this.state.contentHeight ?? 0;
 					const osc = this.oscillations ?? 0;
 
@@ -289,7 +282,7 @@ export class Hexagon
 			...styleProps
 		} = this.props;
 		const { defs, paths } = this.construct(args);
-
+		// console.log(this.state.contentHeight);
 		return (
 			<div style={containerStyle(styleProps)}>
 				<HexSVG
@@ -299,57 +292,86 @@ export class Hexagon
 					paths={paths}
 				/>
 
-				{element && (
-					<div
-						style={hexagonalContentStyle}
-						ref={this.setContainerRef}
-					>
-						<div style={elementWrapper}>
-							<div style={PolyCutout(this.usePointedTop, true)} />
-							<div
-								style={PolyCutout(this.usePointedTop, false)}
-							/>
-							<div
-								style={{
-									...elementSection,
-									paddingTop: useVerticalAlignment
-										? `calc(${
-												(this.state.containerHeight -
-													(this.state.contentHeight ??
-														0)) /
-												2
-										  }px)`
-										: 0,
-								}}
-							>
-								{/* {useVerticalAlignment ? (
-									<div
-										style={{}}
-										ref={this.setContentRef}
-									>
-										{formatComponent(_element)}
-									</div>
-								) : (
-									formatComponent(_element)
-								)} */}
-								<GetEl
-									element={element}
-									useFlatTop={!this.usePointedTop}
-									contentRef={
-										useVerticalAlignment
-											? this.setContentRef
-											: undefined
-									}
-									fontSize={this.state.fontSize}
-								/>
-							</div>
-						</div>
-					</div>
-				)}
+				<CenterAlignedElement
+					fontSize={this.state.fontSize}
+					containerHeight={this.state.containerHeight}
+					contentHeight={this.state.contentHeight}
+					element={element}
+					useVerticalAlignment={useVerticalAlignment}
+					usePointedTop={this.usePointedTop}
+					containerRef={this.setContainerRef}
+					contentRef={this.setContentRef}
+				/>
 			</div>
 		);
 	}
 }
+
+const BoundingShape: React.FC<{ usePointedTop: boolean }> = ({
+	usePointedTop,
+}) => (
+	<>
+		<div style={PolyCutout(usePointedTop, true)} />
+		<div style={PolyCutout(usePointedTop, false)} />
+	</>
+);
+const BoundingShapes = (usePointedTop: boolean): React.ReactNode => (
+	<>
+		<div style={PolyCutout(usePointedTop, true)} />
+		<div style={PolyCutout(usePointedTop, false)} />
+	</>
+);
+
+const CenterAlignedElement: React.FC<{
+	fontSize: number;
+	containerHeight: number;
+	contentHeight: number | undefined;
+	element: ValidComponent[] | ValidComponent;
+	useVerticalAlignment: boolean;
+	usePointedTop: boolean;
+	contentRef?: (node: HTMLDivElement | null) => void;
+	containerRef?: (node: HTMLDivElement | null) => void;
+}> = ({
+	fontSize,
+	containerHeight,
+	contentHeight,
+	element,
+	useVerticalAlignment,
+	usePointedTop,
+	contentRef,
+	containerRef,
+}) => {
+	return element ? (
+		<div
+			style={hexagonalContentStyle}
+			ref={containerRef}
+		>
+			<div style={elementWrapper}>
+				<BoundingShape usePointedTop={usePointedTop} />
+				<div
+					style={{
+						...elementSection,
+						paddingTop: useVerticalAlignment
+							? `calc(${
+									(containerHeight - (contentHeight ?? 0)) / 2
+							  }px)`
+							: 0,
+					}}
+				>
+					<GetEl
+						element={element}
+						useFlatTop={!usePointedTop}
+						contentRef={
+							useVerticalAlignment ? contentRef : undefined
+						}
+						fontSize={fontSize}
+					/>
+				</div>
+			</div>
+		</div>
+	) : null;
+};
+
 //
 // ===== PointedTopHexagon =====
 //
