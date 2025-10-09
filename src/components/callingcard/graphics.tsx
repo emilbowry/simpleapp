@@ -3,26 +3,25 @@
 import React from "react";
 import { logo_yellow, logo_blue } from "../../utils/defaultColours";
 
-export const svg_logo_grad = (
-	<defs>
-		<linearGradient
-			id="logoGradient"
-			x1="10%"
-			y1="50%"
-			x2="100%"
-			y2="50%"
-		>
-			<stop
-				offset="0%"
-				stopColor={`${logo_yellow}`}
-			/>
-			<stop
-				offset="100%"
-				stopColor={`${logo_blue}`}
-			/>
-		</linearGradient>
-	</defs>
+export const logo_lin_grad = (
+	<linearGradient
+		id="logoGradient"
+		x1="10%"
+		y1="50%"
+		x2="100%"
+		y2="50%"
+	>
+		<stop
+			offset="0%"
+			stopColor={`${logo_yellow}`}
+		/>
+		<stop
+			offset="100%"
+			stopColor={`${logo_blue}`}
+		/>
+	</linearGradient>
 );
+export const svg_logo_grad = <defs>{logo_lin_grad}</defs>;
 export const bullseye = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

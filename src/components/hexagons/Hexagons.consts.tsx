@@ -1,7 +1,7 @@
 // src/components/hexagons/Hexagons.consts.ts
 
 import React from "react";
-import { IHexObjState } from "./Hexagons.types";
+import { IHexagonState, IHexObjState } from "./Hexagons.types";
 export const Flattop_Hex_Path =
 	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
 export const Pointedtop_Hex_Path =
@@ -18,4 +18,12 @@ export const Hex_Starting_State: IHexObjState = {
 	contentHeight: undefined,
 	containerHeight: 0,
 	fontSize: 2.5,
+};
+export const Hex_El_Starting_State: IHexagonState = {
+	...Hex_Starting_State,
+	contentHeight: 0,
+	construct: () => ({ defs: [<></>], paths: [<></>] }),
+	setContainerRef: () => {},
+	setContentRef: () => {},
+	usePointedTop: false,
 };

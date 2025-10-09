@@ -59,46 +59,39 @@ const tserv = {
 };
 
 const ourServicesFeatureCallouts = [
-	{
-		header: (
-			<BoxedImage
-				image={bulb}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
-		body: <div style={titleStyle}>Our Work</div>,
-		themeId: -1,
-	},
-	{
-		body: <div style={titleStyle}>Our Vision</div>,
-		header: (
-			<BoxedImage
-				image={bullseye}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
-		themeId: -1,
-	},
-	{
-		body: <div style={titleStyle}>Our Work</div>,
-		header: (
-			<BoxedImage
-				image={pencil}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
-		themeId: -1,
-	},
+	[
+		<BoxedImage
+			image={bulb}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+		<div style={titleStyle}>Our Work</div>,
+	],
+	[
+		<BoxedImage
+			image={bullseye}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+		<div style={titleStyle}>Our Vision</div>,
+	],
+
+	[
+		<BoxedImage
+			image={pencil}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+
+		<div style={titleStyle}>Our Work</div>,
+	],
 ];
 
 import { PiChart } from "./pi_chart";
-export const OSCC: React.FC = () => (
+const ourServices: React.FC = () => (
 	<>
 		<NewCallingCard
 			components={[<Services {...cserv} />, <Services {...tserv} />]}
@@ -138,10 +131,6 @@ export const OSCC: React.FC = () => (
 		/>
 	</>
 );
-
-export const ourServices: React.FC = () => {
-	return <OSCC />;
-};
 
 export const OurServices = (
 	<Page

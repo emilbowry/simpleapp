@@ -6,11 +6,10 @@ let theme = Theme(idx);
 export const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
 	fontSize: "3rem",
-	margin: "1%",
-	height: "5rem",
-	minHeight: "5rem",
-	maxHeight: "5rem",
+	paddingTop: "10rem",
 
+	height: "5rem",
+	width: "100%",
 	fontWeight: "500",
 	justifySelf: "center",
 	textAlign: "center",
@@ -21,7 +20,7 @@ export const stat_body_style: React.CSSProperties = {
 	color: theme.primaryColor,
 	borderTop: `1px solid`,
 	borderImage: borderGrad,
-	margin: "auto 0",
+	margin: "auto",
 	padding: "1%",
 
 	textAlign: "center",

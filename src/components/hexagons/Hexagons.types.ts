@@ -7,9 +7,6 @@ export interface IComponentDefinitions {
 	defs: React.ReactNode[];
 	paths: React.ReactNode[];
 }
-export interface IHexagonConstruction {
-	construct(args?: any): IComponentDefinitions;
-}
 
 export interface HexagonStyleParams {
 	size?: number;
@@ -35,10 +32,10 @@ export type TOptionalParameters = any;
 
 export interface IOptionalParametersAssignments {
 	key: string;
-	key_alias?: string;
+	alias?: string;
 	return_value: ValidInput;
 
-	optional_f_params?: any;
+	f_params?: any;
 }
 
 export type TRefNode<T extends Element> = T | null;
@@ -57,4 +54,13 @@ export interface IHexObjState {
 	contentHeight: number | undefined;
 	containerHeight: number;
 	fontSize: number;
+}
+export interface IHexagonState extends IHexObjState {
+	setContainerRef: (node: TRefNode<HTMLDivElement>) => void;
+	setContentRef: (node: TRefNode<Element>) => void;
+	containerHeight: number;
+	contentHeight: number;
+	usePointedTop: boolean;
+	fontSize: number;
+	construct: (args?: any) => IComponentDefinitions;
 }

@@ -171,7 +171,7 @@ const getRows = () => {
 import bw3 from "../../assets/bw3.jpg";
 import { generateGradient } from "../../styles";
 
-export const theJourneyPage: React.FC = () => {
+const theJourneyPage: React.FC = () => {
 	let r = getRows();
 
 	return (

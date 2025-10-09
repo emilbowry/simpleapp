@@ -67,7 +67,7 @@ const sidebar_body = (
 	</p>
 );
 
-export const CUBody = (
+const CUBody = (
 	<div>
 		<StyledLink
 			href="https://community.mindstone.com/events"

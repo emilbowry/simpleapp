@@ -98,21 +98,10 @@ export const ELWrapperStyle: React.CSSProperties = {
 	margin: 0,
 };
 
-export const flattop_ElGhostStyle: React.CSSProperties = {
-	margin: 0,
-	padding: 0,
-	visibility: "hidden",
-	fontSize: 0,
-};
-
 export const ElContainerStyle: React.CSSProperties = {
 	position: "relative",
 	margin: 0,
 	padding: 0,
 	height: "100%",
 	top: 0,
-};
-
-export const pointedtop_ElInnerGhostStyle: React.CSSProperties = {
-	visibility: "hidden",
 };

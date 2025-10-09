@@ -51,7 +51,7 @@ const aboutUsFeatureCallouts = [
 	[
 		<BoxedImage
 			image={bulb}
-			width="20%"
+			width="30%"
 			aspectRatio="1"
 			imageStyling={imageStyling}
 		/>,
@@ -77,7 +77,7 @@ const aboutUsFeatureCallouts = [
 	[
 		<BoxedImage
 			image={pencil}
-			width="20%"
+			width="30%"
 			aspectRatio="1"
 			imageStyling={imageStyling}
 			wrapperStyling={{

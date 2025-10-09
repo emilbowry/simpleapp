@@ -27,22 +27,39 @@ export const getImageEl = (
 		<></>
 	);
 };
-export const ElMap: React.FC<{
-	element: ValidComponent[];
+
+export const Map: React.FC<{
+	elements: any[];
 	formatting_args?: any[];
-}> = ({ element, formatting_args = [] }) => (
+	formatter?: (...args: any[]) => React.ReactNode;
+}> = ({ elements, formatting_args = [], formatter }) => (
 	<React.Fragment>
-		{element &&
-			element.map(
-				(item, _index) =>
-					item && (
-						<React.Fragment key={_index}>
-							{formatComponent(item, ...formatting_args)}
-						</React.Fragment>
-					)
-			)}
+		{elements.map(
+			(item, _index) =>
+				item && (
+					<React.Fragment key={_index}>
+						{formatter ? formatter(item, ...formatting_args) : item}
+					</React.Fragment>
+				)
+		)}
 	</React.Fragment>
 );
+export const SantisedElMap: React.FC<{
+	element: ValidComponent[];
+	formatting_args?: any[];
+}> = ({ element, formatting_args = [] }) => {
+	return (
+		<React.Fragment>
+			{element && (
+				<Map
+					elements={element}
+					formatter={formatComponent}
+					formatting_args={formatting_args}
+				/>
+			)}
+		</React.Fragment>
+	);
+};
 export const BoxedImage: React.FC<{
 	image: string | ValidComponent;
 
@@ -92,7 +109,11 @@ export type ValidComponent =
 	| null;
 
 const emptyEl = <></>;
-
+export const NoOpFC: React.FC<
+	{
+		children?: React.ReactNode;
+	} & any
+> = ({ children }) => <>{children}</>;
 export const formatComponent = (
 	component: ValidComponent,
 	overlay = false,

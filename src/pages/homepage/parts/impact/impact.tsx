@@ -65,8 +65,12 @@ const foot = (
 // ];
 const impactFeatureCallouts = [
 	[
-		<p style={stat_value_style}>$200 Billion</p>,
-		<p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
+		<div>
+			<p style={stat_value_style}>$200 Billion</p>
+		</div>,
+		<div>
+			<p style={stat_body_style}>spent by businesses on AI in 2024.</p>
+		</div>,
 	],
 	[
 		<p style={stat_value_style}>96%</p>,
