@@ -8,7 +8,7 @@ import { Hero } from "./parts/hero/Hero";
 import { ImpactCC } from "./parts/impact/impact";
 import { OurTeam } from "./parts/ourteam/OurTeam";
 
-export const homePage: React.FC = () => {
+const homePage: React.FC = () => {
 	return (
 		<div style={{ display: "grid", gridTemplateColumns: "100%" }}>
 			<Hero />

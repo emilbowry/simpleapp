@@ -55,13 +55,13 @@ export const Hero: React.FC = () => {
 		null,
 		// <Hexagon args={{ colour: light_grey }} />,
 		null,
-		<ImageHexagon args={{ img: hi3 }} />, //subclass of Hexagon
+		<ImageHexagon img={hi3} />, //subclass of Hexagon
 	] as const;
 	const secondRow = [
-		<ImageHexagon args={{ img: hi1 }} />,
+		<ImageHexagon img={hi1} />,
 		<LogoHexagon args={{ withGap: false }} />, // other subclass of Hexagon
 
-		<ImageHexagon args={{ img: hi2 }} />, //subclass of Hexagon
+		<ImageHexagon img={hi2} />, //subclass of Hexagon
 	] as const;
 
 	const thirdRow = [

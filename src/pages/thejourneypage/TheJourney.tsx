@@ -16,33 +16,7 @@ import { BoxedImage } from "../../utils/reactUtils";
 import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
 import bw1 from "../../assets/bw1.jpg";
 import bw2 from "../../assets/bw2.jpg";
-export const generateGradient = (
-	n: number,
 
-	s: string = logo_yellow,
-	e: string = logo_blue
-): string[] => {
-	if (n <= 2) return [s, e];
-	return Array.from(
-		{ length: n },
-		(_, i) =>
-			"#" +
-			(
-				(1 << 24) |
-				[1, 3, 5]
-					.map((k) =>
-						Math.round(
-							parseInt(e.slice(k, k + 2), 16) * (i / (n - 1)) +
-								parseInt(s.slice(k, k + 2), 16) *
-									(1 - i / (n - 1))
-						)
-					)
-					.reduce((acc, v) => (acc << 8) | v, 0)
-			)
-				.toString(16)
-				.slice(1)
-	);
-};
 const TimelineData = [
 	{
 		date: "NOV 2022",
@@ -145,7 +119,7 @@ const getThirdHex = (index: number) => {
 			/>
 		);
 	} else if (_image) {
-		thirdHexagon = <ImageHexagon args={{ img: _image }} />;
+		thirdHexagon = <ImageHexagon img={_image} />;
 	}
 	return thirdHexagon;
 };
@@ -195,6 +169,7 @@ const getRows = () => {
 	});
 };
 import bw3 from "../../assets/bw3.jpg";
+import { generateGradient } from "../../styles";
 
 export const theJourneyPage: React.FC = () => {
 	let r = getRows();

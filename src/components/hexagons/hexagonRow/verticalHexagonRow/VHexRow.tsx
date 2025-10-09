@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { IHexagonRowElements } from "../HexagonRow.types";
 
@@ -13,43 +13,31 @@ import {
 	sItemStyle,
 	wideLayoutContainerStyle,
 } from "./VHexRow.styles";
-import {
-	IVerticalHexagonGridState,
-	VerticalHexagonFeatureGridProps,
-} from "./VHexRow.types";
+import { VerticalHexagonFeatureGridProps } from "./VHexRow.types";
 
 const LAYOUT_BREAKPOINT = 1500;
 
-export class VerticalHexagonGrid extends React.Component<
-	IHexagonRowElements,
-	IVerticalHexagonGridState
-> {
-	constructor(props: IHexagonRowElements) {
-		super(props);
-		this.state = {
-			isNarrow: false,
-		};
-	}
+export const VerticalHexagonGrid: React.FC<IHexagonRowElements> = ({
+	elements,
+}) => {
+	const [isNarrow, setIsNarrow] = useState(false);
 
-	updateLayout = () => {
+	const updateLayout = () => {
 		const shouldBeNarrow = window.innerWidth < LAYOUT_BREAKPOINT;
-
-		if (shouldBeNarrow !== this.state.isNarrow) {
-			this.setState({ isNarrow: shouldBeNarrow });
+		if (shouldBeNarrow !== isNarrow) {
+			setIsNarrow(shouldBeNarrow);
 		}
 	};
 
-	componentDidMount() {
-		this.updateLayout();
-		window.addEventListener("resize", this.updateLayout);
-	}
+	useEffect(() => {
+		updateLayout();
+		window.addEventListener("resize", updateLayout);
+		return () => {
+			window.removeEventListener("resize", updateLayout);
+		};
+	}, [isNarrow]);
 
-	componentWillUnmount() {
-		window.removeEventListener("resize", this.updateLayout);
-	}
-
-	renderWideLayout() {
-		const { elements } = this.props;
+	const renderWideLayout = () => {
 		return (
 			<div style={wideLayoutContainerStyle}>
 				{elements.map((element, index) => (
@@ -61,10 +49,9 @@ export class VerticalHexagonGrid extends React.Component<
 				))}
 			</div>
 		);
-	}
+	};
 
-	renderNarrowLayout() {
-		const { elements } = this.props;
+	const renderNarrowLayout = () => {
 		const topRowElements = elements.slice(0, 2);
 		const bottomRowElement = elements[2];
 
@@ -85,19 +72,14 @@ export class VerticalHexagonGrid extends React.Component<
 				</div>
 			</div>
 		);
-	}
+	};
 
-	render() {
-		return (
-			<div style={{ zIndex: 50 }}>
-				{this.state.isNarrow
-					? this.renderNarrowLayout()
-					: this.renderWideLayout()}
-			</div>
-		);
-	}
-}
-
+	return (
+		<div style={{ zIndex: 50 }}>
+			{isNarrow ? renderNarrowLayout() : renderWideLayout()}
+		</div>
+	);
+};
 export const VerticalHexagonFeatureGrid: React.FC<
 	VerticalHexagonFeatureGridProps
 > = ({ featureCallouts, hexagonArgs, useVerticalAlignment = false }) => {

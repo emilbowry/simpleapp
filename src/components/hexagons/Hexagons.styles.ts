@@ -3,22 +3,11 @@ import React from "react";
 import { HexagonStyleParams } from "./Hexagons.types";
 import { genericSectionStyle } from "../../styles";
 
-export const getFinalDimensions = ({
-	size = 100,
-	scale = 1,
-}: HexagonStyleParams) => {
-	return {
-		width: size * scale,
-		height: size * scale,
-	};
-};
-
 export const containerStyle = ({
 	size = 500,
 	scale = 1,
 	opacity = 0.8,
 }: HexagonStyleParams): React.CSSProperties => {
-	const { width, height } = getFinalDimensions({ size, scale });
 	return {
 		position: "relative",
 		fontSize: 0,
@@ -28,12 +17,10 @@ export const containerStyle = ({
 	};
 };
 
-// No-op
 export const svgStyle = ({
 	size = 500,
 	scale = 1,
 }: HexagonStyleParams): React.CSSProperties => {
-	const { width, height } = getFinalDimensions({ size, scale });
 	return {};
 };
 
@@ -51,6 +38,7 @@ const leftCutout = (usePointedTop: boolean) =>
 	usePointedTop ? pointedLeftCutout : flattopLeftCutout;
 const rightCutout = (usePointedTop: boolean) =>
 	usePointedTop ? pointedRightCutout : flattopRightCutout;
+
 export const PolyCutout = (
 	usePointedTop: boolean,
 	isLeft: boolean
@@ -86,12 +74,7 @@ export const elementSection: React.CSSProperties = {
 	width: "100%",
 	height: `calc(100%)`,
 };
-export const _contentSection: React.CSSProperties = {
-	position: "relative",
 
-	width: "inherit",
-	height: `calc(100%)`,
-};
 export const elementWrapper: React.CSSProperties = {
 	position: "relative",
 

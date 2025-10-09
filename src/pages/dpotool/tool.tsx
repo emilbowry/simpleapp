@@ -10,35 +10,7 @@ import type { Components } from "react-markdown";
 import type { Element } from "hast";
 import { Page } from "../page";
 import { logo_blue, logo_yellow } from "../../utils/defaultColours";
-
-export const generateGradient = (
-	n: number,
-	s: string = logo_yellow,
-	e: string = logo_blue
-): string[] => {
-	if (n <= 0) return [];
-	if (n === 1) return [s];
-	if (n === 2) return [s, e];
-	return Array.from(
-		{ length: n },
-		(_, i) =>
-			"#" +
-			(
-				(1 << 24) |
-				[1, 3, 5]
-					.map((k) =>
-						Math.round(
-							parseInt(e.slice(k, k + 2), 16) * (i / (n - 1)) +
-								parseInt(s.slice(k, k + 2), 16) *
-									(1 - i / (n - 1))
-						)
-					)
-					.reduce((acc, v) => (acc << 8) | v, 0)
-			)
-				.toString(16)
-				.slice(1)
-	);
-};
+import { generateGradient } from "../../styles";
 
 const rawMarkdown = `
 #### 1. Personal Information We Collect
@@ -257,11 +229,7 @@ export const PolicyAnalyzer: React.FC = () => {
 
 		// Generate a gradient of colors for the shared property groups
 		const sharedGroupNames = Object.keys(groupedSharedProperties);
-		const sharedColors = generateGradient(
-			sharedGroupNames.length,
-			"#DDEEFF",
-			"#FFDDEE"
-		); // Light blue to light pink gradient
+		const sharedColors = generateGradient(sharedGroupNames.length); // Light blue to light pink gradient
 
 		// Assign a unique color to each shared group
 		sharedGroupNames.forEach((groupName, index) => {

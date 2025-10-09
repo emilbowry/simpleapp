@@ -53,7 +53,7 @@ export const StyledLink: React.FC<LearnMoreButtonProps> = ({
 	);
 };
 
-const foot = (
+const sidebar_body = (
 	<p>
 		Do you find the world of AI vast and confusing? It’s been made to feel
 		that way
@@ -87,39 +87,31 @@ export const CUBody = (
 		/>
 	</div>
 );
+
 const contactFeatureCallouts = [
-	{
-		body: (
-			<StyledLink
-				content={`Book a free 20 minute chat to find out how we could
+	[
+		<StyledLink
+			content={`Book a free 20 minute chat to find out how we could
 							help you or your business`}
-			/>
-		),
-		themeId: -1,
-	},
-	{
-		body: (
-			<StyledLink
-				content={`
+		/>,
+	],
+	[
+		<StyledLink
+			content={`
 							Request an email of our services and offering and
 							keep up to date with AI Comaptible’s mailing list
 						`}
-			/>
-		),
-		themeId: -1,
-	},
-	{
-		body: <StyledLink content={`Buy 1-1 consultancy and training`} />,
-		themeId: -1,
-	},
+		/>,
+	],
+	[<StyledLink content={`Buy 1-1 consultancy and training`} />],
 ];
 
-export const contactPage: React.FC = () => (
+const contactPage: React.FC = () => (
 	<>
 		<NewCallingCard
 			components={[CUBody]}
 			sideBar={{
-				components: [foot],
+				components: [sidebar_body],
 				header: <h2>Join The Conversation</h2>,
 			}}
 			footer={

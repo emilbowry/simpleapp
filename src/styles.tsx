@@ -77,3 +77,30 @@ export const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	fontSize: "16px",
 	padding: "5px 0",
 });
+export const generateGradient = (
+	n: number,
+
+	s: string = logo_yellow,
+	e: string = logo_blue
+): string[] => {
+	if (n <= 2) return [s, e];
+	return Array.from(
+		{ length: n },
+		(_, i) =>
+			"#" +
+			(
+				(1 << 24) |
+				[1, 3, 5]
+					.map((k) =>
+						Math.round(
+							parseInt(e.slice(k, k + 2), 16) * (i / (n - 1)) +
+								parseInt(s.slice(k, k + 2), 16) *
+									(1 - i / (n - 1))
+						)
+					)
+					.reduce((acc, v) => (acc << 8) | v, 0)
+			)
+				.toString(16)
+				.slice(1)
+	);
+};

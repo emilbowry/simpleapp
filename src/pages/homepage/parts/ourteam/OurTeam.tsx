@@ -16,7 +16,7 @@ import {
 } from "./OurTeam.styles";
 import { IPersona } from "./OurTeam.types";
 
-export const teamMembers: IPersona[] = [
+const teamMembers: IPersona[] = [
 	{
 		image: joefennelhs,
 		name: "Joe Fennel",
@@ -48,7 +48,7 @@ export const teamMembers: IPersona[] = [
 	},
 ];
 
-export class Persona extends React.Component<IPersona> {
+class Persona extends React.Component<IPersona> {
 	render() {
 		const { image, name, title, email, body, index = 2 } = this.props;
 		let _index = 0;
@@ -88,7 +88,7 @@ export class Persona extends React.Component<IPersona> {
 			<div>
 				<div style={personaWrapperStyle}>
 					<div style={PersonaHeadshotStyle}>
-						<ImageHexagon args={{ img: image }} />
+						<ImageHexagon img={image} />
 					</div>
 					<div
 						style={{
