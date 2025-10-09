@@ -4,11 +4,10 @@ import React from "react";
 
 import { NewCallingCard } from "../../../../components/callingcard/CallingCard";
 import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexagonRow/verticalHexagonRow/VHexRow";
-import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
-import cam from "../../../../assets/cam.png";
-import LH from "../../../../assets/leverCent.png";
+import { BoxedImage } from "../../../../utils/reactUtils";
+
 import logo from "../../../../assets/logo.png";
-import { borderGrad, Theme } from "../../../../styles";
+import { Theme } from "../../../../styles";
 import {
 	FounderLetterWrapperStyle,
 	LetterFooterContainerStyle,
@@ -17,8 +16,6 @@ import {
 	stat_value_style,
 } from "./impact.styles";
 import { NewCallingCardOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
-
-// const head = <h2>How is AI Impacting Business</h2>;
 
 const foot = (
 	<div>
@@ -33,44 +30,10 @@ const foot = (
 	</div>
 );
 
-/**
-@improvement 
-- Generalise this into a more concrete FC since it is repeated 
- */
-
-// const impactFeatureCallouts = [
-// 	{
-// 		header: <p style={stat_value_style}>$200 Billion</p>,
-// 		body: <p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
-// 	},
-// 	{
-// 		body: (
-// 			<p style={stat_body_style}>
-// 				confidence increase in people who take our sessions in their use
-// 				of generative AI.
-// 			</p>
-// 		),
-// 		header: <p style={stat_value_style}>96%</p>,
-// 	},
-// 	{
-// 		header: <p style={stat_value_style}>70%</p>,
-// 		body: (
-// 			<p style={stat_body_style}>
-// 				of CEOs say AI will significantly change the way their company
-// 				creates value of the next 3 years <br />-
-// 				<i>PwC Global CEO Survey 2024</i>.
-// 			</p>
-// 		),
-// 	},
-// ];
 const impactFeatureCallouts = [
 	[
-		<div>
-			<p style={stat_value_style}>$200 Billion</p>
-		</div>,
-		<div>
-			<p style={stat_body_style}>spent by businesses on AI in 2024.</p>
-		</div>,
+		<p style={stat_value_style}>$200 Billion</p>,
+		<p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
 	],
 	[
 		<p style={stat_value_style}>96%</p>,

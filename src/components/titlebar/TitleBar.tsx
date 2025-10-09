@@ -242,8 +242,7 @@ export const TitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 		/>
 	);
 };
-
-export const ExpandableTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
+const useTitleBarInteractions = (links: ITitleBarLink[][]) => {
 	const {
 		activeLinkAlias,
 		isOverLink,
@@ -270,6 +269,26 @@ export const ExpandableTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 		(isOverLink || isActive) &&
 		activeLinkGroup &&
 		(activeLinkGroup.length > 1 || activeLinkGroup[0].image);
+
+	return {
+		activeLinkAlias,
+		activeLinkGroup,
+		showDropdown,
+		handleLinkOver,
+		handleAreaEnter,
+		handleAreaLeave,
+	};
+};
+
+export const ExpandableTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
+	const {
+		activeLinkAlias,
+		activeLinkGroup,
+		showDropdown,
+		handleLinkOver,
+		handleAreaEnter,
+		handleAreaLeave,
+	} = useTitleBarInteractions(links);
 
 	return (
 		<TitleBarUI
@@ -292,12 +311,12 @@ export const ExpandableTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 export const PillTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 	const {
 		activeLinkAlias,
-		isOverLink,
-		isActive,
+		activeLinkGroup,
+		showDropdown,
 		handleLinkOver,
 		handleAreaEnter,
 		handleAreaLeave,
-	} = useActiveLink(links);
+	} = useTitleBarInteractions(links);
 	const isScrolled = usePillOnScroll();
 
 	const titleBarStyles = useMemo(
@@ -308,24 +327,6 @@ export const PillTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 		}),
 		[isScrolled]
 	);
-
-	const activeLinkGroup = useMemo(
-		() =>
-			links.find((linkGroup) => {
-				const mainLink = linkGroup[0];
-				return (
-					mainLink &&
-					formatLabel(mainLink.path, mainLink.alias) ===
-						activeLinkAlias
-				);
-			}),
-		[links, activeLinkAlias]
-	);
-
-	const showDropdown =
-		(isOverLink || isActive) &&
-		activeLinkGroup &&
-		(activeLinkGroup.length > 1 || activeLinkGroup[0].image);
 
 	return (
 		<TitleBarUI
@@ -344,7 +345,6 @@ export const PillTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 		</TitleBarUI>
 	);
 };
-
 export const TestPillTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
 		[
