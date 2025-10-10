@@ -1,9 +1,5 @@
 // src/pages/Footer.tsx
 
-/**
-@improvement 
-- Generalise this, most calculations should be implicit if our footer class takes in the vh as prop and some abstract representation of the grid layout
- */
 import React, { useEffect, useState, useCallback } from "react";
 import {
 	BoxedImage,
@@ -13,6 +9,7 @@ import {
 import logo from "../assets/logo.png";
 import { PartnershipMarquee } from "../components/partnershipbar/PartnershipBar";
 import { partners } from "./homepage/parts/Partners";
+import { linkedin_svg } from "../components/callingcard/graphics";
 
 const ScrollVisibilityDependent: React.FC<{
 	element: ValidComponent;
@@ -157,35 +154,10 @@ const Quote2 = (
 	</div>
 );
 
-const linkedin = (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
-		fill="none"
-		height="100%"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
-		strokeLinejoin="round"
-	>
-		<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-		<rect
-			width="4"
-			height="12"
-			x="2"
-			y="9"
-		/>
-		<circle
-			cx="4"
-			cy="4"
-			r="2"
-		/>
-	</svg>
-);
-
-const footer_comp: React.FC = () => {
-	const n = 3;
-
+const GridFooter: React.FC<{ n_rows?: number; children?: React.ReactNode }> = ({
+	n_rows = 3,
+	children,
+}) => {
 	return (
 		<div>
 			<div
@@ -198,138 +170,167 @@ const footer_comp: React.FC = () => {
 					minWidth: 0,
 					color: "white",
 					display: "grid",
-					gridTemplateRows: `repeat(${n}, ${70 / n}vh)`,
+					gridTemplateRows: `repeat(${n_rows}, ${70 / n_rows}vh)`,
 				}}
 			>
-				<div
-					style={{
-						display: "grid",
-						gridTemplateColumns: "25% 50% 25%",
-					}}
-				>
-					<div></div>
-					<ScrollVisibilityDependent
-						element={Quote1}
-						styling={{ ...centerable, alignItems: "center" }}
-						borders={[1, 2 / 3]}
-					/>
-				</div>
-				<div
-					style={{
-						// ...genericSectionStyle,
-						display: "grid",
-						gridTemplateColumns: "10% 80% 10%",
-					}}
-				>
-					<div></div>
-
-					<ScrollVisibilityDependent
-						element={
-							<PartnershipMarquee
-								{...partners}
-								index={-1}
-							/>
-						}
-						styling={{
-							position: "relative",
-							minWidth: 0,
-							isolation: "isolate",
-
-							minHeight: 0,
-							width: "125%", //correction factor  0.8/0.8*0.8
-							marginLeft: "-12.5%", //correction factor 0.1/0.1*0.8
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: "center",
-						}}
-						borders={[18 / 30, 12 / 30]}
-					/>
-
-					<div></div>
-				</div>
-				<div
-					style={{
-						// ...genericSectionStyle,
-
-						display: "grid",
-						gridTemplateColumns: "25% 50% 25%",
-					}}
-				>
-					<div
-						style={{
-							display: "grid",
-							gridTemplateRows: "25% 25% 25% 25%",
-							height: "100%",
-							margin: "0 auto",
-						}}
-					>
-						<ScrollVisibilityDependent
-							element={linkedin}
-							styling={{
-								display: "flex",
-								justifyContent: "left",
-								marginLeft: 0,
-							}}
-							borders={[1 / 3, 0.75 * (1 / 3)]}
-						/>
-						<ScrollVisibilityDependent
-							element={<h2>Joe Fennel</h2>}
-							styling={centerable}
-							borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
-						/>
-						<ScrollVisibilityDependent
-							element={<h2>Inquiries</h2>}
-							styling={{ ...centerable }}
-							borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
-						/>
-
-						<ScrollVisibilityDependent
-							element={<h2>www.aicompatible.com</h2>}
-							styling={centerable}
-							borders={[0.25 * (1 / 3), 0]}
-						/>
-					</div>
-					<ScrollVisibilityDependent
-						element={Quote2}
-						styling={{
-							// ...genericSectionStyle,
-							...centerable,
-
-							justifyContent: "center",
-
-							maxHeight: "50%",
-						}}
-						borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
-					/>
-
-					<div
-						style={{
-							...centerable,
-
-							height: "100%",
-							minWidth: 0,
-							minHeight: 0,
-						}}
-					>
-						<ScrollVisibilityDependent
-							element={
-								// <h2>
-								<BoxedImage
-									image={logo}
-									aspectRatio={`${Math.sqrt(3) / 2}`}
-									width={"50%"}
-								/>
-								// </h2>
-							}
-							styling={centerable}
-							percentage={0.5 * (1 / 3)}
-							borders={[1 / 3, 0]}
-						/>
-					</div>
-				</div>
+				{children}
 			</div>
 		</div>
 	);
 };
 
-export const Footer = <FooterLayoutHandler component={footer_comp} />;
+const GridFooterRows: React.FC<{
+	colratio?: number[];
+	children: ValidComponent[];
+}> = ({ colratio = [1], children }) => {
+	const sum = colratio.reduce(
+		(accumulator, currentValue) => accumulator + currentValue,
+		0
+	);
+	const fracs = colratio.map((number) => (100 * number) / sum);
+	const percentageString = fracs.map((number) => number + "%").join(" ");
+	console.log(percentageString);
+	return (
+		<div
+			style={{
+				display: "grid",
+				gridTemplateColumns: percentageString,
+			}}
+		>
+			{children.map((item, _index) => (
+				<React.Fragment key={_index}>
+					{item ? formatComponent(item) : <div />}
+				</React.Fragment>
+			))}
+		</div>
+	);
+};
+const NewFooter: React.FC = () => {
+	const n = 3;
+	const row1 = [
+		null,
+		<ScrollVisibilityDependent
+			element={Quote1}
+			styling={{ ...centerable, alignItems: "center" }}
+			borders={[1, 2 / 3]}
+		/>,
+		null,
+	];
+
+	const row2 = [
+		null,
+		<ScrollVisibilityDependent
+			element={
+				<PartnershipMarquee
+					{...partners}
+					index={-1}
+				/>
+			}
+			styling={{
+				position: "relative",
+				minWidth: 0,
+				isolation: "isolate",
+
+				minHeight: 0,
+				width: "125%", //correction factor  0.8/0.8*0.8
+				marginLeft: "-12.5%", //correction factor 0.1/0.1*0.8
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+			}}
+			borders={[18 / 30, 12 / 30]}
+		/>,
+		null,
+	];
+
+	const row3 = [
+		<div
+			style={{
+				display: "grid",
+				gridTemplateRows: "25% 25% 25% 25%",
+				height: "100%",
+				margin: "0 auto",
+			}}
+		>
+			<ScrollVisibilityDependent
+				element={linkedin_svg}
+				styling={{
+					display: "flex",
+					justifyContent: "left",
+					marginLeft: 0,
+				}}
+				borders={[1 / 3, 0.75 * (1 / 3)]}
+			/>
+			<ScrollVisibilityDependent
+				element={<h2>Joe Fennel</h2>}
+				styling={centerable}
+				borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
+			/>
+			<ScrollVisibilityDependent
+				element={<h2>Inquiries</h2>}
+				styling={{ ...centerable }}
+				borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
+			/>
+
+			<ScrollVisibilityDependent
+				element={<h2>www.aicompatible.com</h2>}
+				styling={centerable}
+				borders={[0.25 * (1 / 3), 0]}
+			/>
+		</div>,
+		<ScrollVisibilityDependent
+			element={Quote2}
+			styling={{
+				// ...genericSectionStyle,
+				...centerable,
+
+				justifyContent: "center",
+
+				maxHeight: "50%",
+			}}
+			borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
+		/>,
+
+		<div
+			style={{
+				...centerable,
+
+				height: "100%",
+				minWidth: 0,
+				minHeight: 0,
+			}}
+		>
+			<ScrollVisibilityDependent
+				element={
+					// <h2>
+					<BoxedImage
+						image={logo}
+						aspectRatio={`${Math.sqrt(3) / 2}`}
+						width={"50%"}
+					/>
+					// </h2>
+				}
+				styling={centerable}
+				percentage={0.5 * (1 / 3)}
+				borders={[1 / 3, 0]}
+			/>
+		</div>,
+	];
+	return (
+		<GridFooter>
+			<GridFooterRows
+				colratio={[1, 2, 1]}
+				children={row1}
+			/>
+			<GridFooterRows
+				colratio={[1, 8, 1]}
+				children={row2}
+			/>
+			<GridFooterRows
+				colratio={[1, 2, 1]}
+				children={row3}
+			/>
+		</GridFooter>
+	);
+};
+export const Footer = <FooterLayoutHandler component={NewFooter} />;
