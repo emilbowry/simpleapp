@@ -1,7 +1,7 @@
 import React from "react";
 
+// import { genericSectionStyle } from "../../styles";
 import { HexagonStyleParams } from "./Hexagons.types";
-import { genericSectionStyle } from "../../styles";
 
 export const containerStyle = ({
 	size = 500,

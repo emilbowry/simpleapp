@@ -6,7 +6,10 @@
 
  */
 import React from "react";
-import { rspacing, aspace } from "./HexagonRow.consts";
+import {
+	rspacing,
+	/* aspace */
+} from "./HexagonRow.consts";
 /*
 	CONSTANT DEFINITIONS 
 */

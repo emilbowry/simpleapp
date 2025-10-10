@@ -1,19 +1,14 @@
 import React from "react";
-import {
-	Hexagon,
-	LogoHexagon,
-	ImageHexagon,
-} from "../../../../components/hexagons/Hexagons";
-import { HexagonGrid } from "../../../../components/hexagons/hexagonRow/HexagonRow";
-import {
-	purple,
-	l_midnight_green,
-	light_mix_green,
-	light_grey,
-} from "../../../../utils/defaultColours";
 import hi1 from "../../../../assets/heroimage1.jpg";
 import hi2 from "../../../../assets/heroimage2.jpg";
 import hi3 from "../../../../assets/heroimage3.jpg";
+import {
+	Hexagon,
+	ImageHexagon,
+	LogoHexagon,
+} from "../../../../components/hexagons/Hexagons";
+import { HexagonGrid } from "../../../../components/hexagons/hexagonRow/HexagonRow";
+import { light_mix_green } from "../../../../utils/defaultColours";
 
 const textEl = (
 	<div

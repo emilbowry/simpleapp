@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { wrapLink } from "../../utils/reactUtils";
+import React, { useEffect, useMemo, useState } from "react";
 import { Theme } from "../../styles";
+import { wrapLink } from "../../utils/reactUtils";
 import {
 	CompactViewStyle,
 	PartnerImageWrapperStyle,

@@ -8,30 +8,19 @@ import { NewCallingCard } from "../../components/callingcard/CallingCard";
 import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/verticalHexagonRow/VHexRow";
 import { bgwhite, logo_blue } from "../../utils/defaultColours";
 
-export const titleStyle: React.CSSProperties = {
-	fontSize: "2rem",
-	fontWeight: "400",
-	textAlign: "center",
-	color: logo_blue,
-};
 import {
 	formatComponent,
 	getImageEl,
 	ValidComponent,
 } from "../../utils/reactUtils";
-import qrcode from "../../assets/qrCode.png";
 import { linkStyle, logoGrag, Theme } from "../../styles";
-interface LearnMoreButtonProps {
+import { titleStyle } from "./ContactPage.styles";
+
+export const StyledLink: React.FC<{
 	href?: string;
 	content?: ValidComponent;
 	isUnderlined?: boolean;
-}
-
-export const StyledLink: React.FC<LearnMoreButtonProps> = ({
-	href = "#",
-	content = "",
-	isUnderlined = true,
-}) => {
+}> = ({ href = "#", content = "", isUnderlined = true }) => {
 	return (
 		<div
 			style={{

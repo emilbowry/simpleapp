@@ -1,21 +1,21 @@
 // src/pages/thejourneypage/TheJourney.tsx
 
 import React from "react";
-import { Page } from "../page";
 import { Hexagon, ImageHexagon } from "../../components/hexagons/Hexagons";
 import { HexagonGrid } from "../../components/hexagons/hexagonRow/HexagonRow";
+import { Page } from "../page";
 
+import bw1 from "../../assets/bw1.jpg";
+import bw2 from "../../assets/bw2.jpg";
+import bw3 from "../../assets/bw3.jpg";
+import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import { generateGradient } from "../../styles";
 import {
 	bgwhite,
 	dark_midnight_green,
-	logo_blue,
-	logo_yellow,
 	midnight_green,
 } from "../../utils/defaultColours";
 import { BoxedImage } from "../../utils/reactUtils";
-import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
-import bw1 from "../../assets/bw1.jpg";
-import bw2 from "../../assets/bw2.jpg";
 
 const TimelineData = [
 	{
@@ -168,8 +168,6 @@ const getRows = () => {
 		};
 	});
 };
-import bw3 from "../../assets/bw3.jpg";
-import { generateGradient } from "../../styles";
 
 const theJourneyPage: React.FC = () => {
 	let r = getRows();

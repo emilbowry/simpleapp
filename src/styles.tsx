@@ -2,7 +2,6 @@
 
 import React from "react";
 
-import backgroundPattern from "./assets/tileablebackground.png";
 import background from "./assets/Untitled.png";
 
 export const BackgroundStyle: React.CSSProperties = {

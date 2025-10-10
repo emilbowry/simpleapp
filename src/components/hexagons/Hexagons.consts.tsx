@@ -1,6 +1,5 @@
 // src/components/hexagons/Hexagons.consts.ts
 
-import React from "react";
 import { IHexagonState, IHexObjState } from "./Hexagons.types";
 export const Flattop_Hex_Path =
 	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";

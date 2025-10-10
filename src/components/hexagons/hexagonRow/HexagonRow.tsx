@@ -5,7 +5,7 @@ import { formatComponent } from "../../../utils/reactUtils";
 import { container, midStyle, sideStyle } from "./HexagonRow.styles";
 import { IHexagonGridElements, _IHexagonRowElements } from "./HexagonRow.types";
 
-import { rspacing, aspace } from "./HexagonRow.consts";
+import { aspace, rspacing } from "./HexagonRow.consts";
 
 export const HexagonRow: React.FC<_IHexagonRowElements> = (props) => {
 	const { elements, relative_space, absolute_space } = props;

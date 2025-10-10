@@ -1,7 +1,6 @@
 // src/components/titlebar/TitleBar.styles.ts
 import React from "react";
-import { logoGrag } from "../../styles";
-import { logo_blue } from "../../utils/defaultColours";
+import { linkStyle } from "../../styles";
 import { VISIBLE_TITLEBAR_HEIGHT } from "./TitleBar.consts";
 export const hamburgerStyle: React.CSSProperties = {
 	background: "none",
@@ -10,11 +9,6 @@ export const hamburgerStyle: React.CSSProperties = {
 	marginLeft: "1rem",
 };
 
-/**
-	@improvement 
-	- VISIBLE_TITLEBAR_HEIGHT should be inferred and responsive (not px based)
-*/
-// export const VISIBLE_TITLEBAR_HEIGHT = 5;
 export const interactionWrapperStyles: React.CSSProperties = {
 	width: "100vw",
 	position: "fixed",
@@ -54,7 +48,6 @@ export const rightHandContainerStyles: React.CSSProperties = {
 	justifyContent: "flex-end",
 	alignItems: "center",
 };
-import { linkStyle } from "../../styles";
 export const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	...linkStyle(isUnderlined),
 	transition: "background-size 0.3s ease-in",

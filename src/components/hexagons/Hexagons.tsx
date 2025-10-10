@@ -1,24 +1,31 @@
 import React, { createContext, useContext } from "react";
 
+import { logo_yellow, midnight_green } from "../../utils/defaultColours";
 import {
-	logo_blue,
-	logo_yellow,
-	midnight_green,
-} from "../../utils/defaultColours";
-import {
-	SantisedElMap,
 	formatComponent,
-	NoOpFC,
 	Map,
+	NoOpFC,
+	SantisedElMap,
 } from "../../utils/reactUtils";
+import { LogoLinearGradient } from "../callingcard/graphics";
+import {
+	Flattop_Hex_Path,
+	Hex_El_Starting_State,
+	Hex_Starting_State,
+	Logo_Chev_Colour_Mask,
+	Logo_Chev_Cutout,
+	Logo_Chev_Diamond,
+	Logo_Chev_Split,
+	Pointedtop_Hex_Path,
+} from "./Hexagons.consts";
 import {
 	containerStyle,
 	ElContainerStyle,
 	elementSection,
-	PolyCutout,
 	elementWrapper,
 	ELWrapperStyle,
 	hexagonalContentStyle,
+	PolyCutout,
 	svgStyle,
 } from "./Hexagons.styles";
 import {
@@ -30,17 +37,6 @@ import {
 	TOscillation,
 	TRefNode,
 } from "./Hexagons.types";
-import {
-	Flattop_Hex_Path,
-	Pointedtop_Hex_Path,
-	Logo_Chev_Diamond,
-	Logo_Chev_Colour_Mask,
-	Logo_Chev_Cutout,
-	Logo_Chev_Split,
-	Hex_Starting_State,
-	Hex_El_Starting_State,
-} from "./Hexagons.consts";
-import { logo_lin_grad } from "../callingcard/graphics";
 
 export const HexSVG: React.FC<{
 	styles: any;
@@ -418,7 +414,7 @@ export class LogoHexagon extends Hexagon {
 		const { withGap } = this.santiseOptionalParameters();
 
 		const components = {
-			defs: [logo_lin_grad, <mask id="hexagon"></mask>],
+			defs: [LogoLinearGradient, <mask id="hexagon"></mask>],
 			paths: [
 				<path
 					d={Logo_Chev_Diamond}
@@ -497,7 +493,7 @@ export class CutHexagon extends Hexagon {
 						fill="black"
 					/>
 				</mask>,
-				logo_lin_grad,
+				LogoLinearGradient,
 			],
 			paths: [
 				<path

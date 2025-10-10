@@ -1,18 +1,18 @@
 // src/pages/ourservices/OurServices.tsx
 
 import React from "react";
-import { Page } from "../page";
 import { NewCallingCard } from "../../components/callingcard/CallingCard";
-import { bgwhite } from "../../utils/defaultColours";
 import { VerticalHexagonFeatureGrid } from "../../components/hexagons/hexagonRow/verticalHexagonRow/VHexRow";
+import { bgwhite } from "../../utils/defaultColours";
 import { hStyle } from "../homepage/parts/about-us/AboutUs";
+import { Page } from "../page";
 
+import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import { BoxedImage } from "../../utils/reactUtils";
 import {
 	imageStyling,
 	titleStyle,
 } from "../homepage/parts/about-us/AboutUs.styles";
-import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
-import { BoxedImage } from "../../utils/reactUtils";
 
 const Services: React.FC<{ title: string; services: string[] }> = ({
 	title,

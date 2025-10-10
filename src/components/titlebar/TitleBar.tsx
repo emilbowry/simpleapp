@@ -1,17 +1,18 @@
 // src/components/titlebar/TitleBar.tsx
 
+import { Menu } from "lucide-react";
 import React, {
-	useState,
-	useEffect,
-	useMemo,
 	CSSProperties,
 	ReactNode,
+	useEffect,
+	useMemo,
+	useState,
 } from "react";
-import logo from "../../assets/logo.png";
-import dropdownImage from "../../assets/dude1.jpg";
 import { NavLink, useLocation } from "react-router-dom";
-import { Menu } from "lucide-react";
+import dropdownImage from "../../assets/dude1.jpg";
+import logo from "../../assets/logo.png";
 import {
+	_titleBarStyles,
 	dropdownContainerStyles,
 	dropdownImageContainerStyles,
 	dropdownImageStyles,
@@ -25,9 +26,8 @@ import {
 	logoStyles,
 	navLinksContainerStyles,
 	navLinkStyles,
-	_titleBarStyles,
-	rightHandContainerStyles,
 	pillBarOverrides,
+	rightHandContainerStyles,
 } from "./TitleBar.styles";
 import { ITitleBarLink, ITitleBarProps } from "./TitleBar.types";
 

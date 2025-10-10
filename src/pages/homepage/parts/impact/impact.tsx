@@ -7,6 +7,7 @@ import { VerticalHexagonFeatureGrid } from "../../../../components/hexagons/hexa
 import { BoxedImage } from "../../../../utils/reactUtils";
 
 import logo from "../../../../assets/logo.png";
+import { NewCallingCardOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 import { Theme } from "../../../../styles";
 import {
 	FounderLetterWrapperStyle,
@@ -15,7 +16,6 @@ import {
 	stat_body_style,
 	stat_value_style,
 } from "./impact.styles";
-import { NewCallingCardOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 
 const foot = (
 	<div>
