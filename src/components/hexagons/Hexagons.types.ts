@@ -74,4 +74,5 @@ export type {
 	TOscillation,
 	TRefNode,
 	HexagonStyleParams,
+	IComponentDefinitions,
 };
