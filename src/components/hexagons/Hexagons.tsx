@@ -86,22 +86,82 @@ const ContentWrapper: React.FC<{
 		</div>
 	);
 };
-const ContainedElement: THexFC = ({ element, useVerticalAlignment }) => {
-	const HContentWrapper =
-		!Array.isArray(element) && !useVerticalAlignment
-			? NoOpFC
-			: ContentWrapper;
-	const Inner: React.ReactNode = !Array.isArray(element) ? (
-		formatComponent(element)
-	) : (
-		<SantisedElMap element={element} />
-	);
-	const HScallingWrapper = !Array.isArray(element) ? NoOpFC : ScallingWrapper;
+// const ContainedElement: THexFC = ({ element, useVerticalAlignment }) => {
+// 	const HContentWrapper =
+// 		!Array.isArray(element) && !useVerticalAlignment
+// 			? NoOpFC
+// 			: ContentWrapper;
+// 	const Inner: React.ReactNode = !Array.isArray(element) ? (
+// 		formatComponent(element)
+// 	) : (
+// 		<SantisedElMap element={element} />
+// 	);
+// 	const HScallingWrapper = !Array.isArray(element) ? NoOpFC : ScallingWrapper;
 
-	return (
-		<HContentWrapper>
-			<HScallingWrapper>{Inner}</HScallingWrapper>
-		</HContentWrapper>
+// 	return (
+// 		<HContentWrapper>
+// 			<HScallingWrapper>{Inner}</HScallingWrapper>
+// 		</HContentWrapper>
+// 	);
+// };
+const flattop_ElGhostStyle: React.CSSProperties = {
+	margin: 0,
+	padding: 0,
+	visibility: "hidden",
+	fontSize: 0,
+};
+export const pointedtop_ElInnerGhostStyle: React.CSSProperties = {
+	visibility: "hidden",
+};
+const ContainedElement: THexFC = ({ element, useVerticalAlignment }) => {
+	const { usePointedTop, fontSize } = useContext(HexagonContext);
+	if (Array.isArray(element)) {
+		if (!usePointedTop) {
+			return (
+				<ContentWrapper>
+					<div
+						style={flattop_ElGhostStyle}
+						/* I think this ensures lineheight is calculated correctly */
+					>
+						no-op
+					</div>
+					<div
+						style={{
+							...ElContainerStyle,
+							fontSize: `calc(max(${fontSize}vw,1px))`,
+						}}
+					>
+						<Map elements={element} />
+					</div>
+				</ContentWrapper>
+			);
+		} else {
+			return (
+				<ContentWrapper>
+					<div
+						style={{
+							fontSize: `calc(max(${fontSize}vw,1px))`,
+							...ElContainerStyle,
+						}}
+						/* className="no-aos" // fixes AboutUs layout issue but breaks impact.tsx layout*/
+					>
+						<div
+							style={pointedtop_ElInnerGhostStyle}
+							/* Fixes both, don't understand why, needs to be sufficiently long to fix*/
+						>
+							this needs to be sufficiently long in order to
+							properly render. this makes no sense
+						</div>
+						<Map elements={element} />
+					</div>
+				</ContentWrapper>
+			);
+		}
+	}
+	return !Array.isArray(element) && !useVerticalAlignment ? (
+		<ContentWrapper>{formatComponent(element)}</ContentWrapper>
+	) : (
+		formatComponent(element)
 	);
 };
 
