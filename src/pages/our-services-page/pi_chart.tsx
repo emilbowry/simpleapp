@@ -174,7 +174,7 @@ const slicesData: PieSliceData[] = [
 		],
 	},
 ];
-export const PiChart: React.FC<PiChartProps> = ({
+const PiChart: React.FC<PiChartProps> = ({
 	sliceData = slicesData,
 	onSliceHover,
 	onSliceClick,
@@ -268,3 +268,5 @@ export const PiChart: React.FC<PiChartProps> = ({
 		</svg>
 	);
 };
+
+export { PiChart };

@@ -1,3 +1,5 @@
+// src/features/page/Page.Styles.ts
+
 import React from "react";
 
 const pageStyle: React.CSSProperties = {

@@ -23,7 +23,7 @@ const LogoLinearGradient = (
 );
 
 const svg_logo_grad = <defs>{LogoLinearGradient}</defs>;
-const bullseye = (
+const bullseye: React.ReactElement = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -57,7 +57,7 @@ const bullseye = (
 	</svg>
 );
 
-const pencil = (
+const pencil: React.ReactElement = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
@@ -80,7 +80,7 @@ M 3 21 L 2.25 21.75"
 	</svg>
 );
 
-const bulb = (
+const bulb: React.ReactElement = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"

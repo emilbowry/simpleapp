@@ -8,7 +8,7 @@ import { _titleBarStyles } from "./TitleBar.styles";
 import { ITitleBarLink, ITitleBarProps } from "./TitleBar.types";
 import { TitleBarUI } from "./TitleBarUI";
 import { PillTitleBar } from "./PillTitleBar";
-export const formatLabel = (key: string, alias?: string): string => {
+const formatLabel = (key: string, alias?: string): string => {
 	if (alias) return alias;
 	if (key === "/") return "Home";
 	return key
@@ -61,4 +61,4 @@ const AppTitleBar: React.FC = () => {
 	);
 };
 
-export { AppTitleBar };
+export { AppTitleBar, formatLabel };

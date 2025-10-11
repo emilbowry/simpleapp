@@ -1,8 +1,5 @@
 // src/components/hexagons/hexagonRow/HexagonRow.consts.ts
 
-/**
- * Mainly used for debugging background logic
-
- */
-export const rspacing: number = 20;
-export const aspace = -20;
+const RELATIVE_SPACING: number = 20;
+const ABSOLUTE_SPACING = -20;
+export { RELATIVE_SPACING, ABSOLUTE_SPACING };

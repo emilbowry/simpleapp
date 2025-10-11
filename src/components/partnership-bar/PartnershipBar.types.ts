@@ -12,17 +12,6 @@ interface IPartners {
 	size?: TPartnerSize;
 }
 
-class Partners {
-	readonly partners: readonly IPartner[];
-	readonly size: TPartnerSize;
-
-	constructor(partners: IPartners) {
-		let partnersObj = partners;
-		this.partners = partnersObj.partners;
-		this.size = partnersObj.size ?? "Small";
-	}
-}
-
 interface IPartnershipBar {
 	partners: readonly IPartner[];
 	index?: number;
@@ -43,7 +32,6 @@ interface PartnershipBarFullWallProps {
 	rows: { top: IPartner[]; mid: IPartner[]; bottom: IPartner[] };
 	staticStyle: React.CSSProperties;
 }
-export { Partners };
 export type {
 	IPartner,
 	TPartnerSize,

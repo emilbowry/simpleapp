@@ -1,7 +1,9 @@
+// src/features/footer/ScrollVisibilityDependent.tsx
+
 import React, { useState, useCallback, useEffect } from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
 
-export const useScrollVisibility = (
+const useScrollVisibility = (
 	borders?: [number, number],
 	footerVH = 0.7,
 	styling: React.CSSProperties = {}
@@ -68,7 +70,7 @@ export const useScrollVisibility = (
 
 	return calculatedStyles;
 };
-export const ScrollVisibilityDependent: React.FC<{
+const ScrollVisibilityDependent: React.FC<{
 	element: ValidComponent;
 	percentage?: number;
 	borders?: [number, number];
@@ -82,3 +84,4 @@ export const ScrollVisibilityDependent: React.FC<{
 		</div>
 	);
 };
+export { ScrollVisibilityDependent };

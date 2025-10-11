@@ -185,9 +185,11 @@ const theJourneyPage: React.FC = () => {
 	);
 };
 
-export const TheJourneyPage = (
+const TheJourneyPage = (
 	<Page
 		page={theJourneyPage}
 		bg={true}
 	/>
 );
+
+export { TheJourneyPage };

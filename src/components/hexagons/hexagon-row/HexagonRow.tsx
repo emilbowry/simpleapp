@@ -1,14 +1,22 @@
 // src/components/hexagons/hexagonRow/HexagonRow.tsx
 
 import React from "react";
-import { formatComponent } from "../../../utils/reactUtils";
-import { container, midStyle, sideStyle } from "./HexagonRow.styles";
-import { IHexagonGridElements, _IHexagonRowElements } from "./HexagonRow.types";
+import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
+import {
+	container,
+	gridPositionCSS,
+	midStyle,
+	sideStyle,
+} from "./HexagonRow.styles";
+import { IHexagonGridElements, IHexRowLayoutProps } from "./HexagonRow.types";
 
-import { aspace, rspacing } from "./HexagonRow.consts";
+import { ABSOLUTE_SPACING, RELATIVE_SPACING } from "./HexagonRow.consts";
 
-export const HexagonRow: React.FC<_IHexagonRowElements> = (props) => {
-	const { elements, relative_space, absolute_space } = props;
+const HexagonRow: React.FC<IHexRowLayoutProps> = ({
+	elements,
+	relative_space,
+	absolute_space,
+}) => {
 	return (
 		<>
 			<div style={sideStyle(relative_space, absolute_space, true)}>
@@ -24,60 +32,37 @@ export const HexagonRow: React.FC<_IHexagonRowElements> = (props) => {
 	);
 };
 
-export const HexagonGrid: React.FC<IHexagonGridElements> = (props) => {
-	const {
-		rows,
-		relative_space = rspacing,
-		absolute_space = aspace,
-		containerStyle = {},
-		class_name,
-	} = props;
+const HexagonGrid: React.FC<IHexagonGridElements> = ({
+	rows,
+	relative_space = RELATIVE_SPACING,
+	absolute_space = ABSOLUTE_SPACING,
+	containerStyle = {},
+	class_name,
+}) => {
 	const l = rows.length;
-	let margin_top = 0;
-	let padding_top = 0;
-	let margin_bottom = 0;
-	let othercss = {};
-	const _rows = rows;
+
 	/*
 		To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
 		- may expand later to auto adjust based on bottom layout
 		- add overall height calculation for appropriate bottom white space
 	*/
-	if (rows[0].elements[1] === null) {
-		// margin_top = -(0.5 * 100) / l;
-		othercss = {
-			marginTop: `calc(${-(0.5 * 100) / l}% + ${
-				relative_space / 2
-			}% + ${absolute_space}px)`,
-		};
-	} else {
-		othercss = {
-			paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
-				absolute_space / 2
-			}px)`,
-			paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
-				absolute_space / 2
-			}px)`,
-			backdropFilter: "blur(8px)",
-		};
-		// margin_top = -(1.5 * 100) / l; // calculation slightly off
-		// padding_top = 0.5 * 100 * l;
-	}
 
 	return (
 		<div
 			className={class_name ?? ""}
 			style={{
-				marginTop: `${margin_top}%`,
-				// height: "140%",
-				// paddingTop: padding_top,
-				...othercss,
-				// paddingBottom: `calc(${relative_space * 1.5}% )`,
+				...gridPositionCSS(
+					rows[0].elements[1],
+					l,
+					relative_space,
+					absolute_space
+				),
+
 				...containerStyle,
 			}}
 		>
 			<div style={container(relative_space, absolute_space, l)}>
-				{_rows.map((row, _index) => (
+				{rows.map((row, _index) => (
 					<HexagonRow
 						key={_index}
 						elements={row.elements}
@@ -90,3 +75,4 @@ export const HexagonGrid: React.FC<IHexagonGridElements> = (props) => {
 		</div>
 	);
 };
+export { HexagonGrid };

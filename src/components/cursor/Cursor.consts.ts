@@ -1,2 +1,3 @@
-export const s_size = 10;
-export const l_size = 30;
+const INNER_RADIUS = 10;
+const OUTER_RADIUS = 30;
+export { INNER_RADIUS, OUTER_RADIUS };

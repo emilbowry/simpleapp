@@ -3,7 +3,7 @@ import { borderGrad, Theme } from "../../../../styles";
 const idx = 1;
 let theme = Theme(idx);
 
-export const stat_value_style: React.CSSProperties = {
+const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
 	fontSize: "3rem",
 	paddingTop: "10rem",
@@ -16,7 +16,7 @@ export const stat_value_style: React.CSSProperties = {
 	overflow: "visible",
 };
 
-export const stat_body_style: React.CSSProperties = {
+const stat_body_style: React.CSSProperties = {
 	color: theme.primaryColor,
 	borderTop: `1px solid`,
 	borderImage: borderGrad,
@@ -28,11 +28,18 @@ export const stat_body_style: React.CSSProperties = {
 
 	fontSize: "2rem",
 };
-export const LetterFooterContainerStyle: React.CSSProperties = {
+const LetterFooterContainerStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "30% 70%",
 	textAlign: "left",
 	width: "100%",
 };
-export const LetterFooterWrapperStyle: React.CSSProperties = {};
-export const FounderLetterWrapperStyle: React.CSSProperties = { width: "100%" };
+const LetterFooterWrapperStyle: React.CSSProperties = {};
+const FounderLetterWrapperStyle: React.CSSProperties = { width: "100%" };
+export {
+	FounderLetterWrapperStyle,
+	LetterFooterContainerStyle,
+	LetterFooterWrapperStyle,
+	stat_body_style,
+	stat_value_style,
+};

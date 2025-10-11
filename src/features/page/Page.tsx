@@ -1,4 +1,4 @@
-// src/pages/page.tsx
+// src/features/page/page.tsx
 
 import React from "react";
 import { Footer } from "../footer/Footer";

@@ -1,3 +1,5 @@
+// src/features/footer/GridFooter.tsx
+
 import React from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
 

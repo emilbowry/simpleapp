@@ -3,8 +3,19 @@
 import React from "react";
 
 import background from "./assets/Untitled.png";
+import {
+	midnight_green,
+	dark_midnight_green,
+	logo_blue,
+	dark_mix_green,
+	light_logo_blue,
+	logo_yellow,
+	lighter_logo_blue,
+	bgwhite,
+	o_mix_green,
+} from "./utils/defaultColours";
 
-export const BackgroundStyle: React.CSSProperties = {
+const BackgroundStyle: React.CSSProperties = {
 	backgroundImage: `url(${background})`,
 	backgroundRepeat: "repeat",
 
@@ -16,27 +27,14 @@ export const BackgroundStyle: React.CSSProperties = {
 	zIndex: -20,
 	inset: 0,
 };
-import {
-	midnight_green,
-	dark_midnight_green,
-	logo_blue,
-	l_midnight_green,
-	dark_mix_green,
-	light_logo_blue,
-	logo_yellow,
-	light_mix_green,
-	lighter_logo_blue,
-	bgwhite,
-	o_mix_green,
-} from "./utils/defaultColours";
-export const logoGrag = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%)`;
-export const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%) 1`;
-export const genericSectionStyle: React.CSSProperties = {
+const logoGrag = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%)`;
+const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%) 1`;
+const genericSectionStyle: React.CSSProperties = {
 	border: "1px solid black",
 	backgroundColor: "rgba(255, 0, 0, 0.2)",
 	// boxSizing: "border-box",
 };
-export const Theme = (index: number) => {
+const Theme = (index: number) => {
 	const theme = {
 		backgroundColor: bgwhite,
 		primaryColor: midnight_green,
@@ -61,7 +59,7 @@ export const Theme = (index: number) => {
 	return theme;
 };
 
-export const linkStyle = (isUnderlined = true): React.CSSProperties => ({
+const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	textDecoration: isUnderlined ? `underline` : "none",
 	textDecorationColor: `${logo_blue}`,
 	backgroundOrigin: "content-box",
@@ -76,7 +74,7 @@ export const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	fontSize: "16px",
 	padding: "5px 0",
 });
-export const generateGradient = (
+const generateGradient = (
 	n: number,
 
 	s: string = logo_yellow,
@@ -102,4 +100,12 @@ export const generateGradient = (
 				.toString(16)
 				.slice(1)
 	);
+};
+export {
+	generateGradient,
+	linkStyle,
+	Theme,
+	genericSectionStyle,
+	borderGrad,
+	BackgroundStyle,
 };

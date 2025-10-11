@@ -1,3 +1,5 @@
+// src/components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow.tsx
+
 import React, { useEffect, useState } from "react";
 
 import { IHexagonRowElements } from "../HexagonRow.types";
@@ -17,9 +19,7 @@ import { PointedtopHexagonFeatureGridProps } from "./PointedHexagonRow.types";
 
 const LAYOUT_BREAKPOINT = 1500;
 
-export const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({
-	elements,
-}) => {
+const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
 	const [isNarrow, setIsNarrow] = useState(false);
 
 	const updateLayout = () => {
@@ -80,7 +80,7 @@ export const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({
 		</div>
 	);
 };
-export const PointedtopHexagonFeatureGrid: React.FC<
+const PointedtopHexagonFeatureGrid: React.FC<
 	PointedtopHexagonFeatureGridProps
 > = ({ featureCallouts, hexagonArgs, useVerticalAlignment = false }) => {
 	const elements = featureCallouts.map((calloutProps, index) => {
@@ -97,3 +97,4 @@ export const PointedtopHexagonFeatureGrid: React.FC<
 
 	return <PointedtopHexagonGrid elements={elements as any} />;
 };
+export { PointedtopHexagonFeatureGrid };

@@ -1,6 +1,6 @@
 // src/components/titlebar/Dropdown.tsx
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { formatLabel } from "./Bars";
 import {
@@ -11,11 +11,9 @@ import {
 	dropdownImageContainerStyles,
 	dropdownImageStyles,
 	dropdownImageViewOverviewStyles,
-	_titleBarStyles,
-	pillBarOverrides,
 } from "./TitleBar.styles";
-import { ITitleBarLink, ITitleBarProps } from "./TitleBar.types";
-import { TitleBarUI, useActiveLink } from "./TitleBarUI";
+import { ITitleBarLink } from "./TitleBar.types";
+import { useActiveLink } from "./TitleBarUI";
 
 const Dropdown: React.FC<{
 	activeLinkGroup: ITitleBarLink[];

@@ -1,8 +1,6 @@
 // src/pages/homepage/parts/ourteam/OurTeam.types.ts
 
-import React from "react";
-
-export interface IPersona {
+interface IPersona {
 	image: string;
 	name: string;
 	title?: string;
@@ -10,3 +8,4 @@ export interface IPersona {
 	body: string;
 	index?: number;
 }
+export type { IPersona };

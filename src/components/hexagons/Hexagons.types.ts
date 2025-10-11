@@ -3,21 +3,21 @@
 import React from "react";
 import { ValidComponent } from "../../utils/reactUtils";
 
-export interface IComponentDefinitions {
+interface IComponentDefinitions {
 	defs: React.ReactNode[];
 	paths: React.ReactNode[];
 }
 
-export interface HexagonStyleParams {
+interface HexagonStyleParams {
 	size?: number;
 	scale?: number;
 	opacity?: number;
 }
-export type TSanitationFunction = (
+type TSanitationFunction = (
 	args: TOptionalParameters,
 	optional_f_params: any
 ) => any;
-export type ValidInput =
+type ValidInput =
 	| object
 	| TSanitationFunction
 	| string
@@ -28,9 +28,9 @@ export type ValidInput =
 	| null
 	| undefined;
 
-export type TOptionalParameters = any;
+type TOptionalParameters = any;
 
-export interface IOptionalParametersAssignments {
+interface IOptionalParametersAssignments {
 	key: string;
 	alias?: string;
 	return_value: ValidInput;
@@ -38,24 +38,24 @@ export interface IOptionalParametersAssignments {
 	f_params?: any;
 }
 
-export type TRefNode<T extends Element> = T | null;
-export type TContentObserver = ResizeObserver | null;
-export type TOscillation = undefined | number;
-export type THexFC = React.FC<Partial<THexFCProps>>;
+type TRefNode<T extends Element> = T | null;
+type TContentObserver = ResizeObserver | null;
+type TOscillation = undefined | number;
+type THexFC = React.FC<Partial<THexFCProps>>;
 
-export type THexFCProps = {
+type THexFCProps = {
 	element: ValidComponent[] | ValidComponent;
 	useVerticalAlignment: boolean;
 	children?: React.ReactNode;
 	styles?: any;
 };
 
-export interface IHexObjState {
+interface IHexObjState {
 	contentHeight: number | undefined;
 	containerHeight: number;
 	fontSize: number;
 }
-export interface IHexagonState extends IHexObjState {
+interface IHexagonState extends IHexObjState {
 	setContainerRef: (node: TRefNode<HTMLDivElement>) => void;
 	setContentRef: (node: TRefNode<Element>) => void;
 	containerHeight: number;
@@ -64,3 +64,14 @@ export interface IHexagonState extends IHexObjState {
 	fontSize: number;
 	construct: (args?: any) => IComponentDefinitions;
 }
+
+export type {
+	IHexagonState,
+	IHexObjState,
+	IOptionalParametersAssignments,
+	TContentObserver,
+	THexFC,
+	TOscillation,
+	TRefNode,
+	HexagonStyleParams,
+};

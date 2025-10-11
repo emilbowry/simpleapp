@@ -1,6 +1,6 @@
 // src/components/hexagons/LogoHexagon.tsx
 
-import React from "react";
+import React from "react"; // for some reason needs to be imported
 import { Hexagon } from "./Hexagons";
 import { logo_yellow } from "../../utils/defaultColours";
 import { LogoLinearGradient } from "../callingcard/graphics";

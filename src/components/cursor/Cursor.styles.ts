@@ -1,7 +1,7 @@
 // src/components/cursor/Cursor.styles.ts
 
 import React from "react";
-import { s_size, l_size } from "./Cursor.consts";
+import { INNER_RADIUS, OUTER_RADIUS } from "./Cursor.consts";
 const baseCursorStyle: React.CSSProperties = {
 	position: "fixed",
 	backgroundColor: "white",
@@ -18,10 +18,10 @@ const smallCursorStyle = (mousePosition: {
 }): React.CSSProperties => {
 	return {
 		...baseCursorStyle,
-		width: `${s_size}px`,
-		height: `${s_size}px`,
-		left: `${mousePosition.x - s_size / 2}px`,
-		top: `${mousePosition.y - s_size / 2}px`,
+		width: `${INNER_RADIUS}px`,
+		height: `${INNER_RADIUS}px`,
+		left: `${mousePosition.x - INNER_RADIUS / 2}px`,
+		top: `${mousePosition.y - INNER_RADIUS / 2}px`,
 	};
 };
 const largeCursorStyle = (largerCursorPosition: {
@@ -30,10 +30,10 @@ const largeCursorStyle = (largerCursorPosition: {
 }): React.CSSProperties => {
 	return {
 		...baseCursorStyle,
-		width: `${l_size}px`,
-		height: `${l_size}px`,
-		left: `${largerCursorPosition.x - l_size / 2}px`,
-		top: `${largerCursorPosition.y - l_size / 2}px`,
+		width: `${OUTER_RADIUS}px`,
+		height: `${OUTER_RADIUS}px`,
+		left: `${largerCursorPosition.x - OUTER_RADIUS / 2}px`,
+		top: `${largerCursorPosition.y - OUTER_RADIUS / 2}px`,
 	};
 };
 export { smallCursorStyle, largeCursorStyle };

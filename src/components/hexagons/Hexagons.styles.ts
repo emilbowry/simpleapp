@@ -3,7 +3,7 @@ import React from "react";
 // import { genericSectionStyle } from "../../styles";
 import { HexagonStyleParams } from "./Hexagons.types";
 
-export const containerStyle = ({
+const containerStyle = ({
 	size = 500,
 	scale = 1,
 	opacity = 0.8,
@@ -17,7 +17,7 @@ export const containerStyle = ({
 	};
 };
 
-export const svgStyle = ({
+const svgStyle = ({
 	size = 500,
 	scale = 1,
 }: HexagonStyleParams): React.CSSProperties => {
@@ -39,7 +39,7 @@ const leftCutout = (usePointedTop: boolean) =>
 const rightCutout = (usePointedTop: boolean) =>
 	usePointedTop ? pointedRightCutout : flattopRightCutout;
 
-export const PolyCutout = (
+const PolyCutout = (
 	usePointedTop: boolean,
 	isLeft: boolean
 ): React.CSSProperties => {
@@ -66,7 +66,7 @@ export const PolyCutout = (
 };
 
 /* some of these 100% and calc(100%) and inherit's are unnecessary but i cant remember which ones i can safely remove*/
-export const elementSection: React.CSSProperties = {
+const elementSection: React.CSSProperties = {
 	position: "relative",
 	top: 0,
 
@@ -75,7 +75,7 @@ export const elementSection: React.CSSProperties = {
 	height: `calc(100%)`,
 };
 
-export const elementWrapper: React.CSSProperties = {
+const elementWrapper: React.CSSProperties = {
 	position: "relative",
 
 	width: "100%",
@@ -83,7 +83,7 @@ export const elementWrapper: React.CSSProperties = {
 	height: `calc(100%)`, // 100% doesnt work out correct unles using calc
 };
 
-export const hexagonalContentStyle: React.CSSProperties = {
+const hexagonalContentStyle: React.CSSProperties = {
 	position: "absolute",
 	height: `calc(100%)`,
 
@@ -92,16 +92,27 @@ export const hexagonalContentStyle: React.CSSProperties = {
 	top: 0,
 };
 
-export const ELWrapperStyle: React.CSSProperties = {
+const ELWrapperStyle: React.CSSProperties = {
 	position: "relative",
 	height: "100%",
 	margin: 0,
 };
 
-export const ElContainerStyle: React.CSSProperties = {
+const ElContainerStyle: React.CSSProperties = {
 	position: "relative",
 	margin: 0,
 	padding: 0,
 	height: "100%",
 	top: 0,
+};
+
+export {
+	containerStyle,
+	ElContainerStyle,
+	elementSection,
+	elementWrapper,
+	ELWrapperStyle,
+	hexagonalContentStyle,
+	PolyCutout,
+	svgStyle,
 };

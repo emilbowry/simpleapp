@@ -6,17 +6,13 @@ import { Page } from "../../features/page/Page";
 import { SideBarCallingCard } from "../../components/callingcard/CallingCard";
 
 import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
-import { bgwhite, logo_blue } from "../../utils/defaultColours";
+import { bgwhite } from "../../utils/defaultColours";
 
-import {
-	formatComponent,
-	getImageEl,
-	ValidComponent,
-} from "../../utils/reactUtils";
-import { linkStyle, logoGrag, Theme } from "../../styles";
+import { formatComponent, ValidComponent } from "../../utils/reactUtils";
+import { linkStyle, Theme } from "../../styles";
 import { titleStyle } from "./ContactPage.styles";
 
-export const StyledLink: React.FC<{
+const StyledLink: React.FC<{
 	href?: string;
 	content?: ValidComponent;
 	isUnderlined?: boolean;
@@ -120,9 +116,11 @@ const contactPage: React.FC = () => (
 	</>
 );
 
-export const ContactPage = (
+const ContactPage = (
 	<Page
 		page={contactPage}
 		bg={true}
 	/>
 );
+
+export { ContactPage };

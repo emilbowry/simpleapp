@@ -132,9 +132,11 @@ const ourServices: React.FC = () => (
 	</>
 );
 
-export const OurServices = (
+const OurServices = (
 	<Page
 		page={ourServices}
 		bg={true}
 	/>
 );
+
+export { OurServices };

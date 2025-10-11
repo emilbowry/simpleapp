@@ -45,4 +45,4 @@ class CutHexagon extends Hexagon {
 	}
 }
 
-export { CutHexagon };
+// export { CutHexagon };

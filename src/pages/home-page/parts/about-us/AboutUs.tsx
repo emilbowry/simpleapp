@@ -15,7 +15,8 @@ import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
 import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
 import { bgwhite } from "../../../../utils/defaultColours";
-import { partners } from "../Partners";
+import { partners } from "../../../../components/partnership-bar/Partner";
+
 export const hStyle = { colour: bgwhite };
 
 const head = <h2>About Us</h2>;

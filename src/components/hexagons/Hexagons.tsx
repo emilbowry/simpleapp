@@ -1,21 +1,15 @@
 import React, { createContext, useContext } from "react";
 
-import { logo_yellow, midnight_green } from "../../utils/defaultColours";
 import {
 	formatComponent,
 	Map,
 	NoOpFC,
 	SantisedElMap,
 } from "../../utils/reactUtils";
-import { LogoLinearGradient } from "../callingcard/graphics";
 import {
 	Flattop_Hex_Path,
 	Hex_El_Starting_State,
 	Hex_Starting_State,
-	Logo_Chev_Colour_Mask,
-	Logo_Chev_Cutout,
-	Logo_Chev_Diamond,
-	Logo_Chev_Split,
 	Pointedtop_Hex_Path,
 } from "./Hexagons.consts";
 import {
@@ -367,8 +361,8 @@ class Hexagon
 // ===== PointedTopHexagon =====
 //
 
-export class PointedTopHexagon extends Hexagon {
+class PointedTopHexagon extends Hexagon {
 	static usePointedTop = true;
 }
 
-export { Hexagon };
+export { Hexagon, PointedTopHexagon };

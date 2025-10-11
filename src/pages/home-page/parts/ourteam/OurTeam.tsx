@@ -104,7 +104,7 @@ class Persona extends React.Component<IPersona> {
 	}
 }
 
-export const OurTeam: React.FC = () => (
+const OurTeam: React.FC = () => (
 	<div style={OurTeamContainerStyle}>
 		{teamMembers.map((member, arrayIndex) => {
 			const personaIndex = member.title ? 1 : 2;
@@ -130,3 +130,5 @@ export const OurTeam: React.FC = () => (
 		})}
 	</div>
 );
+
+export { OurTeam };

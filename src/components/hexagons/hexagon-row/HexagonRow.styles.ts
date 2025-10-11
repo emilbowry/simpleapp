@@ -7,9 +7,10 @@
  */
 import React from "react";
 import {
-	rspacing,
+	RELATIVE_SPACING,
 	/* aspace */
 } from "./HexagonRow.consts";
+import { ValidComponent } from "../../../utils/reactUtils";
 /*
 	CONSTANT DEFINITIONS 
 */
@@ -160,7 +161,9 @@ const edgeHexXShift = withCalc(edgeXOffset, true);
 /*
 Defining a debugging background
 */
-const offset = (rspacing * K(rspacing / ASPECT_RATIO)) / (2 * ASPECT_RATIO);
+const offset =
+	(RELATIVE_SPACING * K(RELATIVE_SPACING / ASPECT_RATIO)) /
+	(2 * ASPECT_RATIO);
 const Pos_Y = 50 + offset;
 const Neg_y = 50 - offset;
 const border_background = `
@@ -180,7 +183,7 @@ const bgAxis = `
 			linear-gradient(0deg, transparent calc(${Pos_Y}% - 2px), red ${Pos_Y}%, transparent calc(${Pos_Y}% + 2px)),
 			linear-gradient(0deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px))
         `;
-export const sideStyle = (
+const sideStyle = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0,
 	isLeft: boolean = true
@@ -204,7 +207,7 @@ export const sideStyle = (
 		marginBottom: Yshifts[1],
 	};
 };
-export const midStyle = (
+const midStyle = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ): React.CSSProperties => {
@@ -238,7 +241,7 @@ export const midStyle = (
 	gridTemplateColumns: `repeat(${n}, ${1/3})`,
 
  */
-export const container = (
+const container = (
 	_relative_spacing: number = 0,
 	absolute_spacing: number = 0,
 	length: number = 1
@@ -258,3 +261,27 @@ export const container = (
 		overflow: "visible",
 	};
 };
+
+const gridPositionCSS = (
+	midTop: ValidComponent,
+	l: number,
+	relative_space: number,
+	absolute_space: number
+) => {
+	return midTop === null
+		? {
+				marginTop: `calc(${-(0.5 * 100) / l}% + ${
+					relative_space / 2
+				}% + ${absolute_space}px)`,
+		  }
+		: {
+				paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
+					absolute_space / 2
+				}px)`,
+				paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
+					absolute_space / 2
+				}px)`,
+				backdropFilter: "blur(8px)",
+		  };
+};
+export { sideStyle, midStyle, container, gridPositionCSS };

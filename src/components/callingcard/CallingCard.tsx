@@ -1,8 +1,8 @@
 // src/components/callingcard/CallingCard.tsx
 
 import React from "react";
-import { formatComponent, ValidComponent } from "../../utils/reactUtils";
-import { borderGrad, Theme } from "../../styles";
+import { formatComponent } from "../../utils/reactUtils";
+import { Theme } from "../../styles";
 import {
 	ICallingCardProps,
 	ICallOutProps,

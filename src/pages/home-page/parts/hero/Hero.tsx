@@ -41,7 +41,7 @@ const textEl = (
 	</div>
 );
 
-export const Hero: React.FC = () => {
+const Hero: React.FC = () => {
 	const firstRow = [
 		null,
 		// <Hexagon args={{ colour: light_grey }} />,
@@ -94,3 +94,4 @@ export const Hero: React.FC = () => {
 		</div>
 	);
 };
+export { Hero };

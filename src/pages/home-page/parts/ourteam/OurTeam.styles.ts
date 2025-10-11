@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export const personaWrapperStyle: React.CSSProperties = {
+const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "30% 70%",
 	height: "100%",
@@ -10,12 +10,12 @@ export const personaWrapperStyle: React.CSSProperties = {
 	justifyContent: "center",
 };
 
-export const PersonaTextStyle: React.CSSProperties = {
+const PersonaTextStyle: React.CSSProperties = {
 	borderRadius: "100px 0 0 100px",
 	margin: "auto",
 };
 
-export const PersonaHeadshotStyle: React.CSSProperties = {
+const PersonaHeadshotStyle: React.CSSProperties = {
 	boxSizing: "border-box",
 	maxHeight: "30vh",
 	minHeight: 0,
@@ -31,10 +31,16 @@ export const PersonaHeadshotStyle: React.CSSProperties = {
 	alignContent: "center",
 };
 
-export const OurTeamContainerStyle: React.CSSProperties = {
+const OurTeamContainerStyle: React.CSSProperties = {
 	display: "grid",
 	rowGap: "1%",
 	width: "100%",
 	padding: "auto",
 	paddingBottom: "10%",
+};
+export {
+	personaWrapperStyle,
+	PersonaHeadshotStyle,
+	PersonaTextStyle,
+	OurTeamContainerStyle,
 };

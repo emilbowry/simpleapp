@@ -1,3 +1,5 @@
+// src/features/footer/FooterLayoutHandler.tsx
+
 import React from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
 

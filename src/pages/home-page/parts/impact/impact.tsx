@@ -118,7 +118,7 @@ const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	return letter;
 };
 
-export const ImpactCC: React.FC<{ index?: number }> = ({ index = 1 }) => (
+const ImpactCC: React.FC<{ index?: number }> = ({ index = 1 }) => (
 	<>
 		<SideBarCallingCard
 			components={[
@@ -138,3 +138,4 @@ export const ImpactCC: React.FC<{ index?: number }> = ({ index = 1 }) => (
 		/>
 	</>
 );
+export { ImpactCC };

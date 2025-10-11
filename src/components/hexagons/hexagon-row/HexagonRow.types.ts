@@ -1,19 +1,20 @@
-// src/components/hexagons/HexagonsRow.types.ts
+// src/components/hexagons/hexagon-row/HexagonRow.types.ts
 
+import React from "react";
 import { ValidComponent } from "../../../utils/reactUtils";
 
-export interface IHexagonRowElements {
+interface IHexagonRowElements {
 	elements: readonly [ValidComponent, ValidComponent, ValidComponent];
 	len?: number;
 }
-export interface _IHexagonRowElements extends IHexagonRowElements {
+interface IHexRowLayoutProps extends IHexagonRowElements {
 	relative_space: number;
 	absolute_space: number;
 }
-export interface IHexagonGridElements {
+interface IHexagonGridElements extends Partial<IHexRowLayoutProps> {
 	rows: IHexagonRowElements[];
-	relative_space?: number;
-	absolute_space?: number;
+
 	containerStyle?: React.CSSProperties;
 	class_name?: string;
 }
+export type { IHexagonRowElements, IHexRowLayoutProps, IHexagonGridElements };

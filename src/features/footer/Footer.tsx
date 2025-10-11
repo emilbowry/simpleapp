@@ -1,10 +1,10 @@
-// src/pages/Footer.tsx
+// src/features/footer/Footer.tsx
 
 import React from "react";
 import { BoxedImage } from "../../utils/reactUtils";
 import logo from "../../assets/logo.png";
 import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
-import { partners } from "../../pages/home-page/parts/Partners";
+import { partners } from "../../components/partnership-bar/Partner";
 import { linkedin_svg } from "../../components/callingcard/graphics";
 import { ScrollVisibilityDependent } from "./ScrollVisibilityDependent";
 import { centerable } from "./Footer.styles";
@@ -70,114 +70,105 @@ const FooterLayout: React.FC = () => {
 	);
 };
 
-const FooterBottomLeftSideBar: React.FC = () => {
-	return (
+const FooterBottomLeftSideBar: React.FC = () => (
+	<div
+		style={{
+			display: "grid",
+			gridTemplateRows: "25% 25% 25% 25%",
+			height: "100%",
+			margin: "0 auto",
+		}}
+	>
+		<ScrollVisibilityDependent
+			element={linkedin_svg}
+			styling={{
+				display: "flex",
+				justifyContent: "left",
+				marginLeft: 0,
+			}}
+			borders={[1 / 3, 0.75 * (1 / 3)]}
+		/>
+		<ScrollVisibilityDependent
+			element={<h2>Joe Fennel</h2>}
+			styling={centerable}
+			borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
+		/>
+		<ScrollVisibilityDependent
+			element={<h2>Inquiries</h2>}
+			styling={{ ...centerable }}
+			borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
+		/>
+
+		<ScrollVisibilityDependent
+			element={<h2>www.aicompatible.com</h2>}
+			styling={centerable}
+			borders={[0.25 * (1 / 3), 0]}
+		/>
+	</div>
+);
+
+const FooterBottomRightSideBar: React.FC = () => (
+	<>
+		<ScrollVisibilityDependent
+			element={Quote2}
+			styling={{
+				...centerable,
+
+				justifyContent: "center",
+
+				maxHeight: "50%",
+			}}
+			borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
+		/>
+		,
 		<div
 			style={{
-				display: "grid",
-				gridTemplateRows: "25% 25% 25% 25%",
+				...centerable,
+
 				height: "100%",
-				margin: "0 auto",
+				minWidth: 0,
+				minHeight: 0,
 			}}
 		>
 			<ScrollVisibilityDependent
-				element={linkedin_svg}
-				styling={{
-					display: "flex",
-					justifyContent: "left",
-					marginLeft: 0,
-				}}
-				borders={[1 / 3, 0.75 * (1 / 3)]}
-			/>
-			<ScrollVisibilityDependent
-				element={<h2>Joe Fennel</h2>}
+				element={
+					<BoxedImage
+						image={logo}
+						aspectRatio={`${Math.sqrt(3) / 2}`}
+						width={"50%"}
+					/>
+				}
 				styling={centerable}
-				borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
-			/>
-			<ScrollVisibilityDependent
-				element={<h2>Inquiries</h2>}
-				styling={{ ...centerable }}
-				borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
-			/>
-
-			<ScrollVisibilityDependent
-				element={<h2>www.aicompatible.com</h2>}
-				styling={centerable}
-				borders={[0.25 * (1 / 3), 0]}
+				percentage={0.5 * (1 / 3)}
+				borders={[1 / 3, 0]}
 			/>
 		</div>
-	);
-};
+	</>
+);
 
-const FooterBottomRightSideBar: React.FC = () => {
-	return (
-		<>
-			<ScrollVisibilityDependent
-				element={Quote2}
-				styling={{
-					// ...genericSectionStyle,
-					...centerable,
-
-					justifyContent: "center",
-
-					maxHeight: "50%",
-				}}
-				borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
+const FooterPartershipBar: React.FC = () => (
+	<ScrollVisibilityDependent
+		element={
+			<PartnershipMarquee
+				{...partners}
+				index={-1}
 			/>
-			,
-			<div
-				style={{
-					...centerable,
+		}
+		styling={{
+			position: "relative",
+			minWidth: 0,
+			isolation: "isolate",
 
-					height: "100%",
-					minWidth: 0,
-					minHeight: 0,
-				}}
-			>
-				<ScrollVisibilityDependent
-					element={
-						// <h2>
-						<BoxedImage
-							image={logo}
-							aspectRatio={`${Math.sqrt(3) / 2}`}
-							width={"50%"}
-						/>
-						// </h2>
-					}
-					styling={centerable}
-					percentage={0.5 * (1 / 3)}
-					borders={[1 / 3, 0]}
-				/>
-			</div>
-		</>
-	);
-};
-
-const FooterPartershipBar: React.FC = () => {
-	return (
-		<ScrollVisibilityDependent
-			element={
-				<PartnershipMarquee
-					{...partners}
-					index={-1}
-				/>
-			}
-			styling={{
-				position: "relative",
-				minWidth: 0,
-				isolation: "isolate",
-
-				minHeight: 0,
-				width: "125%", //correction factor  0.8/0.8*0.8
-				marginLeft: "-12.5%", //correction factor 0.1/0.1*0.8
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "center",
-			}}
-			borders={[18 / 30, 12 / 30]}
-		/>
-	);
-};
+			minHeight: 0,
+			width: "125%" /* correction factor   */,
+			marginLeft: "-12.5%" /* correction factor */,
+			display: "flex",
+			flexDirection: "column",
+			justifyContent: "center",
+		}}
+		borders={[18 / 30, 12 / 30]}
+	/>
+);
 const Footer: React.FC = () => <FooterLayoutHandler component={FooterLayout} />;
 
 export { Footer };
