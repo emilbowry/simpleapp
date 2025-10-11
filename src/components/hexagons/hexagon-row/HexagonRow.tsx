@@ -8,11 +8,11 @@ import {
 	midStyle,
 	sideStyle,
 } from "./HexagonRow.styles";
-import { IHexagonGridElements, IHexRowLayoutProps } from "./HexagonRow.types";
+import { IHexagonGridElements, THexRowLayoutProps } from "./HexagonRow.types";
 
 import { ABSOLUTE_SPACING, RELATIVE_SPACING } from "./HexagonRow.consts";
 
-const HexagonRow: React.FC<IHexRowLayoutProps> = ({
+const HexagonRow: React.FC<THexRowLayoutProps> = ({
 	elements,
 	relative_space,
 	absolute_space,
