@@ -2,7 +2,7 @@
 
 import React from "react";
 import { s_size, l_size } from "./Cursor.consts";
-export const baseCursorStyle: React.CSSProperties = {
+const baseCursorStyle: React.CSSProperties = {
 	position: "fixed",
 	backgroundColor: "white",
 	borderRadius: "50%",
@@ -12,7 +12,7 @@ export const baseCursorStyle: React.CSSProperties = {
 	zIndex: 9999,
 };
 
-export const smallCursorStyle = (mousePosition: {
+const smallCursorStyle = (mousePosition: {
 	x: number;
 	y: number;
 }): React.CSSProperties => {
@@ -24,7 +24,7 @@ export const smallCursorStyle = (mousePosition: {
 		top: `${mousePosition.y - s_size / 2}px`,
 	};
 };
-export const largeCursorStyle = (largerCursorPosition: {
+const largeCursorStyle = (largerCursorPosition: {
 	x: number;
 	y: number;
 }): React.CSSProperties => {
@@ -36,3 +36,4 @@ export const largeCursorStyle = (largerCursorPosition: {
 		top: `${largerCursorPosition.y - l_size / 2}px`,
 	};
 };
+export { smallCursorStyle, largeCursorStyle };

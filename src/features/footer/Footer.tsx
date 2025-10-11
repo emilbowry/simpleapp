@@ -3,8 +3,8 @@
 import React from "react";
 import { BoxedImage } from "../../utils/reactUtils";
 import logo from "../../assets/logo.png";
-import { PartnershipMarquee } from "../../components/partnershipbar/PartnershipBar";
-import { partners } from "../../pages/homepage/parts/Partners";
+import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
+import { partners } from "../../pages/home-page/parts/Partners";
 import { linkedin_svg } from "../../components/callingcard/graphics";
 import { ScrollVisibilityDependent } from "./ScrollVisibilityDependent";
 import { centerable } from "./Footer.styles";
@@ -178,6 +178,6 @@ const FooterPartershipBar: React.FC = () => {
 		/>
 	);
 };
-const Footer = <FooterLayoutHandler component={FooterLayout} />;
+const Footer: React.FC = () => <FooterLayoutHandler component={FooterLayout} />;
 
 export { Footer };

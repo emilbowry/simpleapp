@@ -1,0 +1,140 @@
+// src/pages/ourservices/OurServices.tsx
+
+import React from "react";
+import { SideBarCallingCard } from "../../components/callingcard/CallingCard";
+import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
+import { bgwhite } from "../../utils/defaultColours";
+import { hStyle } from "../home-page/parts/about-us/AboutUs";
+import { Page } from "../../features/page/Page";
+
+import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import { BoxedImage } from "../../utils/reactUtils";
+import {
+	imageStyling,
+	titleStyle,
+} from "../home-page/parts/about-us/AboutUs.styles";
+
+const Services: React.FC<{ title: string; services: string[] }> = ({
+	title,
+	services,
+}) => {
+	return (
+		<div style={{ height: "100%", textAlign: "left", margin: "0 5%" }}>
+			<h3 style={{ fontSize: "3rem" }}>{title}</h3>
+			<div>
+				<ol>
+					{services.map((service, index) => (
+						<li
+							key={index}
+							style={{ margin: "10% 0", fontSize: "2rem" }}
+						>
+							{service}
+						</li>
+					))}
+				</ol>
+			</div>
+		</div>
+	);
+};
+// const pichart = ()
+const cserv = {
+	title: "Our Consultancy Services:",
+	services: [
+		//normalised title
+		"For helping you find your business’ place in the transforming world of work - Consultancy – 1-to-1 - £200/hour",
+		"To make the AI Hype real for you – Tasks-to-tools – matching client tasks with real out-the-box AI tools",
+		"To find the insights that your business strategy hinges on - Research Project. E.g, estimating climate impact of AI Adoption in our sector.",
+		"To facilitate critical conversations – moderating debates and unconferences" /** @ask what is uncomferences */,
+		"To align ethics into a codified policy – AI policy drafting and review ",
+	],
+};
+const tserv = {
+	title: "Our Training Services:",
+	services: [
+		"To stimulate your teams into habits of lifelong learning in AI – Practical AI Ethics Workshops ",
+		"To empower your people with competence and confidence – Interactive prompt engineering workshops ",
+		"To educate your people on the ‘whether’ and the ‘why’ of AI adoption – Practical AI Ethics Talk ",
+		"Inspire the art of the possible through – Practical AI Talks and Live demos" /** @ask what is uncomferences */,
+	],
+};
+
+const ourServicesFeatureCallouts = [
+	[
+		<BoxedImage
+			image={bulb}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+		<div style={titleStyle}>Our Work</div>,
+	],
+	[
+		<BoxedImage
+			image={bullseye}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+		<div style={titleStyle}>Our Vision</div>,
+	],
+
+	[
+		<BoxedImage
+			image={pencil}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
+
+		<div style={titleStyle}>Our Work</div>,
+	],
+];
+
+import { PiChart } from "./pi_chart";
+const ourServices: React.FC = () => (
+	<>
+		<SideBarCallingCard
+			components={[<Services {...cserv} />, <Services {...tserv} />]}
+			sideBar={{
+				header: <h2>Our Services</h2>,
+				components: [
+					<div>
+						<div style={{ marginBottom: "5%" }}>
+							<span
+								style={{ color: "red", fontWeight: "bolder" }}
+							>
+								Probably needs an introduction <br />
+							</span>
+							Source: BCG Build for the Future 2024 Global Study
+							(merged with DAI)
+						</div>
+						<div>
+							<PiChart />
+						</div>
+					</div>,
+				],
+			}}
+			// title={<h2>Our Services</h2>}
+			footer={
+				<PointedtopHexagonFeatureGrid
+					featureCallouts={ourServicesFeatureCallouts}
+					hexagonArgs={hStyle}
+					useVerticalAlignment={true}
+				/>
+			}
+			styleOverrides={{
+				backgroundColor: bgwhite,
+				paddingBottom: "20%",
+				marginBottom: "-20%",
+				zIndex: -5,
+			}}
+		/>
+	</>
+);
+
+export const OurServices = (
+	<Page
+		page={ourServices}
+		bg={true}
+	/>
+);

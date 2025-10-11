@@ -1,9 +1,5 @@
 // src/components/cursor/Cursor.tsx
-/**
-@improvement
-- general refinements
-- cursor baseline super class
- */
+
 import React, { useEffect, useState } from "react";
 import { smallCursorStyle, largeCursorStyle } from "./Cursor.styles";
 
@@ -73,6 +69,4 @@ const CustomCursor: React.FC = () => {
 	return renderDefaultCursor();
 };
 
-export default CustomCursor;
-
-// CursorProps or State x,y. State: type of cursor
+export { CustomCursor };

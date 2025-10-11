@@ -17,7 +17,7 @@ import {
 	GridItemStyle,
 } from "./CallingCard.styles";
 
-export const CompWrapper: React.FC<ICallOutProps> = ({
+const CompWrapper: React.FC<ICallOutProps> = ({
 	content,
 	wrapper_style = {},
 }) => {
@@ -25,30 +25,12 @@ export const CompWrapper: React.FC<ICallOutProps> = ({
 		<div style={wrapper_style}>{formatComponent(content)}</div>
 	) : null;
 };
-export const Header: React.FC<IHeaderProps> = (props) => (
-	<CompWrapper {...props} />
-);
-export const Footer: React.FC<IFooterProps> = ({ content }) => {
+const Header: React.FC<IHeaderProps> = (props) => <CompWrapper {...props} />;
+const Footer: React.FC<IFooterProps> = ({ content }) => {
 	return content ? formatComponent(content) : null;
 };
 
-// export const GridItem: React.FC<IGridItemProps> = ({ content, item_key }) =>
-// 	content ? (
-// 		<CompWrapper
-// 			content={content}
-// 			wrapper_style={GridItemStyle}
-// 			key={item_key}
-// 		/>
-// 	) : (
-// 		<div
-// 			style={GridItemStyle}
-// 			key={item_key}
-// 		/>
-// 	);
-export const GridItem = ({
-	content,
-	item_key,
-}: IGridItemProps): React.ReactNode => {
+const GridItem = ({ content, item_key }: IGridItemProps): React.ReactNode => {
 	return content ? (
 		<CompWrapper
 			content={content}
@@ -62,7 +44,7 @@ export const GridItem = ({
 		/>
 	);
 };
-export const GridBody: React.FC<IGridBodyProps> = ({
+const GridBody: React.FC<IGridBodyProps> = ({
 	components,
 	styleOverrides = {},
 	columnOverrides = undefined,
@@ -74,22 +56,14 @@ export const GridBody: React.FC<IGridBodyProps> = ({
 
 	return (
 		<div style={{ ...GridBodyStyle, ...colOverrides, ...styleOverrides }}>
-			{components.map(
-				(item, index) => GridItem({ content: item, item_key: index })
-
-				/* 	
-				// Old FC version caused key err logs
-				// <GridItem
-				// 	content={item}
-				// 	item_key={index}
-				// /> 
-				*/
+			{components.map((item, index) =>
+				GridItem({ content: item, item_key: index })
 			)}
 		</div>
 	);
 };
 
-export const CallingCard: React.FC<ICallingCardProps> = ({
+const CallingCard: React.FC<ICallingCardProps> = ({
 	components,
 	index = 0,
 	header,
@@ -143,7 +117,7 @@ export const CallingCard: React.FC<ICallingCardProps> = ({
 	);
 };
 
-export const NewCallingCard: React.FC<
+const SideBarCallingCard: React.FC<
 	ICallingCardProps & { sideBar?: ICallingCardProps }
 > = (props) => {
 	const { components, isPageElement = true, sideBar } = props;
@@ -166,3 +140,5 @@ export const NewCallingCard: React.FC<
 		/>
 	);
 };
+
+export { CallingCard, SideBarCallingCard };

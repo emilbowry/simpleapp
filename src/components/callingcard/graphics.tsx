@@ -3,7 +3,7 @@
 import React from "react";
 import { logo_yellow, logo_blue } from "../../utils/defaultColours";
 
-export const LogoLinearGradient = (
+const LogoLinearGradient = (
 	<linearGradient
 		id="logoGradient"
 		x1="10%"
@@ -22,8 +22,8 @@ export const LogoLinearGradient = (
 	</linearGradient>
 );
 
-export const svg_logo_grad = <defs>{LogoLinearGradient}</defs>;
-export const bullseye = (
+const svg_logo_grad = <defs>{LogoLinearGradient}</defs>;
+const bullseye = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -57,7 +57,7 @@ export const bullseye = (
 	</svg>
 );
 
-export const pencil = (
+const pencil = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
@@ -80,7 +80,7 @@ M 3 21 L 2.25 21.75"
 	</svg>
 );
 
-export const bulb = (
+const bulb = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
@@ -99,7 +99,7 @@ A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5 M9 18h6 M10 22h4"
 	</svg>
 );
 
-export const linkedin_svg = (
+const linkedin_svg = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
@@ -124,3 +124,5 @@ export const linkedin_svg = (
 		/>
 	</svg>
 );
+
+export { linkedin_svg, bulb, bullseye, pencil, LogoLinearGradient };

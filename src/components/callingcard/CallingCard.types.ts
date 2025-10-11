@@ -2,23 +2,23 @@
 
 import { ValidComponent } from "../../utils/reactUtils";
 
-export interface ICallOutProps {
+interface ICallOutProps {
 	content: ValidComponent;
 	wrapper_style?: React.CSSProperties;
 	styleOverrides?: React.CSSProperties;
 }
-export interface IHeaderProps extends ICallOutProps {}
+interface IHeaderProps extends ICallOutProps {}
 
-export interface IFooterProps extends ICallOutProps {}
+interface IFooterProps extends ICallOutProps {}
 
-export interface IContainerProps {
+interface IContainerProps {
 	components: ValidComponent[];
 	styleOverrides?: React.CSSProperties;
 }
-export interface IGridBodyProps extends IContainerProps {
+interface IGridBodyProps extends IContainerProps {
 	columnOverrides?: string;
 }
-export interface ICallingCardProps {
+interface ICallingCardProps {
 	components: ValidComponent[];
 	header?: ValidComponent;
 	footer?: ValidComponent;
@@ -28,8 +28,17 @@ export interface ICallingCardProps {
 	isPageElement?: boolean;
 }
 
-export interface IGridItemProps {
+interface IGridItemProps {
 	content: ValidComponent;
 	styleOverrides?: React.CSSProperties;
 	item_key: React.Key | null | undefined;
 }
+
+export type {
+	ICallOutProps,
+	IHeaderProps,
+	IFooterProps,
+	ICallingCardProps,
+	IGridBodyProps,
+	IGridItemProps,
+};

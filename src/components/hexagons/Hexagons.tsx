@@ -38,7 +38,7 @@ import {
 	TRefNode,
 } from "./Hexagons.types";
 
-export const HexSVG: React.FC<{
+const HexSVG: React.FC<{
 	styles: any;
 	usePointedTop?: boolean;
 	children: React.ReactNode;
@@ -168,7 +168,8 @@ const CenterAlignedElement: THexFC = ({ element, useVerticalAlignment }) => {
 		)
 	);
 };
-export class Hexagon
+
+class Hexagon
 	extends React.Component<any, IHexObjState>
 	implements IHexagonState
 {
@@ -326,13 +327,14 @@ export class Hexagon
 		const {
 			args,
 			element = undefined,
+			svgStyle = {},
 			useVerticalAlignment = false,
 			...styleProps
 		} = this.props;
 		return (
 			<HexagonContext value={this.hex_state}>
 				<div style={containerStyle(styleProps)}>
-					<ComposedHexSVG styles={styleProps} />
+					<ComposedHexSVG styles={svgStyle} />
 
 					<CenterAlignedElement
 						element={element}
@@ -369,139 +371,4 @@ export class PointedTopHexagon extends Hexagon {
 	static usePointedTop = true;
 }
 
-//
-// ===== ImageHexagon =====
-//
-
-export class ImageHexagon extends Hexagon {
-	construct() {
-		let components = super.construct();
-
-		components.defs.push(
-			<pattern
-				id="img1"
-				patternContentUnits="objectBoundingBox"
-				width="1"
-				height="1"
-			>
-				<image
-					href={this.props.img}
-					width="1"
-					height={`${2 / Math.sqrt(3)}`}
-					preserveAspectRatio="xMidYMid slice"
-				/>
-			</pattern>
-		);
-		components.paths[0] = React.cloneElement(components.paths[0], {
-			fill: "url(#img1)",
-		});
-		return components;
-	}
-}
-
-//
-// ===== LogoHexagon =====
-//
-
-export class LogoHexagon extends Hexagon {
-	getDefaultAssignments() {
-		return [
-			...super.getDefaultAssignments(),
-			{ key: "withGap", return_value: false },
-		];
-	}
-	construct() {
-		const { withGap } = this.santiseOptionalParameters();
-
-		const components = {
-			defs: [LogoLinearGradient, <mask id="hexagon"></mask>],
-			paths: [
-				<path
-					d={Logo_Chev_Diamond}
-					fill={logo_yellow}
-					mask="url(#logoCutout)"
-				/>,
-				<path
-					d={Logo_Chev_Colour_Mask}
-					fill="url(#logoGradient)"
-					mask="url(#logoCutout)"
-				/>,
-			],
-		};
-
-		if (withGap == true) {
-			components.defs.push(
-				<mask id="logoCutout">
-					<path
-						d={this.hexPath}
-						fill="white"
-					/>
-					<path
-						d={Logo_Chev_Cutout}
-						fill="black"
-					/>
-					<path
-						d={Logo_Chev_Split}
-						fill="black"
-					/>
-				</mask>
-			);
-		} else {
-			components.defs.push(
-				<mask id="logoCutout">
-					<path
-						d={this.hexPath}
-						fill="white"
-					/>
-					<path
-						d={Logo_Chev_Cutout}
-						fill="black"
-					/>
-				</mask>
-			);
-		}
-		return components;
-	}
-}
-
-//
-// ===== CutHexagon =====
-//
-export class CutHexagon extends Hexagon {
-	getDefaultAssignments() {
-		return [
-			...super.getDefaultAssignments(),
-			{ key: "isLeftHanded", return_value: true },
-			{ key: "colour", return_value: midnight_green },
-		];
-	}
-	construct() {
-		const { isLeftHanded, color } = this.santiseOptionalParameters();
-
-		const flip = isLeftHanded ? -1 : 100;
-		const cutPath = `M ${flip} 0 l 50 -86.6025 h1 l 50 86.6025  l -50 86.6025  h -1 z`;
-
-		return {
-			defs: [
-				<mask id="cutoutMask">
-					<path
-						d={this.hexPath}
-						fill="white"
-					/>
-					<path
-						d={cutPath}
-						fill="black"
-					/>
-				</mask>,
-				LogoLinearGradient,
-			],
-			paths: [
-				<path
-					d={this.hexPath}
-					mask="url(#cutoutMask)"
-					fill={color}
-				/>,
-			],
-		};
-	}
-}
+export { Hexagon };

@@ -98,10 +98,8 @@ export const BoxedImage: React.FC<{
 	return <div style={wrapperStyle}>{imageEl}</div>;
 };
 
-export const _noOp = (_: any) => undefined;
-
 type ComponentOrString = React.ReactNode | React.ComponentType | string;
-export type ComponentOrStringList = ComponentOrString[];
+type ComponentOrStringList = ComponentOrString[];
 export type ValidComponent =
 	| React.ReactElement
 	| ComponentOrString

@@ -6,11 +6,11 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 import { animationTagging } from "./utils/animationTagging";
 
-import { HomePage } from "./pages/homepage/HomePage";
-import { TheJourneyPage } from "./pages/thejourneypage/TheJourney";
-import { ContactPage } from "./pages/contactpage/ContactPage";
-import { OurServices } from "./pages/ourservices/OurServices";
-import { ToolPage } from "./pages/dpotool/tool";
+import { HomePage } from "./pages/home-page/HomePage";
+import { TheJourneyPage } from "./pages/the-journey-page/TheJourney";
+import { ContactPage } from "./pages/contact-page/ContactPage";
+import { OurServices } from "./pages/our-services-page/OurServices";
+import { ToolPage } from "./pages/dpo-tool/tool";
 
 function ScrollToTop() {
 	const { pathname } = useLocation();
