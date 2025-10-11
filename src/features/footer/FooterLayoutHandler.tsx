@@ -41,6 +41,7 @@ const FooterLayoutHandler: React.FC<{
 						justifyContent: "center",
 
 						alignContent: "center",
+						...styling,
 					}}
 				>
 					{formatComponent(component)}

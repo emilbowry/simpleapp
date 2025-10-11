@@ -18,13 +18,12 @@ export const Page: React.FC<{
 		<>
 			{bg ? <div style={BackgroundStyle}></div> : null}
 			{useCursor ? <CustomCursor /> : null}
+			<AppTitleBar />
 
 			<main
 				key={location.pathname}
 				style={mainStyle}
 			>
-				<AppTitleBar />
-				<div />
 				<section
 					className="aos-ignore"
 					style={{

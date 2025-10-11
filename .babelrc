@@ -1,8 +1,13 @@
 {
   "presets": [
     "@babel/preset-env",
-    "@babel/preset-react",
-    "@babel/preset-typescript"    // include only if using TS
-//  ["@babel/preset-typescript", {allowDeclareFields: true}],
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ]
+    //  ,["@babel/preset-typescript", {allowDeclareFields: true}],
   ]
 }

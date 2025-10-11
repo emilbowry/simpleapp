@@ -1,4 +1,4 @@
-// src/features/titlebar/ExpandableTitleBar.tsx
+/* // src/features/titlebar/ExpandableTitleBar.tsx
 
 import React from "react";
 import { _titleBarStyles } from "./TitleBar.styles";
@@ -32,3 +32,4 @@ const ExpandableTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 		</TitleBarUI>
 	);
 };
+ */

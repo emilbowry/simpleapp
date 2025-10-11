@@ -114,8 +114,7 @@ export const NoOpFC: React.FC<
 > = ({ children }) => <>{children}</>;
 export const formatComponent = (
 	component: ValidComponent,
-	overlay = false,
-	index = 0
+	overlay = false
 ): React.ReactNode | string => {
 	if (component === null) {
 		return emptyEl;

@@ -176,7 +176,7 @@ const slicesData: PieSliceData[] = [
 ];
 const PiChart: React.FC<PiChartProps> = ({
 	sliceData = slicesData,
-	onSliceHover,
+	/* onSliceHover, */
 	onSliceClick,
 }) => {
 	const [hoveredSlice, setHoveredSlice] = useState<string | null>(null);

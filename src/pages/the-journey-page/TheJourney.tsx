@@ -85,12 +85,8 @@ const getThirdHex = (index: number) => {
 		/>
 	);
 
-	let _icon =
-		index < TimelineData.length - 1
-			? TimelineData[index + 1].icon
-			: undefined;
-	let _image =
-		index < TimelineData.length - 1 ? TimelineData[index].image : undefined;
+	let _icon = TimelineData[index + 1]?.icon;
+	let _image = TimelineData[index]?.image;
 	if (_icon) {
 		thirdHexagon = (
 			<Hexagon

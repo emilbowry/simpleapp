@@ -1,4 +1,4 @@
-//
+/* //
 // ===== CutHexagon =====
 
 import { midnight_green } from "../../utils/defaultColours";
@@ -7,14 +7,14 @@ import { Hexagon } from "./Hexagons";
 
 //
 class CutHexagon extends Hexagon {
-	getDefaultAssignments() {
+	override getDefaultAssignments() {
 		return [
 			...super.getDefaultAssignments(),
 			{ key: "isLeftHanded", return_value: true },
 			{ key: "colour", return_value: midnight_green },
 		];
 	}
-	construct() {
+	override construct() {
 		const { isLeftHanded, color } = this.santiseOptionalParameters();
 
 		const flip = isLeftHanded ? -1 : 100;
@@ -46,3 +46,4 @@ class CutHexagon extends Hexagon {
 }
 
 // export { CutHexagon };
+ */

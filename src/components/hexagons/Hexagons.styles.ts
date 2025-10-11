@@ -4,8 +4,6 @@ import React from "react";
 import { HexagonStyleParams } from "./Hexagons.types";
 
 const containerStyle = ({
-	size = 500,
-	scale = 1,
 	opacity = 0.8,
 }: HexagonStyleParams): React.CSSProperties => {
 	return {
@@ -17,10 +15,7 @@ const containerStyle = ({
 	};
 };
 
-const svgStyle = ({
-	size = 500,
-	scale = 1,
-}: HexagonStyleParams): React.CSSProperties => {
+const svgStyle = ({}: HexagonStyleParams): React.CSSProperties => {
 	return {};
 };
 
@@ -49,7 +44,7 @@ const PolyCutout = (
 		shapeOutside: isLeft
 			? leftCutout(usePointedTop)
 			: rightCutout(usePointedTop),
-		// shapeMargin: "5%",
+		shapeMargin: "5%",
 
 		/**
     @debug - used to visually display the shape

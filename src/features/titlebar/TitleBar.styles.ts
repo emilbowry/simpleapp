@@ -22,9 +22,11 @@ const _titleBarStyles = (): React.CSSProperties => {
 		alignItems: "center",
 		justifyContent: "space-between",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
+		minHeight: "50px",
+		// min
 		backgroundColor: "rgb(255 255 255 / 90%)",
 		// padding: "10px",
-		minWidth: `max-content`,
+		minWidth: `fit-content`,
 	};
 };
 const logoContainerStyles: React.CSSProperties = {
@@ -40,7 +42,9 @@ const navLinksContainerStyles: React.CSSProperties = {
 	flex: 2,
 	display: "flex",
 	justifyContent: "center",
-	gap: "15px",
+	gap: "2%",
+	textWrap: "nowrap",
+	textAlign: "center",
 };
 const rightHandContainerStyles: React.CSSProperties = {
 	flex: 1,

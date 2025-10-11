@@ -87,8 +87,7 @@ const keyframes = `
 
 const rowLayout = (
 	n_bricks: number,
-	maxBricks: number,
-	layers: number = 3
+	maxBricks: number
 ): React.CSSProperties => {
 	return {
 		overflow: "visible",

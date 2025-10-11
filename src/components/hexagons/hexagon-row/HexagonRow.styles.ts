@@ -6,10 +6,7 @@
 
  */
 import React from "react";
-import {
-	RELATIVE_SPACING,
-	/* aspace */
-} from "./HexagonRow.consts";
+
 import { ValidComponent } from "../../../utils/reactUtils";
 /*
 	CONSTANT DEFINITIONS 
@@ -17,7 +14,9 @@ import { ValidComponent } from "../../../utils/reactUtils";
 const ASPECT_RATIO = 2 / Math.sqrt(3); /*  Width/Height,  W=H.r */
 const n = 3;
 const CONTAINER_per_Element = 1 / n;
-const colGap = (relative_spacing: number = 0, absolute_spacing: number = 0) => {
+const colGap = (
+	relative_spacing: number = 0 /* , absolute_spacing: number = 0 */
+) => {
 	const HORIZONTAL_SPACE_SF = ASPECT_RATIO;
 	/* 	 Makes sense since devolves into an equilateral triangle problem
 	== 1/cos(30) */
@@ -27,13 +26,13 @@ const colGap = (relative_spacing: number = 0, absolute_spacing: number = 0) => {
 /*
  **IMPORTANT**:row-gap is CANNONICALLY DEFINED in terms of item **width**
  */
-const rowGap = (
+/* const rowGap = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0
 ): number | [number, number] => {
 	const verticalSpacing = relative_spacing;
 	return [verticalSpacing, absolute_spacing];
-};
+}; */
 /** 
 	* SCALING CORRECTION FACTOR: k
 	* @derivation 
@@ -57,16 +56,13 @@ const delta_W = (relative_spacing: number = 0) => {
 	return K(relative_spacing) - 1;
 };
 /* Mathematical Definitons */
-const centerVertTranslation = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
+const centerVertTranslation = () => {
 	const κ = 1 / ASPECT_RATIO;
 	return 50 * κ;
 };
 const gapMidpointTranslation = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
+	relative_spacing: number = 0
+	// absolute_spacing: number = 0
 ) => {
 	const κ = 1 / ASPECT_RATIO;
 	const row_gap = relative_spacing * κ;
@@ -85,20 +81,17 @@ const centreYOffset = (
 	const sign = hasTopOffset ? -1 : 1;
 	return [
 		sign *
-			(centerVertTranslation(relative_spacing) +
+			(centerVertTranslation() +
 				gapMidpointTranslation(relative_spacing)),
 		(sign * absolute_spacing) / 2,
 	];
 };
-const edgeYOffset = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
-) => {
+const edgeYOffset = () => {
 	return 0;
 };
 const overlapTranslation = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
+	relative_spacing: number = 0
+	// absolute_spacing: number = 0
 ) => {
 	const shift_percentage = 25;
 	const k = K(relative_spacing);
@@ -107,15 +100,15 @@ const overlapTranslation = (
 	); /* Since column-gap is our cannonical inner translation we need to maintain the absolute shift */
 };
 const PositionCorrectionFactor = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
+	relative_spacing: number = 0
+	// absolute_spacing: number = 0
 ) => {
 	/* overlapTranslation would shift the sclaed hexagon correctly if the centered at the same point */
 	return +delta_W(relative_spacing) / 2;
 };
 const XScaleCorrectionFactor = (
-	relative_spacing: number = 0,
-	absolute_spacing: number = 0
+	relative_spacing: number = 0
+	// absolute_spacing: number = 0
 ) => {
 	const k = K(relative_spacing);
 	return (k * relative_spacing) / 4;
@@ -153,7 +146,7 @@ const withCalc =
 /*
  Valid CSS of Mathematical Definitions 
 */
-const calculateRowGap = withCalc(rowGap);
+/* const calculateRowGap = withCalc(rowGap); */
 const calculateColGap = withCalc(colGap);
 const centreHexYShift = withCalc(centreYOffset, true);
 const edgeHexYShift = withCalc(edgeYOffset, true);
@@ -161,9 +154,15 @@ const edgeHexXShift = withCalc(edgeXOffset, true);
 /*
 Defining a debugging background
 */
+/* 
+import {
+	RELATIVE_SPACING,
+	ABSOLUTE_SPACING 
+} from "./HexagonRow.consts";
 const offset =
 	(RELATIVE_SPACING * K(RELATIVE_SPACING / ASPECT_RATIO)) /
 	(2 * ASPECT_RATIO);
+
 const Pos_Y = 50 + offset;
 const Neg_y = 50 - offset;
 const border_background = `
@@ -182,14 +181,14 @@ const bgAxis = `
 			linear-gradient(0deg, transparent calc(${Neg_y}% - 2px), red ${Neg_y}%, transparent calc(${Neg_y}% + 2px)),
 			linear-gradient(0deg, transparent calc(${Pos_Y}% - 2px), red ${Pos_Y}%, transparent calc(${Pos_Y}% + 2px)),
 			linear-gradient(0deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px))
-        `;
+        `; */
 const sideStyle = (
 	relative_spacing: number = 0,
 	absolute_spacing: number = 0,
 	isLeft: boolean = true
 ): React.CSSProperties => {
 	const Xshifts = edgeHexXShift(relative_spacing, absolute_spacing);
-	const Yshifts = edgeHexYShift(relative_spacing, absolute_spacing);
+	const Yshifts = edgeHexYShift();
 	return {
 		// ...genericSectionStyle,
 

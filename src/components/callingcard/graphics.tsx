@@ -1,6 +1,6 @@
 // src/components/callingcard/graphics.tsx
 
-import React from "react";
+// import React from "react";
 import { logo_yellow, logo_blue } from "../../utils/defaultColours";
 
 const LogoLinearGradient = (
@@ -23,7 +23,7 @@ const LogoLinearGradient = (
 );
 
 const svg_logo_grad = <defs>{LogoLinearGradient}</defs>;
-const bullseye: React.ReactElement = (
+const bullseye = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -57,7 +57,7 @@ const bullseye: React.ReactElement = (
 	</svg>
 );
 
-const pencil: React.ReactElement = (
+const pencil = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
@@ -80,7 +80,7 @@ M 3 21 L 2.25 21.75"
 	</svg>
 );
 
-const bulb: React.ReactElement = (
+const bulb = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"

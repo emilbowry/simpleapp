@@ -9,7 +9,7 @@ const CustomCursor: React.FC = () => {
 		x: 0,
 		y: 0,
 	});
-	const [isHoveringLink, setIsHoveringLink] = useState(false);
+	/* const [isHoveringLink, setIsHoveringLink] = useState(false); */
 
 	const trailSpeed = 0.15;
 
@@ -37,7 +37,7 @@ const CustomCursor: React.FC = () => {
 			cancelAnimationFrame(animationFrameId);
 		};
 	}, [mousePosition, trailSpeed]);
-
+	/* 
 	useEffect(() => {
 		const handleMouseOver = (e: MouseEvent) => {
 			if ((e.target as HTMLElement).tagName === "A") {
@@ -56,7 +56,7 @@ const CustomCursor: React.FC = () => {
 			window.removeEventListener("mouseout", handleMouseOut);
 		};
 	}, []);
-
+ */
 	const renderDefaultCursor = () => {
 		return (
 			<>

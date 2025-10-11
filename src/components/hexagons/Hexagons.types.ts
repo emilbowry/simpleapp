@@ -5,7 +5,7 @@ import { ValidComponent } from "../../utils/reactUtils";
 
 interface IComponentDefinitions {
 	defs: React.ReactNode[];
-	paths: React.ReactNode[];
+	paths: Required<React.ReactNode[]>;
 }
 
 interface HexagonStyleParams {
@@ -30,7 +30,7 @@ type ValidInput =
 
 type TOptionalParameters = any;
 
-interface IOptionalParametersAssignments {
+interface IOptParamMap {
 	key: string;
 	alias?: string;
 	return_value: ValidInput;
@@ -68,7 +68,7 @@ interface IHexagonState extends IHexObjState {
 export type {
 	IHexagonState,
 	IHexObjState,
-	IOptionalParametersAssignments,
+	IOptParamMap,
 	TContentObserver,
 	THexFC,
 	TOscillation,

@@ -60,7 +60,7 @@ const Theme = (index: number) => {
 };
 
 const linkStyle = (isUnderlined = true): React.CSSProperties => ({
-	textDecoration: isUnderlined ? `underline` : "none",
+	textDecorationLine: isUnderlined ? `underline` : "none",
 	textDecorationColor: `${logo_blue}`,
 	backgroundOrigin: "content-box",
 	backgroundImage: `${logoGrag}`,

@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-	IPartner,
 	IPartnershipBar,
 	PartnershipBarCompactWallProps,
 	PartnershipBarFullWallProps,

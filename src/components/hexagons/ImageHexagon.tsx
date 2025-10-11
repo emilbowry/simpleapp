@@ -8,7 +8,7 @@ import { Hexagon } from "./Hexagons";
 //
 
 class ImageHexagon extends Hexagon {
-	construct() {
+	overrideconstruct() {
 		let components = super.construct();
 
 		components.defs.push(
@@ -26,8 +26,8 @@ class ImageHexagon extends Hexagon {
 				/>
 			</pattern>
 		);
-		components.paths[0] = React.cloneElement(components.paths[0], {
-			fill: "url(#img1)",
+		components.paths[0] = React.cloneElement(components.paths[0]!, {
+			/**again seems overly strict */ fill: "url(#img1)",
 		});
 		return components;
 	}

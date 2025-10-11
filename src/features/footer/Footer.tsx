@@ -53,7 +53,7 @@ const FooterLayout: React.FC = () => {
 
 	const row3 = [<FooterBottomLeftSideBar />, <FooterBottomRightSideBar />];
 	return (
-		<GridFooter>
+		<GridFooter n_rows={n}>
 			<GridFooterRows
 				colratio={[1, 2, 1]}
 				children={row1}

@@ -8,11 +8,15 @@ const calcVisibilityRegion = (
 	footerVH: number,
 
 	viewportHeight: number
-) => {
+): [number, number, number] => {
 	const midPoint = (borders[0] + borders[1]) / 2;
 	const positions = [borders[0], midPoint, borders[1]];
 	const offset = docHeight - (1 + footerVH) * viewportHeight;
-	return positions.map((n) => n * viewportHeight * footerVH + offset);
+	return positions.map((n) => n * viewportHeight * footerVH + offset) as [
+		number,
+		number,
+		number
+	];
 };
 
 const useScrollVisibility = (
@@ -32,7 +36,7 @@ const useScrollVisibility = (
 		const currentScrollY = window.scrollY;
 		const docHeight = document.documentElement.scrollHeight;
 
-		const [maxVis, midVis, minVis] = calcVisibilityRegion(
+		const [maxVis, , minVis] = calcVisibilityRegion(
 			docHeight,
 			borders,
 			footerVH,

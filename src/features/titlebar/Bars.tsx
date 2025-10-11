@@ -1,12 +1,9 @@
 // src/components/titlebar/TitleBar.tsx
 
-import React, { useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import dropdownImage from "../../assets/dude1.jpg";
 import logo from "../../assets/logo.png";
-import { _titleBarStyles } from "./TitleBar.styles";
-import { ITitleBarLink, ITitleBarProps } from "./TitleBar.types";
-import { TitleBarUI } from "./TitleBarUI";
+import { ITitleBarLink } from "./TitleBar.types";
 import { PillTitleBar } from "./PillTitleBar";
 const formatLabel = (key: string, alias?: string): string => {
 	if (alias) return alias;
@@ -15,6 +12,15 @@ const formatLabel = (key: string, alias?: string): string => {
 		.replace(/_/g, " ")
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
 };
+
+/* 
+
+import { useMemo } from "react";
+import { useLocation } from "react-router-dom";
+
+import {  ITitleBarProps } from "./TitleBar.types";
+
+import { TitleBarUI } from "./TitleBarUI";
 
 const TitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 	const location = useLocation();
@@ -40,7 +46,7 @@ const TitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 		/>
 	);
 };
-
+ */
 const AppTitleBar: React.FC = () => {
 	const navLinks: ITitleBarLink[][] = [
 		[

@@ -1,7 +1,7 @@
 // src/components/hexagons/hexagonRow/HexagonRow.tsx
 
 import React from "react";
-import { formatComponent, ValidComponent } from "../../../utils/reactUtils";
+import { formatComponent } from "../../../utils/reactUtils";
 import {
 	container,
 	gridPositionCSS,

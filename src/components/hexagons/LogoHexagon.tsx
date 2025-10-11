@@ -1,6 +1,5 @@
 // src/components/hexagons/LogoHexagon.tsx
 
-import React from "react"; // for some reason needs to be imported
 import { Hexagon } from "./Hexagons";
 import { logo_yellow } from "../../utils/defaultColours";
 import { LogoLinearGradient } from "../callingcard/graphics";
@@ -12,13 +11,13 @@ import {
 } from "./Hexagons.consts";
 
 class LogoHexagon extends Hexagon {
-	getDefaultAssignments() {
+	override getDefaultAssignments() {
 		return [
 			...super.getDefaultAssignments(),
 			{ key: "withGap", return_value: false },
 		];
 	}
-	construct() {
+	override construct() {
 		const { withGap } = this.santiseOptionalParameters();
 
 		const components = {

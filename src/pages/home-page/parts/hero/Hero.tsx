@@ -72,15 +72,6 @@ const Hero: React.FC = () => {
 		{ elements: thirdRow },
 	];
 
-	const tl_FirstRow = [
-		<Hexagon
-			args={{ colour: light_mix_green }}
-			element={textEl}
-		/>,
-		<Hexagon />,
-		null,
-	];
-	const tl_SecondRow = [null, <Hexagon />, null];
 	return (
 		<div
 			style={{

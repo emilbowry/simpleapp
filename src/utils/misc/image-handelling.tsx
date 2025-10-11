@@ -3,10 +3,6 @@
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 
-const fromSVGString = (svgString: string): string => {
-	return `url("${get_data_uri(svgString)}")`;
-};
-
 const get_data_uri = (svgString: string, asCSSUrl = false): string => {
 	const uri = encodeURIComponent(svgString);
 

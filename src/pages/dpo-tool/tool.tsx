@@ -9,7 +9,7 @@ import ReactMarkdown from "react-markdown";
 import type { Components } from "react-markdown";
 import type { Element } from "hast";
 import { Page } from "../../features/page/Page";
-import { logo_blue, logo_yellow } from "../../utils/defaultColours";
+// import { logo_blue, logo_yellow } from "../../utils/defaultColours";
 import { generateGradient } from "../../styles";
 
 const rawMarkdown = `
@@ -98,7 +98,7 @@ const parseMarkdownForProperties = (markdown: string) => {
 
 	for (const line of lines) {
 		const match = line.match(commentRegex);
-		if (match) {
+		if (match && match[3] !== undefined) {
 			const type = match[1];
 			const text = match[3].trim();
 			let newProperty: Property;
@@ -115,8 +115,9 @@ const parseMarkdownForProperties = (markdown: string) => {
 			}
 
 			for (let j = processedLines.length - 1; j >= 0; j--) {
-				if (processedLines[j].trim() !== "") {
-					processedLines[j] = processedLines[j].replace(
+				if (processedLines[j]?.trim() !== "") {
+					processedLines[j] = processedLines[j]!.replace(
+						/** why the strictness necessary here */
 						/(\s*[-*]?\s*)(.*)/,
 						`$1|||ID:${newProperty.id}|||$2`
 					);
@@ -234,7 +235,7 @@ export const PolicyAnalyzer: React.FC = () => {
 		// Assign a unique color to each shared group
 		sharedGroupNames.forEach((groupName, index) => {
 			const groupColor = sharedColors[index] || "#E0E0E0"; // Fallback grey
-			groupedSharedProperties[groupName].forEach((prop) => {
+			groupedSharedProperties[groupName]?.forEach((prop) => {
 				newColorMap.set(prop.id, groupColor);
 			});
 		});
@@ -252,8 +253,8 @@ export const PolicyAnalyzer: React.FC = () => {
 			const firstChild = childArray[0];
 			if (typeof firstChild === "string") {
 				const match = firstChild.match(idRegex);
-				if (match) {
-					const id = match[1];
+				if (match && match[1] !== undefined) {
+					const id = match[1]!;
 					const cleanedText = match[2];
 					return {
 						id,

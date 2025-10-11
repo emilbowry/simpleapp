@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
-import { genericSectionStyle, Theme } from "../../../../styles";
+import { Theme } from "../../../../styles";
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 
 import joefennelhs from "../../../../assets/joeheadshot.png";
@@ -48,61 +48,65 @@ const teamMembers: IPersona[] = [
 	},
 ];
 
-class Persona extends React.Component<IPersona> {
-	render() {
-		const { image, name, title, email, body, index = 2 } = this.props;
-		let _index = 0;
-		if (index === 0) {
-			_index = 0;
-		} else if (index % 2 === 0) {
-			_index = 1;
-		}
-		let theme = Theme(_index);
-		const header = (
-			<div style={{ color: theme.tertiaryColor, fontSize: "2.5rem" }}>
-				<h3>
-					<span style={{ fontWeight: "bold" }}>{name}</span>
-					<span style={{ fontWeight: "normal" }}>
-						{title ? ` - ${title}` : null}
-					</span>
-				</h3>
-				{email ? (
-					<div style={{ color: theme.primaryColor }}>{email}</div>
-				) : (
-					<div></div>
-				)}
-			</div>
-		);
-		const descrition = (
-			<div style={{ color: theme.secondaryColor, fontSize: "2rem" }}>
-				<p>{body}</p>
-			</div>
-		);
-		const textual = (
-			<div style={{ padding: "2rem ", margin: "auto 0" }}>
-				{header}
-				{descrition}
-			</div>
-		);
-		return (
-			<div>
-				<div style={personaWrapperStyle}>
-					<div style={PersonaHeadshotStyle}>
-						<ImageHexagon img={image} />
-					</div>
-					<div
-						style={{
-							backgroundColor: theme.backgroundColor,
-							...PersonaTextStyle,
-						}}
-					>
-						{textual}
-					</div>
+const Persona: React.FC<IPersona> = ({
+	image,
+	name,
+	title,
+	email,
+	body,
+	index = 2,
+}) => {
+	let _index = 0;
+	if (index === 0) {
+		_index = 0;
+	} else if (index % 2 === 0) {
+		_index = 1;
+	}
+	let theme = Theme(_index);
+	const header = (
+		<div style={{ color: theme.tertiaryColor, fontSize: "2.5rem" }}>
+			<h3>
+				<span style={{ fontWeight: "bold" }}>{name}</span>
+				<span style={{ fontWeight: "normal" }}>
+					{title ? ` - ${title}` : null}
+				</span>
+			</h3>
+			{email ? (
+				<div style={{ color: theme.primaryColor }}>{email}</div>
+			) : (
+				<div></div>
+			)}
+		</div>
+	);
+	const descrition = (
+		<div style={{ color: theme.secondaryColor, fontSize: "2rem" }}>
+			<p>{body}</p>
+		</div>
+	);
+	const textual = (
+		<div style={{ padding: "2rem ", margin: "auto 0" }}>
+			{header}
+			{descrition}
+		</div>
+	);
+	return (
+		<div>
+			<div style={personaWrapperStyle}>
+				<div style={PersonaHeadshotStyle}>
+					<ImageHexagon img={image} />
+				</div>
+				<div
+					style={{
+						backgroundColor: theme.backgroundColor,
+						...PersonaTextStyle,
+					}}
+				>
+					{textual}
 				</div>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 const OurTeam: React.FC = () => (
 	<div style={OurTeamContainerStyle}>
