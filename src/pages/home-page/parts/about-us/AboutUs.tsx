@@ -16,6 +16,7 @@ import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
 import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { partners } from "../../../../components/partnership-bar/Partner";
+import { SideBarOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 
 export const hStyle = { colour: bgwhite };
 
@@ -145,9 +146,7 @@ export const AboutUsCallingCard: React.FC = () => (
 			}
 			styleOverrides={{
 				backgroundColor: bgwhite,
-				paddingBottom: "20%",
-				marginBottom: "-20%",
-				zIndex: 10,
+				...SideBarOverlapStyle,
 			}}
 		/>
 	</>

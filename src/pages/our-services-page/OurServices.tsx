@@ -19,14 +19,14 @@ const Services: React.FC<{ title: string; services: string[] }> = ({
 	services,
 }) => {
 	return (
-		<div style={{ height: "100%", textAlign: "left", margin: "0 5%" }}>
-			<h3 style={{ fontSize: "3rem" }}>{title}</h3>
+		<div style={ServicesContainerStyle}>
+			<h3 style={ServicesTitleStyle}>{title}</h3>
 			<div>
 				<ol>
 					{services.map((service, index) => (
 						<li
 							key={index}
-							style={{ margin: "10% 0", fontSize: "2rem" }}
+							style={ServiceStyle}
 						>
 							{service}
 						</li>
@@ -91,28 +91,38 @@ const ourServicesFeatureCallouts = [
 ];
 
 import { PiChart } from "./pi_chart";
+import {
+	ServicesContainerStyle,
+	ServicesSideBarStyle,
+	ServicesTitleStyle,
+	ServiceStyle,
+} from "./OurServices.styles";
+import { SideBarOverlapStyle } from "../../components/callingcard/CallingCard.styles";
+
+const ServicesSideBar: React.FC = () => {
+	return (
+		<div>
+			<div style={ServicesSideBarStyle}>
+				<span style={{ color: "red", fontWeight: "bolder" }}>
+					Probably needs an introduction <br />
+				</span>
+				Source: BCG Build for the Future 2024 Global Study (merged with
+				DAI)
+			</div>
+			<div>
+				<PiChart />
+			</div>
+		</div>
+	);
+};
+
 const ourServices: React.FC = () => (
 	<>
 		<SideBarCallingCard
 			components={[<Services {...cserv} />, <Services {...tserv} />]}
 			sideBar={{
 				header: <h2>Our Services</h2>,
-				components: [
-					<div>
-						<div style={{ marginBottom: "5%" }}>
-							<span
-								style={{ color: "red", fontWeight: "bolder" }}
-							>
-								Probably needs an introduction <br />
-							</span>
-							Source: BCG Build for the Future 2024 Global Study
-							(merged with DAI)
-						</div>
-						<div>
-							<PiChart />
-						</div>
-					</div>,
-				],
+				components: [<ServicesSideBar />],
 			}}
 			// title={<h2>Our Services</h2>}
 			footer={
@@ -124,8 +134,7 @@ const ourServices: React.FC = () => (
 			}
 			styleOverrides={{
 				backgroundColor: bgwhite,
-				paddingBottom: "20%",
-				marginBottom: "-20%",
+				...SideBarOverlapStyle,
 				zIndex: -5,
 			}}
 		/>

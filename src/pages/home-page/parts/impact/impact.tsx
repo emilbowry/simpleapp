@@ -7,7 +7,7 @@ import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/he
 import { BoxedImage } from "../../../../utils/reactUtils";
 
 import logo from "../../../../assets/logo.png";
-import { NewCallingCardOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
+import { SideBarFullOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 import { Theme } from "../../../../styles";
 import {
 	FounderLetterWrapperStyle,
@@ -134,7 +134,7 @@ const ImpactCC: React.FC<{ index?: number }> = ({ index = 1 }) => (
 				/>
 			}
 			index={1}
-			styleOverrides={NewCallingCardOverlapStyle}
+			styleOverrides={SideBarFullOverlapStyle}
 		/>
 	</>
 );

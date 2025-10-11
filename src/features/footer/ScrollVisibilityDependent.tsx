@@ -2,6 +2,18 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
+const calcVisibilityRegion = (
+	docHeight: number,
+	borders: [number, number],
+	footerVH: number,
+
+	viewportHeight: number
+) => {
+	const midPoint = (borders[0] + borders[1]) / 2;
+	const positions = [borders[0], midPoint, borders[1]];
+	const offset = docHeight - (1 + footerVH) * viewportHeight;
+	return positions.map((n) => n * viewportHeight * footerVH + offset);
+};
 
 const useScrollVisibility = (
 	borders?: [number, number],
@@ -12,18 +24,6 @@ const useScrollVisibility = (
 	const [isVisible, setIsVisible] = useState(noBorders);
 	const [opacity, setOpacity] = useState(+noBorders);
 
-	const calcVisibilityRegion = (
-		docHeight: number,
-		borders: [number, number],
-		footerVH: number,
-
-		viewportHeight: number
-	) => {
-		const midPoint = (borders[0] + borders[1]) / 2;
-		const positions = [borders[0], midPoint, borders[1]];
-		const offset = docHeight - (1 + footerVH) * viewportHeight;
-		return positions.map((n) => n * viewportHeight * footerVH + offset);
-	};
 	const handleScroll = useCallback(() => {
 		if (noBorders) {
 			return;

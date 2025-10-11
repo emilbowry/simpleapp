@@ -20,9 +20,14 @@ const containerStyle: React.CSSProperties = {
 	flexDirection: "column",
 	height: "100%",
 };
+
 const SideBarOverlapStyle: React.CSSProperties = {
 	paddingBottom: "20%",
 	marginBottom: "-20%",
+	zIndex: 10,
+};
+const SideBarFullOverlapStyle: React.CSSProperties = {
+	...SideBarOverlapStyle,
 	paddingTop: "66%",
 	marginTop: "-66%",
 	zIndex: 5,
@@ -32,5 +37,6 @@ export {
 	GridBodyStyle,
 	GridItemStyle,
 	containerStyle,
-	SideBarOverlapStyle as NewCallingCardOverlapStyle,
+	SideBarOverlapStyle,
+	SideBarFullOverlapStyle,
 };
