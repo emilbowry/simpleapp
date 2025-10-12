@@ -29,7 +29,10 @@ const colGap: TScalingFunction = ({ relative_spacing = 0 }) =>
 /*
  **IMPORTANT**:row-gap is CANNONICALLY DEFINED in terms of item **width**
  */
-const rowGap: TScalingFunction = ({ relative_spacing = 0 }) => relative_spacing;
+const rowGap: TDualScalingFunction = ({
+	relative_spacing = 0,
+	absolute_spacing = 0,
+}) => [relative_spacing, absolute_spacing];
 /** 
 	* SCALING CORRECTION FACTOR: k
 	* @derivation 
@@ -175,13 +178,14 @@ const vertGap = (
 	useRowGap = false
 ): React.CSSProperties =>
 	useRowGap
-		? { rowGap: rowGap(scale_params) }
+		? { rowGap: calculateRowGap(scale_params) as string }
 		: { gridAutoRows: calculateRowHeight(scale_params, length) as string };
 const rowHeight: TDualScalingFunction = (scale_params, length: number) => [
 	100 / length + scale_params.relative_spacing,
 	scale_params.absolute_spacing,
 ];
 const calculateRowHeight = withCalc(rowHeight);
+const calculateRowGap = withCalc(rowGap);
 
 const container = (
 	_relative_spacing: number = 0,
