@@ -14,18 +14,22 @@ import { ABSOLUTE_SPACING, RELATIVE_SPACING } from "./HexagonRow.consts";
 
 const HexagonRow: React.FC<THexRowLayoutProps> = ({
 	elements,
-	relative_space,
-	absolute_space,
+	relative_spacing,
+	absolute_spacing,
 }) => {
 	return (
 		<>
-			<div style={sideStyle(relative_space, absolute_space, true)}>
+			<div
+				style={sideStyle({ relative_spacing, absolute_spacing }, true)}
+			>
 				{formatComponent(elements[0], true)}
 			</div>
-			<div style={midStyle(relative_space, absolute_space)}>
+			<div style={midStyle({ relative_spacing, absolute_spacing })}>
 				{formatComponent(elements[1], true)}
 			</div>
-			<div style={sideStyle(relative_space, absolute_space, false)}>
+			<div
+				style={sideStyle({ relative_spacing, absolute_spacing }, false)}
+			>
 				{formatComponent(elements[2], true)}
 			</div>
 		</>
@@ -34,8 +38,8 @@ const HexagonRow: React.FC<THexRowLayoutProps> = ({
 
 const HexagonGrid: React.FC<IHexagonGridElements> = ({
 	rows,
-	relative_space = RELATIVE_SPACING,
-	absolute_space = ABSOLUTE_SPACING,
+	relative_spacing = RELATIVE_SPACING,
+	absolute_spacing = ABSOLUTE_SPACING,
 	containerStyle = {},
 	class_name,
 }) => {
@@ -54,20 +58,20 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 				...gridPositionCSS(
 					rows[0].elements[1],
 					l,
-					relative_space,
-					absolute_space
+					relative_spacing,
+					absolute_spacing
 				),
 
 				...containerStyle,
 			}}
 		>
-			<div style={container(relative_space, absolute_space, l)}>
+			<div style={container(relative_spacing, absolute_spacing, l)}>
 				{rows.map((row, _index) => (
 					<HexagonRow
 						key={_index}
 						elements={row.elements}
-						relative_space={relative_space}
-						absolute_space={absolute_space}
+						relative_spacing={relative_spacing}
+						absolute_spacing={absolute_spacing}
 						len={l}
 					/>
 				))}
