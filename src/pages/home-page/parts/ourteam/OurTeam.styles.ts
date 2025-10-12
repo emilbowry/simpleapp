@@ -5,7 +5,7 @@ import React from "react";
 const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "30% 70%",
-	height: "100%",
+	// height: "100%",
 	width: "100%",
 	justifyContent: "center",
 };
@@ -13,6 +13,7 @@ const personaWrapperStyle: React.CSSProperties = {
 const PersonaTextStyle: React.CSSProperties = {
 	borderRadius: "100px 0 0 100px",
 	margin: "auto",
+	height: "30vh",
 };
 
 const PersonaHeadshotStyle: React.CSSProperties = {
