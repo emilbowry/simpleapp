@@ -13,6 +13,7 @@ import {
 	TScalingFunction,
 	TDualScalingFunction,
 	IScaleParams,
+	TWithCalc,
 } from "./HexagonRow.types";
 import {
 	ASPECT_RATIO,
@@ -93,7 +94,10 @@ const edgeXOffset: TDualScalingFunction = (scale_params) => [
 		XScaleCorrectionFactor(scale_params),
 	-scale_params.absolute_spacing * ASPECT_RATIO,
 ];
+
+// let b: typeof a extends true?true:false
 /* Util Functions */
+
 const getCalc = (
 	vals: ReturnType<TScalingFunction | TDualScalingFunction>,
 	dual: boolean = false
@@ -104,17 +108,16 @@ const getCalc = (
 		? [`calc(${innerStr})`, `calc(-1*${innerStr})`]
 		: `calc(${innerStr})`;
 };
-const withCalc =
-	(fn: TDualScalingFunction | TScalingFunction, dual = false) =>
-	(...args: Parameters<typeof fn>) =>
-		getCalc(fn(...(args as [any])), dual);
 
-/*
- Valid CSS of Mathematical Definitions 
-*/
-/* const calculateRowGap = withCalc(rowGap); */
-const calculateColGap = withCalc(colGap);
+const withCalc: TWithCalc = (fn, dual) => {
+	return (...args) => {
+		return getCalc(fn(...(args as [any])), dual) as any;
+	};
+};
+const calculateColGap = withCalc(colGap, false);
+
 const centreHexYShift = withCalc(centreYOffset, true);
+
 const edgeHexYShift = withCalc(edgeYOffset, true);
 const edgeHexXShift = withCalc(edgeXOffset, true);
 
@@ -176,16 +179,17 @@ const vertGap = (
 	scale_params: IScaleParams,
 	length: number = 1,
 	useRowGap = false
-): React.CSSProperties =>
-	useRowGap
-		? { rowGap: calculateRowGap(scale_params) as string }
-		: { gridAutoRows: calculateRowHeight(scale_params, length) as string };
+): React.CSSProperties => {
+	return useRowGap
+		? { rowGap: calculateRowGap(scale_params) }
+		: { gridAutoRows: calculateRowHeight(scale_params, length) };
+};
 const rowHeight: TDualScalingFunction = (scale_params, length: number) => [
 	100 / length + scale_params.relative_spacing,
 	scale_params.absolute_spacing,
 ];
-const calculateRowHeight = withCalc(rowHeight);
-const calculateRowGap = withCalc(rowGap);
+const calculateRowHeight = withCalc(rowHeight, false);
+const calculateRowGap = withCalc(rowGap, false);
 
 const container = (
 	_relative_spacing: number = 0,
@@ -218,7 +222,7 @@ const container = (
 		columnGap: calculateColGap({
 			relative_spacing: col_rel_spacing,
 			absolute_spacing,
-		}) as string,
+		}),
 		display: "grid",
 		gridTemplateColumns: `repeat(${n}, 1fr)`,
 		overflow: "visible",

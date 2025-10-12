@@ -43,6 +43,14 @@ type TDualScalingFunction = TScalingFunction extends (
 			...others: any[]
 	  ) => [ReturnType<TScalingFunction>, ReturnType<TScalingFunction>]
 	: never;
+
+type TWithCalc = <D extends boolean | undefined>(
+	fn: any,
+	dual?: D
+) => (
+	...args: Parameters<typeof fn>
+) => D extends true ? [string, string] : string;
+
 export type {
 	IHexagonRowElements,
 	THexRowLayoutProps,
@@ -50,4 +58,5 @@ export type {
 	TScalingFunction,
 	IScaleParams,
 	TDualScalingFunction,
+	TWithCalc,
 };
