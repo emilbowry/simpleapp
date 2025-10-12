@@ -5,7 +5,6 @@ import React from "react";
 const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "30% 70%",
-	// height: "100%",
 	width: "100%",
 	justifyContent: "center",
 };

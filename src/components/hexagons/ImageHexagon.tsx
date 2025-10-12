@@ -8,7 +8,7 @@ import { Hexagon } from "./Hexagons";
 //
 
 class ImageHexagon extends Hexagon {
-	overrideconstruct() {
+	override construct() {
 		let components = super.construct();
 
 		components.defs.push(

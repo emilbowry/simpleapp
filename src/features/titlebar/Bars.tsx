@@ -14,7 +14,7 @@ const formatLabel = (key: string, alias?: string): string => {
 };
 
 /* 
-
+type TDualScalingFunction =  TScalingFunction extends (params: infer U) => infer R ? (params:U, ...others: any[]) => [R,R]: never;
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 

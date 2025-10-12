@@ -25,14 +25,29 @@ interface IHexagonGridElements extends Partial<THexRowLayoutProps> {
 }
 
 type IScaleParams = {
-	relative_space: number;
-	absolute_space: number;
+	relative_spacing: number;
+	absolute_spacing: number;
 };
 
-type TScalingFunction = () => number | [number, number];
+type TScalingFunction = (scale_params: IScaleParams) => number;
+// type TDualScalingFunction =  (params: IScaleParams) =>  number
+// interface TDualScalingFunction extends TScalingFunction {
+// 	(params: IScaleParams, ...others: any[]): [number,number];
+// }
+
+type TDualScalingFunction = TScalingFunction extends (
+	scale_params: infer U
+) => ReturnType<TScalingFunction>
+	? (
+			scale_params: U,
+			...others: any[]
+	  ) => [ReturnType<TScalingFunction>, ReturnType<TScalingFunction>]
+	: never;
 export type {
 	IHexagonRowElements,
 	THexRowLayoutProps,
 	IHexagonGridElements,
 	TScalingFunction,
+	IScaleParams,
+	TDualScalingFunction,
 };
