@@ -15,7 +15,7 @@ const interactionWrapperStyles: React.CSSProperties = {
 	top: 0,
 	zIndex: "100",
 };
-const _titleBarStyles = (): React.CSSProperties => {
+const titleBarStyles = (): React.CSSProperties => {
 	return {
 		display: "flex",
 		alignContent: "center",
@@ -131,7 +131,6 @@ const pillBarOverrides: React.CSSProperties = {
 	marginLeft: "10%",
 };
 export {
-	_titleBarStyles,
 	dropdownContainerStyles,
 	dropdownImageContainerStyles,
 	dropdownImageStyles,
@@ -147,4 +146,5 @@ export {
 	navLinkStyles,
 	pillBarOverrides,
 	rightHandContainerStyles,
+	titleBarStyles,
 };

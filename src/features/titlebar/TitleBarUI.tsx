@@ -5,18 +5,27 @@ import React, { useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import {
+	dropdownContainerStyles,
+	dropdownImageContainerStyles,
+	dropdownImageStyles,
+	dropdownImageViewOverviewStyles,
+	dropdownLinksColumnStyles,
+	dropdownLinkStyles,
+	dropdownStyles,
 	hamburgerStyle,
 	interactionWrapperStyles,
 	logoContainerStyles,
 	logoStyles,
 	navLinksContainerStyles,
 	navLinkStyles,
+	pillBarOverrides,
 	rightHandContainerStyles,
+	titleBarStyles,
 } from "./TitleBar.styles";
 import {
 	ITitleBarLink,
+	ITitleBarProps,
 	ITitleBarUILinksProps,
-	ITitleBarUIProps,
 } from "./TitleBar.types";
 const formatLabel = (key: string, alias?: string): string => {
 	if (alias) return alias;
@@ -25,26 +34,39 @@ const formatLabel = (key: string, alias?: string): string => {
 		.replace(/_/g, " ")
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
 };
+const useCurrentActiveLinkAlias = (links: ITitleBarLink[][]) => {
+	const location = useLocation();
 
-const TitleBarUI: React.FC<ITitleBarUIProps> = ({
+	return useMemo(() => {
+		const currentPath = location.pathname;
+		for (const linkGroup of links) {
+			for (const subLink of linkGroup) {
+				if (subLink.path === currentPath) {
+					return formatLabel(linkGroup[0].path, linkGroup[0].alias);
+				}
+			}
+		}
+		return formatLabel(links[0][0].path, links[0][0].alias);
+	}, [location.pathname, links]);
+};
+const TitleBarUI: React.FC<ITitleBarProps> = ({
 	links,
-	barStyle,
-	activeLinkAlias,
-	onLinkOver,
-	onWrapperMouseLeave,
+	style_fn = () => ({}),
 	children,
 }) => {
+	const activeLink = useCurrentActiveLinkAlias(links);
+	const { onLinkOver, onWrapperMouseLeave } = useActiveLink(links);
 	return (
 		<div
 			style={interactionWrapperStyles}
 			className="no-aos"
 			onMouseLeave={onWrapperMouseLeave}
 		>
-			<div style={barStyle}>
+			<div style={style_fn()}>
 				<TitleBarLogo />
 
 				<TitleBarUILinks
-					activeLinkAlias={activeLinkAlias}
+					activeLinkAlias={activeLink}
 					links={links}
 					onLinkOver={onLinkOver}
 				/>
@@ -113,18 +135,7 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 };
 
 const useActiveLink = (links: ITitleBarLink[][]) => {
-	const location = useLocation();
-	const initialActiveAlias = useMemo(() => {
-		const currentPath = location.pathname;
-		for (const linkGroup of links) {
-			for (const subLink of linkGroup) {
-				if (subLink.path === currentPath) {
-					return formatLabel(linkGroup[0].path, linkGroup[0].alias);
-				}
-			}
-		}
-		return formatLabel(links[0][0].path, links[0][0].alias);
-	}, [location.pathname, links]);
+	const initialActiveAlias = useCurrentActiveLinkAlias(links);
 
 	const [activeLinkAlias, setActiveLinkAlias] = useState(initialActiveAlias);
 	const [isOverLink, setIsOverLink] = useState(false);
@@ -136,24 +147,24 @@ const useActiveLink = (links: ITitleBarLink[][]) => {
 		}
 	}, [initialActiveAlias, isActive]);
 
-	const handleLinkOver = (alias: string) => {
+	const onLinkOver = (alias: string) => {
 		setIsOverLink(true);
 		setActiveLinkAlias(alias);
 	};
-	const handleAreaLeave = () => {
+	const onWrapperMouseLeave = () => {
 		setIsActive(false);
 		setIsOverLink(false);
 		setActiveLinkAlias(initialActiveAlias);
 	};
-	const handleAreaEnter = () => setIsActive(true);
+	const onMouseEnter = () => setIsActive(true);
 
 	return {
 		activeLinkAlias,
 		isOverLink,
 		isActive,
-		handleLinkOver,
-		handleAreaEnter,
-		handleAreaLeave,
+		onLinkOver,
+		onMouseEnter,
+		onWrapperMouseLeave,
 	};
 };
 const usePillOnScroll = (dThreshold: number = 1, uThreshold: number = 10) => {
@@ -171,4 +182,109 @@ const usePillOnScroll = (dThreshold: number = 1, uThreshold: number = 10) => {
 	return isScrolled;
 };
 
-export { formatLabel, TitleBarUI, useActiveLink, usePillOnScroll };
+export {
+	formatLabel,
+	TitleBarUI,
+	useActiveLink,
+	useCurrentActiveLinkAlias,
+	usePillOnScroll,
+};
+
+const Dropdown: React.FC<{
+	activeLinkGroup: ITitleBarLink[];
+	onMouseEnter: () => void;
+}> = ({ activeLinkGroup, onMouseEnter }) => (
+	<div
+		style={dropdownContainerStyles}
+		onMouseEnter={onMouseEnter}
+	>
+		<div style={dropdownStyles}>
+			{activeLinkGroup.length > 1 && (
+				<div style={dropdownLinksColumnStyles}>
+					{activeLinkGroup.map((link, index) => (
+						<NavLink
+							key={`${link.path}-${index}`}
+							to={link.path}
+							style={dropdownLinkStyles}
+						>
+							{formatLabel(link.path, link.alias)}
+						</NavLink>
+					))}
+				</div>
+			)}
+			{activeLinkGroup[0].image && (
+				<div style={dropdownImageContainerStyles}>
+					<img
+						src={activeLinkGroup[0].image}
+						alt={`${formatLabel(
+							activeLinkGroup[0].path,
+							activeLinkGroup[0].alias
+						)} overview`}
+						style={dropdownImageStyles}
+					/>
+					<div style={dropdownImageViewOverviewStyles}>
+						View overview
+						<span style={{ marginLeft: "5px" }}>&rarr;</span>
+					</div>
+				</div>
+			)}
+		</div>
+	</div>
+);
+
+const useDropDownInteractions = (links: ITitleBarLink[][]) => {
+	const {
+		activeLinkAlias,
+		isOverLink,
+		isActive,
+		onLinkOver,
+		onMouseEnter,
+		onWrapperMouseLeave,
+	} = useActiveLink(links);
+
+	const activeLinkGroup = useMemo(
+		() =>
+			links.find((linkGroup) => {
+				const mainLink = linkGroup[0];
+				return (
+					mainLink &&
+					formatLabel(mainLink.path, mainLink.alias) ===
+						activeLinkAlias
+				);
+			}),
+		[links, activeLinkAlias]
+	);
+
+	const showDropdown =
+		(isOverLink || isActive) &&
+		activeLinkGroup &&
+		(activeLinkGroup.length > 1 || activeLinkGroup[0].image);
+
+	return {
+		activeLinkAlias,
+		activeLinkGroup,
+		showDropdown,
+		onLinkOver,
+		onMouseEnter,
+		onWrapperMouseLeave,
+	};
+};
+
+export { Dropdown, useDropDownInteractions };
+
+const usePillBarStyle = () => {
+	const isScrolled = usePillOnScroll();
+
+	const TitleBarStyle = useMemo(
+		() => ({
+			...titleBarStyles(),
+			transition: "all 0.5s ease-in-out",
+			...(isScrolled ? pillBarOverrides : {}),
+		}),
+		[isScrolled]
+	);
+
+	return TitleBarStyle;
+};
+
+export { usePillBarStyle };

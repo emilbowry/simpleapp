@@ -9,6 +9,8 @@ interface ITitleBarLink {
 interface ITitleBarProps {
 	logoSrc: string;
 	links: ITitleBarLink[][];
+	style_fn?: (...args: any[]) => React.CSSProperties;
+	children?: React.ReactNode;
 }
 interface ITitleBarUILinksProps {
 	activeLinkAlias: string;
