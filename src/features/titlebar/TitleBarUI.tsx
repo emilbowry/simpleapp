@@ -27,6 +27,7 @@ import {
 	ITitleBarProps,
 	ITitleBarUILinksProps,
 } from "./TitleBar.types";
+
 const formatLabel = (key: string, alias?: string): string => {
 	if (alias) return alias;
 	if (key === "/") return "Home";
@@ -34,6 +35,8 @@ const formatLabel = (key: string, alias?: string): string => {
 		.replace(/_/g, " ")
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
 };
+
+// Extracted Isomorphic Function
 const useCurrentActiveLinkAlias = (links: ITitleBarLink[][]) => {
 	const location = useLocation();
 
@@ -49,13 +52,19 @@ const useCurrentActiveLinkAlias = (links: ITitleBarLink[][]) => {
 		return formatLabel(links[0][0].path, links[0][0].alias);
 	}, [location.pathname, links]);
 };
-const TitleBarUI: React.FC<ITitleBarProps> = ({
-	links,
-	style_fn = () => ({}),
-	children,
-}) => {
-	const activeLink = useCurrentActiveLinkAlias(links);
-	const { onLinkOver, onWrapperMouseLeave } = useActiveLink(links);
+
+const TitleBarUI: React.FC<ITitleBarProps> = (props) => {
+	const {
+		links,
+		style_fn = () => ({}),
+		// children,
+		hasDropdown = false,
+	} = props;
+	const initialActiveAlias = useCurrentActiveLinkAlias(links);
+
+	const { activeLinkAlias, onLinkOver, onWrapperMouseLeave, onMouseEnter } =
+		useActiveLink(links);
+
 	return (
 		<div
 			style={interactionWrapperStyles}
@@ -66,14 +75,19 @@ const TitleBarUI: React.FC<ITitleBarProps> = ({
 				<TitleBarLogo />
 
 				<TitleBarUILinks
-					activeLinkAlias={activeLink}
+					activeLinkAlias={activeLinkAlias}
 					links={links}
 					onLinkOver={onLinkOver}
 				/>
 
 				<TitleBarMenu />
 			</div>
-			{children}
+			{hasDropdown ?? (
+				<Dropdown
+					{...props}
+					onMouseEnter={onMouseEnter}
+				/>
+			)}
 		</div>
 	);
 };
@@ -134,6 +148,7 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 	);
 };
 
+// Interaction hook managing local state
 const useActiveLink = (links: ITitleBarLink[][]) => {
 	const initialActiveAlias = useCurrentActiveLinkAlias(links);
 
@@ -145,7 +160,7 @@ const useActiveLink = (links: ITitleBarLink[][]) => {
 		if (!isActive) {
 			setActiveLinkAlias(initialActiveAlias);
 		}
-	}, [initialActiveAlias, isActive]);
+	}, [initialActiveAlias, isActive, setActiveLinkAlias]);
 
 	const onLinkOver = (alias: string) => {
 		setIsOverLink(true);
@@ -167,6 +182,7 @@ const useActiveLink = (links: ITitleBarLink[][]) => {
 		onWrapperMouseLeave,
 	};
 };
+
 const usePillOnScroll = (dThreshold: number = 1, uThreshold: number = 10) => {
 	const [isScrolled, setIsScrolled] = useState(false);
 	useEffect(() => {
@@ -190,49 +206,62 @@ export {
 	usePillOnScroll,
 };
 
-const Dropdown: React.FC<{
-	activeLinkGroup: ITitleBarLink[];
-	onMouseEnter: () => void;
-}> = ({ activeLinkGroup, onMouseEnter }) => (
-	<div
-		style={dropdownContainerStyles}
-		onMouseEnter={onMouseEnter}
-	>
-		<div style={dropdownStyles}>
-			{activeLinkGroup.length > 1 && (
-				<div style={dropdownLinksColumnStyles}>
-					{activeLinkGroup.map((link, index) => (
-						<NavLink
-							key={`${link.path}-${index}`}
-							to={link.path}
-							style={dropdownLinkStyles}
-						>
-							{formatLabel(link.path, link.alias)}
-						</NavLink>
-					))}
+const Dropdown: React.FC<
+	ITitleBarProps & {
+		onMouseEnter: () => void;
+	}
+> = ({ onMouseEnter, ...props }) => {
+	const { activeLinkGroup, showDropdown } = useDropDownInteractions(
+		props.links
+	);
+	return (
+		showDropdown &&
+		activeLinkGroup && (
+			<div
+				style={dropdownContainerStyles}
+				onMouseEnter={onMouseEnter}
+			>
+				<div style={dropdownStyles}>
+					{activeLinkGroup.length > 1 && (
+						<div style={dropdownLinksColumnStyles}>
+							{activeLinkGroup.map((link, index) => (
+								<NavLink
+									key={`${link.path}-${index}`}
+									to={link.path}
+									style={dropdownLinkStyles}
+								>
+									{formatLabel(link.path, link.alias)}
+								</NavLink>
+							))}
+						</div>
+					)}
+					{activeLinkGroup[0].image && (
+						<div style={dropdownImageContainerStyles}>
+							<img
+								src={activeLinkGroup[0].image}
+								alt={`${formatLabel(
+									activeLinkGroup[0].path,
+									activeLinkGroup[0].alias
+								)} overview`}
+								style={dropdownImageStyles}
+							/>
+							<div style={dropdownImageViewOverviewStyles}>
+								View overview
+								<span style={{ marginLeft: "5px" }}>
+									&rarr;
+								</span>
+							</div>
+						</div>
+					)}
 				</div>
-			)}
-			{activeLinkGroup[0].image && (
-				<div style={dropdownImageContainerStyles}>
-					<img
-						src={activeLinkGroup[0].image}
-						alt={`${formatLabel(
-							activeLinkGroup[0].path,
-							activeLinkGroup[0].alias
-						)} overview`}
-						style={dropdownImageStyles}
-					/>
-					<div style={dropdownImageViewOverviewStyles}>
-						View overview
-						<span style={{ marginLeft: "5px" }}>&rarr;</span>
-					</div>
-				</div>
-			)}
-		</div>
-	</div>
-);
+			</div>
+		)
+	);
+};
 
+// Interaction hook for Dropdown, relies on useActiveLink state
 const useDropDownInteractions = (links: ITitleBarLink[][]) => {
+	// This hook must re-run useActiveLink locally to access the state variables (activeLinkAlias, isOverLink, isActive)
 	const {
 		activeLinkAlias,
 		isOverLink,

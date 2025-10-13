@@ -11,6 +11,7 @@ interface ITitleBarProps {
 	links: ITitleBarLink[][];
 	style_fn?: (...args: any[]) => React.CSSProperties;
 	children?: React.ReactNode;
+	hasDropdown?: boolean;
 }
 interface ITitleBarUILinksProps {
 	activeLinkAlias: string;
