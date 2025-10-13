@@ -4,14 +4,14 @@ import React from "react";
 
 import background from "./assets/Untitled.png";
 import {
-	midnight_green,
+	bgwhite,
 	dark_midnight_green,
-	logo_blue,
 	dark_mix_green,
 	light_logo_blue,
-	logo_yellow,
 	lighter_logo_blue,
-	bgwhite,
+	logo_blue,
+	logo_yellow,
+	midnight_green,
 	o_mix_green,
 } from "./utils/defaultColours";
 
@@ -102,10 +102,10 @@ const generateGradient = (
 	);
 };
 export {
+	BackgroundStyle,
+	borderGrad,
 	generateGradient,
+	genericSectionStyle,
 	linkStyle,
 	Theme,
-	genericSectionStyle,
-	borderGrad,
-	BackgroundStyle,
 };

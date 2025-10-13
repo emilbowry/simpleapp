@@ -9,10 +9,10 @@ const CONTAINER_per_Element = 1 / n;
 const SIDE_SHIFT = 25;
 
 export {
-	RELATIVE_SPACING,
 	ABSOLUTE_SPACING,
 	ASPECT_RATIO,
-	n,
 	CONTAINER_per_Element,
+	n,
+	RELATIVE_SPACING,
 	SIDE_SHIFT,
 };

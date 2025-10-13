@@ -8,3 +8,6 @@ openai.md
 src/.DS_Store
 *.ipynb
 *.zip
+src\ copy/
+src_partial
+src_partial.zip

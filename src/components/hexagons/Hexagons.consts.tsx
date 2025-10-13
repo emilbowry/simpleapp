@@ -29,11 +29,11 @@ const Hex_El_Starting_State: IHexagonState = {
 
 export {
 	Flattop_Hex_Path,
-	Pointedtop_Hex_Path,
-	Logo_Chev_Cutout,
-	Logo_Chev_Colour_Mask,
-	Logo_Chev_Split,
-	Logo_Chev_Diamond,
 	Hex_El_Starting_State,
 	Hex_Starting_State,
+	Logo_Chev_Colour_Mask,
+	Logo_Chev_Cutout,
+	Logo_Chev_Diamond,
+	Logo_Chev_Split,
+	Pointedtop_Hex_Path,
 };

@@ -4,19 +4,19 @@ import React from "react";
 
 import aicompwork from "../../../../assets/aicwork.jpg";
 import {
+	bulb,
 	bullseye,
 	pencil,
-	bulb,
 } from "../../../../components/callingcard/graphics";
 
 import { SideBarCallingCard } from "../../../../components/callingcard/CallingCard";
-import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
-import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
-import { imageStyling, titleStyle, footerStyle } from "./AboutUs.styles";
-import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
-import { bgwhite } from "../../../../utils/defaultColours";
-import { partners } from "../../../../components/partnership-bar/Partner";
 import { SideBarOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
+import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
+import { partners } from "../../../../components/partnership-bar/Partner";
+import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
+import { bgwhite } from "../../../../utils/defaultColours";
+import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
+import { footerStyle, imageStyling, titleStyle } from "./AboutUs.styles";
 
 export const hStyle = { colour: bgwhite };
 

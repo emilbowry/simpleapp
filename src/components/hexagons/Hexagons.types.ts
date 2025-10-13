@@ -66,6 +66,8 @@ interface IHexagonState extends IHexObjState {
 }
 
 export type {
+	HexagonStyleParams,
+	IComponentDefinitions,
 	IHexagonState,
 	IHexObjState,
 	IOptParamMap,
@@ -73,6 +75,4 @@ export type {
 	THexFC,
 	TOscillation,
 	TRefNode,
-	HexagonStyleParams,
-	IComponentDefinitions,
 };

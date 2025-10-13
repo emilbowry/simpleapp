@@ -39,8 +39,8 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	paddingBottom: "10%",
 };
 export {
-	personaWrapperStyle,
+	OurTeamContainerStyle,
 	PersonaHeadshotStyle,
 	PersonaTextStyle,
-	OurTeamContainerStyle,
+	personaWrapperStyle,
 };

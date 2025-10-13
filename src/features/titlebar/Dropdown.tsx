@@ -2,18 +2,17 @@
 
 import React, { useMemo } from "react";
 import { NavLink } from "react-router-dom";
-import { formatLabel } from "./Bars";
 import {
 	dropdownContainerStyles,
-	dropdownStyles,
-	dropdownLinksColumnStyles,
-	dropdownLinkStyles,
 	dropdownImageContainerStyles,
 	dropdownImageStyles,
 	dropdownImageViewOverviewStyles,
+	dropdownLinksColumnStyles,
+	dropdownLinkStyles,
+	dropdownStyles,
 } from "./TitleBar.styles";
 import { ITitleBarLink } from "./TitleBar.types";
-import { useActiveLink } from "./TitleBarUI";
+import { formatLabel, useActiveLink } from "./TitleBarUI";
 
 const Dropdown: React.FC<{
 	activeLinkGroup: ITitleBarLink[];

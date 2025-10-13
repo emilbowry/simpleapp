@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Theme } from "../../styles";
+import { PartnerImage, PartnerRow } from "./PartnershipBar";
+import {
+	CompactViewStyle,
+	PartnerStyles,
+	rowLayout,
+} from "./PartnershipBar.styles";
 import {
 	IPartnershipBar,
 	PartnershipBarCompactWallProps,
 	PartnershipBarFullWallProps,
 } from "./PartnershipBar.types";
-import { Theme } from "../../styles";
-import {
-	PartnerStyles,
-	CompactViewStyle,
-	rowLayout,
-} from "./PartnershipBar.styles";
-import { PartnerImage, PartnerRow } from "./PartnershipBar";
 
 const PartnershipWall: React.FC<IPartnershipBar> = ({
 	partners,

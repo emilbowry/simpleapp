@@ -1,18 +1,20 @@
+// src/pages/home-page/parts/ourteam/OurTeam.tsx
+
 import React from "react";
+import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
 import { Theme } from "../../../../styles";
-import { CallingCard } from "../../../../components/callingcard/CallingCard";
 
+import will from "../../../../assets/dude1.jpg";
+import ben from "../../../../assets/dude2.jpg";
+import omar from "../../../../assets/dude3.jpg";
 import joefennelhs from "../../../../assets/joeheadshot.png";
 import miranda from "../../../../assets/miranda.jpg";
-import omar from "../../../../assets/dude3.jpg";
-import ben from "../../../../assets/dude2.jpg";
-import will from "../../../../assets/dude1.jpg";
 import {
-	personaWrapperStyle,
+	OurTeamContainerStyle,
 	PersonaHeadshotStyle,
 	PersonaTextStyle,
-	OurTeamContainerStyle,
+	personaWrapperStyle,
 } from "./OurTeam.styles";
 import { IPersona } from "./OurTeam.types";
 

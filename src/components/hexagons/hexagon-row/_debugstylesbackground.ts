@@ -3,9 +3,9 @@ Defining a debugging background
 */
 
 import {
-	RELATIVE_SPACING,
 	ABSOLUTE_SPACING,
 	ASPECT_RATIO,
+	RELATIVE_SPACING,
 } from "./HexagonRow.consts";
 import { K } from "./HexagonRow.styles";
 const debug_background = ({

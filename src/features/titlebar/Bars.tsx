@@ -1,26 +1,13 @@
-// src/components/titlebar/TitleBar.tsx
+// src/features/titlebar/Bars.tsx
 
-import React from "react";
-import dropdownImage from "../../assets/dude1.jpg";
-import logo from "../../assets/logo.png";
-import { ITitleBarLink } from "./TitleBar.types";
-import { PillTitleBar } from "./PillTitleBar";
-const formatLabel = (key: string, alias?: string): string => {
-	if (alias) return alias;
-	if (key === "/") return "Home";
-	return key
-		.replace(/_/g, " ")
-		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
-};
-
-/* 
-type TDualScalingFunction =  TScalingFunction extends (params: infer U) => infer R ? (params:U, ...others: any[]) => [R,R]: never;
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
-import {  ITitleBarProps } from "./TitleBar.types";
+import { ITitleBarProps } from "./TitleBar.types";
 
-import { TitleBarUI } from "./TitleBarUI";
+import { Dropdown, useDropDownInteractions } from "./Dropdown";
+import { _titleBarStyles, pillBarOverrides } from "./TitleBar.styles";
+import { formatLabel, TitleBarUI, usePillOnScroll } from "./TitleBarUI";
 
 const TitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 	const location = useLocation();
@@ -46,25 +33,69 @@ const TitleBar: React.FC<ITitleBarProps> = ({ links }) => {
 		/>
 	);
 };
- */
-const AppTitleBar: React.FC = () => {
-	const navLinks: ITitleBarLink[][] = [
-		[
-			{ path: "/", alias: "Home", image: dropdownImage },
-			{ path: "/demo_page", alias: "Demo Page" },
-		],
-		[{ path: "/thejourney", alias: "The Journey" }],
+const ExpandableTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
+	const {
+		activeLinkAlias,
+		activeLinkGroup,
+		showDropdown,
+		handleLinkOver,
+		handleAreaEnter,
+		handleAreaLeave,
+	} = useDropDownInteractions(links);
 
-		[{ path: "/ourservices", alias: "Our Services" }],
-		[{ path: "/contact", alias: "Contact" }],
-		[{ path: "/dpotool", alias: "DPO Tool" }],
-	];
 	return (
-		<PillTitleBar
-			logoSrc={logo}
-			links={navLinks}
-		/>
+		<TitleBarUI
+			links={links}
+			barStyle={_titleBarStyles()}
+			activeLinkAlias={activeLinkAlias}
+			onLinkOver={handleLinkOver}
+			onWrapperMouseLeave={handleAreaLeave}
+		>
+			{showDropdown && activeLinkGroup && (
+				<Dropdown
+					activeLinkGroup={activeLinkGroup}
+					onMouseEnter={handleAreaEnter}
+				/>
+			)}
+		</TitleBarUI>
 	);
 };
 
-export { AppTitleBar, formatLabel };
+const PillTitleBar: React.FC<ITitleBarProps> = ({ links }) => {
+	const {
+		activeLinkAlias,
+		activeLinkGroup,
+		showDropdown,
+		handleLinkOver,
+		handleAreaEnter,
+		handleAreaLeave,
+	} = useDropDownInteractions(links);
+	const isScrolled = usePillOnScroll();
+
+	const titleBarStyles = useMemo(
+		() => ({
+			..._titleBarStyles(),
+			transition: "all 0.5s ease-in-out",
+			...(isScrolled ? pillBarOverrides : {}),
+		}),
+		[isScrolled]
+	);
+
+	return (
+		<TitleBarUI
+			links={links}
+			barStyle={titleBarStyles}
+			activeLinkAlias={activeLinkAlias}
+			onLinkOver={handleLinkOver}
+			onWrapperMouseLeave={handleAreaLeave}
+		>
+			{showDropdown && activeLinkGroup && (
+				<Dropdown
+					activeLinkGroup={activeLinkGroup}
+					onMouseEnter={handleAreaEnter}
+				/>
+			)}
+		</TitleBarUI>
+	);
+};
+export { ExpandableTitleBar, PillTitleBar, TitleBar };

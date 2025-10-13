@@ -1,7 +1,7 @@
 // src/components/cursor/Cursor.tsx
 
 import React, { useEffect, useState } from "react";
-import { smallCursorStyle, largeCursorStyle } from "./Cursor.styles";
+import { largeCursorStyle, smallCursorStyle } from "./Cursor.styles";
 
 const CustomCursor: React.FC = () => {
 	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

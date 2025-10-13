@@ -3,22 +3,28 @@
 import { Menu } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.png";
 import {
+	hamburgerStyle,
 	interactionWrapperStyles,
 	logoContainerStyles,
 	logoStyles,
-	rightHandContainerStyles,
-	hamburgerStyle,
 	navLinksContainerStyles,
 	navLinkStyles,
+	rightHandContainerStyles,
 } from "./TitleBar.styles";
 import {
-	ITitleBarUIProps,
-	ITitleBarUILinksProps,
 	ITitleBarLink,
+	ITitleBarUILinksProps,
+	ITitleBarUIProps,
 } from "./TitleBar.types";
-import { formatLabel } from "./Bars";
-import logo from "../../assets/logo.png";
+const formatLabel = (key: string, alias?: string): string => {
+	if (alias) return alias;
+	if (key === "/") return "Home";
+	return key
+		.replace(/_/g, " ")
+		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
+};
 
 const TitleBarUI: React.FC<ITitleBarUIProps> = ({
 	links,
@@ -150,5 +156,19 @@ const useActiveLink = (links: ITitleBarLink[][]) => {
 		handleAreaLeave,
 	};
 };
+const usePillOnScroll = (dThreshold: number = 1, uThreshold: number = 10) => {
+	const [isScrolled, setIsScrolled] = useState(false);
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			if (!isScrolled && currentScrollY > dThreshold) setIsScrolled(true);
+			else if (isScrolled && currentScrollY < uThreshold)
+				setIsScrolled(false);
+		};
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, [isScrolled, dThreshold, uThreshold]);
+	return isScrolled;
+};
 
-export { TitleBarUI, useActiveLink };
+export { formatLabel, TitleBarUI, useActiveLink, usePillOnScroll };

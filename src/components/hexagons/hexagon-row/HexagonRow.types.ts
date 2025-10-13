@@ -1,5 +1,3 @@
-// src/components/hexagons/hexagon-row/HexagonRow.types.ts
-
 import React from "react";
 import { ValidComponent } from "../../../utils/reactUtils";
 
@@ -33,19 +31,19 @@ type TDualScalingFunction = TScalingFunction extends (
 	  ) => [ReturnType<TScalingFunction>, ReturnType<TScalingFunction>]
 	: never;
 
-type TWithCalc = <D extends boolean | undefined>(
-	fn: any,
+type TWithCalc = <D extends boolean = false>(
+	fn: TDualScalingFunction | TScalingFunction,
 	dual?: D
 ) => (
 	...args: Parameters<typeof fn>
 ) => D extends true ? [string, string] : string;
 
 export type {
-	IHexagonRowElements,
-	THexRowLayoutProps,
 	IHexagonGridElements,
-	TScalingFunction,
+	IHexagonRowElements,
 	IScaleParams,
 	TDualScalingFunction,
+	THexRowLayoutProps,
+	TScalingFunction,
 	TWithCalc,
 };

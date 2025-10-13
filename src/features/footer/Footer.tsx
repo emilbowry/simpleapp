@@ -1,15 +1,15 @@
 // src/features/footer/Footer.tsx
 
 import React from "react";
-import { BoxedImage } from "../../utils/reactUtils";
 import logo from "../../assets/logo.png";
-import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
-import { partners } from "../../components/partnership-bar/Partner";
 import { linkedin_svg } from "../../components/callingcard/graphics";
-import { ScrollVisibilityDependent } from "./ScrollVisibilityDependent";
+import { partners } from "../../components/partnership-bar/Partner";
+import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
+import { BoxedImage } from "../../utils/reactUtils";
 import { centerable } from "./Footer.styles";
-import { GridFooter, GridFooterRows } from "./GridFooter";
 import { FooterLayoutHandler } from "./FooterLayoutHandler";
+import { GridFooter, GridFooterRows } from "./GridFooter";
+import { ScrollVisibilityDependent } from "./ScrollVisibilityDependent";
 
 const Quote1 = (
 	<div>

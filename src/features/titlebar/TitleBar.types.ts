@@ -1,3 +1,5 @@
+// src/features/titlebar/TitleBar.types.ts
+
 interface ITitleBarLink {
 	alias?: string;
 	path: string;
@@ -22,7 +24,7 @@ interface ITitleBarUIProps {
 	onWrapperMouseLeave: () => void;
 	children?: React.ReactNode; // For rendering the dropdown
 }
-export {
+export type {
 	ITitleBarLink,
 	ITitleBarProps,
 	ITitleBarUILinksProps,

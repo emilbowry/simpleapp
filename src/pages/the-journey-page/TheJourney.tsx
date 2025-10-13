@@ -1,4 +1,4 @@
-// src/pages/thejourneypage/TheJourney.tsx
+// src/pages/the-journey-page/TheJourney.tsx
 
 import React from "react";
 import { Hexagon } from "../../components/hexagons/Hexagons";
@@ -173,8 +173,8 @@ const theJourneyPage: React.FC = () => {
 		<div>
 			<HexagonGrid
 				rows={r as any}
-				relative_space={10}
-				absolute_space={-15}
+				relative_spacing={10}
+				absolute_spacing={-15}
 				class_name="aos-ignore"
 			/>
 		</div>

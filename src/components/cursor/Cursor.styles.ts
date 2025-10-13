@@ -36,4 +36,4 @@ const largeCursorStyle = (largerCursorPosition: {
 		top: `${largerCursorPosition.y - OUTER_RADIUS / 2}px`,
 	};
 };
-export { smallCursorStyle, largeCursorStyle };
+export { largeCursorStyle, smallCursorStyle };

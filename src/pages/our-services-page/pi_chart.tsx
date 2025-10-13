@@ -1,4 +1,5 @@
-// src/pages/ourservices/pi_chart.tsx
+// src/pages/our-services-page/pi_chart.tsx
+
 import React, { useState } from "react";
 
 interface PieSliceData {

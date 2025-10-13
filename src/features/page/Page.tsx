@@ -1,12 +1,12 @@
 // src/features/page/page.tsx
 
 import React from "react";
-import { Footer } from "../footer/Footer";
 import { CustomCursor } from "../../components/cursor/Cursor";
+import { Footer } from "../footer/Footer";
 
 import { BackgroundStyle } from "../../styles";
+import { AppTitleBar } from "../titlebar/TitleBar";
 import { VISIBLE_TITLEBAR_HEIGHT } from "../titlebar/TitleBar.consts";
-import { AppTitleBar } from "../titlebar/Bars";
 import { mainStyle, pageStyle } from "./Page.styles";
 
 export const Page: React.FC<{

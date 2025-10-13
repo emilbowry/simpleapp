@@ -1,4 +1,3 @@
-/* //
 // ===== CutHexagon =====
 
 import { midnight_green } from "../../utils/defaultColours";
@@ -46,4 +45,3 @@ class CutHexagon extends Hexagon {
 }
 
 // export { CutHexagon };
- */

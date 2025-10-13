@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { PartnerRow } from "./PartnershipBar";
 import {
 	keyframes,
+	marqueeContentStyle,
 	marqueeFrameStyle,
 	marqueeWindowStyle,
-	marqueeContentStyle,
 	partnerWrapperStyle,
 } from "./PartnershipBar.styles";
 import {
-	IPartnershipBar,
 	IPartnerMarqueeContentProps,
+	IPartnershipBar,
 } from "./PartnershipBar.types";
 
 const MarqueeKeyframes: React.FC = () => {

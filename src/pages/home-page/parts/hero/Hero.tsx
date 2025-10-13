@@ -1,10 +1,12 @@
+// src/pages/home-page/parts/hero/Hero.tsx
+
 import React from "react";
 import hi1 from "../../../../assets/heroimage1.jpg";
 import hi2 from "../../../../assets/heroimage2.jpg";
 import hi3 from "../../../../assets/heroimage3.jpg";
 import { Hexagon } from "../../../../components/hexagons/Hexagons";
-import { LogoHexagon } from "../../../../components/hexagons/LogoHexagon";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
+import { LogoHexagon } from "../../../../components/hexagons/LogoHexagon";
 import { HexagonGrid } from "../../../../components/hexagons/hexagon-row/HexagonRow";
 import { light_mix_green } from "../../../../utils/defaultColours";
 

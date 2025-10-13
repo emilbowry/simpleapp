@@ -1,16 +1,16 @@
 // src/App.tsx
 import React, { useEffect } from "react";
 
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./styles.css";
-import { Routes, Route, useLocation } from "react-router-dom";
 
 import { animationTagging } from "./utils/animationTagging";
 
-import { HomePage } from "./pages/home-page/HomePage";
-import { TheJourneyPage } from "./pages/the-journey-page/TheJourney";
 import { ContactPage } from "./pages/contact-page/ContactPage";
-import { OurServices } from "./pages/our-services-page/OurServices";
 import { ToolPage } from "./pages/dpo-tool/tool";
+import { HomePage } from "./pages/home-page/HomePage";
+import { OurServices } from "./pages/our-services-page/OurServices";
+import { TheJourneyPage } from "./pages/the-journey-page/TheJourney";
 
 function ScrollToTop() {
 	const { pathname } = useLocation();

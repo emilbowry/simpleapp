@@ -1,6 +1,6 @@
 // src/features/footer/ScrollVisibilityDependent.tsx
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
 const calcVisibilityRegion = (
 	docHeight: number,

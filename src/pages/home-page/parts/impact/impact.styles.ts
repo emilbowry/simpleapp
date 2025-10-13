@@ -1,3 +1,5 @@
+// src/pages/home-page/parts/impact/impact.styles.ts
+
 import { borderGrad, Theme } from "../../../../styles";
 
 const idx = 1;

@@ -1,12 +1,12 @@
 // src/components/hexagons/LogoHexagon.tsx
 
-import { Hexagon } from "./Hexagons";
 import { logo_yellow } from "../../utils/defaultColours";
 import { LogoLinearGradient } from "../callingcard/graphics";
+import { Hexagon } from "./Hexagons";
 import {
-	Logo_Chev_Diamond,
 	Logo_Chev_Colour_Mask,
 	Logo_Chev_Cutout,
+	Logo_Chev_Diamond,
 	Logo_Chev_Split,
 } from "./Hexagons.consts";
 

@@ -34,10 +34,10 @@ interface PartnershipBarFullWallProps {
 }
 export type {
 	IPartner,
-	TPartnerSize,
+	IPartnerMarqueeContentProps,
 	IPartners,
 	IPartnershipBar,
-	IPartnerMarqueeContentProps,
 	PartnershipBarCompactWallProps,
 	PartnershipBarFullWallProps,
+	TPartnerSize,
 };

@@ -1,13 +1,15 @@
+// src/pages/dpo-tool/tool.tsx
+
+import type { Element } from "hast";
 import React, {
-	useState,
-	useMemo,
+	CSSProperties,
 	HTMLAttributes,
 	ReactNode,
-	CSSProperties,
+	useMemo,
+	useState,
 } from "react";
-import ReactMarkdown from "react-markdown";
 import type { Components } from "react-markdown";
-import type { Element } from "hast";
+import ReactMarkdown from "react-markdown";
 import { Page } from "../../features/page/Page";
 // import { logo_blue, logo_yellow } from "../../utils/defaultColours";
 import { generateGradient } from "../../styles";

@@ -42,9 +42,9 @@ const narrowBottomRowStyle: React.CSSProperties = {
 
 export {
 	lItemStyle,
-	sItemStyle,
 	narrowBottomRowStyle,
 	narrowLayoutContainerStyle,
 	narrowTopRowStyle,
+	sItemStyle,
 	wideLayoutContainerStyle,
 };

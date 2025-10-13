@@ -10,17 +10,17 @@ import React from "react";
 
 import { ValidComponent } from "../../../utils/reactUtils";
 import {
-	TScalingFunction,
-	TDualScalingFunction,
-	IScaleParams,
-	TWithCalc,
-} from "./HexagonRow.types";
-import {
 	ASPECT_RATIO,
-	n,
 	CONTAINER_per_Element,
+	n,
 	SIDE_SHIFT,
 } from "./HexagonRow.consts";
+import {
+	IScaleParams,
+	TDualScalingFunction,
+	TScalingFunction,
+	TWithCalc,
+} from "./HexagonRow.types";
 import { debug_background } from "./_debugstylesbackground";
 /* 	 Makes sense since devolves into an equilateral triangle problem
 	== 1/cos(30) */
@@ -74,9 +74,7 @@ const centreYOffset: TDualScalingFunction = (
 		(sign * scale_params.absolute_spacing) / 2,
 	];
 };
-const edgeYOffset: TScalingFunction = () => {
-	return 0;
-};
+const edgeYOffset: TScalingFunction = () => 0;
 /* Since column-gap is our cannonical inner translation we need to maintain the absolute shift */
 
 const overlapTranslation: TScalingFunction = (scale_params) =>
@@ -95,9 +93,7 @@ const edgeXOffset: TDualScalingFunction = (scale_params) => [
 	-scale_params.absolute_spacing * ASPECT_RATIO,
 ];
 
-// let b: typeof a extends true?true:false
 /* Util Functions */
-
 const getCalc = (
 	vals: ReturnType<TScalingFunction | TDualScalingFunction>,
 	dual: boolean = false
@@ -114,6 +110,7 @@ const withCalc: TWithCalc = (fn, dual) => {
 		return getCalc(fn(...(args as [any])), dual) as any;
 	};
 };
+
 const calculateColGap = withCalc(colGap, false);
 
 const centreHexYShift = withCalc(centreYOffset, true);
@@ -251,4 +248,4 @@ const gridPositionCSS = (
 				backdropFilter: "blur(8px)",
 		  };
 };
-export { sideStyle, midStyle, container, gridPositionCSS, K };
+export { container, gridPositionCSS, K, midStyle, sideStyle };

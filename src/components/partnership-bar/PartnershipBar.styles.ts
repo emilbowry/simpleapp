@@ -18,7 +18,6 @@ const PartnerStyles: {
 		borderColor: title_font_colour,
 	},
 	Large: {
-		// ...genericSectionStyle,
 		position: "relative",
 
 		justifyContent: "center",
@@ -112,12 +111,12 @@ const CompactViewStyle: React.CSSProperties = {
 
 export {
 	CompactViewStyle,
-	PartnerImageWrapperStyle,
-	PartnerStyles,
 	keyframes,
-	partnerWrapperStyle,
 	marqueeContentStyle,
 	marqueeFrameStyle,
 	marqueeWindowStyle,
+	PartnerImageWrapperStyle,
+	PartnerStyles,
+	partnerWrapperStyle,
 	rowLayout,
 };
