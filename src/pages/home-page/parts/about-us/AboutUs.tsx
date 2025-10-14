@@ -25,7 +25,7 @@ import {
 
 const head = <h2>About Us</h2>;
 
-const foot = (
+const Foot = () => (
 	<p>
 		At AI Compatible, we believe not everyone needs to be an AI expert but
 		everyone should be AI compatible. That means being alert to the
@@ -117,8 +117,7 @@ const AboutUsCallingCard: React.FC = () => (
 					/>
 				</div>
 			}
-			sideBar={{ components: [foot], header: head }}
-			// title={head}
+			sideBar={{ components: [<Foot />], header: head }}
 			footer={
 				<PointedtopHexagonFeatureGrid
 					featureCallouts={aboutUsFeatureCallouts}

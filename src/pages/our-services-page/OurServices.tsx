@@ -36,11 +36,10 @@ const Services: React.FC<{ title: string; services: string[] }> = ({
 		</div>
 	);
 };
-// const pichart = ()
+
 const cserv = {
 	title: "Our Consultancy Services:",
 	services: [
-		//normalised title
 		"For helping you find your business’ place in the transforming world of work - Consultancy – 1-to-1 - £200/hour",
 		"To make the AI Hype real for you – Tasks-to-tools – matching client tasks with real out-the-box AI tools",
 		"To find the insights that your business strategy hinges on - Research Project. E.g, estimating climate impact of AI Adoption in our sector.",
@@ -124,7 +123,6 @@ const ourServices: React.FC = () => (
 				header: <h2>Our Services</h2>,
 				components: [<ServicesSideBar />],
 			}}
-			// title={<h2>Our Services</h2>}
 			footer={
 				<PointedtopHexagonFeatureGrid
 					featureCallouts={ourServicesFeatureCallouts}

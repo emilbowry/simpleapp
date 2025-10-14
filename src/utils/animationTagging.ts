@@ -29,8 +29,11 @@ const tagAllUnderMain = (): void => {
 			const bd = Number(parent.dataset.baseDepth);
 			if (Number.isFinite(bd)) baseDepth = bd;
 		}
-		const nextIdx = nextChildIndexByParent.get(parent) ?? 0;
-		pos.set(parent, [baseDepth, nextIdx, -1]);
+		pos.set(parent, [
+			baseDepth,
+			nextChildIndexByParent.get(parent) ?? 0,
+			-1,
+		]);
 	};
 
 	const nearestUnskippedParent = (el: Element): Element => {
@@ -55,9 +58,8 @@ const tagAllUnderMain = (): void => {
 		);
 	}
 
-	if (nextChildIndexByParent.has(main)) {
+	if (nextChildIndexByParent.has(main))
 		pos.set(main, [-1, nextChildIndexByParent.get(main)!, -1]);
-	}
 
 	main.querySelectorAll("*:not(.aos)").forEach((el) => {
 		if (shouldSkip(el)) return;
@@ -71,13 +73,11 @@ const tagAllUnderMain = (): void => {
 		const siblingIndex = nextChildIndex;
 		const orderIndex = orderCounter++;
 
-		const [, , pOrder] = pos.get(parent)!;
-		pos.set(parent, [parentBase, nextChildIndex + 1, pOrder]);
+		pos.set(parent, [parentBase, nextChildIndex + 1, pos.get(parent)![2]]);
 
 		pos.set(el, [baseDepth, 0, orderIndex]);
 		if (!el.classList.contains("aos-ignore")) {
 			el.classList.add("aos");
-
 			if (el instanceof HTMLElement) {
 				el.dataset.baseDepth = String(baseDepth);
 				el.dataset.siblingIndex = String(siblingIndex);

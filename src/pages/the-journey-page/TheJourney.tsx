@@ -85,8 +85,8 @@ const getThirdHex = (index: number) => {
 		/>
 	);
 
-	let _icon = TimelineData[index + 1]?.icon;
-	let _image = TimelineData[index]?.image;
+	const _icon = TimelineData[index + 1]?.icon;
+	const _image = TimelineData[index]?.image;
 	if (_icon) {
 		thirdHexagon = (
 			<Hexagon
@@ -120,45 +120,50 @@ const getThirdHex = (index: number) => {
 	}
 	return thirdHexagon;
 };
+const RowHeader: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+	<h3
+		style={{
+			fontSize: "3vw",
+			height: "calc(100%)",
+			textAlign: "center",
 
+			color: dark_midnight_green,
+		}}
+	>
+		{children}
+	</h3>
+);
+
+const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+	<p
+		style={{
+			fontSize: "2.5vw",
+			textAlign: "center",
+
+			color: midnight_green,
+			height: "calc(100%)",
+		}}
+	>
+		{children}
+	</p>
+);
 const getRows = () => {
 	const colours = generateGradient(TimelineData.length).reverse();
 
 	return TimelineData.map((item, i) => {
-		const contentHex = (
+		const baseRowElements = [
 			<Hexagon
 				args={{ colour: bgwhite }}
 				element={[
-					<h3
-						style={{
-							fontSize: "3vw",
-							height: "calc(100%)",
-							textAlign: "center",
-
-							color: dark_midnight_green,
-						}}
-					>
-						{item.date}
-					</h3>,
-					<p
-						style={{
-							fontSize: "2.5vw",
-							textAlign: "center",
-
-							color: midnight_green,
-							height: "calc(100%)",
-						}}
-					>
-						{item.content}
-					</p>,
+					<RowHeader>{item.date}</RowHeader>,
+					<RowContent>{item.content}</RowContent>,
 				]}
 				opacity={1}
 				useVerticalAlignment={true}
-			/>
-		);
-
-		const spineHex = <Hexagon args={{ colour: colours[i] }} />;
-		const baseRowElements = [contentHex, spineHex, getThirdHex(i)];
+			/>,
+			<Hexagon args={{ colour: colours[i] }} />,
+			getThirdHex(i),
+		];
 
 		return {
 			elements: i % 2 === 0 ? baseRowElements : baseRowElements.reverse(),
@@ -167,12 +172,10 @@ const getRows = () => {
 };
 
 const theJourneyPage: React.FC = () => {
-	let r = getRows();
-
 	return (
 		<div>
 			<HexagonGrid
-				rows={r as any}
+				rows={getRows() as any}
 				relative_spacing={10}
 				absolute_spacing={-15}
 				class_name="aos-ignore"

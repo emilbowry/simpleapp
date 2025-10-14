@@ -17,7 +17,7 @@ const FooterLayoutHandler: React.FC<{
 		>
 			<div
 				style={{
-					height: "70vh", // resultant height cut
+					height: "70vh" /* resultant height cut */,
 					width: "100vw",
 				}}
 			/>

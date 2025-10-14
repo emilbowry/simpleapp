@@ -1,6 +1,7 @@
 // src/pages/our-services-page/pi_chart.tsx
 
 import React, { useState } from "react";
+import { TINT_OPACITY } from "./OurServices.consts";
 
 interface PieSliceData {
 	name: string;
@@ -19,13 +20,8 @@ interface PieSliceData {
 interface PiChartProps {
 	sliceData?: PieSliceData[];
 	onSliceHover?: (sliceName: string | null) => void;
-
 	onSliceClick?: (sliceName: string) => void;
 }
-/**
-@improvement 
-- Instead of hardcoded % use hover/click mechanic to reveal
- */
 
 const slicesData: PieSliceData[] = [
 	{
@@ -177,11 +173,9 @@ const slicesData: PieSliceData[] = [
 ];
 const PiChart: React.FC<PiChartProps> = ({
 	sliceData = slicesData,
-	/* onSliceHover, */
 	onSliceClick,
 }) => {
 	const [hoveredSlice, setHoveredSlice] = useState<string | null>(null);
-	const TINT_OPACITY = 0.3;
 
 	const handleMouseEnter = (sliceName: string) => setHoveredSlice(sliceName);
 	const handleMouseLeave = () => setHoveredSlice(null);
@@ -206,17 +200,6 @@ const PiChart: React.FC<PiChartProps> = ({
 				<g transform="translate(455.797747300237, 351.154553386957)">
 					{sliceData.map((slice) => {
 						const isHovered = hoveredSlice === slice.name;
-						const isAnySliceHovered = hoveredSlice !== null;
-
-						const groupOpacity =
-							isAnySliceHovered && !isHovered ? TINT_OPACITY : 1;
-						const groupTransform = isHovered
-							? "scale(1.03)"
-							: "scale(1)";
-						const pathFill = isHovered
-							? slice.hoverFill
-							: slice.fill;
-						const textFontWeight = isHovered ? "800" : "700";
 
 						return (
 							<g
@@ -227,20 +210,24 @@ const PiChart: React.FC<PiChartProps> = ({
 								onMouseLeave={handleMouseLeave}
 								onClick={() => handleClick(slice.name)}
 								style={{
-									// cursor: "pointer",
-									transform: groupTransform,
+									transform: isHovered
+										? "scale(1.03)"
+										: "scale(1)",
 									transition:
 										"transform 0.15s ease-out, opacity 0.15s ease-out",
-									opacity: groupOpacity,
+									opacity:
+										hoveredSlice !== null && !isHovered
+											? TINT_OPACITY
+											: 1,
 								}}
 							>
-								{/* The Path for this slice */}
 								<path
 									d={slice.d}
-									fill={pathFill}
+									fill={
+										isHovered ? slice.hoverFill : slice.fill
+									}
 								></path>
 
-								{/* The Text labels for this slice */}
 								{slice.text.map((textItem, index) => (
 									<text
 										key={`${slice.name}-text-${index}`}
@@ -248,7 +235,7 @@ const PiChart: React.FC<PiChartProps> = ({
 										dominantBaseline="alphabetic"
 										fill="#0caba8"
 										textRendering="geometricPrecision"
-										fontWeight={textFontWeight}
+										fontWeight={isHovered ? "800" : "700"}
 										fontSize={textItem.fontSize}
 										fontStyle="normal"
 										x={textItem.x}

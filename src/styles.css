@@ -33,7 +33,7 @@ body {
 */
 .aos {
  /* Needs to initially be zero since before visible, there are phantom elements everywhere */
-  opacity: 0;
+  opacity: 0.9;
  /*instead of opacity , downside it changes the is-visible behaviour*/
    /* overflow: hidden; */
 }
@@ -58,8 +58,8 @@ body {
 }
 @keyframes fadeInUpAnimation {
   from {
-    opacity: 0;
-    transform: translateX(calc(((10vw)*(var(--aos-base-depth)))* cos((var(--aos-sibling-index, 0) + var(--aos-base-depth, 0)) * pi)));
+    opacity: 0.9;
+    transform: translateX(calc(((0.1vw)*(var(--aos-base-depth)))* cos((var(--aos-sibling-index, 0) + var(--aos-base-depth, 0)) * pi)));
 
 
   }
@@ -86,6 +86,7 @@ body {
 .no-aos {
   isolation: isolate;
   contain: paint;
+  transform: none
 }
 * {
 cursor: none !important;

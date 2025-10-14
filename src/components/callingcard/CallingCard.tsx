@@ -20,25 +20,39 @@ import {
 const CompWrapper: React.FC<ICallOutProps> = ({
 	content,
 	wrapper_style = {},
+	noAos,
 }) => {
 	return content ? (
-		<div style={wrapper_style}>{formatComponent(content)}</div>
+		<div
+			// className={noAos ? "no-aos" : ""}
+			className={noAos ? "no-aos" : "aos-ignore"}
+			// className="aos-ignore"
+			style={wrapper_style}
+		>
+			{formatComponent(content)}
+		</div>
 	) : null;
 };
 const Header: React.FC<IHeaderProps> = (props) => <CompWrapper {...props} />;
 const Footer: React.FC<IFooterProps> = ({ content }) =>
 	content && formatComponent(content);
 
-const GridItem = ({ content, item_key }: IGridItemProps): React.ReactNode => {
+const GridItem = ({
+	content,
+	item_key,
+	noAos,
+}: IGridItemProps): React.ReactNode => {
 	return content ? (
 		<CompWrapper
 			content={content}
 			wrapper_style={GridItemStyle}
 			key={item_key}
+			noAos={noAos}
 		/>
 	) : (
 		<div
 			style={GridItemStyle}
+			// className={noAos ? "no-aos" : ""}
 			key={item_key}
 		/>
 	);
@@ -47,22 +61,30 @@ const GridBody: React.FC<IGridBodyProps> = ({
 	components,
 	styleOverrides = {},
 	columnOverrides = undefined,
-}) => (
-	<div
-		style={{
-			...GridBodyStyle,
-			...{
-				gridTemplateColumns:
-					columnOverrides ?? `repeat(${components.length}, 1fr)`,
-			},
-			...styleOverrides,
-		}}
-	>
-		{components.map((item, index) =>
-			GridItem({ content: item, item_key: index })
-		)}
-	</div>
-);
+	noAos,
+}) => {
+	return (
+		<div
+			className={"aos-ignore"}
+			style={{
+				...GridBodyStyle,
+				...{
+					gridTemplateColumns:
+						columnOverrides ?? `repeat(${components.length}, 1fr)`,
+				},
+				...styleOverrides,
+			}}
+		>
+			{components.map((item, index) => (
+				<GridItem
+					content={item}
+					item_key={index}
+					noAos={noAos}
+				/>
+			))}
+		</div>
+	);
+};
 
 const CallingCard: React.FC<ICallingCardProps> = ({
 	components,
@@ -72,12 +94,14 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 	fullSpread = false,
 	styleOverrides = {},
 	isPageElement = false,
+	noAos,
 }) => {
 	let theme = Theme(index);
-
+	console.log(components, noAos);
 	return (
 		<>
 			<div
+				className={"aos-ignore"}
 				style={{
 					...containerStyle,
 					color: theme.secondaryColor,
@@ -98,6 +122,7 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 					columnOverrides={
 						isPageElement ? `${100 / 3}% ${200 / 3}%` : undefined
 					}
+					noAos={noAos}
 					styleOverrides={
 						isPageElement
 							? {
@@ -133,6 +158,7 @@ const SideBarCallingCard: React.FC<
 							<CallingCard
 								{...sideBar}
 								index={props.index}
+								noAos={true}
 							/>,
 							<GridBody components={components} />,
 					  ]

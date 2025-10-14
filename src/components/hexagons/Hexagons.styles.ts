@@ -1,6 +1,5 @@
 import React from "react";
 
-// import { genericSectionStyle } from "../../styles";
 import { HexagonStyleParams } from "./Hexagons.types";
 
 const containerStyle = ({
@@ -46,26 +45,16 @@ const PolyCutout = (
 			: rightCutout(usePointedTop),
 		shapeMargin: "5%",
 
-		/**
-    @debug - used to visually display the shape
-
- */
-		// clipPath: isLeft
-		// 	? leftCutout(usePointedTop)
-		// 	: rightCutout(usePointedTop),
-		// backgroundColor: isLeft ? "rgb(0,255,0,40%)" : "rgb(255,0,0,40%)",
 		float: isLeft ? "left" : "right",
 		width: `${50 * s}%`,
 		height: `calc(${100 * s}%)`,
 	};
 };
 
-/* some of these 100% and calc(100%) and inherit's are unnecessary but i cant remember which ones i can safely remove*/
 const elementSection: React.CSSProperties = {
 	position: "relative",
 	top: 0,
 
-	// ...genericSectionStyle,
 	width: "100%",
 	height: `calc(100%)`,
 };
@@ -75,15 +64,13 @@ const elementWrapper: React.CSSProperties = {
 
 	width: "100%",
 	display: "block",
-	height: `calc(100%)`, // 100% doesnt work out correct unles using calc
+	height: `calc(100%)`,
 };
 
 const hexagonalContentStyle: React.CSSProperties = {
 	position: "absolute",
 	height: `calc(100%)`,
-
 	width: "100%",
-	// left: 0,
 	top: 0,
 };
 

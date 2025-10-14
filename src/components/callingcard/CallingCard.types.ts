@@ -6,6 +6,7 @@ interface ICallOutProps {
 	content: ValidComponent;
 	wrapper_style?: React.CSSProperties;
 	styleOverrides?: React.CSSProperties;
+	noAos?: boolean;
 }
 interface IHeaderProps extends ICallOutProps {}
 
@@ -14,6 +15,7 @@ interface IFooterProps extends ICallOutProps {}
 interface IContainerProps {
 	components: ValidComponent[];
 	styleOverrides?: React.CSSProperties;
+	noAos?: boolean;
 }
 interface IGridBodyProps extends IContainerProps {
 	columnOverrides?: string;
@@ -26,19 +28,22 @@ interface ICallingCardProps {
 	index?: number;
 	styleOverrides?: React.CSSProperties;
 	isPageElement?: boolean;
+	noAos?: boolean;
 }
 
 interface IGridItemProps {
+	noAos?: boolean;
+
 	content: ValidComponent;
 	styleOverrides?: React.CSSProperties;
 	item_key: React.Key | null | undefined;
 }
 
 export type {
-	ICallOutProps,
-	IHeaderProps,
-	IFooterProps,
 	ICallingCardProps,
+	ICallOutProps,
+	IFooterProps,
 	IGridBodyProps,
 	IGridItemProps,
+	IHeaderProps,
 };
