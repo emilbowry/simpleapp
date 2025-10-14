@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { PartnerRow } from "./PartnershipBar";
+import { NUM_SETS } from "./PartnershipBar.consts";
 import {
 	keyframes,
 	marqueeContentStyle,
@@ -25,16 +26,13 @@ const MarqueeKeyframes: React.FC = () => {
 	return null;
 };
 const PartnershipMarquee: React.FC<IPartnershipBar> = ({ partners }) => {
-	const MARQUEE_COPY_COUNT = 3;
-	const numSets = Array.from({ length: MARQUEE_COPY_COUNT }, (_, i) => i);
-
 	return (
 		<div className="no-aos">
 			<MarqueeKeyframes />
 			<div style={marqueeFrameStyle}>
 				<div style={marqueeWindowStyle}>
 					<PartnerMarqueeContent
-						numSets={numSets}
+						numSets={NUM_SETS}
 						partners={partners}
 					/>
 				</div>
@@ -49,7 +47,7 @@ const PartnerMarqueeContent: React.FC<IPartnerMarqueeContentProps> = ({
 }) => {
 	return (
 		<div style={marqueeContentStyle}>
-			{numSets.map((setIndex) => (
+			{numSets.map(setIndex => (
 				<React.Fragment key={`set-${setIndex}`}>
 					<PartnerRow
 						partners={partners}

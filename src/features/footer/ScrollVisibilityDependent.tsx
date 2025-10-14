@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
+import { scrollVisabilityStyling } from "./Footer.styles";
 const calcVisibilityRegion = (
 	docHeight: number,
 	borders: [number, number],
@@ -9,14 +10,12 @@ const calcVisibilityRegion = (
 
 	viewportHeight: number
 ): [number, number, number] => {
-	const midPoint = (borders[0] + borders[1]) / 2;
-	const positions = [borders[0], midPoint, borders[1]];
-	const offset = docHeight - (1 + footerVH) * viewportHeight;
-	return positions.map((n) => n * viewportHeight * footerVH + offset) as [
-		number,
-		number,
-		number
-	];
+	const positions = [borders[0], (borders[0] + borders[1]) / 2, borders[1]];
+	return positions.map(
+		n =>
+			n * viewportHeight * footerVH +
+			(docHeight - (1 + footerVH) * viewportHeight)
+	) as [number, number, number];
 };
 
 const useScrollVisibility = (
@@ -29,30 +28,23 @@ const useScrollVisibility = (
 	const [opacity, setOpacity] = useState(+noBorders);
 
 	const handleScroll = useCallback(() => {
-		if (noBorders) {
-			return;
-		}
-		const viewportHeight = window.innerHeight;
+		if (noBorders) return;
+
 		const currentScrollY = window.scrollY;
-		const docHeight = document.documentElement.scrollHeight;
 
 		const [maxVis, , minVis] = calcVisibilityRegion(
-			docHeight,
+			document.documentElement.scrollHeight,
 			borders,
 			footerVH,
-			viewportHeight
+			window.innerHeight
 		);
 
-		let _opacity = 0;
-		if (currentScrollY < minVis) {
-			_opacity = 0;
-		} else if (currentScrollY >= maxVis) {
-			_opacity = 1;
-		} else {
-			_opacity = (currentScrollY - minVis) / (maxVis - minVis);
-		}
-
-		setOpacity(_opacity);
+		setOpacity(
+			Math.min(
+				1,
+				Math.max(0, (currentScrollY - minVis) / (maxVis - minVis))
+			)
+		);
 		setIsVisible(currentScrollY >= minVis);
 	}, [borders, footerVH]);
 
@@ -64,28 +56,16 @@ const useScrollVisibility = (
 		};
 	}, [handleScroll]);
 
-	const calculatedStyles: React.CSSProperties = {
-		...styling,
-
-		visibility: isVisible ? "visible" : "hidden",
-		opacity: opacity,
-		filter: `blur(${(1 - opacity) ** 2 * 16}px)`,
-	};
-
-	return calculatedStyles;
+	return scrollVisabilityStyling(isVisible, opacity, styling);
 };
 const ScrollVisibilityDependent: React.FC<{
 	element: ValidComponent;
 	percentage?: number;
 	borders?: [number, number];
 	styling?: React.CSSProperties;
-}> = ({ element, styling = {}, borders = undefined }) => {
-	const scrollDependentStyles = useScrollVisibility(borders, 0.7, styling);
-
-	return (
-		<div style={scrollDependentStyles}>
-			{formatComponent(element as any)}
-		</div>
-	);
-};
+}> = ({ element, styling = {}, borders = undefined }) => (
+	<div style={useScrollVisibility(borders, 0.7, styling)}>
+		{formatComponent(element as any)}
+	</div>
+);
 export { ScrollVisibilityDependent };

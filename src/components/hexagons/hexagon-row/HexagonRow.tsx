@@ -43,7 +43,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 	containerStyle = {},
 	class_name,
 }) => {
-	const l = rows.length;
+	const length = rows.length;
 
 	/*
 		To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
@@ -57,7 +57,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 			style={{
 				...gridPositionCSS(
 					rows[0].elements[1],
-					l,
+					length,
 					relative_spacing,
 					absolute_spacing
 				),
@@ -65,14 +65,14 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 				...containerStyle,
 			}}
 		>
-			<div style={container(relative_spacing, absolute_spacing, l)}>
+			<div style={container(relative_spacing, absolute_spacing, length)}>
 				{rows.map((row, _index) => (
 					<HexagonRow
 						key={_index}
 						elements={row.elements}
 						relative_spacing={relative_spacing}
 						absolute_spacing={absolute_spacing}
-						len={l}
+						len={length}
 					/>
 				))}
 			</div>

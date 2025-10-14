@@ -23,9 +23,7 @@ const titleBarStyles = (): React.CSSProperties => {
 		justifyContent: "space-between",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
 		minHeight: "50px",
-		// min
 		backgroundColor: "rgb(255 255 255 / 90%)",
-		// padding: "10px",
 		minWidth: `fit-content`,
 	};
 };

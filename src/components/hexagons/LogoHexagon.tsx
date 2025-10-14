@@ -18,8 +18,6 @@ class LogoHexagon extends Hexagon {
 		];
 	}
 	override construct() {
-		const { withGap } = this.santiseOptionalParameters();
-
 		const components = {
 			defs: [LogoLinearGradient, <mask id="hexagon"></mask>],
 			paths: [
@@ -36,7 +34,7 @@ class LogoHexagon extends Hexagon {
 			],
 		};
 
-		if (withGap == true) {
+		if (this.santiseOptionalParameters() == true) {
 			components.defs.push(
 				<mask id="logoCutout">
 					<path

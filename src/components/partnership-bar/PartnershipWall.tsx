@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Theme } from "../../styles";
 import { PartnerImage } from "./PartnershipBar";
+import { PARTNER_EFFECTIVE_WIDTH } from "./PartnershipBar.consts";
 import {
 	CompactViewStyle,
 	PartnerStyles,
@@ -27,45 +28,8 @@ const PartnerWallRow: React.FC<{
 	</div>
 );
 
-/*
-This is extremely efficient for some reason
- const cumSumSlices =
-	(sum = 0) =>
-	(value = 0) =>
-		[sum, (sum += value)]; 
-*/
-
-/* 
-
-calculate rows
- */
-
-const calculateRows = (
-	counts: number[],
-	partners: readonly IPartner[],
-	sum = 0
-) =>
-	counts.reduce<{
-		[key: string]: IPartner[];
-	}>(
-		(acc, val, i) => (
-			(acc[keys[i]] = partners.slice(sum, (sum += val))), acc
-		),
-		{}
-	);
-
-const calculateRows2 = (
-	counts: number[],
-	partners: readonly IPartner[],
-	sum = 0,
-	acc = {} as IRows
-) => (
-	counts.forEach(
-		(val, i) => ((acc as any)[keys[i]] = partners.slice(sum, (sum += val)))
-	),
-	acc
-);
 const keys = ["top", "mid", "bottom"];
+
 const getRows = (p: readonly IPartner[], sum = 0, r = {} as IRows) => (
 	WallLayout(p.length).forEach(
 		(val, i, _) => (r[keys[i]] = p.slice(sum, (sum += val)))
@@ -80,54 +44,6 @@ const getLayoutData = (partners: readonly IPartner[]) => {
 		maxBricks: maxBricks + +!(maxBricks % 2 === 0),
 	};
 };
-const PartnershipWall: React.FC<IPartnershipBar> = ({
-	partners,
-	index = 0,
-}) => {
-	const isCompactView = useResponsiveLayout(partners.length);
-	const theme = Theme(index);
-
-	const { rows, maxBricks } = getLayoutData(partners);
-
-	const staticStyle: React.CSSProperties = {
-		...PartnerStyles["Large"],
-		borderColor: theme.tertiaryColor,
-	};
-
-	return isCompactView ? (
-		<PartnershipBarCompactWall
-			partners={partners}
-			staticStyle={staticStyle}
-		/>
-	) : (
-		<PartnershipBarFullWall
-			staticStyle={staticStyle}
-			maxBricks={maxBricks}
-			rows={rows as any}
-		/>
-	);
-};
-
-const PartnershipBarCompactWall: React.FC<PartnershipBarCompactWallProps> = ({
-	partners,
-	staticStyle,
-}) => {
-	return (
-		<div
-			style={{
-				...staticStyle,
-				...CompactViewStyle,
-			}}
-		>
-			{partners.map((partner, _index) => (
-				<PartnerImage
-					key={_index}
-					partner={partner}
-				/>
-			))}
-		</div>
-	);
-};
 
 const useResponsiveLayout = (partnerCount: number) => {
 	const [isCompactView, setIsCompactView] = useState(false);
@@ -135,12 +51,10 @@ const useResponsiveLayout = (partnerCount: number) => {
 	useEffect(() => {
 		const checkViewportWidth = () => {
 			const layout = WallLayout(partnerCount);
-			let maxBricks = Math.max(layout[0], layout[1]);
-			if (maxBricks % 2 === 0) {
-				maxBricks = maxBricks + 1;
-			}
-			const PARTNER_EFFECTIVE_WIDTH = 350;
-			const threshold = PARTNER_EFFECTIVE_WIDTH * maxBricks;
+			const maxBricks = Math.max(layout[0], layout[1]);
+
+			const threshold =
+				PARTNER_EFFECTIVE_WIDTH * (maxBricks + +!(maxBricks % 2 === 0));
 
 			setIsCompactView(window.innerWidth < threshold);
 		};
@@ -202,4 +116,45 @@ const WallLayout = (n: number): [number, number, number] => {
 	return [a, n - (a + c), c];
 };
 
+const PartnershipBarCompactWall: React.FC<PartnershipBarCompactWallProps> = ({
+	partners,
+	staticStyle,
+}) => {
+	return (
+		<div
+			style={{
+				...staticStyle,
+				...CompactViewStyle,
+			}}
+		>
+			{partners.map((partner, _index) => (
+				<PartnerImage
+					key={_index}
+					partner={partner}
+				/>
+			))}
+		</div>
+	);
+};
+const PartnershipWall: React.FC<IPartnershipBar> = ({
+	partners,
+	index = 0,
+}) => {
+	const staticStyle: React.CSSProperties = {
+		...PartnerStyles["Large"],
+		borderColor: Theme(index).tertiaryColor,
+	};
+
+	return useResponsiveLayout(partners.length) ? (
+		<PartnershipBarCompactWall
+			partners={partners}
+			staticStyle={staticStyle}
+		/>
+	) : (
+		<PartnershipBarFullWall
+			staticStyle={staticStyle}
+			{...getLayoutData(partners)}
+		/>
+	);
+};
 export { PartnershipWall };

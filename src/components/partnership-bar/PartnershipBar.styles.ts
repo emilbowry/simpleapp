@@ -1,6 +1,7 @@
 // src/components/partnershipbar/PartnershipBar.styles.ts
 
 import React from "react";
+import { Theme } from "../../styles";
 import { title_font_colour } from "../../utils/defaultColours";
 const PartnerStyles: {
 	Small: React.CSSProperties;
@@ -108,7 +109,10 @@ const CompactViewStyle: React.CSSProperties = {
 	flexWrap: "wrap",
 	gap: "20px",
 };
-
+const PBWallStyle = (index: number): React.CSSProperties => ({
+	...PartnerStyles["Large"],
+	borderColor: Theme(index).tertiaryColor,
+});
 export {
 	CompactViewStyle,
 	keyframes,
@@ -118,5 +122,6 @@ export {
 	PartnerImageWrapperStyle,
 	PartnerStyles,
 	partnerWrapperStyle,
+	PBWallStyle,
 	rowLayout,
 };

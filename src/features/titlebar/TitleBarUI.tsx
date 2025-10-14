@@ -20,10 +20,9 @@ import {
 const UICTX = createContext<ITitleBarUIState | undefined>(undefined);
 const useCurrentActiveLinkAlias = (links: ITitleBarLink[][]) => {
 	return useMemo(() => {
-		const currentPath = window.location.pathname;
 		for (const linkGroup of links) {
 			for (const subLink of linkGroup) {
-				if (subLink.path === currentPath) {
+				if (subLink.path === window.location.pathname) {
 					return formatLabel(linkGroup[0].path, linkGroup[0].alias);
 				}
 			}

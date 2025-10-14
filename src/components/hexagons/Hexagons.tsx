@@ -104,13 +104,13 @@ const ContainedElement: THexFC = ({ element, useVerticalAlignment }) => {
 	);
 };
 const ScallingWrapper: THexFC = ({ children }) => {
-	const { fontSize } = useContext(HexagonContext);
-
 	return (
 		<div
 			style={{
 				...ElContainerStyle,
-				fontSize: `calc(max(${fontSize}vw,1px))`,
+				fontSize: `calc(max(${
+					useContext(HexagonContext).fontSize
+				}vw,1px))`,
 			}}
 		>
 			{children}
@@ -252,7 +252,7 @@ class Hexagon
 		return [
 			{
 				key: "borderWidth",
-				return_value: (original_args) =>
+				return_value: original_args =>
 					original_args?.borderColour && "2px",
 			},
 			{ key: "colour", alias: "color", return_value: "#003845" },
@@ -263,7 +263,7 @@ class Hexagon
 			},
 		];
 	}
-	observerCallback: ResizeObserverCallback = (entries) => {
+	observerCallback: ResizeObserverCallback = entries => {
 		const entry = entries[0];
 		if (entry) {
 			const activeHeight = this.nudgeHeight(entry.contentRect.height);
