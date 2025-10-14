@@ -206,7 +206,7 @@ type TAtRule = CSS.AtRules | `${CSS.AtRules}${string})`;
 type TAllPseudos = CSS.Pseudos | `${CSS.Pseudos | ":matches("}${string}`;
 type TClassSelector = `.${string}`;
 type TIDSelector = `#${string}`;
-type TElementTag = keyof React.JSX.IntrinsicElements;
+type TElementTag = `${keyof React.JSX.IntrinsicElements}`;
 type TValidKeys =
 	| THtmlAttributes
 	| TAtRule
@@ -216,9 +216,9 @@ type TValidKeys =
 	| TElementTag
 	| "*";
 
-type ValidAttr<T extends string> = T extends TValidNested<T>
-	? TValidNested<T>
-	: TValidInner<T>;
+type ValidAttr<T extends string, U extends string> = U extends TValidNested<U>
+	? TValidNested<U, T>
+	: TValidInner<U, T>;
 
 type TCases<
 	T extends string,
@@ -234,26 +234,42 @@ type TCases<
 // 	: T extends `&${TElementTag}`
 // 	? never
 // 	: T;
-type TValidNested<T extends string> = TCases<
+// type TValidNested<T extends string> = TCases<
+// 	T,
+// 	string,
+// 	`&${TAtRule}`,
+// 	`&${TElementTag}`,
+// 	never,
+// 	T
+// >;
+
+// type TValidInner<T extends string> = TCases<
+// 	T,
+// 	TValidKeys,
+// 	TAtRule,
+// 	TElementTag,
+// 	T,
+// 	`&${T}`
+// >;
+type TValidNested<T extends string, U extends string = string> = TCases<
 	T,
-	string,
+	U,
 	`&${TAtRule}`,
 	`&${TElementTag}`,
 	never,
 	T
 >;
 
-type TValidInner<T extends string> = TCases<
+type TValidInner<T extends string, U extends string = TValidKeys> = TCases<
 	T,
-	TValidKeys,
+	U,
 	TAtRule,
 	TElementTag,
 	T,
 	`&${T}`
 >;
-
 type TValidStyle<T extends string, U extends string = T> = {
-	[k in T]: TValidCSS<ValidAttr<U>>;
+	[k in T]: TValidCSS<ValidAttr<T, U>>;
 };
 type TValidCSS<T extends string> = TValidStyle<TValidInner<T>> | CSS.Properties;
 
@@ -261,6 +277,7 @@ export {
 	TAllPseudos,
 	TAtRule,
 	TClassSelector,
+	TElementTag,
 	THtmlAttributes,
 	TIDSelector,
 	TValidCSS,
@@ -268,3 +285,26 @@ export {
 	TValidStyle,
 	ValidAttr,
 };
+
+// // Testing whether it gives any false positives or false negatives
+// const a: TValidStyle<TElementTag|TClassSelector> = {
+// 	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+// 	"div":  { padding: "auto", "div": { padding: "auto" } },
+// };
+
+// let y: TValidStyle<TClassSelector> = { ".btn": { padding: "auto" } }; // Should Pass
+
+// const b: TValidCSS<TClassSelector> = {
+// 	// Should Pass
+// 	padding: "auto",
+
+// 	"&.btn": { padding: "auto", "&.btn": { padding: "auto" } },
+// };
+// const c: TValidCSS<TClassSelector> = {
+// 	// Should Pass
+// 	padding: "auto",
+
+// 	".btn": { padding: "auto", "&.btn": { padding: "auto" } }, // Should ERR
+// };
+// type a<T> = T extends TElementTag ? true : false;
+// let v:a<".btn">
