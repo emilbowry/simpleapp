@@ -42,7 +42,7 @@ body {
   opacity: revert;
 
   transform:  translateX(0);
-  animation: fadeInUpAnimation 1.5s ease forwards; 
+  animation: fadeInUpAnimation 1s ease forwards; 
   animation-delay: calc((var(--aos-base-depth, 0)+var(--aos-sibling-index, 0)) * var(--aos-unit-delay));
   animation-composition:  replace;
   will-change: transform, opacity;
@@ -59,7 +59,7 @@ body {
 @keyframes fadeInUpAnimation {
   from {
     opacity: 0.9;
-    transform: translateX(calc(((0.1vw)*(var(--aos-base-depth)))* cos((var(--aos-sibling-index, 0) + var(--aos-base-depth, 0)) * pi)));
+    transform: translateX(calc(((0.05vw)*(var(--aos-base-depth)))* cos((var(--aos-sibling-index, 0) + var(--aos-base-depth, 0)) * pi)));
 
 
   }
