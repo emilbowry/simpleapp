@@ -1,6 +1,6 @@
 // src/components/hexagons/Hexagons.consts.ts
 
-import { IHexagonState, IHexObjState } from "./Hexagons.types";
+import { IHexObjState } from "./Hexagons.types";
 const Flattop_Hex_Path =
 	"M 50 86.6025 l 100 0 l 50 -86.6025 l -50 -86.6025 l -100 0 l -50 86.6025 Z";
 const Pointedtop_Hex_Path =
@@ -18,18 +18,18 @@ const Hex_Starting_State: IHexObjState = {
 	containerHeight: 0,
 	fontSize: 2.5,
 };
-const Hex_El_Starting_State: IHexagonState = {
-	...Hex_Starting_State,
-	contentHeight: 0,
-	construct: () => ({ defs: [<></>], paths: [<></>] }),
-	setContainerRef: () => {},
-	setContentRef: () => {},
-	usePointedTop: false,
-};
+// const Hex_El_Starting_State: IHexagonState = {
+// 	...Hex_Starting_State,
+// 	contentHeight: 0,
+// 	construct: () => ({ defs: [<></>], paths: [<></>] }),
+// 	setContainerRef: () => {},
+// 	setContentRef: () => {},
+// 	usePointedTop: false,
+// };
 
 export {
 	Flattop_Hex_Path,
-	Hex_El_Starting_State,
+	// Hex_El_Starting_State,
 	Hex_Starting_State,
 	Logo_Chev_Colour_Mask,
 	Logo_Chev_Cutout,

@@ -179,7 +179,7 @@ class Hexagon
 
 	hexPath!: string;
 	usePointedTop!: boolean;
-	ElContext: React.Context<IHexagonState>;
+	// ElContext: React.Context<IHexagonState>;
 
 	get fontSize() {
 		return 2.5; // only to obey interface not used
@@ -230,7 +230,7 @@ class Hexagon
 		super(props);
 		this.setOrientation();
 		this.state = Hexagon.starting_state;
-		this.ElContext = createContext<IHexagonState>(this.hex_state);
+		// this.ElContext = createContext<IHexagonState>(this.hex_state);
 	}
 	santiseOptionalParameters() {
 		const { args } = this.props;

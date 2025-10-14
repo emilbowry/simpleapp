@@ -67,7 +67,6 @@ interface IHexagonState extends IHexObjState {
 
 export type {
 	HexagonStyleParams,
-	IComponentDefinitions,
 	IHexagonState,
 	IHexObjState,
 	IOptParamMap,

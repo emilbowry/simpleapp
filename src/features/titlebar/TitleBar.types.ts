@@ -11,7 +11,6 @@ interface ITitleBarProps {
 	links: ITitleBarLink[][];
 	style_fn?: (...args: any[]) => React.CSSProperties;
 	children?: React.ReactNode;
-	hasDropdown?: boolean;
 }
 interface ITitleBarUILinksProps {
 	activeLinkAlias: string;
@@ -19,17 +18,24 @@ interface ITitleBarUILinksProps {
 	onLinkOver: (alias: string) => void;
 }
 
-interface ITitleBarUIProps {
-	links: ITitleBarLink[][];
-	barStyle: React.CSSProperties;
+interface ITitleBarUIState {
+	initialActiveAlias: string;
 	activeLinkAlias: string;
-	onLinkOver: (alias: string) => void;
-	onWrapperMouseLeave: () => void;
-	children?: React.ReactNode; // For rendering the dropdown
+	setActiveLinkAlias:
+		| React.Dispatch<React.SetStateAction<string>>
+		| ((alias: string) => void);
+	isOverLink: boolean;
+	setIsOverLink:
+		| React.Dispatch<React.SetStateAction<boolean>>
+		| ((overlink: boolean) => void);
+	isActive: boolean;
+	setIsActive:
+		| React.Dispatch<React.SetStateAction<boolean>>
+		| ((active: boolean) => void);
 }
 export type {
 	ITitleBarLink,
 	ITitleBarProps,
 	ITitleBarUILinksProps,
-	ITitleBarUIProps,
+	ITitleBarUIState,
 };
