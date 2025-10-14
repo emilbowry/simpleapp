@@ -206,34 +206,56 @@ type TAtRule = CSS.AtRules | `${CSS.AtRules}${string})`;
 type TAllPseudos = CSS.Pseudos | `${CSS.Pseudos | ":matches("}${string}`;
 type TClassSelector = `.${string}`;
 type TIDSelector = `#${string}`;
-
+type TElementTag = keyof React.JSX.IntrinsicElements;
 type TValidKeys =
 	| THtmlAttributes
 	| TAtRule
 	| TAllPseudos
 	| TClassSelector
-	| TIDSelector;
+	| TIDSelector
+	| TElementTag
+	| "*";
 
-type ValidAttr<T extends string> = T extends `&${TValidKeys}`
-	? T
-	: T extends TValidKeys
-	? `&${T}`
-	: never;
+type ValidAttr<T extends string> = T extends TValidNested<T>
+	? TValidNested<T>
+	: TValidInner<T>;
+
+type TCases<
+	T extends string,
+	U extends string = T,
+	V extends string = T,
+	W extends string = T,
+	A extends string | never = never,
+	B extends string | never = never
+> = T extends U ? (T extends V ? A : T extends W ? A : B) : never;
+
+// type TValidNested<T> = T extends `&${TAtRule}`
+// 	? never
+// 	: T extends `&${TElementTag}`
+// 	? never
+// 	: T;
+type TValidNested<T extends string> = TCases<
+	T,
+	string,
+	`&${TAtRule}`,
+	`&${TElementTag}`,
+	never,
+	T
+>;
+
+type TValidInner<T extends string> = TCases<
+	T,
+	TValidKeys,
+	TAtRule,
+	TElementTag,
+	T,
+	`&${T}`
+>;
 
 type TValidStyle<T extends string, U extends string = T> = {
 	[k in T]: TValidCSS<ValidAttr<U>>;
 };
-
-type TValidCSS<T extends string> = TValidStyle<ValidAttr<T>> | CSS.Properties;
-
-// const a: TValidStyle<TClassSelector> = {
-// 	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
-// };
-
-const a: TValidCSS<TClassSelector> = {
-	padding: "auto",
-	"&.btn": { padding: "auto", "&.btn": { padding: "auto" } },
-};
+type TValidCSS<T extends string> = TValidStyle<TValidInner<T>> | CSS.Properties;
 
 export {
 	TAllPseudos,
