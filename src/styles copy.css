@@ -1,4 +1,7 @@
 
+/* src/styles.css */
+
+/* --- Base styles --- */
 body {
   margin: 0;     
   font-family: system-ui, sans-serif;
@@ -16,25 +19,24 @@ body {
   color: #2c2c3c;
 }
 
+/* --- AOS globals --- */
 :root {
   --aos-unit-delay: 100ms;
 }
-    .test-box {
-      width: 300px;
-      padding: 20px;
-      border: 2px solid black;
-      font-family: sans-serif;
-      font-size: 1.2rem;
-      background-color: lightblue; /* Default background color */
 
-      @media (min-width: 100px) {
-        background-color: red;
-      }
-    }
+/**
+* Some elements are randomly dispersed around the page, the solution is to either set baseline opacity to 0 
+* or make overflow hidden
+* however overflow hidden subtly changes the isVisible execution and delays it for some reason, we have to scroll past the element for it to animate
+* thus current solution is to just set opacity to 0
 
+
+*/
 .aos {
+ /* Needs to initially be zero since before visible, there are phantom elements everywhere */
   opacity: 0.9;
-
+ /*instead of opacity , downside it changes the is-visible behaviour*/
+   /* overflow: hidden; */
 }
 
 .aos .is-visible {
@@ -52,6 +54,7 @@ body {
 
 .is-visible {
   opacity: revert;
+  /* overflow: initial; */
 
 }
 @keyframes fadeInUpAnimation {
@@ -91,3 +94,24 @@ cursor: none !important;
 .aos-ignore {
   isolation: isolate;
 } 
+/* 
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  justify-content: center;
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}*/
+
