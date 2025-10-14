@@ -1,17 +1,85 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Theme } from "../../styles";
-import { PartnerImage, PartnerRow } from "./PartnershipBar";
+import { PartnerImage } from "./PartnershipBar";
 import {
 	CompactViewStyle,
 	PartnerStyles,
 	rowLayout,
 } from "./PartnershipBar.styles";
 import {
+	IPartner,
 	IPartnershipBar,
+	IRows,
 	PartnershipBarCompactWallProps,
 	PartnershipBarFullWallProps,
 } from "./PartnershipBar.types";
+const PartnerWallRow: React.FC<{
+	partners: readonly IPartner[];
+	style: React.CSSProperties;
+}> = ({ partners, style }) => (
+	<div style={style}>
+		{partners.map((partner, index) => (
+			<PartnerImage
+				key={index}
+				partner={partner}
+			/>
+		))}
+	</div>
+);
 
+/*
+This is extremely efficient for some reason
+ const cumSumSlices =
+	(sum = 0) =>
+	(value = 0) =>
+		[sum, (sum += value)]; 
+*/
+
+/* 
+
+calculate rows
+ */
+
+const calculateRows = (
+	counts: number[],
+	partners: readonly IPartner[],
+	sum = 0
+) =>
+	counts.reduce<{
+		[key: string]: IPartner[];
+	}>(
+		(acc, val, i) => (
+			(acc[keys[i]] = partners.slice(sum, (sum += val))), acc
+		),
+		{}
+	);
+
+const calculateRows2 = (
+	counts: number[],
+	partners: readonly IPartner[],
+	sum = 0,
+	acc = {} as IRows
+) => (
+	counts.forEach(
+		(val, i) => ((acc as any)[keys[i]] = partners.slice(sum, (sum += val)))
+	),
+	acc
+);
+const keys = ["top", "mid", "bottom"];
+const getRows = (p: readonly IPartner[], sum = 0, r = {} as IRows) => (
+	WallLayout(p.length).forEach(
+		(val, i, _) => (r[keys[i]] = p.slice(sum, (sum += val)))
+	),
+	r
+);
+const getLayoutData = (partners: readonly IPartner[]) => {
+	const rows = getRows(partners);
+	const maxBricks = Math.max(rows.top.length, rows.mid.length);
+	return {
+		rows: rows,
+		maxBricks: maxBricks + +!(maxBricks % 2 === 0),
+	};
+};
 const PartnershipWall: React.FC<IPartnershipBar> = ({
 	partners,
 	index = 0,
@@ -19,20 +87,7 @@ const PartnershipWall: React.FC<IPartnershipBar> = ({
 	const isCompactView = useResponsiveLayout(partners.length);
 	const theme = Theme(index);
 
-	const { rows, maxBricks } = useMemo(() => {
-		const [topCount, midCount, bottomCount] = WallLayout(partners.length);
-		let offset = 0;
-		const calculatedRows = {
-			top: partners.slice(offset, (offset += topCount)),
-			mid: partners.slice(offset, (offset += midCount)),
-			bottom: partners.slice(offset, offset + bottomCount),
-		};
-		let calculatedMaxBricks = Math.max(topCount, midCount);
-		if (calculatedMaxBricks % 2 === 0) {
-			calculatedMaxBricks += 1;
-		}
-		return { rows: calculatedRows, maxBricks: calculatedMaxBricks };
-	}, [partners]);
+	const { rows, maxBricks } = getLayoutData(partners);
 
 	const staticStyle: React.CSSProperties = {
 		...PartnerStyles["Large"],
@@ -48,7 +103,7 @@ const PartnershipWall: React.FC<IPartnershipBar> = ({
 		<PartnershipBarFullWall
 			staticStyle={staticStyle}
 			maxBricks={maxBricks}
-			rows={rows}
+			rows={rows as any}
 		/>
 	);
 };
@@ -105,15 +160,15 @@ const PartnershipBarFullWall: React.FC<PartnershipBarFullWallProps> = ({
 }) => {
 	return (
 		<div style={{ ...staticStyle, backgroundColor: "transparent" }}>
-			<PartnerRow
+			<PartnerWallRow
 				partners={rows.top}
 				style={rowLayout(rows.top.length, maxBricks)}
 			/>
-			<PartnerRow
+			<PartnerWallRow
 				partners={rows.mid}
 				style={rowLayout(rows.mid.length, maxBricks)}
 			/>
-			<PartnerRow
+			<PartnerWallRow
 				partners={rows.bottom}
 				style={rowLayout(rows.bottom.length, maxBricks)}
 			/>

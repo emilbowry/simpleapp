@@ -31,13 +31,15 @@ const PartnerRow: React.FC<{
 	partners: readonly IPartner[];
 	style: React.CSSProperties;
 }> = ({ partners, style }) => (
-	<div style={style}>
+	<>
 		{partners.map((partner, index) => (
-			<PartnerImage
-				key={index}
-				partner={partner}
-			/>
+			<div style={style}>
+				<PartnerImage
+					key={index}
+					partner={partner}
+				/>
+			</div>
 		))}
-	</div>
+	</>
 );
 export { PartnerImage, PartnerRow };
