@@ -100,13 +100,7 @@ const PartnershipBarFullWall: React.FC<PartnershipBarFullWallProps> = ({
 
 	invariant: exists x in {a, n-(a+c)} s.t c <= x 
 
-
-	I wonder since sign(x) =`floor(x / (abs(x) + 1))
-		- floor(-x / (abs(x) + 1))` if we can join it somehow with  
-		`max(1, floor(x / 3)))` since that is a rectified version of ` floor(x / min(x, 3))`
-
-
-	*/
+*/
 
 const WallLayout = (n: number): [number, number, number] => {
 	const a =

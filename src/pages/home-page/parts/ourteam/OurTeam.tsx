@@ -50,47 +50,53 @@ const teamMembers: IPersona[] = [
 	},
 ];
 
-const Persona: React.FC<IPersona> = ({
-	image,
+const PHeader: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 	name,
 	title,
 	email,
+	theme,
+}) => (
+	<div style={{ color: theme.tertiaryColor, fontSize: "2.5rem" }}>
+		<h3>
+			<span style={{ fontWeight: "bold" }}>{name}</span>
+			<span style={{ fontWeight: "normal" }}>
+				{title ? ` - ${title}` : null}
+			</span>
+		</h3>
+		{email ? (
+			<div style={{ color: theme.primaryColor }}>{email}</div>
+		) : (
+			<div></div>
+		)}
+	</div>
+);
+
+const PBody: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 	body,
-	index = 2,
-}) => {
-	let _index = 0;
-	if (index === 0) {
-		_index = 0;
-	} else if (index % 2 === 0) {
-		_index = 1;
-	}
-	let theme = Theme(_index);
-	const header = (
-		<div style={{ color: theme.tertiaryColor, fontSize: "2.5rem" }}>
-			<h3>
-				<span style={{ fontWeight: "bold" }}>{name}</span>
-				<span style={{ fontWeight: "normal" }}>
-					{title ? ` - ${title}` : null}
-				</span>
-			</h3>
-			{email ? (
-				<div style={{ color: theme.primaryColor }}>{email}</div>
-			) : (
-				<div></div>
-			)}
-		</div>
-	);
-	const descrition = (
-		<div style={{ color: theme.secondaryColor, fontSize: "2rem" }}>
-			<p>{body}</p>
-		</div>
-	);
-	const textual = (
-		<div style={{ padding: "2rem ", margin: "auto 0" }}>
-			{header}
-			{descrition}
-		</div>
-	);
+	theme,
+}) => (
+	<div style={{ color: theme.secondaryColor, fontSize: "2rem" }}>
+		<p>{body}</p>
+	</div>
+);
+
+const PText: React.FC<
+	IPersona & { theme: ReturnType<typeof Theme>; children?: React.ReactNode }
+> = (props) => (
+	<div style={{ padding: "2rem ", margin: "auto 0" }}>
+		<PHeader {...props} />
+		<PBody {...props} />
+	</div>
+);
+const Persona: React.FC<IPersona> = (props) => {
+	const {
+		image,
+
+		index = 2,
+	} = props;
+
+	let theme = Theme(+!!(index === 0) || +!(index % 2 === 0));
+
 	return (
 		<div>
 			<div style={personaWrapperStyle}>
@@ -103,7 +109,10 @@ const Persona: React.FC<IPersona> = ({
 						...PersonaTextStyle,
 					}}
 				>
-					{textual}
+					<PText
+						{...props}
+						theme={theme}
+					/>
 				</div>
 			</div>
 		</div>

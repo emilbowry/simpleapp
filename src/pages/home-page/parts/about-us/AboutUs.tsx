@@ -16,9 +16,12 @@ import { partners } from "../../../../components/partnership-bar/Partner";
 import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
-import { footerStyle, imageStyling, titleStyle } from "./AboutUs.styles";
-
-export const hStyle = { colour: bgwhite };
+import {
+	footerStyle,
+	hStyle,
+	imageStyling,
+	titleStyle,
+} from "./AboutUs.styles";
 
 const head = <h2>About Us</h2>;
 
@@ -41,7 +44,6 @@ const large_partners = {
 
 const wGif = (
 	<div style={{ display: "flex", maxWidth: "100%" }}>
-		{/* {getImageEl(wgif, { width: "100%" })} */}
 		{getImageEl(aicompwork, {
 			width: "100%",
 			borderRadius: "18px",
@@ -93,28 +95,9 @@ const aboutUsFeatureCallouts = [
 			<br />
 			Policy Reviewing AI Policy
 		</div>,
-		// <div style={{ ...genericSectionStyle }}>
-		// 	<BoxedImage
-		// 		image={pencil}
-		// 		width="20%"
-		// 		aspectRatio="1"
-		// 		imageStyling={imageStyling}
-		// 		wrapperStyling={{
-		// 			position: "relative",
-		// 			top: 0,
-		// 			display: "block",
-		// 		}}
-		// 	/>
-		// 	<div style={titleStyle}>Policy</div>
-		// 	<div style={footerStyle}>
-		// 		Drafting AI
-		// 		<br />
-		// 		Policy Reviewing AI Policy
-		// 	</div>
-		// </div>,
 	],
 ];
-export const AboutUsCallingCard: React.FC = () => (
+const AboutUsCallingCard: React.FC = () => (
 	<>
 		<SideBarCallingCard
 			components={[wGif]}
@@ -151,3 +134,5 @@ export const AboutUsCallingCard: React.FC = () => (
 		/>
 	</>
 );
+
+export { AboutUsCallingCard };

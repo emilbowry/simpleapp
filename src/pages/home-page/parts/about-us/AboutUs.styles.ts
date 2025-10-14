@@ -2,18 +2,21 @@
 
 import React from "react";
 import { Theme } from "../../../../styles";
+import { bgwhite } from "../../../../utils/defaultColours";
 const theme = Theme(0);
 
-export const titleStyle: React.CSSProperties = {
+const titleStyle: React.CSSProperties = {
 	fontSize: "2rem",
 	fontWeight: "400",
 	textAlign: "center",
 	color: theme.tertiaryColor,
 };
-export const footerStyle: React.CSSProperties = {
+const footerStyle: React.CSSProperties = {
 	fontSize: "2rem",
 	textAlign: "center",
 	color: theme.primaryColor,
 };
 
-export const imageStyling: React.CSSProperties = {};
+const imageStyling: React.CSSProperties = {};
+const hStyle = { colour: bgwhite };
+export { footerStyle, hStyle, imageStyling, titleStyle };

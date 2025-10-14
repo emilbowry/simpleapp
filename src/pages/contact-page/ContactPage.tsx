@@ -16,27 +16,25 @@ const StyledLink: React.FC<{
 	href?: string;
 	content?: ValidComponent;
 	isUnderlined?: boolean;
-}> = ({ href = "#", content = "", isUnderlined = true }) => {
-	return (
-		<div
-			style={{
-				flex: 2,
-				display: "flex",
-				justifyContent: "center",
-				gap: "15px",
-			}}
-		>
-			<div>
-				<a
-					href={href}
-					style={{ ...linkStyle(isUnderlined), ...titleStyle }}
-				>
-					{formatComponent(content)}
-				</a>
-			</div>
+}> = ({ href = "#", content = "", isUnderlined = true }) => (
+	<div
+		style={{
+			flex: 2,
+			display: "flex",
+			justifyContent: "center",
+			gap: "15px",
+		}}
+	>
+		<div>
+			<a
+				href={href}
+				style={{ ...linkStyle(isUnderlined), ...titleStyle }}
+			>
+				{formatComponent(content)}
+			</a>
 		</div>
-	);
-};
+	</div>
+);
 
 const sidebar_body = (
 	<p>

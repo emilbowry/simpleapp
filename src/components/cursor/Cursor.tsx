@@ -1,6 +1,7 @@
 // src/components/cursor/Cursor.tsx
 
 import React, { useEffect, useState } from "react";
+import { TRAIL_SPEED } from "./Cursor.consts";
 import { largeCursorStyle, smallCursorStyle } from "./Cursor.styles";
 
 const CustomCursor: React.FC = () => {
@@ -9,9 +10,6 @@ const CustomCursor: React.FC = () => {
 		x: 0,
 		y: 0,
 	});
-	/* const [isHoveringLink, setIsHoveringLink] = useState(false); */
-
-	const trailSpeed = 0.15;
 
 	useEffect(() => {
 		const updateMousePosition = (e: MouseEvent) => {
@@ -27,8 +25,8 @@ const CustomCursor: React.FC = () => {
 		let animationFrameId: number;
 		const animateLargerCursor = () => {
 			setLargerCursorPosition((prevPos) => ({
-				x: prevPos.x + (mousePosition.x - prevPos.x) * trailSpeed,
-				y: prevPos.y + (mousePosition.y - prevPos.y) * trailSpeed,
+				x: prevPos.x + (mousePosition.x - prevPos.x) * TRAIL_SPEED,
+				y: prevPos.y + (mousePosition.y - prevPos.y) * TRAIL_SPEED,
 			}));
 			animationFrameId = requestAnimationFrame(animateLargerCursor);
 		};
@@ -36,37 +34,14 @@ const CustomCursor: React.FC = () => {
 		return () => {
 			cancelAnimationFrame(animationFrameId);
 		};
-	}, [mousePosition, trailSpeed]);
-	/* 
-	useEffect(() => {
-		const handleMouseOver = (e: MouseEvent) => {
-			if ((e.target as HTMLElement).tagName === "A") {
-				setIsHoveringLink(true);
-			}
-		};
-		const handleMouseOut = (e: MouseEvent) => {
-			if ((e.target as HTMLElement).tagName === "A") {
-				setIsHoveringLink(false);
-			}
-		};
-		window.addEventListener("mouseover", handleMouseOver);
-		window.addEventListener("mouseout", handleMouseOut);
-		return () => {
-			window.removeEventListener("mouseover", handleMouseOut);
-			window.removeEventListener("mouseout", handleMouseOut);
-		};
-	}, []);
- */
-	const renderDefaultCursor = () => {
-		return (
-			<>
-				<div style={smallCursorStyle(mousePosition)} />
-				<div style={largeCursorStyle(largerCursorPosition)} />
-			</>
-		);
-	};
+	}, [mousePosition, TRAIL_SPEED]);
 
-	return renderDefaultCursor();
+	return (
+		<>
+			<div style={smallCursorStyle(mousePosition)} />
+			<div style={largeCursorStyle(largerCursorPosition)} />
+		</>
+	);
 };
 
 export { CustomCursor };

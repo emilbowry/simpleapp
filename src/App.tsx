@@ -13,18 +13,14 @@ import { OurServices } from "./pages/our-services-page/OurServices";
 import { TheJourneyPage } from "./pages/the-journey-page/TheJourney";
 
 function ScrollToTop() {
-	const { pathname } = useLocation();
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
-	}, [pathname]);
+	}, [useLocation()]);
 
 	return null; // doesn’t render anything
 }
 const App: React.FC = () => {
-	const location = useLocation();
-
-	useEffect(animationTagging, [location.pathname]);
+	useEffect(animationTagging, [useLocation().pathname]);
 	return (
 		<>
 			<ScrollToTop />

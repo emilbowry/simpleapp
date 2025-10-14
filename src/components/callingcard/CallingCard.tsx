@@ -1,8 +1,13 @@
 // src/components/callingcard/CallingCard.tsx
 
 import React from "react";
-import { formatComponent } from "../../utils/reactUtils";
 import { Theme } from "../../styles";
+import { formatComponent } from "../../utils/reactUtils";
+import {
+	containerStyle,
+	GridBodyStyle,
+	GridItemStyle,
+} from "./CallingCard.styles";
 import {
 	ICallingCardProps,
 	ICallOutProps,
@@ -11,11 +16,6 @@ import {
 	IGridItemProps,
 	IHeaderProps,
 } from "./CallingCard.types";
-import {
-	containerStyle,
-	GridBodyStyle,
-	GridItemStyle,
-} from "./CallingCard.styles";
 
 const CompWrapper: React.FC<ICallOutProps> = ({
 	content,
@@ -26,9 +26,8 @@ const CompWrapper: React.FC<ICallOutProps> = ({
 	) : null;
 };
 const Header: React.FC<IHeaderProps> = (props) => <CompWrapper {...props} />;
-const Footer: React.FC<IFooterProps> = ({ content }) => {
-	return content ? formatComponent(content) : null;
-};
+const Footer: React.FC<IFooterProps> = ({ content }) =>
+	content && formatComponent(content);
 
 const GridItem = ({ content, item_key }: IGridItemProps): React.ReactNode => {
 	return content ? (
@@ -48,20 +47,22 @@ const GridBody: React.FC<IGridBodyProps> = ({
 	components,
 	styleOverrides = {},
 	columnOverrides = undefined,
-}) => {
-	const colOverrides = {
-		gridTemplateColumns:
-			columnOverrides ?? `repeat(${components.length}, 1fr)`,
-	};
-
-	return (
-		<div style={{ ...GridBodyStyle, ...colOverrides, ...styleOverrides }}>
-			{components.map((item, index) =>
-				GridItem({ content: item, item_key: index })
-			)}
-		</div>
-	);
-};
+}) => (
+	<div
+		style={{
+			...GridBodyStyle,
+			...{
+				gridTemplateColumns:
+					columnOverrides ?? `repeat(${components.length}, 1fr)`,
+			},
+			...styleOverrides,
+		}}
+	>
+		{components.map((item, index) =>
+			GridItem({ content: item, item_key: index })
+		)}
+	</div>
+);
 
 const CallingCard: React.FC<ICallingCardProps> = ({
 	components,
@@ -73,20 +74,6 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 	isPageElement = false,
 }) => {
 	let theme = Theme(index);
-	const columnOverrides = isPageElement
-		? `${100 / 3}% ${200 / 3}%`
-		: undefined;
-
-	const bodyOverrides = isPageElement
-		? {
-				marginTop: "1%",
-				paddingTop: "2%",
-				borderTop: header ? `4px solid` : "",
-		  }
-		: {
-				padding: !fullSpread ? "2%" : "0",
-				borderRadius: !fullSpread ? "50px 10px" : "",
-		  };
 
 	return (
 		<>
@@ -108,8 +95,23 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 
 				<GridBody
 					components={components}
-					columnOverrides={columnOverrides}
-					styleOverrides={bodyOverrides}
+					columnOverrides={
+						isPageElement ? `${100 / 3}% ${200 / 3}%` : undefined
+					}
+					styleOverrides={
+						isPageElement
+							? {
+									marginTop: "1%",
+									paddingTop: "2%",
+									borderTop: header ? `4px solid` : "",
+							  }
+							: {
+									padding: !fullSpread ? "2%" : "0",
+									borderRadius: !fullSpread
+										? "50px 10px"
+										: "",
+							  }
+					}
 				/>
 			</div>
 			<Footer content={footer} />

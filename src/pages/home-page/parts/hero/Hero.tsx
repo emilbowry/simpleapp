@@ -42,45 +42,37 @@ const textEl = (
 		</div>
 	</div>
 );
+const firstRow = [null, null, <ImageHexagon img={hi3} />] as const;
+const secondRow = [
+	<ImageHexagon img={hi1} />,
+	<LogoHexagon args={{ withGap: false }} />,
 
+	<ImageHexagon img={hi2} />,
+] as const;
+
+const thirdRow = [
+	null,
+	<Hexagon
+		args={{ colour: light_mix_green }}
+		element={textEl}
+		useVerticalAlignment={true}
+	/>,
+	null,
+] as const;
+
+const r = [
+	{ elements: firstRow },
+
+	{ elements: secondRow },
+	{ elements: thirdRow },
+];
 const Hero: React.FC = () => {
-	const firstRow = [
-		null,
-		// <Hexagon args={{ colour: light_grey }} />,
-		null,
-		<ImageHexagon img={hi3} />, //subclass of Hexagon
-	] as const;
-	const secondRow = [
-		<ImageHexagon img={hi1} />,
-		<LogoHexagon args={{ withGap: false }} />, // other subclass of Hexagon
-
-		<ImageHexagon img={hi2} />, //subclass of Hexagon
-	] as const;
-
-	const thirdRow = [
-		null,
-		<Hexagon
-			args={{ colour: light_mix_green }}
-			element={textEl}
-			useVerticalAlignment={true}
-		/>,
-		null,
-	] as const;
-
-	const r = [
-		{ elements: firstRow },
-
-		{ elements: secondRow },
-		{ elements: thirdRow },
-	];
-
 	return (
 		<div
 			style={{
 				height: "100%",
 				margin: "auto 5%",
 				marginTop: `calc(10%)`,
-				// paddingTop: "10%",
 			}}
 		>
 			<HexagonGrid rows={r} />

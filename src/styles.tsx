@@ -32,7 +32,6 @@ const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 10
 const genericSectionStyle: React.CSSProperties = {
 	border: "1px solid black",
 	backgroundColor: "rgba(255, 0, 0, 0.2)",
-	// boxSizing: "border-box",
 };
 const Theme = (index: number) => {
 	const theme = {
@@ -51,10 +50,6 @@ const Theme = (index: number) => {
 		theme.primaryColor = light_logo_blue;
 		theme.secondaryColor = o_mix_green;
 		theme.tertiaryColor = logo_yellow;
-		// theme.backgroundColor = light_mix_green;
-		// theme.primaryColor = dark_midnight_green;
-		// theme.secondaryColor = dark_mix_green;
-		// theme.tertiaryColor = midnight_green;
 	}
 	return theme;
 };
@@ -69,7 +64,6 @@ const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	boxSizing: "border-box",
 	backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
 
-	// transition: "background-size 0.3s ease-in",
 	color: "#333",
 	fontSize: "16px",
 	padding: "5px 0",

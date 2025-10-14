@@ -7,7 +7,6 @@ import { ITitleBarProps } from "./TitleBar.types";
 import { titleBarStyles } from "./TitleBar.styles";
 import { usePillBarStyle } from "./TitleBarHelpers";
 import { Dropdown, TitleBarUI } from "./TitleBarUI";
-import { DropDownTitleBar } from "./TitleBarUIClassed";
 const TitleBar: React.FC<ITitleBarProps> = (props) => (
 	<TitleBarUI
 		{...props}
@@ -29,10 +28,4 @@ const PillTitleBar: React.FC<ITitleBarProps> = (props) => (
 	/>
 );
 
-const PillTitleBarClassed: React.FC<ITitleBarProps> = (props) => (
-	<DropDownTitleBar
-		{...props}
-		style_fn={usePillBarStyle}
-	/>
-);
-export { PillTitleBar, PillTitleBarClassed };
+export { PillTitleBar };

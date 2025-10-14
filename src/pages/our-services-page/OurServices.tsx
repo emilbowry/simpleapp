@@ -5,7 +5,7 @@ import { SideBarCallingCard } from "../../components/callingcard/CallingCard";
 import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
 import { Page } from "../../features/page/Page";
 import { bgwhite } from "../../utils/defaultColours";
-import { hStyle } from "../home-page/parts/about-us/AboutUs";
+import { hStyle } from "../home-page/parts/about-us/AboutUs.styles";
 
 import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
 import { BoxedImage } from "../../utils/reactUtils";
