@@ -14,6 +14,7 @@ import {
 	midnight_green,
 	o_mix_green,
 } from "./utils/defaultColours";
+import { TValidCSS, TValidStyle } from "./utils/styles.types";
 
 const BackgroundStyle: React.CSSProperties = {
 	backgroundImage: `url(${background})`,
@@ -95,6 +96,28 @@ const generateGradient = (
 				.slice(1)
 	);
 };
+
+const styleObjectToString = <T, U = T>(
+	styleObject: TValidCSS<T> | TValidStyle<T, U>
+): string => {
+	let cssString = "";
+
+	for (const [key, value] of Object.entries(styleObject)) {
+		if (typeof value === "object" && value !== null) {
+			cssString += `${key}{${styleObjectToString<string>(
+				value as TValidStyle<string>
+			)}}`;
+		} else {
+			const propertyName = key.replace(
+				/[A-Z]/g,
+				(letter) => `-${letter.toLowerCase()}`
+			);
+			cssString += `${propertyName}:${value};`;
+		}
+	}
+
+	return cssString;
+};
 export {
 	BackgroundStyle,
 	borderGrad,
@@ -102,4 +125,5 @@ export {
 	genericSectionStyle,
 	linkStyle,
 	Theme,
+	styleObjectToString,
 };

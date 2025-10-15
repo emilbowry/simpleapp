@@ -3,6 +3,9 @@
 import React from "react";
 import { Theme } from "../../styles";
 import { title_font_colour } from "../../utils/defaultColours";
+import { TAtRule, TValidStyle } from "../../utils/styles.types";
+import type * as CSS from "csstype";
+
 const PartnerStyles: {
 	Small: React.CSSProperties;
 	Large: React.CSSProperties;
@@ -74,17 +77,35 @@ const partnerWrapperStyle: React.CSSProperties = {
 	margin: "0 30px",
 	justifyContent: "space-between",
 };
-const keyframes = `
-  @keyframes slide-in {
-	from {
-	  transform: translateX(0%);
-	}
-	to {
-	  transform: translateX(-100%);
-	}
-  }
-`;
-
+// const keyframes = `
+//   @keyframes slide-in {
+// 	from {
+// 	  transform: translateX(0%);
+// 	}
+// 	to {
+// 	  transform: translateX(-100%);
+// 	}
+//   }
+// `;
+type tKeyFrameKwds = "from" | "to";
+type b = { [k in TAtRule]: { [K in tKeyFrameKwds]: CSS.Properties } };
+const af: b = {
+	["to"]: {
+		transform: "translateX(-100%)",
+	},
+};
+const keyframes: TValidStyle<TAtRule | tKeyFrameKwds> = {
+	"@keyframes slide-in": {
+		color: "red",
+		"&to": {
+			transform: "translateX(-100%)",
+		},
+		"&from": {
+			transform: "translateX(0%)",
+		},
+	},
+};
+const a: TAtRule = "@keyframes slide-in";
 const rowLayout = (
 	n_bricks: number,
 	maxBricks: number

@@ -244,18 +244,6 @@ type TInvalidInner<
 		: T | (V extends string ? V : T)
 	: T | (V extends string ? V : T);
 
-// V  shortcut accept allways exactly that can be non, string
-// U do not infer nested `&` but accept &U
-// Accept T  at top level always infer `&T` at inner
-
-// T valid as style keys, infer &T as valid css keys
-// U invalid as style keys, &U valid as css key (trivially &U invalid as style keys )
-// V valid as all keys
-// const d: TInvalidInner<TClassSelector, undefined, undefined> = ".btn"; // Correct: Valid
-// const e: TInvalidInner<TClassSelector, undefined, "@btn"> = "@btn"; //  Correct: Valid
-// const f: TInvalidInner<TClassSelector | "@btn", undefined, undefined> = "@btn"; //  Correct: Valid
-// const f: TInvalidInner<TClassSelector , "@btn", undefined> = "@btn"; //  Correct: Valid
-
 type TValidStyle<
 	T extends string,
 	U extends string | undefined = undefined,
@@ -267,23 +255,19 @@ type TValidStyle<
 type TValidCSS<T, U extends string | undefined = undefined, V = undefined> =
 	| TValidStyle<TValidInner<T, U, V>, U, V>
 	| CSS.Properties;
-//   T | V
-// : `&${T}`
-// : never;
-// : never;
 
-// const a: TValidInner<TClassSelector, undefined, undefined> = "&.btn"; // Correct: Valid
-// const b: TValidInner<TClassSelector, undefined, "@btn"> = "@btn"; //  Correct: Valid
-// const c: TValidInner<TClassSelector, "@btn", undefined> = "&@btn"; //  Correct: Valid
+export {
+	TAllPseudos,
+	TAtRule,
+	TClassSelector,
+	THtmlAttributes,
+	TIDSelector,
+	TValidCSS,
+	TValidKeys,
+	TValidStyle,
+};
 
-// const d: TInvalidInner<TClassSelector, undefined, undefined> = ".btn"; // Correct: Valid
-// const e: TInvalidInner<TClassSelector, undefined, "&@btn"> = "&@btn"; //  Correct: Valid
-// const f: TInvalidInner<TClassSelector | "@btn", undefined, undefined> = "@btn"; //  Correct: Valid
-
-// Testing Styles
-
-// Test1 predefined type
-// Valid 1
+/* 
 const vtest1: TValidStyle<TClassSelector> = {
 	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
 };
@@ -426,3 +410,4 @@ const keyframes3: TValidStyle<TAtRule, undefined, "to" | "from"> = {
 	},
 };
 // Note, V is a generic bypass and wont be typed check in a styler prop
+ */

@@ -216,281 +216,206 @@ type TValidKeys =
 	| TElementTag
 	| "*";
 
-type ValidAttr<T extends string, U extends string> = U extends T
-	? TValidNested<U, T>
-	: TValidInner<U, T>;
-type TCases<
-	T extends string,
-	U extends string = T,
-	V extends string = T,
-	A extends string | never = never,
-	B extends string | never = never
-> = T extends U ? (T extends V ? A : B) : never;
-
-type TValidNested<T extends string, U extends string = string> = TCases<
-	T,
-	U,
-	`&${TAtRule | TElementTag}`,
-	never,
-	T
->;
-let a: TValidInner<"cow">;
-type TValidInner<T extends string, U extends string = TValidKeys> = TCases<
-	T,
-	U,
-	TAtRule | TElementTag,
-	T,
-	`&${T}`
->;
-type ValidStyle<T, U> = {
-	[k in TValidInner<T>]?: TValidInner;
-};
-// type TCases<
-// 	T extends string,
-// 	U extends string = T,
-// 	V extends string = T,
-// 	W extends string = T,
-// 	A extends string | never = never,
-// 	B extends string | never = never
-// > = T extends U ? (T extends V ? A : T extends W ? A : B) : never;
-
-// type TValidNested<T extends string, U extends string = string> = TCases<
-// 	T,
-// 	U,
-// 	`&${TAtRule}`,
-// 	`&${TElementTag}`,
-// 	never,
-// 	T
-// >;
-
-// type TValidInner<T extends string, U extends string = TValidKeys> = TCases<
-// 	T,
-// 	U,
-// 	TAtRule,
-// 	TElementTag,
-// 	T,
-// 	`&${T}`
-// >;
-// type TValidStyle<T, U = undefined> = T extends string
-// 	? U extends string
-// 		? {
-// 				[k in T]?: U extends undefined ? TValidCSS<ValidAttr<T, T>> : U;
-// 		  }
-// 		: never
-// 	: never;
-
-// Valid Style:
-// Accepts keys defined by T
-// Value =CSS.Properties | ValidStyle<T_prime> for nested styles | U | ValidStyle
-type TValidStyle<T, U = T> = T extends string
-	? U extends string
-		? {
-				[k in T]?: TValidCSS<ValidAttr<T, U>>;
-		  }
+type TValidInner<T, U extends string | undefined, V = T> = T extends string
+	? T extends TValidKeys | U
+		? T extends TAtRule
+			? T | (V extends string ? V : T)
+			: T extends TElementTag
+			? T | (V extends string ? V : T)
+			: U extends string
+			? `&${T}` | (V extends string ? V : `&${T}`) | U //`&${U}`
+			: `&${T}` | (V extends string ? V : `&${T}`)
 		: never
 	: never;
-type TValidCSS<T> = NoInfer<T> extends string
-	? TValidStyle<TValidInner<T>> | CSS.Properties
-	: never;
 
-// export {
-// 	TAllPseudos,
-// 	TAtRule,
-// 	TClassSelector,
-// 	TElementTag,
-// 	THtmlAttributes,
-// 	TIDSelector,
-// 	TValidCSS,
-// 	TValidKeys,
-// 	TValidStyle,
-// 	ValidAttr,
-// 	HTMLTags,
-// };
-const HTMLTags = [
-	"a",
-	"abbr",
-	"address",
-	"area",
-	"article",
-	"aside",
-	"audio",
-	"b",
-	"base",
-	"bdi",
-	"bdo",
-	"big",
-	"blockquote",
-	"body",
-	"br",
-	"button",
-	"canvas",
-	"caption",
-	"center",
-	"cite",
-	"code",
-	"col",
-	"colgroup",
-	"data",
-	"datalist",
-	"dd",
-	"del",
-	"details",
-	"dfn",
-	"dialog",
-	"div",
-	"dl",
-	"dt",
-	"em",
-	"embed",
-	"fieldset",
-	"figcaption",
-	"figure",
-	"footer",
-	"form",
-	"h1",
-	"h2",
-	"h3",
-	"h4",
-	"h5",
-	"h6",
-	"head",
-	"header",
-	"hgroup",
-	"hr",
-	"html",
-	"i",
-	"iframe",
-	"img",
-	"input",
-	"ins",
-	"kbd",
-	"keygen",
-	"label",
-	"legend",
-	"li",
-	"link",
-	"main",
-	"map",
-	"mark",
-	"menu",
-	"menuitem",
-	"meta",
-	"meter",
-	"nav",
-	"noindex",
-	"noscript",
-	"object",
-	"ol",
-	"optgroup",
-	"option",
-	"output",
-	"p",
-	"param",
-	"picture",
-	"pre",
-	"progress",
-	"q",
-	"rp",
-	"rt",
-	"ruby",
-	"s",
-	"samp",
-	"search",
-	"slot",
-	"script",
-	"section",
-	"select",
-	"small",
-	"source",
-	"span",
-	"strong",
-	"style",
-	"sub",
-	"summary",
-	"sup",
-	"table",
-	"template",
-	"tbody",
-	"td",
-	"textarea",
-	"tfoot",
-	"th",
-	"thead",
-	"time",
-	"title",
-	"tr",
-	"track",
-	"u",
-	"ul",
-	"var",
-	"video",
-	"wbr",
-	"webview",
-	"svg",
-	"animate",
-	"animateMotion",
-	"animateTransform",
-	"circle",
-	"clipPath",
-	"defs",
-	"desc",
-	"ellipse",
-	"feBlend",
-	"feColorMatrix",
-	"feComponentTransfer",
-	"feComposite",
-	"feConvolveMatrix",
-	"feDiffuseLighting",
-	"feDisplacementMap",
-	"feDistantLight",
-	"feDropShadow",
-	"feFlood",
-	"feFuncA",
-	"feFuncB",
-	"feFuncG",
-	"feFuncR",
-	"feGaussianBlur",
-	"feImage",
-	"feMerge",
-	"feMergeNode",
-	"feMorphology",
-	"feOffset",
-	"fePointLight",
-	"feSpecularLighting",
-	"feSpotLight",
-	"feTile",
-	"feTurbulence",
-	"filter",
-	"foreignObject",
-	"g",
-	"image",
-	"line",
-	"linearGradient",
-	"marker",
-	"mask",
-	"metadata",
-	"mpath",
-	"path",
-	"pattern",
-	"polygon",
-	"polyline",
-	"radialGradient",
-	"rect",
-	"set",
-	"stop",
-	"switch",
-	"symbol",
-	"text",
-	"textPath",
-	"tspan",
-	"use",
-	"view",
-];
+type TInvalidInner<
+	T,
+	U extends string | undefined,
+	V = T
+> = T extends `&${string}`
+	? T extends `&${TValidKeys}` | `&${U}`
+		? T extends `&${TAtRule}`
+			? never
+			: T extends `&${TElementTag}`
+			? never
+			: U extends `&${string}`
+			? never
+			: T | (V extends string ? V : T)
+		: T | (V extends string ? V : T)
+	: T | (V extends string ? V : T);
+
+type TValidStyle<
+	T extends string,
+	U extends string | undefined = undefined,
+	V = undefined
+> = {
+	[k in TInvalidInner<T, U, V>]?: TValidCSS<T, U, V>;
+};
+
+type TValidCSS<T, U extends string | undefined = undefined, V = undefined> =
+	| TValidStyle<TValidInner<T, U, V>, U, V>
+	| CSS.Properties;
+
+export {
+	TAllPseudos,
+	TAtRule,
+	TClassSelector,
+	THtmlAttributes,
+	TIDSelector,
+	TValidCSS,
+	TValidKeys,
+	TValidStyle,
+};
+
+/* 
+const vtest1: TValidStyle<TClassSelector> = {
+	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+};
+
+// Invalid 1
+const itest1: TValidStyle<TClassSelector> = {
+	"&.btn": { padding: "auto", "&.btn": { padding: "auto" } },
+};
+
+// Invalid 2
+const itest2: TValidStyle<TClassSelector> = {
+	".btn": { padding: "auto", ".btn": { padding: "auto" } },
+};
+
+// Invalid 3
+const itest3: TValidStyle<TClassSelector> = {
+	padding: "auto",
+	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+};
+
+// Test2 new selector
+// Test1 predefined type
+// Valid 2
+const vtest2: TValidStyle<TClassSelector | "@some_prop"> = {
+	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+	"@some_prop": { padding: "auto", "&.btn": { padding: "auto" } },
+};
+// Invalid 1
+const itest4: TValidStyle<TClassSelector | "@some_prop"> = {
+	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+	"@some_prop": { padding: "auto", "@some_prop": { padding: "auto" } },
+};
+
+// Invalid 2
+const itest5: TValidStyle<TClassSelector | "@some_prop"> = {
+	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+	"@some_prop": { padding: "auto", "@some_prop": { padding: "auto" } },
+	"@some_prop": { padding: "auto", "&@some_prop": { padding: "auto" } },
+};
+
+// Test3 new &able property
+// Valid 3
+const vtest3: TValidStyle<TClassSelector | "@some_prop", "@some_prop"> = {
+	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+	"@some_prop": { padding: "auto", "&@some_prop": { padding: "auto" } },
+};
+
+// Test4 new property
+// Valid 3
+const vtest4: TValidStyle<TClassSelector, undefined, "to"> = {
+	".btn": {
+		padding: "auto",
+		"&.btn": { padding: "auto" },
+		to: {
+			transform: "translateX(-100%)",
+		},
+	},
+};
+
+// Testing css
+
+// valid 1
+const cvtest1: TValidCSS<TClassSelector> = {
+	padding: "auto",
+	"&.btn": { padding: "auto" },
+};
+
+// Invalid 1
+const civtest2: TValidCSS<TClassSelector> = {
+	".btn": { padding: "auto", "&.btn": { padding: "auto" } },
+};
+
+// Example, key frames usage
+// Valid
+const keyframes: TValidCSS<TAtRule, undefined, "to" | "from"> = {
+	"@keyframes slide-in": {
+		color: "red",
+		to: {
+			transform: "translateX(-100%)",
+		},
+		from: {
+			transform: "translateX(0%)",
+		},
+	},
+};
+// Valid2
+const keyframesV2: TValidStyle<TAtRule, undefined, "to" | "from"> = {
+	"@keyframes slide-in": {
+		color: "red",
+		to: {
+			transform: "translateX(-100%)",
+		},
+		from: {
+			transform: "translateX(0%)",
+		},
+	},
+};
+//Invalid
+const keyframes1: TValidCSS<TAtRule, undefined, "to" | "from"> = {
+	to: "red",
+
+	"@keyframes slide-in": {
+		color: "red",
+		to: {
+			transform: "translateX(-100%)",
+		},
+		from: {
+			transform: "translateX(0%)",
+		},
+	},
+};
+
+//Invalid2
+const keyframes2: TValidCSS<TAtRule, undefined, "to" | "from"> = {
+	to: "red",
+
+	"@keyframes slide-in": {
+		color: "red",
+		to: {
+			transform: "translateX(-100%)",
+		},
+		from: {
+			transform: "translateX(0%)",
+		},
+	},
+};
+
+//Invalid3
+const keyframes3: TValidStyle<TAtRule, undefined, "to" | "from"> = {
+	to: "red",
+
+	"@keyframes slide-in": {
+		color: "red",
+		to: {
+			transform: "translateX(-100%)",
+		},
+		from: {
+			transform: "translateX(0%)",
+		},
+	},
+};
+// Note, V is a generic bypass and wont be typed check in a styler prop
+ */
 
 // const gfs: TValidStyle<TAtRule | TClassSelector | TAllPseudos> = {
 // 	"@media(min-width: 900px)": {
 // 		padding: "auto",
-// 		".container": {
+// 		"&.container": {
 // 			maxWidth: "850px",
 // 		},
 // 	},
