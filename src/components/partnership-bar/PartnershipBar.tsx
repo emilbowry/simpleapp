@@ -33,7 +33,10 @@ const PartnerRow: React.FC<{
 }> = ({ partners, style }) => (
 	<>
 		{partners.map((partner, index) => (
-			<div style={style}>
+			<div
+				style={style}
+				key={index}
+			>
 				<PartnerImage
 					key={index}
 					partner={partner}

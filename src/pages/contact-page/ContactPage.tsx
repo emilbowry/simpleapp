@@ -113,7 +113,7 @@ const contactPage: React.FC = () => (
 		/>
 	</>
 );
-import { ContactForm } from "./cf";
+import { ContactForm } from "../../features/contact-form/ContactForm";
 const ContactPage = (
 	<Page
 		page={ContactForm}

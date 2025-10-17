@@ -24,9 +24,7 @@ const CompWrapper: React.FC<ICallOutProps> = ({
 }) => {
 	return content ? (
 		<div
-			// className={noAos ? "no-aos" : ""}
 			className={noAos ? "no-aos" : "aos-ignore"}
-			// className="aos-ignore"
 			style={wrapper_style}
 		>
 			{formatComponent(content)}
@@ -52,7 +50,6 @@ const GridItem = ({
 	) : (
 		<div
 			style={GridItemStyle}
-			// className={noAos ? "no-aos" : ""}
 			key={item_key}
 		/>
 	);
@@ -76,11 +73,13 @@ const GridBody: React.FC<IGridBodyProps> = ({
 			}}
 		>
 			{components.map((item, index) => (
-				<GridItem
-					content={item}
-					item_key={index}
-					noAos={noAos}
-				/>
+				<React.Fragment key={index}>
+					<GridItem
+						content={item}
+						item_key={index}
+						noAos={noAos}
+					/>
+				</React.Fragment>
 			))}
 		</div>
 	);
@@ -97,7 +96,6 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 	noAos,
 }) => {
 	let theme = Theme(index);
-	console.log(components, noAos);
 	return (
 		<>
 			<div

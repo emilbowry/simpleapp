@@ -11,6 +11,7 @@ import { ToolPage } from "./pages/dpo-tool/tool";
 import { HomePage } from "./pages/home-page/HomePage";
 import { OurServices } from "./pages/our-services-page/OurServices";
 import { TheJourneyPage } from "./pages/the-journey-page/TheJourney";
+import { DemoPage } from "./pages/demo/DemoPage";
 
 function ScrollToTop() {
 	useEffect(() => {
@@ -44,6 +45,10 @@ const App: React.FC = () => {
 				<Route
 					path="/dpotool"
 					element={ToolPage}
+				/>
+				<Route
+					path="/demo_and_testing"
+					element={DemoPage}
 				/>
 			</Routes>
 		</>

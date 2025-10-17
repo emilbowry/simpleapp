@@ -8,7 +8,7 @@ import { ITitleBarLink } from "./TitleBar.types";
 const navLinks: ITitleBarLink[][] = [
 	[
 		{ path: "/", alias: "Home", image: dropdownImage },
-		{ path: "/demo_page", alias: "Demo Page" },
+		{ path: "/demo_and_testing", alias: "Demo Page" },
 	],
 	[{ path: "/thejourney", alias: "The Journey" }],
 

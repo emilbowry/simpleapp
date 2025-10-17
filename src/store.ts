@@ -1,6 +1,6 @@
 // src/store.ts
 import { configureStore } from "@reduxjs/toolkit";
-import formReducer from "./features/form/formSlice";
+import formReducer from "./features/contact-form/formSlice";
 export const store = configureStore({
 	reducer: {
 		form: formReducer,
