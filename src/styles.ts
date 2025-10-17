@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import background from "./assets/Untitled.png";
+import background from "./assets/background.png";
 import {
 	bgwhite,
 	dark_midnight_green,

@@ -15,9 +15,10 @@ const homePage: React.FC = () => {
 	);
 };
 
-export const HomePage = (
+const HomePage = () => (
 	<Page
 		page={homePage}
 		bg={true}
 	/>
 );
+export default HomePage;

@@ -10,11 +10,12 @@ const demoPage: React.FC = () => {
 	);
 };
 
-const DemoPage = (
+const DemoPage = () => (
 	<Page
 		page={demoPage}
 		bg={true}
 	/>
 );
 
-export { DemoPage };
+// export { DemoPage };
+export default DemoPage;

@@ -139,11 +139,19 @@ const ourServices: React.FC = () => (
 	</>
 );
 
-const OurServices = (
+// const OurServices = (
+// 	<Page
+// 		page={ourServices}
+// 		bg={true}
+// 	/>
+// );
+
+const OurServices = () => (
 	<Page
 		page={ourServices}
 		bg={true}
 	/>
 );
+export default OurServices;
 
-export { OurServices };
+// export { OurServices };

@@ -436,9 +436,10 @@ export const PolicyAnalyzer: React.FC = () => {
 	);
 };
 // Assuming the Page component exists for context
-export const ToolPage = (
+const ToolPage = () => (
 	<Page
 		page={PolicyAnalyzer}
 		bg={false}
 	/>
 );
+export default ToolPage;

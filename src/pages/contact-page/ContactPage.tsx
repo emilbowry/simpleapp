@@ -113,11 +113,19 @@ const contactPage: React.FC = () => (
 		/>
 	</>
 );
-const ContactPage = (
+// const ContactPage = (
+// 	<Page
+// 		page={contactPage}
+// 		bg={true}
+// 	/>
+// );
+
+const ContactPage = () => (
 	<Page
 		page={contactPage}
 		bg={true}
 	/>
 );
 
-export { ContactPage };
+// export { ContactPage };
+export default ContactPage;
