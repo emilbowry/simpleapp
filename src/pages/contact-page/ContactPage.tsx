@@ -113,10 +113,10 @@ const contactPage: React.FC = () => (
 		/>
 	</>
 );
-
+import { ContactForm } from "./cf";
 const ContactPage = (
 	<Page
-		page={contactPage}
+		page={ContactForm}
 		bg={true}
 	/>
 );

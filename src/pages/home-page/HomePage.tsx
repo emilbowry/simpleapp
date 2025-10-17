@@ -18,12 +18,10 @@ const TestStyle: React.FC = () => {
 	return (
 		<>
 			<style precedence={"medium"}>
-				{styleObjectToString<TElementTag | TIDSelector>(testStyle)}
+				{styleObjectToString(testStyle)}
 			</style>
 			<div style={{ backgroundColor: "white" }}>
-				<p>
-					{styleObjectToString<TElementTag | TIDSelector>(testStyle)}
-				</p>
+				<p>{styleObjectToString(testStyle)}</p>
 				<h1 id={id}>bye</h1>
 			</div>
 		</>

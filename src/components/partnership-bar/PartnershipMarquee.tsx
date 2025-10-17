@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { PartnerRow } from "./PartnershipBar";
 import { NUM_SETS } from "./PartnershipBar.consts";
 import {
-	keyframes,
+	// keyframes,
 	marqueeContentStyle,
 	marqueeFrameStyle,
 	marqueeWindowStyle,
@@ -13,22 +13,24 @@ import {
 	IPartnershipBar,
 } from "./PartnershipBar.types";
 
-const MarqueeKeyframes: React.FC = () => {
-	useEffect(() => {
-		const styleTag = document.createElement("style");
-		styleTag.innerHTML = keyframes;
-		document.head.appendChild(styleTag);
-		return () => {
-			document.head.removeChild(styleTag);
-		};
-	}, []);
+import { styleObjectToString } from "../../styles";
+import { TAtRule, TValidStyle } from "../../utils/styles.types";
 
-	return null;
+const keyframesObj: TValidStyle<TAtRule, undefined, "to" | "from"> = {
+	"@keyframes slide-in": {
+		to: {
+			transform: "translateX(-100%)",
+		},
+		from: {
+			transform: "translateX(0%)",
+		},
+	},
 };
+
 const PartnershipMarquee: React.FC<IPartnershipBar> = ({ partners }) => {
 	return (
 		<div className="no-aos">
-			<MarqueeKeyframes />
+			<style>{styleObjectToString(keyframesObj)}</style>
 			<div style={marqueeFrameStyle}>
 				<div style={marqueeWindowStyle}>
 					<PartnerMarqueeContent
@@ -46,16 +48,18 @@ const PartnerMarqueeContent: React.FC<IPartnerMarqueeContentProps> = ({
 	partners,
 }) => {
 	return (
-		<div style={marqueeContentStyle}>
-			{numSets.map(setIndex => (
-				<React.Fragment key={`set-${setIndex}`}>
-					<PartnerRow
-						partners={partners}
-						style={partnerWrapperStyle}
-					/>
-				</React.Fragment>
-			))}
-		</div>
+		<>
+			<div style={marqueeContentStyle}>
+				{numSets.map((setIndex) => (
+					<React.Fragment key={`set-${setIndex}`}>
+						<PartnerRow
+							partners={partners}
+							style={partnerWrapperStyle}
+						/>
+					</React.Fragment>
+				))}
+			</div>
+		</>
 	);
 };
 

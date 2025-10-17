@@ -1,11 +1,11 @@
 // src/store.ts
-/* 
-import React from "react";
 import { configureStore } from "@reduxjs/toolkit";
-// import other slice reducers...
-
-export const store = configureStore();
+import formReducer from "./features/form/formSlice";
+export const store = configureStore({
+	reducer: {
+		form: formReducer,
+	},
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
- */
