@@ -34,15 +34,16 @@ const logoContainerStyles: React.CSSProperties = {
 	alignItems: "center",
 };
 const logoStyles: React.CSSProperties = {
-	height: "40px",
+	height: `${VISIBLE_TITLEBAR_HEIGHT / 2}vh`,
 };
 const navLinksContainerStyles: React.CSSProperties = {
 	flex: 2,
 	display: "flex",
 	justifyContent: "center",
 	gap: "2%",
+	// border: "1px solid red",
 	textWrap: "nowrap",
-	textAlign: "center",
+	// textAlign: "center",
 };
 const rightHandContainerStyles: React.CSSProperties = {
 	flex: 1,
@@ -53,10 +54,10 @@ const rightHandContainerStyles: React.CSSProperties = {
 const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	...linkStyle(isUnderlined),
 	transition: "background-size 0.3s ease-in",
-
+	padding: 0,
+	fontSize: "1rem",
 	cursor: "none",
 });
-
 const dropdownStyles: React.CSSProperties = {
 	left: "0",
 	right: "0",
