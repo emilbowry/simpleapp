@@ -115,13 +115,23 @@ const InnerTitleBarUI: React.FC<ITitleBarProps> = (props) => {
 			onMouseLeave={onWrapperMouseLeave}
 		>
 			<div style={style_fn()}>
-				<TitleBarLogo />
-				<TitleBarUILinks
-					activeLinkAlias={useContext(UICTX)?.activeLinkAlias || ""}
-					links={links}
-					onLinkOver={onLinkOver}
-				/>
-				<TitleBarMenu />
+				<div
+					style={{
+						display: "grid",
+						gridTemplateColumns: "10% 80% 10%",
+						width: "100%",
+					}}
+				>
+					<TitleBarLogo />
+					<TitleBarUILinks
+						activeLinkAlias={
+							useContext(UICTX)?.activeLinkAlias || ""
+						}
+						links={links}
+						onLinkOver={onLinkOver}
+					/>
+					<TitleBarMenu />
+				</div>
 			</div>
 			{props.children}
 		</div>

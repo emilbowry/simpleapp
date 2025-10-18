@@ -17,10 +17,12 @@ const interactionWrapperStyles: React.CSSProperties = {
 };
 const titleBarStyles = (): React.CSSProperties => {
 	return {
+		maxWidth: "100%",
 		display: "flex",
 		alignContent: "center",
 		alignItems: "center",
 		justifyContent: "space-between",
+		fontSize: "1rem",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
 		minHeight: "50px",
 		backgroundColor: "rgb(255 255 255 / 90%)",
@@ -34,8 +36,19 @@ const logoContainerStyles: React.CSSProperties = {
 	alignItems: "center",
 };
 const logoStyles: React.CSSProperties = {
-	height: "40px",
+	height: `${VISIBLE_TITLEBAR_HEIGHT / 1.5}vh`,
 };
+const navLinksWrapperStyle: React.CSSProperties = {
+	maxWidth: "100vw", //testing
+	border: "red 1px solid",
+	display: "flex",
+	flexDirection: "column",
+	justifyContent: "center",
+
+	alignContent: "center",
+	whiteSpace: "nowrap",
+};
+
 const navLinksContainerStyles: React.CSSProperties = {
 	flex: 2,
 	display: "flex",
@@ -144,4 +157,5 @@ export {
 	pillBarOverrides,
 	rightHandContainerStyles,
 	titleBarStyles,
+	navLinksWrapperStyle,
 };

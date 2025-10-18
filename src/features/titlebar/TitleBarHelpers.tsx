@@ -18,6 +18,7 @@ import {
 	navLinkStyles,
 	pillBarOverrides,
 	rightHandContainerStyles,
+	navLinksWrapperStyle,
 	titleBarStyles,
 } from "./TitleBar.styles";
 import { ITitleBarLink, ITitleBarUILinksProps } from "./TitleBar.types";
@@ -55,25 +56,29 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 	links,
 	onLinkOver,
 }) => (
-	<div style={navLinksContainerStyles}>
-		{links.map((linkGroup) => {
-			const mainLink = linkGroup[0];
-			if (!mainLink) return null;
-			const displayAlias = formatLabel(mainLink.path, mainLink.alias);
-			return (
-				<div
-					key={displayAlias}
-					onMouseOver={() => onLinkOver(displayAlias)}
-				>
-					<NavLink
-						to={mainLink.path}
-						style={navLinkStyles(activeLinkAlias === displayAlias)}
+	<div style={navLinksWrapperStyle}>
+		<div style={navLinksContainerStyles}>
+			{links.map((linkGroup) => {
+				const mainLink = linkGroup[0];
+				if (!mainLink) return null;
+				const displayAlias = formatLabel(mainLink.path, mainLink.alias);
+				return (
+					<div
+						key={displayAlias}
+						onMouseOver={() => onLinkOver(displayAlias)}
 					>
-						{displayAlias}
-					</NavLink>
-				</div>
-			);
-		})}
+						<NavLink
+							to={mainLink.path}
+							style={navLinkStyles(
+								activeLinkAlias === displayAlias
+							)}
+						>
+							{displayAlias}
+						</NavLink>
+					</div>
+				);
+			})}
+		</div>
 	</div>
 );
 

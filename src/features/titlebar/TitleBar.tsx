@@ -9,12 +9,13 @@ const navLinks: ITitleBarLink[][] = [
 	[
 		{ path: "/", alias: "Home", image: dropdownImage },
 		{ path: "/demo_and_testing", alias: "Demo Page" },
+		{ path: "/dpotool", alias: "DPO Tool" },
 	],
 	[{ path: "/thejourney", alias: "The Journey" }],
 
 	[{ path: "/ourservices", alias: "Our Services" }],
 	[{ path: "/contact", alias: "Contact" }],
-	[{ path: "/dpotool", alias: "DPO Tool" }],
+	// [{ path: "/dpotool", alias: "DPO Tool" }],
 ];
 const AppTitleBar: React.FC = () => {
 	return (
