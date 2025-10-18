@@ -67,7 +67,8 @@ body {
   transform: none
 }
 * {
-cursor: none !important;
+  cursor: none !important;
+  box-sizing: border-box;
 }
 .aos-ignore {
   isolation: isolate;
