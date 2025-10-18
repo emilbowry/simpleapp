@@ -37,7 +37,6 @@ export interface UpdateFieldPayload {
 
 export type DataKeys = Exclude<keyof FormState, "status" | "errorMessage">;
 
-// --- ASYNC LOGIC (createAsyncThunk) ---
 export type ValidationCheck = (
 	state: RootState
 ) => { isValid: true } | { isValid: false; errorMessage: string };

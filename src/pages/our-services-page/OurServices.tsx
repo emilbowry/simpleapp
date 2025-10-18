@@ -6,7 +6,6 @@ import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-
 import { Page } from "../../features/page/Page";
 import { bgwhite } from "../../utils/defaultColours";
 import { hStyle } from "../home-page/parts/about-us/AboutUs.styles";
-
 import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
 import { BoxedImage } from "../../utils/reactUtils";
 import {
@@ -139,13 +138,6 @@ const ourServices: React.FC = () => (
 	</>
 );
 
-// const OurServices = (
-// 	<Page
-// 		page={ourServices}
-// 		bg={true}
-// 	/>
-// );
-
 const OurServices = () => (
 	<Page
 		page={ourServices}
@@ -153,5 +145,3 @@ const OurServices = () => (
 	/>
 );
 export default OurServices;
-
-// export { OurServices };

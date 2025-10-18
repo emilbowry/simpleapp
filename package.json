@@ -10,6 +10,9 @@
     "build": "webpack --mode production",
     "type-check": "tsc --noEmit"
   },
+  "sideEffects": [
+    "*.css"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

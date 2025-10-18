@@ -113,7 +113,6 @@ export const animationTagging = () => {
 				}
 			}
 		},
-		// { threshold: 0.1, root: null, rootMargin: "0px 0px -20px 0px" }
 		{ threshold: 0.1, root: null, rootMargin: "-1px -1px -1px -1px" }
 	);
 

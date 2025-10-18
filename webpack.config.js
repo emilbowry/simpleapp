@@ -1,76 +1,87 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-module.exports = {
-	mode: "production",
-	// mode: "development",
 
-	entry: path.resolve(__dirname, "src/index.tsx"),
+// Convert module.exports to a function that accepts env and argv
+module.exports = (env, argv) => {
+	// 1. Determine the mode and if it's a production build
+	const isProduction = argv.mode === "production";
 
-	output: {
-		path: path.resolve(__dirname, "dist"),
-		filename: "bundle.js",
-		clean: true,
-	},
+	// 2. Return the configuration object
+	return {
+		// Use the mode passed from the CLI
+		mode: isProduction ? "production" : "development",
 
-	devtool: "inline-source-map",
-	devServer: {
-		static: path.resolve(__dirname, "dist"),
-		port: 3000,
-		hot: true,
-		open: true,
-	},
+		entry: path.resolve(__dirname, "src/index.tsx"),
 
-	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".jsx"],
-	},
+		output: {
+			path: path.resolve(__dirname, "dist"),
+			filename: "bundle.js",
+			clean: true,
+		},
 
-	module: {
-		rules: [
-			{
-				test: /\.[jt]sx?$/,
-				exclude: /node_modules/,
-				use: "babel-loader",
-			},
-			{
-				test: /\.module\.css$/i,
-				use: [
-					"style-loader",
-					{
-						loader: "css-loader",
-						options: {
-							modules: true,
-							esModule: false,
+		devtool: isProduction ? "source-map" : "eval-source-map",
+
+		devServer: isProduction
+			? undefined
+			: {
+					static: path.resolve(__dirname, "dist"),
+					port: 3000,
+					hot: true,
+					open: true,
+			  },
+
+		resolve: {
+			extensions: [".ts", ".tsx", ".js", ".jsx"],
+		},
+
+		module: {
+			rules: [
+				{
+					test: /\.[jt]sx?$/,
+					exclude: /node_modules/,
+					use: "babel-loader",
+				},
+				{
+					test: /\.module\.css$/i,
+					use: [
+						"style-loader",
+						{
+							loader: "css-loader",
+							options: {
+								modules: true,
+								esModule: false,
+							},
 						},
-					},
-				],
-			},
-			{
-				test: /\.(png|jpe?g|gif)$/i,
-				oneOf: [
-					{
-						resourceQuery: /inline/,
-						type: "asset/inline",
-					},
-					{
-						type: "asset/resource",
-					},
-				],
-			},
-			{
-				test: /\.css$/i,
-				exclude: /\.module\.css$/i,
-				use: ["style-loader", "css-loader"],
-			},
-			{
-				test: /\.svg$/i,
-				type: "asset/resource",
-			},
-		],
-	},
+					],
+				},
+				{
+					test: /\.(png|jpe?g|gif)$/i,
+					oneOf: [
+						{
+							resourceQuery: /inline/,
+							type: "asset/inline",
+						},
+						{
+							type: "asset/resource",
+						},
+					],
+				},
+				{
+					test: /\.css$/i,
+					exclude: /\.module\.css$/i,
+					use: ["style-loader", "css-loader"],
+				},
+				{
+					test: /\.svg$/i,
+					type: "asset/resource",
+				},
+			],
+		},
 
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: "public/index.html",
-		}),
-	],
+		plugins: [
+			new HtmlWebpackPlugin({
+				template: "public/index.html",
+			}),
+		],
+	};
 };

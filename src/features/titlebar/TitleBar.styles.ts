@@ -118,7 +118,6 @@ const dropdownImageViewOverviewStyles: React.CSSProperties = {
 
 const pillBarOverrides: React.CSSProperties = {
 	borderRadius: "5vh",
-	boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
 	backgroundColor: "rgb(255 255 255 / 40%)",
 	background: `linear-gradient(to right, rgb(255 222 89 / 10%), rgb(12 192 223 / 10%)),
 

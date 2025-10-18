@@ -33,28 +33,16 @@ import { dark_midnight_green, lighter_logo_blue } from "./utils/defaultColours";
 const LoadingFC = () => (
 	<>
 		<div
-			// id="loading"
 			style={{
 				height: "100vh",
 				width: "100vw",
-				// display: "flex",
-				// alignItems: "center",
-				// justifyContent: "center",
-				// flexDirection: "column",
-				// position: "absolute",
+
 				padding: "5%",
-				// top: 0,
-				// left: -100,
+
 				color: lighter_logo_blue,
 				background: dark_midnight_green,
 			}}
 		>
-			{/* <h1 style={{ padding: "20px" }}>AI Compatible</h1> */}
-			{/* <BoxedImage
-				image={logo}
-				width="400px"
-				aspectRatio={`${Math.sqrt(3) / 2}`}
-			/> */}
 			<img src={logo} />
 		</div>
 	</>
