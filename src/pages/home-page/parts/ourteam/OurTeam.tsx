@@ -98,22 +98,20 @@ const Persona: React.FC<IPersona> = (props) => {
 	let theme = Theme(+!!(index === 0) || +!(index % 2 === 0));
 
 	return (
-		<div>
-			<div style={personaWrapperStyle}>
-				<div style={PersonaHeadshotStyle}>
-					<ImageHexagon img={image} />
-				</div>
-				<div
-					style={{
-						backgroundColor: theme.backgroundColor,
-						...PersonaTextStyle,
-					}}
-				>
-					<PText
-						{...props}
-						theme={theme}
-					/>
-				</div>
+		<div style={personaWrapperStyle}>
+			<div style={PersonaHeadshotStyle}>
+				<ImageHexagon img={image} />
+			</div>
+			<div
+				style={{
+					backgroundColor: theme.backgroundColor,
+					...PersonaTextStyle,
+				}}
+			>
+				<PText
+					{...props}
+					theme={theme}
+				/>
 			</div>
 		</div>
 	);
