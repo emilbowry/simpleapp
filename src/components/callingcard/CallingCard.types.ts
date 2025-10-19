@@ -28,7 +28,10 @@ interface ICallingCardProps {
 	index?: number;
 	styleOverrides?: React.CSSProperties;
 	isPageElement?: boolean;
+	narrowPageEl?: boolean;
+
 	noAos?: boolean;
+	children?: React.ReactNode;
 }
 
 interface IGridItemProps {

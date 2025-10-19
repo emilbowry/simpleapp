@@ -1,6 +1,6 @@
 // src/features/page/page.tsx
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CustomCursor } from "../../components/cursor/Cursor";
 import { Footer } from "../footer/Footer";
 
@@ -14,11 +14,30 @@ export const Page: React.FC<{
 	bg?: boolean;
 	useCursor?: boolean;
 }> = ({ page: Page, bg = false, useCursor = true }) => {
+	const LAYOUT_BREAKPOINT = 1200;
+
+	const [isNarrow, setIsNarrow] = useState(false);
+
+	const updateLayout = () => {
+		const shouldBeNarrow = window.innerWidth < LAYOUT_BREAKPOINT;
+		if (shouldBeNarrow !== isNarrow) {
+			setIsNarrow(shouldBeNarrow);
+		}
+	};
+
+	useEffect(() => {
+		updateLayout();
+		window.addEventListener("resize", updateLayout);
+		return () => {
+			window.removeEventListener("resize", updateLayout);
+		};
+	}, [isNarrow]);
+
 	return (
 		<>
 			{bg ? <div style={BackgroundStyle}></div> : null}
 
-			{useCursor ? <CustomCursor /> : null}
+			{useCursor && !isNarrow ? <CustomCursor /> : null}
 			<AppTitleBar />
 
 			<main

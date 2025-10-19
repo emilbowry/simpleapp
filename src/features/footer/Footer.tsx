@@ -14,25 +14,25 @@ import { ScrollVisibilityDependent } from "./ScrollVisibilityDependent";
 const Quote1 = (
 	<div>
 		<div style={{ fontStyle: "italic" }}>
-			<h2>
+			<p>
 				"The future has already arrived. It's just not evenly
 				distributed yet."
-			</h2>
+			</p>
 		</div>
-		<div> - William Gibson</div>
+		<p> - William Gibson</p>
 	</div>
 );
 const Quote2 = (
 	<div>
 		<div style={{ fontStyle: "italic" }}>
-			<h2>
+			<p>
 				"That fear of AI has gone, which is what we wanted, so it’s done
 				exactly what we needed it to do. The overall feedback from the
 				teams is 'Phenomenal'"
-			</h2>
+			</p>
 		</div>
 		<div>
-			<h3>- Olivia Hatton, VodafoneThree</h3>
+			<p>- Olivia Hatton, VodafoneThree</p>
 		</div>
 	</div>
 );
@@ -75,8 +75,11 @@ const FooterBottomLeftSideBar: React.FC = () => (
 		style={{
 			display: "grid",
 			gridTemplateRows: "25% 25% 25% 25%",
+			columnGap: "2px",
 			height: "100%",
-			margin: "0 auto",
+			maxWidth: "100%",
+			// margin: "0 auto",
+			paddingLeft: "4px",
 		}}
 	>
 		<ScrollVisibilityDependent
@@ -89,18 +92,20 @@ const FooterBottomLeftSideBar: React.FC = () => (
 			borders={[1 / 3, 0.75 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
-			element={<h2>Joe Fennel</h2>}
+			element={<p>Joe Fennel</p>}
 			styling={centerable}
 			borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
-			element={<h2>Inquiries</h2>}
+			element={<p>Inquiries</p>}
 			styling={{ ...centerable }}
 			borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
 		/>
 
 		<ScrollVisibilityDependent
-			element={<h2>www.aicompatible.com</h2>}
+			element={
+				<p style={{ wordBreak: "break-word" }}>aicompatible.com</p>
+			}
 			styling={centerable}
 			borders={[0.25 * (1 / 3), 0]}
 		/>
@@ -120,7 +125,6 @@ const FooterBottomRightSideBar: React.FC = () => (
 			}}
 			borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
 		/>
-		,
 		<div
 			style={{
 				...centerable,
@@ -169,6 +173,11 @@ const FooterPartershipBar: React.FC = () => (
 		borders={[18 / 30, 12 / 30]}
 	/>
 );
+
+/** 
+
+* @issues - overflows page width on mobile
+*/
 const Footer: React.FC = () => <FooterLayoutHandler component={FooterLayout} />;
 
 export { Footer };

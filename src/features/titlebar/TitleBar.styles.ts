@@ -10,10 +10,11 @@ const hamburgerStyle: React.CSSProperties = {
 };
 
 const interactionWrapperStyles: React.CSSProperties = {
-	width: "100vw",
+	width: "100%",
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
+	fontSize: "min(1.5rem,calc(1.5rem*calc(1vw/1vh)))",
 };
 const titleBarStyles = (): React.CSSProperties => {
 	return {
@@ -24,9 +25,9 @@ const titleBarStyles = (): React.CSSProperties => {
 		justifyContent: "space-between",
 		fontSize: "1rem",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
-		minHeight: "50px",
+		minHeight: "1rem",
 		backgroundColor: "rgb(255 255 255 / 90%)",
-		minWidth: `fit-content`,
+		// minWidth: `fit-content`,
 	};
 };
 const logoContainerStyles: React.CSSProperties = {
@@ -36,7 +37,7 @@ const logoContainerStyles: React.CSSProperties = {
 	alignItems: "center",
 };
 const logoStyles: React.CSSProperties = {
-	height: `${VISIBLE_TITLEBAR_HEIGHT / 1.5}vh`,
+	height: `${VISIBLE_TITLEBAR_HEIGHT / 2}vh`,
 };
 const navLinksWrapperStyle: React.CSSProperties = {
 	maxWidth: "100vw", //testing
@@ -54,6 +55,7 @@ const navLinksContainerStyles: React.CSSProperties = {
 	display: "flex",
 	justifyContent: "center",
 	gap: "2%",
+	// border: "1px solid red",
 	textWrap: "nowrap",
 	textAlign: "center",
 };
@@ -66,10 +68,10 @@ const rightHandContainerStyles: React.CSSProperties = {
 const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	...linkStyle(isUnderlined),
 	transition: "background-size 0.3s ease-in",
-
+	padding: 0,
+	// fontSize: "1rem",
 	cursor: "none",
 });
-
 const dropdownStyles: React.CSSProperties = {
 	left: "0",
 	right: "0",
@@ -136,9 +138,11 @@ const pillBarOverrides: React.CSSProperties = {
 
 		rgb(255 255 255 / 40%)`,
 	backdropFilter: "blur(8px)",
-	marginRight: "10%",
+	margin: "0 5%",
 	marginTop: "3rem",
-	marginLeft: "10%",
+	// fontSize: "10%",
+	// marginRight: "10%",
+	// marginLeft: "10%",
 };
 export {
 	dropdownContainerStyles,

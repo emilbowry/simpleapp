@@ -36,7 +36,7 @@ const GridFooterRows: React.FC<{
 				display: "grid",
 				gridTemplateColumns: colratio
 					.map(
-						number =>
+						(number) =>
 							(100 * number) /
 							colratio.reduce(
 								(accumulator, currentValue) =>
@@ -44,7 +44,7 @@ const GridFooterRows: React.FC<{
 								0
 							)
 					)
-					.map(number => number + "%")
+					.map((number) => number + "%")
 					.join(" "),
 			}}
 		>

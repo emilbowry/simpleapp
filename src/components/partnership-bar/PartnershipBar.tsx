@@ -11,7 +11,6 @@ const PartnerImage: React.FC<{ partner: IPartner }> = ({ partner }) => {
 		<div style={PartnerImageWrapperStyle}>
 			<img
 				src={image}
-				width={"250"}
 				onMouseOver={() => setIsHovered(true)}
 				onMouseOut={() => setIsHovered(false)}
 				style={{
@@ -20,6 +19,7 @@ const PartnerImage: React.FC<{ partner: IPartner }> = ({ partner }) => {
 						: "saturate(0) grayscale(1) brightness(0)",
 					transition: "filter 0.3s ease-in-out",
 					justifyContent: "center",
+					width: "min(calc(200px*(1vw/1vh)),250px)",
 				}}
 			/>
 		</div>
