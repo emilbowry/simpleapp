@@ -142,6 +142,12 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 	);
 };
 
+/** 
+
+* @issues - when mobile, instead of being to side, we want to move vertically
+- Potential fix, use normal calling card, add another grid body between Header and GridBody for sidebar comp
+
+*/
 const SideBarCallingCard: React.FC<
 	ICallingCardProps & { sideBar?: ICallingCardProps }
 > = (props) => {

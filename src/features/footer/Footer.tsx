@@ -89,18 +89,18 @@ const FooterBottomLeftSideBar: React.FC = () => (
 			borders={[1 / 3, 0.75 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
-			element={<h2>Joe Fennel</h2>}
+			element={<p>Joe Fennel</p>}
 			styling={centerable}
 			borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
-			element={<h2>Inquiries</h2>}
+			element={<p>Inquiries</p>}
 			styling={{ ...centerable }}
 			borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
 		/>
 
 		<ScrollVisibilityDependent
-			element={<h2>www.aicompatible.com</h2>}
+			element={<p>www.aicompatible.com</p>}
 			styling={centerable}
 			borders={[0.25 * (1 / 3), 0]}
 		/>
@@ -120,7 +120,6 @@ const FooterBottomRightSideBar: React.FC = () => (
 			}}
 			borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
 		/>
-		,
 		<div
 			style={{
 				...centerable,
@@ -160,8 +159,8 @@ const FooterPartershipBar: React.FC = () => (
 			isolation: "isolate",
 
 			minHeight: 0,
-			width: "125%" /* correction factor   */,
-			marginLeft: "-12.5%" /* correction factor */,
+			// width: "125%" /* correction factor   */,
+			// marginLeft: "-12.5%" /* correction factor */,
 			display: "flex",
 			flexDirection: "column",
 			justifyContent: "center",
@@ -169,6 +168,11 @@ const FooterPartershipBar: React.FC = () => (
 		borders={[18 / 30, 12 / 30]}
 	/>
 );
+
+/** 
+
+* @issues - overflows page width on mobile
+*/
 const Footer: React.FC = () => <FooterLayoutHandler component={FooterLayout} />;
 
 export { Footer };

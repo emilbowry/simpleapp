@@ -5,6 +5,13 @@ import dropdownImage from "../../assets/dude1.jpg";
 import logo from "../../assets/logo.png";
 import { PillTitleBar } from "./Bars";
 import { ITitleBarLink } from "./TitleBar.types";
+
+/** 
+
+* @issues - size overflow on mobile
+- Maybe move to menu bar or make scrollable
+
+*/
 const navLinks: ITitleBarLink[][] = [
 	[
 		{ path: "/", alias: "Home", image: dropdownImage },
