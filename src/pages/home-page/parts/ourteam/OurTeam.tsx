@@ -56,7 +56,7 @@ const PHeader: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 	email,
 	theme,
 }) => (
-	<div style={{ color: theme.tertiaryColor, fontSize: "2.5rem" }}>
+	<div style={{ color: theme.tertiaryColor }}>
 		<h3>
 			<span style={{ fontWeight: "bold" }}>{name}</span>
 			<span style={{ fontWeight: "normal" }}>
@@ -75,7 +75,7 @@ const PBody: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 	body,
 	theme,
 }) => (
-	<div style={{ color: theme.secondaryColor, fontSize: "2rem" }}>
+	<div style={{ color: theme.secondaryColor }}>
 		<p>{body}</p>
 	</div>
 );
@@ -83,7 +83,14 @@ const PBody: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 const PText: React.FC<
 	IPersona & { theme: ReturnType<typeof Theme>; children?: React.ReactNode }
 > = (props) => (
-	<div style={{ padding: "2rem ", margin: "auto 0" }}>
+	<div
+		style={
+			{
+				// padding: "5%",
+				// margin: "auto",
+			}
+		}
+	>
 		<PHeader {...props} />
 		<PBody {...props} />
 	</div>

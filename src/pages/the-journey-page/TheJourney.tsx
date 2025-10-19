@@ -1,6 +1,6 @@
 // src/pages/the-journey-page/TheJourney.tsx
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Hexagon } from "../../components/hexagons/Hexagons";
 import { ImageHexagon } from "../../components/hexagons/ImageHexagon";
 import { HexagonGrid } from "../../components/hexagons/hexagon-row/HexagonRow";
@@ -9,7 +9,12 @@ import { Page } from "../../features/page/Page";
 import bw1 from "../../assets/bw1.jpg";
 import bw2 from "../../assets/bw2.jpg";
 import bw3 from "../../assets/bw3.jpg";
-import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import {
+	bulb,
+	bullseye,
+	pencil,
+	vline,
+} from "../../components/callingcard/graphics";
 import { generateGradient } from "../../styles";
 import {
 	bgwhite,
@@ -32,19 +37,19 @@ const TimelineData = [
 	{
 		date: "DEC 2023",
 		content:
-			"AI Compatible is founded and collates 2023s discoveries in prompt engineering into a methodology, to help people use AI effectively and ethically",
+			"AI Compatible  (AIC) is founded and collates 2023s discoveries in prompt engineering into a methodology, to help people use AI effectively and ethically",
 		icon: bulb,
 	},
 	{
 		date: "JAN 2024",
 		content:
-			"AI Compatible (AIC) runs its first series of prompt engineering training workshops with live clients, using the new methodology. Initially delivered through AIC first partner, The Growth House who offer leadership and teamship corporate training",
+			"AIC runs its first series of prompt engineering training workshops with live clients, using the new methodology. Initially delivered through AIC first partner, The Growth House who offer leadership and teamship corporate training",
 		icon: bullseye,
 	},
 	{
 		date: "MARCH 2024",
 		content:
-			"March - The EU AI act is passed - there's questions around how well suited it is to the world of generative AI, and how stifling it is. Our Founder Joe co-led the 'SafeNet' project for improving online safety and AI literacy among young people in the Balkans, founded by the UN Mission in Kosovo (UNMIK)",
+			"The EU AI act is passed - there's questions around how suitable it is for generative AI. Joe Fennell co-led the 'SafeNet' project for improving online safety and AI literacy among young people in the Balkans, founded by the UNMIK",
 	},
 	{
 		date: "JUL 2024",
@@ -65,7 +70,7 @@ const TimelineData = [
 	{
 		date: "JAN 2025",
 		content:
-			"January 2025, Deepseek R1 matches Open AI's o1 Benchmark performance. After a couple months of working closely with Heward Mills data protection officers and becoming an advisor and partner we add Policy assistance and consultancy to the services we offer.",
+			" Deepseek R1 matches Open AI's o1 Benchmark performance. Working closely with Heward Mills data protection officers we became an advisor and partner. We add Policy assistance and consultancy to the services we offer.",
 		icon: pencil,
 		image: bw2,
 	},
@@ -117,6 +122,9 @@ const getThirdHex = (index: number) => {
 		);
 	} else if (_image) {
 		thirdHexagon = <ImageHexagon img={_image} />;
+		// {
+		// 	/* <ImageHexagon img={_image} />; */
+		// }
 	}
 	return thirdHexagon;
 };
@@ -137,9 +145,12 @@ const RowHeader: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 	<p
 		style={{
-			fontSize: "2.5vw",
+			// fontSize: "2.5vw",
+			fontSize: "max(1.8vw,calc(0.8rem*calc(1vw/1vh)))",
+			wordBreak: "break-word",
+			// marginTop: "1px",
 			textAlign: "center",
-
+			whiteSpace: "collapse",
 			color: midnight_green,
 			height: "calc(100%)",
 		}}
@@ -147,37 +158,117 @@ const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 		{children}
 	</p>
 );
-const getRows = () => {
+const getRows = (isNarrow = false) => {
 	const colours = generateGradient(TimelineData.length).reverse();
 
 	return TimelineData.map((item, i) => {
 		const baseRowElements = [
+			// <Hexagon
+			// 	args={{ colour: bgwhite }}
+			// 	element={[
+			// 		<RowHeader>{item.date}</RowHeader>,
+			// 		<RowContent>{item.content}</RowContent>,
+			// 	]}
+			// 	opacity={1}
+			// 	useVerticalAlignment={!isNarrow}
+			// />,
 			<Hexagon
 				args={{ colour: bgwhite }}
-				element={[
-					<RowHeader>{item.date}</RowHeader>,
-					<RowContent>{item.content}</RowContent>,
-				]}
+				element={
+					isNarrow
+						? [<RowContent>{item.date}</RowContent>]
+						: [
+								<RowHeader>{item.date}</RowHeader>,
+								<RowContent>{item.content}</RowContent>,
+						  ]
+				}
 				opacity={1}
-				useVerticalAlignment={true}
+				useVerticalAlignment={!isNarrow}
 			/>,
-			<Hexagon args={{ colour: colours[i] }} />,
-			getThirdHex(i),
+			// <Hexagon
+			// 	args={{ /* colour: colours[i] */ colour: "transparent" }}
+			// />,
+			isNarrow ? (
+				<Hexagon
+					args={{
+						colour: "transparent",
+					}}
+					opacity={1}
+					element={
+						<div
+							style={{
+								...(!isNarrow
+									? {
+											display: "flex",
+											flexDirection: "column",
+											justifyContent: "center",
+											margin: "auto",
+											height: "100%",
+									  }
+									: {}),
+								opacity: 1,
+							}}
+							className="aos-ignore"
+						>
+							<BoxedImage
+								image={vline}
+								width="100%"
+								aspectRatio={`1`}
+								// imageStyling={{ margin: "auto" }}
+							/>
+						</div>
+					}
+				/>
+			) : (
+				<Hexagon args={{ colour: colours[i] }} />
+			),
+			isNarrow ? (
+				<Hexagon
+					args={{ colour: bgwhite }}
+					element={[<RowContent>{item.content}</RowContent>]}
+					opacity={1}
+					useVerticalAlignment={!isNarrow}
+				/>
+			) : (
+				getThirdHex(i)
+			),
 		];
 
 		return {
-			elements: i % 2 === 0 ? baseRowElements : baseRowElements.reverse(),
+			elements:
+				i % 2 === 0 || isNarrow
+					? baseRowElements
+					: baseRowElements.reverse(),
 		};
 	});
 };
 
 const theJourneyPage: React.FC = () => {
+	const LAYOUT_BREAKPOINT = 1200;
+
+	const [isNarrow, setIsNarrow] = useState(false);
+
+	const updateLayout = () => {
+		const shouldBeNarrow = window.innerWidth < LAYOUT_BREAKPOINT;
+		if (shouldBeNarrow !== isNarrow) {
+			setIsNarrow(shouldBeNarrow);
+		}
+	};
+
+	useEffect(() => {
+		updateLayout();
+		window.addEventListener("resize", updateLayout);
+		return () => {
+			window.removeEventListener("resize", updateLayout);
+		};
+	}, [isNarrow]);
+
 	return (
 		<div>
 			<HexagonGrid
-				rows={getRows() as any}
-				relative_spacing={10}
-				absolute_spacing={-15}
+				rows={getRows(isNarrow) as any}
+				relative_spacing={isNarrow ? 1 : 10}
+				// absolute_spacing={-15}
 				class_name="aos-ignore"
 			/>
 		</div>

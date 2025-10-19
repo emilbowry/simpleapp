@@ -20,7 +20,8 @@ const BackgroundStyle: React.CSSProperties = {
 	backgroundImage: `url(${background})`,
 	backgroundRepeat: "repeat",
 
-	backgroundSize: "cover",
+	// backgroundSize: "cover",
+	backgroundSize: "200%",
 	backgroundAttachment: "fixed",
 
 	width: "100vw",
@@ -66,7 +67,7 @@ const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
 
 	color: "#333",
-	fontSize: "16px",
+	// fontSize: "16px",
 	padding: "5px 0",
 });
 const generateGradient = (

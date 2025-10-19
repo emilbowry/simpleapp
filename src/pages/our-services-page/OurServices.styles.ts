@@ -7,8 +7,14 @@ const ServicesContainerStyle: React.CSSProperties = {
 	textAlign: "left",
 	margin: "0 5%",
 };
-const ServicesTitleStyle: React.CSSProperties = { fontSize: "3rem" };
-const ServiceStyle: React.CSSProperties = { margin: "10% 0", fontSize: "2rem" };
+const ServicesTitleStyle: React.CSSProperties = {
+	/* fontSize: "3rem" */
+	// margin: "10% 0",
+	textAlign: "center",
+};
+const ServiceStyle: React.CSSProperties = {
+	margin: "10% 0" /*  fontSize: "2rem"  */,
+};
 const ServicesSideBarStyle: React.CSSProperties = { marginBottom: "5%" };
 export {
 	ServicesContainerStyle,

@@ -52,8 +52,40 @@ const bullseye = (
 	M 24.0715 9.929 v -5 
 	M 27.606 6.393 h 5 
 	M 27.606 6.393 v -5
+
   "
 		/>
+	</svg>
+);
+
+const vline = (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		stroke="url(#logoGradient2)"
+		strokeWidth="1.4px"
+		strokeLinecap="round"
+		viewBox="0 0 34 34"
+	>
+		<defs>
+			<linearGradient
+				id="logoGradient2"
+				x1="50%"
+				y1="0%"
+				x2="50%"
+				y2="100%"
+			>
+				<stop
+					offset="0%"
+					stopColor={`${logo_yellow}`}
+				/>
+				<stop
+					offset="100%"
+					stopColor={`${logo_blue}`}
+				/>
+			</linearGradient>
+		</defs>
+		<path d="M 17 0 l 0 34 h 0.01" />
 	</svg>
 );
 
@@ -106,7 +138,7 @@ const linkedin_svg = (
 		fill="none"
 		height="100%"
 		stroke="currentColor"
-		strokeWidth="2"
+		strokeWidth="1"
 		strokeLinecap="round"
 		strokeLinejoin="round"
 	>
@@ -125,4 +157,4 @@ const linkedin_svg = (
 	</svg>
 );
 
-export { linkedin_svg, bulb, bullseye, pencil, LogoLinearGradient };
+export { linkedin_svg, bulb, bullseye, pencil, LogoLinearGradient, vline };

@@ -17,9 +17,9 @@ import {
 } from "./PointedHexagonRow.styles";
 import { PointedtopHexagonFeatureGridProps } from "./PointedHexagonRow.types";
 
-const LAYOUT_BREAKPOINT = 1200;
-
 const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
+	const LAYOUT_BREAKPOINT = 1200;
+
 	const [isNarrow, setIsNarrow] = useState(false);
 
 	const updateLayout = () => {

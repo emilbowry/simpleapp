@@ -1,6 +1,6 @@
 // src/components/callingcard/CallingCard.tsx
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Theme } from "../../styles";
 import { formatComponent } from "../../utils/reactUtils";
 import {
@@ -93,7 +93,9 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 	fullSpread = false,
 	styleOverrides = {},
 	isPageElement = false,
+	narrowPageEl = false,
 	noAos,
+	children,
 }) => {
 	let theme = Theme(index);
 	return (
@@ -122,7 +124,7 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 					}
 					noAos={noAos}
 					styleOverrides={
-						isPageElement
+						isPageElement || narrowPageEl
 							? {
 									marginTop: "1%",
 									paddingTop: "2%",
@@ -136,6 +138,7 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 							  }
 					}
 				/>
+				{children}
 			</div>
 			<Footer content={footer} />
 		</>
@@ -152,20 +155,50 @@ const SideBarCallingCard: React.FC<
 	ICallingCardProps & { sideBar?: ICallingCardProps }
 > = (props) => {
 	const { components, isPageElement = true, sideBar } = props;
+	const LAYOUT_BREAKPOINT = 1200;
 
-	return (
+	const [isNarrow, setIsNarrow] = useState(false);
+
+	const updateLayout = () => {
+		const shouldBeNarrow = window.innerWidth < LAYOUT_BREAKPOINT;
+		if (shouldBeNarrow !== isNarrow) {
+			setIsNarrow(shouldBeNarrow);
+		}
+	};
+
+	useEffect(() => {
+		updateLayout();
+		window.addEventListener("resize", updateLayout);
+		return () => {
+			window.removeEventListener("resize", updateLayout);
+		};
+	}, [isNarrow]);
+
+	const Child = () =>
+		sideBar ? (
+			<CallingCard
+				{...sideBar}
+				index={props.index}
+				noAos={true}
+			/>
+		) : (
+			<></>
+		);
+
+	return isNarrow ? (
+		<CallingCard
+			{...props}
+			components={components}
+			narrowPageEl={isPageElement}
+		>
+			<Child />
+		</CallingCard>
+	) : (
 		<CallingCard
 			{...props}
 			components={
 				sideBar
-					? [
-							<CallingCard
-								{...sideBar}
-								index={props.index}
-								noAos={true}
-							/>,
-							<GridBody components={components} />,
-					  ]
+					? [<Child />, <GridBody components={components} />]
 					: components
 			}
 			isPageElement={isPageElement}

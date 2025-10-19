@@ -14,6 +14,7 @@ const interactionWrapperStyles: React.CSSProperties = {
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
+	fontSize: "min(1.5rem,calc(1.5rem*calc(1vw/1vh)))",
 };
 const titleBarStyles = (): React.CSSProperties => {
 	return {
@@ -22,7 +23,7 @@ const titleBarStyles = (): React.CSSProperties => {
 		alignItems: "center",
 		justifyContent: "space-between",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
-		minHeight: "50px",
+		minHeight: "1rem",
 		backgroundColor: "rgb(255 255 255 / 90%)",
 		// minWidth: `fit-content`,
 	};
@@ -55,7 +56,7 @@ const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	...linkStyle(isUnderlined),
 	transition: "background-size 0.3s ease-in",
 	padding: 0,
-	fontSize: "1rem",
+	// fontSize: "1rem",
 	cursor: "none",
 });
 const dropdownStyles: React.CSSProperties = {
@@ -124,8 +125,9 @@ const pillBarOverrides: React.CSSProperties = {
 
 		rgb(255 255 255 / 40%)`,
 	backdropFilter: "blur(8px)",
-	marginTop: "3rem",
 	margin: "0 5%",
+	marginTop: "3rem",
+	// fontSize: "10%",
 	// marginRight: "10%",
 	// marginLeft: "10%",
 };

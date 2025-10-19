@@ -8,13 +8,13 @@ let theme = Theme(idx);
 const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
 	// fontSize: "3rem",
-	paddingTop: "15%",
+	paddingTop: "20%",
 	// ["--h"]: "calc(2vw)",
-	// fontSize: "100%",
+	fontSize: "calc(2rem*calc(1vw/1vh))",
 	// fontSize: "calc(((4vw /var(--h))vw))",
 	// fontSize: "calc(2rem + 1px * pow(1px / 2vw, 1))",
 	// fontSize: "calc(2rem + 1px * calc(1px / 2vw))",
-	fontSize: "200%",
+	// fontSize: "200%",
 
 	// height: "10%",
 	width: "100%",

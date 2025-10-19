@@ -11,11 +11,8 @@ const FooterLayoutHandler: React.FC<{
 		<div
 			style={{
 				marginTop: "calc(-70vh - 60px)",
-				// fontSize: "1.5rem",
+				fontSize: "calc(1.2rem*calc(1vw/1vh))",
 				zIndex: "-15",
-				maxWidth: "100vw",
-				display: "flex",
-				flexDirection: "column",
 			}}
 		>
 			<div

@@ -7,11 +7,13 @@ const personaWrapperStyle: React.CSSProperties = {
 	gridTemplateColumns: "30% 70%",
 	width: "100%",
 	justifyContent: "center",
+	// fontSize: "min(1.5rem,calc(1rem * 90vw/100vh + 1rem * 10vh/100vw))",
 };
 
 const PersonaTextStyle: React.CSSProperties = {
-	borderRadius: "100px 0 0 100px",
-	margin: "auto",
+	borderRadius: "calc(75px*calc(1vw/1vh)) 0 0 calc(75px*calc(1vw/1vh))",
+
+	padding: "5%",
 	height: "30vh",
 };
 
@@ -35,8 +37,10 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	display: "grid",
 	rowGap: "1%",
 	width: "100%",
-	padding: "auto",
-	paddingBottom: "10%",
+	fontSize: "min(1.5rem,calc(1rem * 90vw/100vh + 1rem * 10vh/100vw))",
+	// padding: "auto",
+	// paddingBottom: "10%",
+	// height: "fit-content",
 };
 export {
 	OurTeamContainerStyle,

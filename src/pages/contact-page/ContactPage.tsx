@@ -6,7 +6,7 @@ import { SideBarCallingCard } from "../../components/callingcard/CallingCard";
 import { Page } from "../../features/page/Page";
 
 import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
-import { bgwhite } from "../../utils/defaultColours";
+import { bgwhite, logo_blue } from "../../utils/defaultColours";
 
 import { linkStyle, Theme } from "../../styles";
 import { formatComponent, ValidComponent } from "../../utils/reactUtils";
@@ -100,7 +100,11 @@ const contactPage: React.FC = () => (
 			footer={
 				<PointedtopHexagonFeatureGrid
 					featureCallouts={contactFeatureCallouts}
-					hexagonArgs={{ colour: Theme(1).backgroundColor }}
+					hexagonArgs={{
+						/* colour: Theme(1).backgroundColor  */ colour: Theme(0)
+							.backgroundColor,
+						borderColour: logo_blue,
+					}}
 					useVerticalAlignment={true}
 				/>
 			}

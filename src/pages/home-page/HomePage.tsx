@@ -4,13 +4,14 @@ import { AboutUsCallingCard } from "./parts/about-us/AboutUs";
 import { Hero } from "./parts/hero/Hero";
 import { ImpactCC } from "./parts/impact/impact";
 import { OurTeam } from "./parts/ourteam/OurTeam";
+// import TheJourneyPage from "../the-journey-page/TheJourney";
 const homePage: React.FC = () => {
 	return (
 		<div style={{ display: "grid", gridTemplateColumns: "100%" }}>
-			{/* <Hero />
+			<Hero />
 			<OurTeam />
-			<AboutUsCallingCard /> */}
-			{/* <ImpactCC /> */}
+			<AboutUsCallingCard />
+			<ImpactCC />
 		</div>
 	);
 };

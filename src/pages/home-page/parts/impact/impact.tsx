@@ -19,11 +19,17 @@ import {
 
 const foot = (
 	<div>
-		<p style={{ fontStyle: "italic", fontSize: "2.5rem" }}>
+		<p style={{ fontStyle: "italic" /* fontSize: "2.5rem" */ }}>
 			‘We tend to overestimate the impact of a technology in the short
 			term, and underestimate the effect of a technology in the long run’
 		</p>
-		<p style={{ fontSize: "2rem" }}>
+		<p
+			style={
+				{
+					/* fontSize: "2rem" */
+				}
+			}
+		>
 			We strive for a world where AI goes right, and people are ready for
 			it.
 		</p>
