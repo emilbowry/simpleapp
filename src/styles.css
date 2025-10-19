@@ -5,6 +5,7 @@ body {
   background: #fafafa;
   color: #333;
   font-weight: 300;
+  font-size: 16px;
   /* font-size: 2rem; */
  /* -webkit-text-size-adjust: 100%;  */
 }
@@ -18,17 +19,7 @@ body {
 :root {
   --aos-unit-delay: 100ms;
 }
-    .test-box {
-      width: 300px;
-      padding: 20px;
-      border: 2px solid black;
-      font-family: sans-serif;
-      font-size: 1.2rem;
-      background-color: lightblue; /* Default background color */
-      @media (min-width: 100px) {
-        background-color: red;
-      }
-    }
+
 .aos {
   opacity: 0.9;
 }
