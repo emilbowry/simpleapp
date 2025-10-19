@@ -10,7 +10,7 @@ const hamburgerStyle: React.CSSProperties = {
 };
 
 const interactionWrapperStyles: React.CSSProperties = {
-	width: "100vw",
+	width: "100%",
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
@@ -24,7 +24,7 @@ const titleBarStyles = (): React.CSSProperties => {
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
 		minHeight: "50px",
 		backgroundColor: "rgb(255 255 255 / 90%)",
-		minWidth: `fit-content`,
+		// minWidth: `fit-content`,
 	};
 };
 const logoContainerStyles: React.CSSProperties = {
@@ -43,7 +43,7 @@ const navLinksContainerStyles: React.CSSProperties = {
 	gap: "2%",
 	// border: "1px solid red",
 	textWrap: "nowrap",
-	// textAlign: "center",
+	textAlign: "center",
 };
 const rightHandContainerStyles: React.CSSProperties = {
 	flex: 1,
@@ -124,9 +124,10 @@ const pillBarOverrides: React.CSSProperties = {
 
 		rgb(255 255 255 / 40%)`,
 	backdropFilter: "blur(8px)",
-	marginRight: "10%",
 	marginTop: "3rem",
-	marginLeft: "10%",
+	margin: "0 5%",
+	// marginRight: "10%",
+	// marginLeft: "10%",
 };
 export {
 	dropdownContainerStyles,

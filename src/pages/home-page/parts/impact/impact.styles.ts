@@ -7,15 +7,17 @@ let theme = Theme(idx);
 
 const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
-	fontSize: "3rem",
-	paddingTop: "10rem",
+	// fontSize: "3rem",
+	// paddingTop: "10rem",
+	// fontSize: "4px",
 
-	height: "5rem",
+	height: "10%",
 	width: "100%",
 	fontWeight: "500",
 	justifySelf: "center",
 	textAlign: "center",
 	overflow: "visible",
+	textWrap: "nowrap",
 };
 
 const stat_body_style: React.CSSProperties = {
@@ -27,8 +29,9 @@ const stat_body_style: React.CSSProperties = {
 
 	textAlign: "center",
 	overflow: "visible",
+	// fontSize: "4px",
 
-	fontSize: "2rem",
+	// fontSize: "2rem",
 };
 const LetterFooterContainerStyle: React.CSSProperties = {
 	display: "grid",

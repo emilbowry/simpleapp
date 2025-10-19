@@ -13,19 +13,20 @@ const FooterLayoutHandler: React.FC<{
 				marginTop: "calc(-70vh - 60px)",
 				fontSize: "1.5rem",
 				zIndex: "-15",
+				maxWidth: "100vw",
 			}}
 		>
 			<div
 				/* resultant height cut */
 				style={{
 					height: "70vh",
-					width: "100vw",
+					width: "100%",
 				}}
 			/>
 			<div
 				style={{
 					position: "sticky",
-					width: "100vw",
+					width: "100%",
 
 					bottom: "0",
 					height: "70vh",
@@ -35,7 +36,7 @@ const FooterLayoutHandler: React.FC<{
 					style={{
 						position: "relative",
 						isolation: "isolate",
-						width: "100vw",
+						width: "100%",
 						height: "70vh",
 						display: "flex",
 						flexDirection: "column",

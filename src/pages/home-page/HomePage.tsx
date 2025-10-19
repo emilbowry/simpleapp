@@ -7,9 +7,9 @@ import { OurTeam } from "./parts/ourteam/OurTeam";
 const homePage: React.FC = () => {
 	return (
 		<div style={{ display: "grid", gridTemplateColumns: "100%" }}>
-			<Hero />
+			{/* <Hero />
 			<OurTeam />
-			<AboutUsCallingCard />
+			<AboutUsCallingCard /> */}
 			<ImpactCC />
 		</div>
 	);
