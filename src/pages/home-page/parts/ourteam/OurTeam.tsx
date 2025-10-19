@@ -21,7 +21,7 @@ import { IPersona } from "./OurTeam.types";
 const teamMembers: IPersona[] = [
 	{
 		image: joefennelhs,
-		name: "Joe Fennel",
+		name: "Joe Fennell",
 		title: "Founder",
 		email: "joe@aicompatible.co.uk",
 		body: "Since 2019, Joe has been grappling with the question of  how to adjust to a world being transformed by AI. He spent 4 years tackling this question at the University of Cambridge, and the last 2 years tackling it with some of the world’s biggest businesses, including Astra Zeneca, Vodafone, Accenture Song and more.",

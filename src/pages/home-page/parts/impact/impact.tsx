@@ -70,7 +70,7 @@ const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 					/>
 				</div>
 				<div style={{ alignContent: "center" }}>
-					<p style={{ color: theme.primaryColor }}>Joe Fennel</p>
+					<p style={{ color: theme.primaryColor }}>Joe Fennell</p>
 					<h4 style={{ color: theme.tertiaryColor }}>
 						Chief Executive Officer
 					</h4>

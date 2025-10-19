@@ -92,7 +92,7 @@ const FooterBottomLeftSideBar: React.FC = () => (
 			borders={[1 / 3, 0.75 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
-			element={<p>Joe Fennel</p>}
+			element={<p>Joe Fennell</p>}
 			styling={centerable}
 			borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
 		/>

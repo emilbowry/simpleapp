@@ -30,6 +30,7 @@ const BackgroundStyle: React.CSSProperties = {
 	top: 0,
 	inset: 0,
 };
+
 const logoGrag = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%)`;
 const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%) 1`;
 const genericSectionStyle: React.CSSProperties = {

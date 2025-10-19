@@ -38,7 +38,7 @@ const textEl = (
 				fontSize: "1.6vw",
 			}}
 		>
-			- Joe Fennel
+			- Joe Fennell
 		</div>
 	</div>
 );
