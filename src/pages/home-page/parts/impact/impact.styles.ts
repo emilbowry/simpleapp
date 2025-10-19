@@ -8,10 +8,15 @@ let theme = Theme(idx);
 const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
 	// fontSize: "3rem",
-	// paddingTop: "10rem",
-	// fontSize: "4px",
+	paddingTop: "15%",
+	// ["--h"]: "calc(2vw)",
+	// fontSize: "100%",
+	// fontSize: "calc(((4vw /var(--h))vw))",
+	// fontSize: "calc(2rem + 1px * pow(1px / 2vw, 1))",
+	// fontSize: "calc(2rem + 1px * calc(1px / 2vw))",
+	fontSize: "200%",
 
-	height: "10%",
+	// height: "10%",
 	width: "100%",
 	fontWeight: "500",
 	justifySelf: "center",
@@ -29,9 +34,7 @@ const stat_body_style: React.CSSProperties = {
 
 	textAlign: "center",
 	overflow: "visible",
-	// fontSize: "4px",
-
-	// fontSize: "2rem",
+	fontSize: "100%",
 };
 const LetterFooterContainerStyle: React.CSSProperties = {
 	display: "grid",

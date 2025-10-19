@@ -32,18 +32,18 @@ const foot = (
 
 const impactFeatureCallouts = [
 	[
-		<p style={stat_value_style}>$200 Billion</p>,
+		<h1 style={stat_value_style}>$200 Billion</h1>,
 		<p style={stat_body_style}>spent by businesses on AI in 2024.</p>,
 	],
 	[
-		<p style={stat_value_style}>96%</p>,
+		<h1 style={stat_value_style}>96%</h1>,
 		<p style={stat_body_style}>
 			confidence increase in people who take our sessions in their use of
 			generative AI.
 		</p>,
 	],
 	[
-		<p style={stat_value_style}>70%</p>,
+		<h1 style={stat_value_style}>70%</h1>,
 		<p style={stat_body_style}>
 			of CEOs say AI will significantly change the way their company
 			creates value of the next 3 years <br />-
@@ -64,7 +64,7 @@ const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 					/>
 				</div>
 				<div style={{ alignContent: "center" }}>
-					<h3 style={{ color: theme.primaryColor }}>Joe Fennel</h3>
+					<p style={{ color: theme.primaryColor }}>Joe Fennel</p>
 					<h4 style={{ color: theme.tertiaryColor }}>
 						Chief Executive Officer
 					</h4>
