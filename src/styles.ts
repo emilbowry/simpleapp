@@ -19,14 +19,15 @@ import { TValidStyle } from "./utils/styles.types";
 const BackgroundStyle: React.CSSProperties = {
 	backgroundImage: `url(${background})`,
 	backgroundRepeat: "repeat",
-
-	// backgroundSize: "cover",
-	backgroundSize: "200%",
-	backgroundAttachment: "fixed",
+	// position: "fixed",
+	// backgroundSize: "contain",
+	backgroundSize: "cover",
+	// backgroundAttachment: "fixed",
 
 	width: "100vw",
 	position: "fixed",
 	zIndex: -20,
+	top: 0,
 	inset: 0,
 };
 const logoGrag = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%)`;
