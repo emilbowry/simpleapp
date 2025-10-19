@@ -128,9 +128,9 @@ const ImpactCC: React.FC<{ index?: number }> = ({ index = 1 }) => (
 	<>
 		<SideBarCallingCard
 			components={[
-				<div style={{ position: "relative" }}>
-					<FounderLetter index={index} />
-				</div>,
+				// <div style={{ position: "relative" }}>
+				<FounderLetter index={index} />,
+				// </div>,
 			]}
 			sideBar={{ components: [foot] }}
 			footer={

@@ -7,7 +7,7 @@ const theme = Theme(0);
 
 const titleStyle: React.CSSProperties = {
 	// fontSize: "2rem",
-	fontSize: "calc(1.6rem*calc(1vw/1vh))",
+	// fontSize: "calc(1.6rem*calc(1vw/1vh))",
 
 	fontWeight: "400",
 	textAlign: "center",
@@ -15,7 +15,7 @@ const titleStyle: React.CSSProperties = {
 };
 const footerStyle: React.CSSProperties = {
 	// fontSize: "2rem",
-	fontSize: "calc(1.6rem*calc(1vw/1vh))",
+	// fontSize: "calc(1.6rem*calc(1vw/1vh))",
 
 	textAlign: "center",
 	color: theme.primaryColor,

@@ -108,7 +108,6 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 					backgroundColor: theme.backgroundColor,
 					padding: !fullSpread ? "2%" : "0",
 					borderTopLeftRadius: isPageElement ? "80px 60px" : "",
-
 					...styleOverrides,
 				}}
 			>

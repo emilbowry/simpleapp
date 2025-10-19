@@ -37,9 +37,9 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	display: "grid",
 	rowGap: "1%",
 	width: "100%",
-	fontSize: "min(1.5rem,calc(1rem * 90vw/100vh + 1rem * 10vh/100vw))",
+	// fontSize: "min(1.5rem,calc(1rem * 90vw/100vh + 1rem * 10vh/100vw))",
 	// padding: "auto",
-	// paddingBottom: "10%",
+	paddingBottom: "10vh",
 	// height: "fit-content",
 };
 export {

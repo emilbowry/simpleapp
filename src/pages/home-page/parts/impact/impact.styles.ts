@@ -10,7 +10,7 @@ const stat_value_style: React.CSSProperties = {
 	// fontSize: "3rem",
 	paddingTop: "20%",
 	// ["--h"]: "calc(2vw)",
-	fontSize: "calc(2rem*calc(1vw/1vh))",
+	// fontSize: "calc(2rem*calc(1vw/1vh))",
 	// fontSize: "calc(((4vw /var(--h))vw))",
 	// fontSize: "calc(2rem + 1px * pow(1px / 2vw, 1))",
 	// fontSize: "calc(2rem + 1px * calc(1px / 2vw))",
@@ -42,8 +42,16 @@ const LetterFooterContainerStyle: React.CSSProperties = {
 	textAlign: "left",
 	width: "100%",
 };
-const LetterFooterWrapperStyle: React.CSSProperties = {};
-const FounderLetterWrapperStyle: React.CSSProperties = { width: "100%" };
+const LetterFooterWrapperStyle: React.CSSProperties = {
+	display: "flex",
+	flexDirection: "row",
+	maxWidth: "100vw",
+};
+const FounderLetterWrapperStyle: React.CSSProperties = {
+	width: "100%",
+	// display: "flex",
+	// flexDirection: "column",
+};
 export {
 	FounderLetterWrapperStyle,
 	LetterFooterContainerStyle,

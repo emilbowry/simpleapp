@@ -52,6 +52,9 @@ export const Page: React.FC<{
 						position: "absolute",
 						...pageStyle,
 						marginTop: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
+						fontSize: isNarrow
+							? "calc(1.6rem*calc(1vw/1vh))"
+							: "2rem",
 					}}
 				>
 					<Page />
