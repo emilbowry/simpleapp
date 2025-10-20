@@ -20,6 +20,7 @@ const PartnerImage: React.FC<{ partner: IPartner }> = ({ partner }) => {
 					transition: "filter 0.3s ease-in-out",
 					justifyContent: "center",
 					width: "min(calc(200px*(1vw/1vh)),250px)",
+					maxWidth: "80vw",
 				}}
 			/>
 		</div>

@@ -75,7 +75,7 @@ const PBody: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 	body,
 	theme,
 }) => (
-	<div style={{ color: theme.secondaryColor }}>
+	<div style={{ color: theme.secondaryColor /* paddingLeft: "2" */ }}>
 		<p>{body}</p>
 	</div>
 );
@@ -86,8 +86,7 @@ const PText: React.FC<
 	<div
 		style={
 			{
-				// padding: "5%",
-				// margin: "auto",
+				// padding: "0 5%",
 			}
 		}
 	>

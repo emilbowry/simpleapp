@@ -12,7 +12,7 @@ const personaWrapperStyle: React.CSSProperties = {
 
 const PersonaTextStyle: React.CSSProperties = {
 	borderRadius: "calc(75px*calc(1vw/1vh)) 0 0 calc(75px*calc(1vw/1vh))",
-
+	fontSize: "2vw",
 	padding: "5%",
 	height: "30vh",
 };
@@ -37,7 +37,7 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	display: "grid",
 	rowGap: "1%",
 	width: "100%",
-	// fontSize: "min(1.5rem,calc(1rem * 90vw/100vh + 1rem * 10vh/100vw))",
+
 	// padding: "auto",
 	paddingBottom: "10vh",
 	// height: "fit-content",
