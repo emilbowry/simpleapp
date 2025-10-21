@@ -247,24 +247,56 @@ const container = (
 
 const gridPositionCSS = (
 	midTop: ValidComponent,
+	lBot: ValidComponent,
+	rBot: ValidComponent,
+
 	l: number,
-	relative_space: number,
-	absolute_space: number
+	relative_spacing: number,
+	absolute_spacing: number
 ) => {
-	return midTop === null
-		? {
-				// marginTop: `calc(${-(0.5 * 100) / l}% + ${
-				// 	relative_space / 2
-				// }% + ${absolute_space}px)`,
-		  }
-		: {
-				// paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
-				// 	absolute_space / 2
-				// }px)`,
-				// paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
-				// 	absolute_space / 2
-				// }px)`,
-				// backdropFilter: "blur(8px)",
-		  };
+	const k = K({ relative_spacing, absolute_spacing });
+	const A = ((relative_spacing / 2) * ASPECT_RATIO) / k;
+	const B = (relative_spacing * ASPECT_RATIO) / l / 2 / k;
+	const C = (50 * ASPECT_RATIO) / l / k;
+	const marginBottom = lBot === null && rBot === null ? 0 : A + B;
+	const paddingTop_per = midTop === null ? 0 : C + B;
+	// console.log()
+	return {
+		paddingTop: `calc(${paddingTop_per}%)`,
+
+		// marginBottom: `calc(${marginBottom}%)`,
+		marginBottom: `calc(1*(${
+			(relative_spacing * ASPECT_RATIO) / l / 2 / k
+		}% +  ${(50 * ASPECT_RATIO) / l / k}%))`,
+		// paddingTop: `calc(${(relative_spacing * ASPECT_RATIO) / l / 2 / k}% + ${
+		// 	(50 * ASPECT_RATIO) / l / k
+		// }%)`,
+	};
+	// return midTop === null
+	// 	? {
+	// 			// marginTop: `calc(${-(0.5 * 100) / l}% + ${
+	// 			// 	relative_space / 2
+	// 			// }% + ${absolute_space}px)`,
+	// 	  }
+	// 	: {
+	// 			// paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
+	// 			// 	absolute_space / 2
+	// 			// }px)`,
+	// 			// paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
+	// 			// 	absolute_space / 2
+	// 			// }px)`,
+	// 			// backdropFilter: "blur(8px)",
+	// 	  };
 };
+// const x = 1;
+// const l = length
+// const k = K({ relative_spacing, absolute_spacing });
+// const A = ((relative_spacing / 2) * ASPECT_RATIO) / k;
+// const B = (relative_spacing * ASPECT_RATIO) / l / 2 / k;
+// const C = (50 * ASPECT_RATIO) / l / k;
+
+// paddingTop: `calc(${
+// 	(relative_spacing * ASPECT_RATIO) / length / 2 / k1
+// }% +  ${(50 * ASPECT_RATIO) / length / k1}%)`,
+
 export { container, gridPositionCSS, K, midStyle, sideStyle };

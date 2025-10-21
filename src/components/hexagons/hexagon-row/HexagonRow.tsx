@@ -50,10 +50,6 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 }) => {
 	const length = rows.length;
 	const k1 = K({ relative_spacing, absolute_spacing });
-	const k2 = K({
-		relative_spacing: relative_spacing / length,
-		absolute_spacing,
-	});
 
 	/*	
 		To appropriately adjust the "height", so we have no phantom whitespace due to non-existant top middle element
@@ -69,14 +65,42 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 				// 	(relative_spacing * (length - 1)) / length
 				// }%)`,
 				height: "100%",
-				marginBottom: `${
-					((relative_spacing / 2) * ASPECT_RATIO) / k1
-				}%`,
+				// marginBottom: `calc(-1*(${
+				// 	(relative_spacing * ASPECT_RATIO) / length / 2 / k1
+				// }% + ${((relative_spacing / 2) * ASPECT_RATIO) / k1}%))`,
+				// marginBottom: `calc(-1*( ${
+				// 	((relative_spacing / 2) * ASPECT_RATIO) / k1
+				// }%))`,
 
-				paddingTop: `calc(${
-					(relative_spacing * ASPECT_RATIO) / length / 2 / k1
-				}% +  ${(50 * ASPECT_RATIO) / length / k1}%)`,
+				// paddingTop: `calc(${
+				// 	(relative_spacing * ASPECT_RATIO) / length / 2 / k1
+				// }% +  ${(50 * ASPECT_RATIO) / length / k1}%)`,
+				// marginBottom: `calc(1*(${
+				// 	(relative_spacing * ASPECT_RATIO) / length / 2 / k1
+				// }% +  ${(50 * ASPECT_RATIO) / length / k1}%))`,
 				// paddingTop: "40%",
+				// ...gridPositionCSS(
+				// 	rows[0].elements[1],
+				// 	rows[rows.length - 1].elements[0],
+
+				// 	length,
+				// 	relative_spacing,
+				// 	absolute_spacing
+				// ),
+				...gridPositionCSS(
+					// null,
+					// 1,
+					rows[0].elements[1],
+					// rows[rows.length - 1].elements[0],
+					// rows[rows.length - 1].elements[2],
+
+					1,
+					1,
+
+					length,
+					relative_spacing,
+					absolute_spacing
+				),
 				overflow: "visible",
 				// position: "absolute",
 			}}
@@ -85,12 +109,14 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 			<div
 				className={class_name ?? ""}
 				style={{
-					...gridPositionCSS(
-						rows[0].elements[1],
-						length,
-						relative_spacing,
-						absolute_spacing
-					),
+					// ...gridPositionCSS(
+					// 	rows[0].elements[1],
+					// 	rows[rows.length - 1].elements[1],
+
+					// 	length,
+					// 	relative_spacing,
+					// 	absolute_spacing
+					// ),
 					// background: "rgb(0,255,0,0.5)",
 					// position: "relative",
 					// top: 0,
