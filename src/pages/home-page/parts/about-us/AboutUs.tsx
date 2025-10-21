@@ -1,6 +1,6 @@
 // src/pages/homepage/parts/AboutUS.tsx
 
-import React from "react";
+import React, { useMemo } from "react";
 
 import aicompwork from "../../../../assets/aicwork.jpg";
 import {
@@ -15,7 +15,11 @@ import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/he
 import { partners } from "../../../../components/partnership-bar/Partner";
 import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
 import { bgwhite } from "../../../../utils/defaultColours";
-import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
+import {
+	BoxedImage,
+	getImageEl,
+	// isAndroid,
+} from "../../../../utils/reactUtils";
 import {
 	footerStyle,
 	hStyle,
@@ -50,26 +54,30 @@ const wGif = (
 		})}
 	</div>
 );
-const aboutUsFeatureCallouts = [
+const aboutUsFeatureCallouts = (renderIcon = true) => [
 	[
-		<BoxedImage
-			image={bulb}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>,
+		renderIcon && (
+			<BoxedImage
+				image={bulb}
+				width="25%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
 		<div style={titleStyle}>Consultancy</div>,
 		<div style={footerStyle}>
 			Scoping <br /> Matching Tasks to Tools
 		</div>,
 	],
 	[
-		<BoxedImage
-			image={bullseye}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>,
+		renderIcon && (
+			<BoxedImage
+				image={bullseye}
+				width="25%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
 		<div style={titleStyle}>Training</div>,
 		<div style={footerStyle}>
 			Prompt Engineering
@@ -78,17 +86,19 @@ const aboutUsFeatureCallouts = [
 		</div>,
 	],
 	[
-		<BoxedImage
-			image={pencil}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-			wrapperStyling={{
-				position: "relative",
-				top: 0,
-				display: "block",
-			}}
-		/>,
+		renderIcon && (
+			<BoxedImage
+				image={pencil}
+				width="25%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+				wrapperStyling={{
+					position: "relative",
+					top: 0,
+					display: "block",
+				}}
+			/>
+		),
 		<div style={titleStyle}>Policy</div>,
 		<div style={footerStyle}>
 			Drafting AI
@@ -97,41 +107,51 @@ const aboutUsFeatureCallouts = [
 		</div>,
 	],
 ];
-const AboutUsCallingCard: React.FC = () => (
-	<>
-		<SideBarCallingCard
-			components={[wGif]}
-			header={
-				<div
-					style={{
-						width: "100%",
-						minHeight: "30vh",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-					}}
-				>
-					<PartnershipWall
-						{...(large_partners as any)}
-						index={-1}
+// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
+const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
+
+// The check is performed ONCE here and the result is exported.
+const IS_CHROME = /Chrome/i.test(userAgent);
+
+const AboutUsCallingCard: React.FC = () => {
+	// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
+	console.log(IS_CHROME);
+	return (
+		<>
+			<SideBarCallingCard
+				components={[wGif]}
+				header={
+					<div
+						style={{
+							width: "100%",
+							minHeight: "30vh",
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+						}}
+					>
+						<PartnershipWall
+							{...(large_partners as any)}
+							index={-1}
+						/>
+					</div>
+				}
+				sideBar={{ components: [<Foot />], header: head }}
+				footer={
+					<PointedtopHexagonFeatureGrid
+						featureCallouts={aboutUsFeatureCallouts(!IS_CHROME)} // seems odd that it doesnt work on android
+						useVerticalAlignment={true}
+						hexagonArgs={hStyle}
+						theme={-1}
 					/>
-				</div>
-			}
-			sideBar={{ components: [<Foot />], header: head }}
-			footer={
-				<PointedtopHexagonFeatureGrid
-					featureCallouts={aboutUsFeatureCallouts}
-					useVerticalAlignment={true}
-					hexagonArgs={hStyle}
-					theme={-1}
-				/>
-			}
-			styleOverrides={{
-				backgroundColor: bgwhite,
-				...SideBarOverlapStyle,
-			}}
-		/>
-	</>
-);
+				}
+				styleOverrides={{
+					backgroundColor: bgwhite,
+					...SideBarOverlapStyle,
+				}}
+			/>
+		</>
+	);
+};
 
 export { AboutUsCallingCard };

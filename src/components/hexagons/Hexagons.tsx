@@ -59,7 +59,11 @@ const HexSVG: React.FC<{
 };
 
 const HexagonContext = createContext<IHexagonState>({} as any);
+// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
+const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
 
+// The check is performed ONCE here and the result is exported.
+const IS_CHROME = /Chrome/i.test(userAgent);
 const ComposedHexSVG: THexFC = ({ styles }) => {
 	const { construct } = useContext(HexagonContext);
 	const { defs, paths } = construct();
@@ -252,7 +256,7 @@ class Hexagon
 		return [
 			{
 				key: "borderWidth",
-				return_value: original_args =>
+				return_value: (original_args) =>
 					original_args?.borderColour && "2px",
 			},
 			{ key: "colour", alias: "color", return_value: "#003845" },
@@ -263,7 +267,7 @@ class Hexagon
 			},
 		];
 	}
-	observerCallback: ResizeObserverCallback = entries => {
+	observerCallback: ResizeObserverCallback = (entries) => {
 		const entry = entries[0];
 		if (entry) {
 			const activeHeight = this.nudgeHeight(entry.contentRect.height);
@@ -295,20 +299,22 @@ class Hexagon
 	construct() {
 		const { color, borderColor, borderWidth } =
 			this.santiseOptionalParameters();
-
+		console.log(IS_CHROME);
 		return {
-			defs: [
-				<mask id="hexagon">
-					<path
-						d={this.hexPath}
-						fill="white"
-					/>
-				</mask>,
-			],
+			defs: !IS_CHROME
+				? [
+						<mask id="hexagon">
+							<path
+								d={this.hexPath}
+								fill="white"
+							/>
+						</mask>,
+				  ]
+				: [],
 			paths: [
 				<path
 					d={this.hexPath}
-					mask="url(#hexagon)"
+					mask={!IS_CHROME ? "url(#hexagon)" : ""}
 					fill={color}
 					stroke={borderColor}
 					strokeWidth={borderWidth}

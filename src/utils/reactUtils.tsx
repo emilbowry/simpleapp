@@ -1,5 +1,5 @@
 // src/utils/reactUtils.tsx
-import React from "react";
+import React, { useMemo } from "react";
 import { get_data_uri, stringifySVG } from "./misc/image-handelling";
 
 export const wrapLink = (
@@ -137,3 +137,6 @@ export const formatComponent = (
 		return component;
 	}
 };
+// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
+
+// export { isAndroid };

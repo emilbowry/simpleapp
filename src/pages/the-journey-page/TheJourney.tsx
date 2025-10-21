@@ -112,7 +112,7 @@ const getThirdHex = (index: number) => {
 					>
 						<BoxedImage
 							image={_icon}
-							width="100%"
+							width="90%"
 							aspectRatio="1"
 							imageStyling={{ margin: "auto" }}
 						/>
