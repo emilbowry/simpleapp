@@ -30,7 +30,11 @@ import {
 	TOscillation,
 	TRefNode,
 } from "./Hexagons.types";
+/* todo
+The first time the first element is outside hex, trigger exactly 1 window refresh,
+same if an element's middle is not centered
 
+ */
 const HexSVG: React.FC<{
 	styles: any;
 	usePointedTop?: boolean;
@@ -273,6 +277,7 @@ class Hexagon
 			const activeHeight = this.nudgeHeight(entry.contentRect.height);
 
 			this.updateGuard(activeHeight);
+			// console.log("resize");
 			this.oscillations += 1;
 		}
 	};
@@ -299,7 +304,7 @@ class Hexagon
 	construct() {
 		const { color, borderColor, borderWidth } =
 			this.santiseOptionalParameters();
-		console.log(IS_CHROME);
+		// console.log(IS_CHROME);
 		return {
 			defs: !IS_CHROME
 				? [

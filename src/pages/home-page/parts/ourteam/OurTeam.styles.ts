@@ -12,10 +12,19 @@ const personaWrapperStyle: React.CSSProperties = {
 
 const PersonaTextStyle: React.CSSProperties = {
 	borderRadius: "calc(75px*calc(1vw/1vh)) 0 0 calc(75px*calc(1vw/1vh))",
-	fontSize: "2vw",
+	fontSize: "calc(2vw*sqrt(calc(1vw/1vw)*calc(1vh/1vw)))",
+	// fontSize: "2vh",
 	padding: "5%",
 	height: "30vh",
 };
+
+const _PersonaTextStyle = (scale = 1): React.CSSProperties => ({
+	borderRadius: "calc(75px*calc(1vw/1vh)) 0 0 calc(75px*calc(1vw/1vh))",
+	fontSize: "calc(2vw*sqrt(calc(1vw/1vw)*calc(1vh/1vw)))",
+	// fontSize: "2vh",
+	padding: "5%",
+	height: `30vh*${scale}`,
+});
 
 const PersonaHeadshotStyle: React.CSSProperties = {
 	boxSizing: "border-box",
@@ -47,4 +56,5 @@ export {
 	PersonaHeadshotStyle,
 	PersonaTextStyle,
 	personaWrapperStyle,
+	_PersonaTextStyle,
 };

@@ -57,23 +57,31 @@ const thirdRow = [
 		element={textEl}
 		useVerticalAlignment={true}
 	/>,
-	null,
+	<Hexagon />,
 ] as const;
 
 const r = [
-	{ elements: firstRow },
+	// { elements: firstRow },
 
 	{ elements: secondRow },
-	{ elements: thirdRow },
+	// { elements: thirdRow },
+	// { elements: secondRow },
+	{ elements: secondRow },
+	{ elements: secondRow },
+	{ elements: secondRow },
+	// { elements: secondRow },
+	// { elements: secondRow },
 ];
 const Hero: React.FC = () => {
 	return (
 		<div
-			style={{
-				height: "100%",
-				margin: "auto 5%",
-				marginTop: `calc(10%)`,
-			}}
+			style={
+				{
+					// height: "100%",
+					// margin: "auto 5%",
+					// marginTop: `calc(10%)`,
+				}
+			}
 		>
 			<HexagonGrid rows={r} />
 		</div>

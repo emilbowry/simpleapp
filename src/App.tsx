@@ -47,8 +47,12 @@ const LoadingFC = () => (
 		</div>
 	</>
 );
+// const canvas = document.getElementById("body").ele;
+// const ctx = canvas.getContext("2d");
+
 const App: React.FC = () => {
 	useEffect(animationTagging, [useLocation().pathname]);
+	// useBrowserScale();
 	return (
 		<>
 			<ScrollToTop />

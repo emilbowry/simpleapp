@@ -38,7 +38,7 @@ export const Page: React.FC<{
 			{bg ? <div style={BackgroundStyle}></div> : null}
 
 			{useCursor && !isNarrow ? <CustomCursor /> : null}
-			<AppTitleBar />
+			{/* <AppTitleBar /> */}
 
 			<main
 				key={location.pathname}

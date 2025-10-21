@@ -13,6 +13,7 @@ import {
 	ASPECT_RATIO,
 	CONTAINER_per_Element,
 	n,
+	RELATIVE_SPACING,
 	SIDE_SHIFT,
 } from "./HexagonRow.consts";
 import {
@@ -34,6 +35,7 @@ const rowGap: TDualScalingFunction = ({
 	relative_spacing = 0,
 	absolute_spacing = 0,
 }) => [relative_spacing, absolute_spacing];
+
 /** 
 	* SCALING CORRECTION FACTOR: k
 	* @derivation 
@@ -141,8 +143,11 @@ const sideStyle = (
 const midStyle = (scale_params: IScaleParams): React.CSSProperties => {
 	const Yshifts = centreHexYShift(scale_params);
 	return {
+		// background: "rgb(0,0,255,0.1)",
+		// border: "1px solid black",
 		marginTop: Yshifts[0],
-		marginBottom: Yshifts[1],
+		marginBottom: `calc(${Yshifts[1]})`,
+		// height: `calc(calc(${Yshifts[1]}) )`,
 	};
 };
 
@@ -197,8 +202,22 @@ const container = (
 ): React.CSSProperties => {
 	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
 	const row_rel_spacing = _relative_spacing / length;
+	const k = K({
+		relative_spacing: _relative_spacing,
+		absolute_spacing,
+	});
+	const Yshifts = centreHexYShift({
+		relative_spacing: row_rel_spacing,
+		absolute_spacing,
+	})[1];
+	console.log(k);
+	console.log(50 / ASPECT_RATIO / 3);
+	console.log(k * (100 / length));
+	console.log(Yshifts);
 
 	return {
+		// border: "1px red solid",
+		// background: "rgb(255,0,0,0.5)",
 		...background_override(
 			{
 				relative_spacing: row_rel_spacing,
@@ -234,18 +253,18 @@ const gridPositionCSS = (
 ) => {
 	return midTop === null
 		? {
-				marginTop: `calc(${-(0.5 * 100) / l}% + ${
-					relative_space / 2
-				}% + ${absolute_space}px)`,
+				// marginTop: `calc(${-(0.5 * 100) / l}% + ${
+				// 	relative_space / 2
+				// }% + ${absolute_space}px)`,
 		  }
 		: {
-				paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
-					absolute_space / 2
-				}px)`,
-				paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
-					absolute_space / 2
-				}px)`,
-				backdropFilter: "blur(8px)",
+				// paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
+				// 	absolute_space / 2
+				// }px)`,
+				// paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
+				// 	absolute_space / 2
+				// }px)`,
+				// backdropFilter: "blur(8px)",
 		  };
 };
 export { container, gridPositionCSS, K, midStyle, sideStyle };

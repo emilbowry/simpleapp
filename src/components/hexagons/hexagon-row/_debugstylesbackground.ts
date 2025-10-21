@@ -39,6 +39,6 @@ const debug_background = ({
 			linear-gradient(0deg, transparent calc(${Pos_Y}% - 2px), red ${Pos_Y}%, transparent calc(${Pos_Y}% + 2px)),
 			linear-gradient(0deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px))
 		`;
-	return bgAxis;
+	return { background: bgAxis };
 };
 export { debug_background };

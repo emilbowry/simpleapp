@@ -1,6 +1,6 @@
 // src/styles.tsx
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import background from "./assets/background.png";
 import {
@@ -119,6 +119,43 @@ const styleObjectToString = <T extends string, U extends string, V>(
 
 	return cssString;
 };
+
+const useBrowserScale = (): number => {
+	const [scale, setScale] = useState(1.0);
+
+	useEffect(() => {
+		const visualViewport = window.visualViewport;
+
+		let initialScale = window.devicePixelRatio || 1;
+
+		if (visualViewport) {
+			initialScale *= visualViewport.scale;
+		}
+
+		setScale(initialScale);
+
+		if (visualViewport) {
+			const updateScale = () => {
+				const currentScale = window.outerWidth / window.innerWidth;
+
+				setScale(currentScale);
+			};
+
+			visualViewport.addEventListener("resize", updateScale);
+
+			return () => {
+				visualViewport.removeEventListener("resize", updateScale);
+			};
+		} else {
+			console.warn(
+				"window.visualViewport not supported. Only using devicePixelRatio."
+			);
+		}
+		return () => {};
+	}, []);
+
+	return scale;
+};
 export {
 	BackgroundStyle,
 	borderGrad,
@@ -127,4 +164,5 @@ export {
 	linkStyle,
 	Theme,
 	styleObjectToString,
+	useBrowserScale,
 };

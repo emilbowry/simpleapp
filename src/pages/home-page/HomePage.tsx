@@ -9,9 +9,9 @@ const homePage: React.FC = () => {
 	return (
 		<div style={{ display: "grid", gridTemplateColumns: "100%" }}>
 			<Hero />
-			<OurTeam />
+			{/* <OurTeam />
 			<AboutUsCallingCard />
-			<ImpactCC />
+			<ImpactCC /> */}
 		</div>
 	);
 };

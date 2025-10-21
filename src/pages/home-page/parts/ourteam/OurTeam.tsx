@@ -1,9 +1,9 @@
 // src/pages/home-page/parts/ourteam/OurTeam.tsx
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
-import { Theme } from "../../../../styles";
+import { Theme, useBrowserScale } from "../../../../styles";
 
 import will from "../../../../assets/dude1.jpg";
 import ben from "../../../../assets/dude2.jpg";
@@ -15,6 +15,7 @@ import {
 	PersonaHeadshotStyle,
 	PersonaTextStyle,
 	personaWrapperStyle,
+	_PersonaTextStyle,
 } from "./OurTeam.styles";
 import { IPersona } from "./OurTeam.types";
 
@@ -94,7 +95,10 @@ const PText: React.FC<
 		<PBody {...props} />
 	</div>
 );
+
 const Persona: React.FC<IPersona> = (props) => {
+	const scale = useBrowserScale();
+	console.log(scale.toFixed(2));
 	const {
 		image,
 
@@ -111,7 +115,7 @@ const Persona: React.FC<IPersona> = (props) => {
 			<div
 				style={{
 					backgroundColor: theme.backgroundColor,
-					...PersonaTextStyle,
+					..._PersonaTextStyle(scale),
 				}}
 			>
 				<PText

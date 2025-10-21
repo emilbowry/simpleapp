@@ -55,10 +55,10 @@ export const submitContactForm = createAsyncThunk<void, ValidationCheck>(
 			return rejectWithValue(validationResult.errorMessage);
 		}
 
-		console.log("Submitting data:", {
-			...formState,
-			enquiryType: formState.isForTeam ? "For my team" : "For myself",
-		});
+		// console.log("Submitting data:", {
+		// 	...formState,
+		// 	enquiryType: formState.isForTeam ? "For my team" : "For myself",
+		// });
 
 		await new Promise((resolve) => setTimeout(resolve, 2000));
 

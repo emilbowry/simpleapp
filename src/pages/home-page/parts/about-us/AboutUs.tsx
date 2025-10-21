@@ -26,6 +26,7 @@ import {
 	imageStyling,
 	titleStyle,
 } from "./AboutUs.styles";
+import { useBrowserScale } from "../../../../styles";
 
 const head = <h2>About Us</h2>;
 
@@ -54,14 +55,17 @@ const wGif = (
 		})}
 	</div>
 );
-const aboutUsFeatureCallouts = (renderIcon = true) => [
+const aboutUsFeatureCallouts = (renderIcon = true, scale_adjustement = 1) => [
 	[
 		renderIcon && (
 			<BoxedImage
 				image={bulb}
 				width="25%"
 				aspectRatio="1"
-				imageStyling={imageStyling}
+				imageStyling={{
+					...imageStyling,
+					// scale: `${Math.sqrt(scale_adjustement)}`,
+				}}
 			/>
 		),
 		<div style={titleStyle}>Consultancy</div>,
@@ -75,7 +79,12 @@ const aboutUsFeatureCallouts = (renderIcon = true) => [
 				image={bullseye}
 				width="25%"
 				aspectRatio="1"
-				imageStyling={imageStyling}
+				imageStyling={{
+					...imageStyling,
+					// scale: `${1 / Math.sqrt(scale_adjustement)}`,
+
+					// scale: `${1 / scale_adjustement}`,
+				}}
 			/>
 		),
 		<div style={titleStyle}>Training</div>,
@@ -91,7 +100,12 @@ const aboutUsFeatureCallouts = (renderIcon = true) => [
 				image={pencil}
 				width="25%"
 				aspectRatio="1"
-				imageStyling={imageStyling}
+				imageStyling={{
+					...imageStyling,
+					// scale: `${Math.sqrt(scale_adjustement)}`,
+
+					// scale: `${1 / scale_adjustement}`,
+				}}
 				wrapperStyling={{
 					position: "relative",
 					top: 0,
@@ -115,7 +129,8 @@ const IS_CHROME = /Chrome/i.test(userAgent);
 
 const AboutUsCallingCard: React.FC = () => {
 	// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
-	console.log(IS_CHROME);
+	// console.log(IS_CHROME);
+	const scale_adj = useBrowserScale();
 	return (
 		<>
 			<SideBarCallingCard
@@ -139,7 +154,10 @@ const AboutUsCallingCard: React.FC = () => {
 				sideBar={{ components: [<Foot />], header: head }}
 				footer={
 					<PointedtopHexagonFeatureGrid
-						featureCallouts={aboutUsFeatureCallouts(!IS_CHROME)} // seems odd that it doesnt work on android
+						featureCallouts={aboutUsFeatureCallouts(
+							!IS_CHROME,
+							scale_adj
+						)} // seems odd that it doesnt work on android
 						useVerticalAlignment={true}
 						hexagonArgs={hStyle}
 						theme={-1}
