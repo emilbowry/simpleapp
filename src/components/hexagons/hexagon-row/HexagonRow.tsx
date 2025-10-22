@@ -52,10 +52,8 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 
 	return (
 		<div
+			className={class_name ?? ""}
 			style={{
-				// height: "100%",
-				// background: "rgb(255,0,0,0.5)",
-				width: "100vw",
 				...gridPositionCSS(
 					rows[0].elements[1],
 					rows[rows.length - 1].elements[0],
@@ -65,31 +63,19 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 					absolute_spacing
 				),
 				overflow: "visible",
+				...containerStyle,
 			}}
 		>
-			<div
-				className={class_name ?? ""}
-				style={{
-					...containerStyle,
-				}}
-			>
-				<div
-					style={container(
-						relative_spacing,
-						absolute_spacing,
-						length
-					)}
-				>
-					{rows.map((row, _index) => (
-						<HexagonRow
-							key={_index}
-							elements={row.elements}
-							relative_spacing={relative_spacing}
-							absolute_spacing={absolute_spacing}
-							len={length}
-						/>
-					))}
-				</div>
+			<div style={container(relative_spacing, absolute_spacing, length)}>
+				{rows.map((row, _index) => (
+					<HexagonRow
+						key={_index}
+						elements={row.elements}
+						relative_spacing={relative_spacing}
+						absolute_spacing={absolute_spacing}
+						len={length}
+					/>
+				))}
 			</div>
 		</div>
 	);

@@ -269,6 +269,7 @@ const theJourneyPage: React.FC = () => {
 				rows={getRows(isNarrow) as any}
 				relative_spacing={isNarrow ? 1 : 10}
 				// absolute_spacing={-15}
+				containerStyle={{ backdropFilter: "blur(8px)" }}
 				class_name="aos-ignore"
 			/>
 		</div>
