@@ -63,14 +63,8 @@ const thirdRow = [
 const r = [
 	{ elements: firstRow },
 
-	// { elements: secondRow },
-	// { elements: thirdRow },
 	{ elements: secondRow },
-	{ elements: secondRow },
-	// { elements: secondRow },
-	// { elements: secondRow },
-	// { elements: secondRow },
-	// { elements: secondRow },
+	{ elements: thirdRow },
 ];
 const Hero: React.FC = () => {
 	return (

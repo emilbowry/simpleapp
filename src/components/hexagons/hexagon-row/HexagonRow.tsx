@@ -54,7 +54,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 		<div
 			style={{
 				// height: "100%",
-				background: "rgb(255,0,0,0.5)",
+				// background: "rgb(255,0,0,0.5)",
 				width: "100vw",
 				...gridPositionCSS(
 					rows[0].elements[1],
