@@ -210,10 +210,10 @@ const container = (
 		relative_spacing: row_rel_spacing,
 		absolute_spacing,
 	})[1];
-	console.log(k);
-	console.log(50 / ASPECT_RATIO / 3);
-	console.log(k * (100 / length));
-	console.log(Yshifts);
+	// console.log(k);
+	// console.log(50 / ASPECT_RATIO / 3);
+	// console.log(k * (100 / length));
+	// console.log(Yshifts);
 
 	return {
 		// border: "1px red solid",
@@ -250,53 +250,31 @@ const gridPositionCSS = (
 	lBot: ValidComponent,
 	rBot: ValidComponent,
 
-	l: number,
+	length: number,
 	relative_spacing: number,
 	absolute_spacing: number
 ) => {
 	const k = K({ relative_spacing, absolute_spacing });
-	const A = ((relative_spacing / 2) * ASPECT_RATIO) / k;
-	const B = (relative_spacing * ASPECT_RATIO) / l / 2 / k;
-	const C = (50 * ASPECT_RATIO) / l / k;
-	const marginBottom = lBot === null && rBot === null ? 0 : A + B;
-	const paddingTop_per = midTop === null ? 0 : C + B;
-	// console.log()
+	const base_row_height = ((3 / 2) * (1 / ASPECT_RATIO) * 100) / 3;
+
+	const relative_correction =
+		(base_row_height * (1 / 3) * (relative_spacing / 100)) / k;
+	const rel_padding_bottom_offset = lBot === null && rBot === null ? 2 : 1;
+	const rel_padding_top_factor = midTop === null ? 0 : 2;
+	const abs_padding_bottom_offset = lBot === null && rBot === null ? 1.5 : 1;
+	const abs_padding_top_factor = midTop === null ? 0 : 0.5;
+
 	return {
-		paddingTop: `calc(${paddingTop_per}%)`,
-
-		// marginBottom: `calc(${marginBottom}%)`,
-		marginBottom: `calc(1*(${
-			(relative_spacing * ASPECT_RATIO) / l / 2 / k
-		}% +  ${(50 * ASPECT_RATIO) / l / k}%))`,
-		// paddingTop: `calc(${(relative_spacing * ASPECT_RATIO) / l / 2 / k}% + ${
-		// 	(50 * ASPECT_RATIO) / l / k
-		// }%)`,
+		paddingTop: `calc(${rel_padding_top_factor * relative_correction}vw + ${
+			absolute_spacing * abs_padding_top_factor
+		}px)`,
+		// marginBottom: `calc(${
+		// 	1 * margin_bottom_factor * relative_correction
+		// }vw)`,
+		paddingBottom: `calc(${
+			(length - rel_padding_bottom_offset) * 2 * relative_correction
+		}vw + ${absolute_spacing * (length - abs_padding_bottom_offset)}px)`,
 	};
-	// return midTop === null
-	// 	? {
-	// 			// marginTop: `calc(${-(0.5 * 100) / l}% + ${
-	// 			// 	relative_space / 2
-	// 			// }% + ${absolute_space}px)`,
-	// 	  }
-	// 	: {
-	// 			// paddingTop: `calc(${100 / l}% + ${relative_space / 2}% + ${
-	// 			// 	absolute_space / 2
-	// 			// }px)`,
-	// 			// paddingBottom: `calc(${100 / l}% + ${relative_space / 2}% + ${
-	// 			// 	absolute_space / 2
-	// 			// }px)`,
-	// 			// backdropFilter: "blur(8px)",
-	// 	  };
 };
-// const x = 1;
-// const l = length
-// const k = K({ relative_spacing, absolute_spacing });
-// const A = ((relative_spacing / 2) * ASPECT_RATIO) / k;
-// const B = (relative_spacing * ASPECT_RATIO) / l / 2 / k;
-// const C = (50 * ASPECT_RATIO) / l / k;
-
-// paddingTop: `calc(${
-// 	(relative_spacing * ASPECT_RATIO) / length / 2 / k1
-// }% +  ${(50 * ASPECT_RATIO) / length / k1}%)`,
 
 export { container, gridPositionCSS, K, midStyle, sideStyle };

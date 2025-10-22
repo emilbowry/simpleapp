@@ -37,7 +37,7 @@ export const Page: React.FC<{
 		<>
 			{bg ? <div style={BackgroundStyle}></div> : null}
 
-			{useCursor && !isNarrow ? <CustomCursor /> : null}
+			{useCursor ? <CustomCursor /> : null}
 			{/* <AppTitleBar /> */}
 
 			<main

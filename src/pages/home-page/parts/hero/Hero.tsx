@@ -61,14 +61,14 @@ const thirdRow = [
 ] as const;
 
 const r = [
-	// { elements: firstRow },
+	{ elements: firstRow },
 
-	{ elements: secondRow },
-	// { elements: thirdRow },
 	// { elements: secondRow },
+	// { elements: thirdRow },
 	{ elements: secondRow },
 	{ elements: secondRow },
-	{ elements: secondRow },
+	// { elements: secondRow },
+	// { elements: secondRow },
 	// { elements: secondRow },
 	// { elements: secondRow },
 ];

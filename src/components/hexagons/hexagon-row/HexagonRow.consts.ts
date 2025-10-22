@@ -1,7 +1,7 @@
 // src/components/hexagons/hexagonRow/HexagonRow.consts.ts
 
-const RELATIVE_SPACING: number = 20;
-const ABSOLUTE_SPACING = 0;
+const RELATIVE_SPACING: number = 100;
+const ABSOLUTE_SPACING = 150;
 const ASPECT_RATIO = 2 / Math.sqrt(3); /*  Width/Height,  W=H.r */
 const n = 3;
 const CONTAINER_per_Element = 1 / n;
