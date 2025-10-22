@@ -5,17 +5,12 @@ import { formatComponent } from "../../../utils/reactUtils";
 import {
 	container,
 	gridPositionCSS,
-	K,
 	midStyle,
 	sideStyle,
 } from "./HexagonRow.styles";
 import { IHexagonGridElements, THexRowLayoutProps } from "./HexagonRow.types";
 
-import {
-	ABSOLUTE_SPACING,
-	ASPECT_RATIO,
-	RELATIVE_SPACING,
-} from "./HexagonRow.consts";
+import { ABSOLUTE_SPACING, RELATIVE_SPACING } from "./HexagonRow.consts";
 
 const HexagonRow: React.FC<THexRowLayoutProps> = ({
 	elements,

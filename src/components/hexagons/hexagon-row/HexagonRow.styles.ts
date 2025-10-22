@@ -265,15 +265,13 @@ const gridPositionCSS = (
 	const abs_padding_top_factor = midTop === null ? 0 : 0.5;
 
 	return {
-		paddingTop: `calc(${rel_padding_top_factor * relative_correction}vw + ${
+		paddingTop: `calc(${rel_padding_top_factor * relative_correction}% + ${
 			absolute_spacing * abs_padding_top_factor
 		}px)`,
-		// marginBottom: `calc(${
-		// 	1 * margin_bottom_factor * relative_correction
-		// }vw)`,
+
 		paddingBottom: `calc(${
 			(length - rel_padding_bottom_offset) * 2 * relative_correction
-		}vw + ${absolute_spacing * (length - abs_padding_bottom_offset)}px)`,
+		}% + ${absolute_spacing * (length - abs_padding_bottom_offset)}px)`,
 	};
 };
 
