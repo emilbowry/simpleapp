@@ -1,27 +1,28 @@
-// src/pages/homepage/parts/ourteam/OurTeam.styles.ts
+// src/pages/home-page/parts/ourteam/OurTeam.styles.ts
 
 import React from "react";
+import { volume_constant_size } from "../../../../styles";
 
 const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "30% 70%",
 	width: "100%",
 	justifyContent: "center",
-	// fontSize: "min(1.5rem,calc(1rem * 90vw/100vh + 1rem * 10vh/100vw))",
 };
 
 const PersonaTextStyle: React.CSSProperties = {
-	borderRadius: "calc(75px*calc(1vw/1vh)) 0 0 calc(75px*calc(1vw/1vh))",
-	fontSize: "calc(2vw*sqrt(calc(1vw/1vw)*calc(1vh/1vw)))",
-	// fontSize: "2vh",
 	padding: "5%",
 	height: "30vh",
 };
+const _PersonaTextStyle = (
+	scale = 1
+): React.CSSProperties & { [key: string]: string } => ({
+	fontSize: `calc(2*${volume_constant_size})`,
 
-const _PersonaTextStyle = (scale = 1): React.CSSProperties => ({
-	borderRadius: "calc(75px*calc(1vw/1vh)) 0 0 calc(75px*calc(1vw/1vh))",
-	fontSize: "calc(2vw*sqrt(calc(1vw/1vw)*calc(1vh/1vw)))",
-	// fontSize: "2vh",
+	["--borderrad"]: `calc(4*${volume_constant_size})`,
+
+	borderRadius: "var(--borderrad) 0 0 var(--borderrad)",
+
 	padding: "5%",
 	height: `30vh*${scale}`,
 });
@@ -47,9 +48,7 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	rowGap: "1%",
 	width: "100%",
 
-	// padding: "auto",
 	paddingBottom: "10vh",
-	// height: "fit-content",
 };
 export {
 	OurTeamContainerStyle,

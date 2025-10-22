@@ -1,6 +1,6 @@
 // src/pages/home-page/parts/ourteam/OurTeam.tsx
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
 import { Theme, useBrowserScale } from "../../../../styles";
@@ -13,7 +13,6 @@ import miranda from "../../../../assets/miranda.jpg";
 import {
 	OurTeamContainerStyle,
 	PersonaHeadshotStyle,
-	PersonaTextStyle,
 	personaWrapperStyle,
 	_PersonaTextStyle,
 } from "./OurTeam.styles";
@@ -116,6 +115,7 @@ const Persona: React.FC<IPersona> = (props) => {
 				style={{
 					backgroundColor: theme.backgroundColor,
 					..._PersonaTextStyle(scale),
+					// borderRadius: "10px",
 				}}
 			>
 				<PText

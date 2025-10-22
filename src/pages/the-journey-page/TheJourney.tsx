@@ -15,7 +15,7 @@ import {
 	pencil,
 	vline,
 } from "../../components/callingcard/graphics";
-import { generateGradient } from "../../styles";
+import { generateGradient, volume_constant_size } from "../../styles";
 import {
 	bgwhite,
 	dark_midnight_green,
@@ -128,8 +128,9 @@ const getThirdHex = (index: number) => {
 const RowHeader: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 	<h3
 		style={{
-			fontSize: "3vw",
-			height: "calc(100%)",
+			// fontSize: "3vw",
+			fontSize: `calc(2*${volume_constant_size})`,
+			// height: "calc(100%)",
 			textAlign: "center",
 
 			color: dark_midnight_green,
@@ -143,13 +144,14 @@ const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 	<p
 		style={{
 			// fontSize: "2.5vw",
-			fontSize: "max(1.8vw,calc(0.8rem*calc(1vw/1vh)))",
+			// fontSize: "max(1.8vw,calc(0.8rem*calc(1vw/1vh)))",
+			fontSize: `calc(1.5*${volume_constant_size})`,
 			wordBreak: "break-word",
 			// marginTop: "1px",
 			textAlign: "center",
 			whiteSpace: "collapse",
 			color: midnight_green,
-			height: "calc(100%)",
+			// height: "calc(100%)",
 		}}
 	>
 		{children}
@@ -172,6 +174,7 @@ const getRows = (isNarrow = false) => {
 				}
 				opacity={1}
 				useVerticalAlignment={!isNarrow}
+				// useVerticalAlignment={true}
 			/>,
 
 			isNarrow ? (
@@ -190,7 +193,7 @@ const getRows = (isNarrow = false) => {
 												flexDirection: "column",
 												justifyContent: "center",
 												margin: "auto",
-												height: "100%",
+												// height: "100%",
 										  }
 										: {}),
 									opacity: 1,
@@ -201,7 +204,7 @@ const getRows = (isNarrow = false) => {
 									image={vline}
 									width="100%"
 									aspectRatio={`1`}
-									// imageStyling={{ margin: "auto" }}
+									imageStyling={{ margin: "auto" }}
 								/>
 							</div>
 						}
@@ -216,6 +219,7 @@ const getRows = (isNarrow = false) => {
 					element={[<RowContent>{item.content}</RowContent>]}
 					opacity={1}
 					useVerticalAlignment={!isNarrow}
+					// useVerticalAlignment={true}
 				/>
 			) : (
 				getThirdHex(i)

@@ -26,7 +26,7 @@ import {
 	imageStyling,
 	titleStyle,
 } from "./AboutUs.styles";
-import { useBrowserScale, volume_constant_size } from "../../../../styles";
+import { IS_CHROME, volume_constant_size } from "../../../../styles";
 
 const head = (
 	<h2 style={{ fontSize: `calc(3*${volume_constant_size})` }}>About Us</h2>
@@ -123,16 +123,9 @@ const aboutUsFeatureCallouts = (renderIcon = true, scale_adjustement = 1) => [
 		</div>,
 	],
 ];
-// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
-const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
-
-// The check is performed ONCE here and the result is exported.
-const IS_CHROME = /Chrome/i.test(userAgent);
 
 const AboutUsCallingCard: React.FC = () => {
-	// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
-	// console.log(IS_CHROME);
-	const scale_adj = useBrowserScale();
+	// const scale_adj = useBrowserScale();
 	return (
 		<>
 			<SideBarCallingCard
@@ -156,10 +149,7 @@ const AboutUsCallingCard: React.FC = () => {
 				sideBar={{ components: [<Foot />], header: head }}
 				footer={
 					<PointedtopHexagonFeatureGrid
-						featureCallouts={aboutUsFeatureCallouts(
-							!IS_CHROME,
-							scale_adj
-						)} // seems odd that it doesnt work on android
+						featureCallouts={aboutUsFeatureCallouts(!IS_CHROME, 1)} // seems odd that it doesnt work on android
 						useVerticalAlignment={true}
 						hexagonArgs={hStyle}
 						theme={-1}

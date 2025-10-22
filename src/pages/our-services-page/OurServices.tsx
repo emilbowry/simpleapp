@@ -56,7 +56,10 @@ const tserv = {
 	],
 };
 
-const ourServicesFeatureCallouts = [
+const ourServicesFeatureCallouts = (
+	renderIcon = true,
+	scale_adjustement = 1
+) => [
 	[
 		<BoxedImage
 			image={bulb}
@@ -96,6 +99,7 @@ import {
 	ServiceStyle,
 } from "./OurServices.styles";
 import { PiChart } from "./pi_chart";
+import { IS_CHROME } from "../../styles";
 
 const ServicesSideBar: React.FC = () => {
 	return (
@@ -124,7 +128,7 @@ const ourServices: React.FC = () => (
 			}}
 			footer={
 				<PointedtopHexagonFeatureGrid
-					featureCallouts={ourServicesFeatureCallouts}
+					featureCallouts={ourServicesFeatureCallouts(!IS_CHROME)}
 					hexagonArgs={hStyle}
 					useVerticalAlignment={true}
 				/>

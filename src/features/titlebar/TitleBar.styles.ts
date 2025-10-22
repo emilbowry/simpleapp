@@ -1,6 +1,6 @@
 // src/components/titlebar/TitleBar.styles.ts
 import React from "react";
-import { linkStyle } from "../../styles";
+import { linkStyle, volume_constant_size } from "../../styles";
 import { VISIBLE_TITLEBAR_HEIGHT } from "./TitleBar.consts";
 const hamburgerStyle: React.CSSProperties = {
 	background: "none",
@@ -14,17 +14,20 @@ const interactionWrapperStyles: React.CSSProperties = {
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
-	fontSize: "min(1.5rem,calc(1.5rem*calc(1vw/1vh)))",
+	// fontSize: "min(1.5rem,calc(1.5rem*calc(1vw/1vh)))",
+	fontSize: `calc(2*${volume_constant_size})`,
 };
 const titleBarStyles = (): React.CSSProperties => {
 	return {
 		display: "flex",
 		alignContent: "center",
 		alignItems: "center",
-		justifyContent: "space-between",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
+
 		minHeight: "1rem",
 		backgroundColor: "rgb(255 255 255 / 90%)",
+		justifyContent: "space-between",
+
 		// minWidth: `fit-content`,
 	};
 };
@@ -40,8 +43,10 @@ const logoStyles: React.CSSProperties = {
 const navLinksContainerStyles: React.CSSProperties = {
 	flex: 2,
 	display: "flex",
-	justifyContent: "center",
+	// justifyContent: "center",
 	gap: "2%",
+	justifyContent: "space-evenly",
+
 	// border: "1px solid red",
 	textWrap: "nowrap",
 	textAlign: "center",
@@ -57,6 +62,7 @@ const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	transition: "background-size 0.3s ease-in",
 	padding: 0,
 	// fontSize: "1rem",
+	// fontSize: `calc(1.5*${volume_constant_size})`,
 	cursor: "none",
 });
 const dropdownStyles: React.CSSProperties = {

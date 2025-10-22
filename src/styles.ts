@@ -61,16 +61,17 @@ const Theme = (index: number) => {
 const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	textDecorationLine: isUnderlined ? `underline` : "none",
 	textDecorationColor: `${logo_blue}`,
+	// textUnderlinePosition: `under`,
 	backgroundOrigin: "content-box",
 	backgroundImage: `${logoGrag}`,
 	backgroundPosition: "bottom left",
 	backgroundRepeat: "no-repeat",
 	boxSizing: "border-box",
-	backgroundSize: isUnderlined ? "100% 4px" : "0% 4px",
+	backgroundSize: isUnderlined ? "100% 2px" : "0% 2px",
 
 	color: "#333",
 	// fontSize: "16px",
-	padding: "5px 0",
+	// padding: "5px 0",
 });
 const generateGradient = (
 	n: number,
@@ -156,6 +157,11 @@ const useBrowserScale = (): number => {
 
 	return scale;
 };
+const volume_constant_size = "1vw*calc(sqrt(calc(1vw/1vw)*calc(1vh/1vw)))";
+
+const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
+
+const IS_CHROME = /Chrome/i.test(userAgent);
 export {
 	BackgroundStyle,
 	borderGrad,
@@ -165,4 +171,6 @@ export {
 	Theme,
 	styleObjectToString,
 	useBrowserScale,
+	volume_constant_size,
+	IS_CHROME,
 };

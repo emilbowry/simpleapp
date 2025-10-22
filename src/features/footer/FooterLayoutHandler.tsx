@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
+import { volume_constant_size } from "../../styles";
 
 const FooterLayoutHandler: React.FC<{
 	component: ValidComponent;
@@ -11,7 +12,7 @@ const FooterLayoutHandler: React.FC<{
 		<div
 			style={{
 				marginTop: "calc(-70vh - 60px)",
-				fontSize: "calc(1.2rem*calc(1vw/1vh))",
+				fontSize: `calc(1.5*${volume_constant_size})`,
 				zIndex: "-15",
 			}}
 		>

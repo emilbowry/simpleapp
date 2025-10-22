@@ -8,7 +8,7 @@ import { BoxedImage } from "../../../../utils/reactUtils";
 
 import logo from "../../../../assets/logo.png";
 import { SideBarFullOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
-import { Theme } from "../../../../styles";
+import { Theme, volume_constant_size } from "../../../../styles";
 import {
 	FounderLetterWrapperStyle,
 	LetterFooterContainerStyle,
@@ -18,8 +18,12 @@ import {
 } from "./impact.styles";
 
 const foot = (
-	<div>
-		<p style={{ fontStyle: "italic" /* fontSize: "2.5rem" */ }}>
+	<div style={{ fontSize: `calc(2*${volume_constant_size})` }}>
+		<p
+			style={{
+				fontStyle: "italic",
+			}}
+		>
 			‘We tend to overestimate the impact of a technology in the short
 			term, and underestimate the effect of a technology in the long run’
 		</p>
@@ -87,7 +91,12 @@ const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	const letter = (
 		<div style={FounderLetterWrapperStyle}>
 			<div style={{ textAlign: "left" }}>
-				<h2 style={{ color: Theme(index).primaryColor }}>
+				<h2
+					style={{
+						color: Theme(index).primaryColor,
+						fontSize: `calc(3*${volume_constant_size})`,
+					}}
+				>
 					A letter from our Founder
 				</h2>
 				<p>

@@ -75,7 +75,10 @@ const Hero: React.FC = () => {
 				// marginTop: `calc(10%)`,
 			}}
 		>
-			<HexagonGrid rows={r} />
+			<HexagonGrid
+				rows={r}
+				relative_spacing={10}
+			/>
 		</div>
 	);
 };
