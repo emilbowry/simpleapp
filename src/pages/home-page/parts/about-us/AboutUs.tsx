@@ -1,6 +1,6 @@
 // src/pages/homepage/parts/AboutUS.tsx
 
-import React, { useMemo } from "react";
+import React from "react";
 
 import aicompwork from "../../../../assets/aicwork.jpg";
 import {
@@ -26,12 +26,14 @@ import {
 	imageStyling,
 	titleStyle,
 } from "./AboutUs.styles";
-import { useBrowserScale } from "../../../../styles";
+import { useBrowserScale, volume_constant_size } from "../../../../styles";
 
-const head = <h2>About Us</h2>;
+const head = (
+	<h2 style={{ fontSize: `calc(3*${volume_constant_size})` }}>About Us</h2>
+);
 
 const Foot = () => (
-	<p>
+	<p style={{ fontSize: `calc(2*${volume_constant_size})` }}>
 		At AI Compatible, we believe not everyone needs to be an AI expert but
 		everyone should be AI compatible. That means being alert to the
 		opportunities and the risks: we help businesses navigate both, with

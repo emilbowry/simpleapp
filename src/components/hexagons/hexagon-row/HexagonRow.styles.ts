@@ -257,20 +257,22 @@ const gridPositionCSS = (
 	const k = K({ relative_spacing, absolute_spacing });
 	const base_row_height = ((3 / 2) * (1 / ASPECT_RATIO) * 100) / 3;
 
-	const relative_correction =
+	const relative_correction_bot =
 		(base_row_height * (1 / 3) * (relative_spacing / 100)) / k;
+	const relative_correction_top =
+		(base_row_height * (1 / 3) * (1 + relative_spacing / 100)) / k;
 	const rel_padding_bottom_offset = lBot === null && rBot === null ? 2 : 1;
-	const rel_padding_top_factor = midTop === null ? 0 : 2;
+	const rel_padding_top_factor = midTop === null ? 0 : 1;
 	const abs_padding_bottom_offset = lBot === null && rBot === null ? 1.5 : 1;
 	const abs_padding_top_factor = midTop === null ? 0 : 0.5;
 
 	return {
-		paddingTop: `calc(${rel_padding_top_factor * relative_correction}% + ${
-			absolute_spacing * abs_padding_top_factor
-		}px)`,
+		paddingTop: `calc(${
+			rel_padding_top_factor * relative_correction_top
+		}% + ${absolute_spacing * abs_padding_top_factor}px)`,
 
 		paddingBottom: `calc(${
-			(length - rel_padding_bottom_offset) * 2 * relative_correction
+			(length - rel_padding_bottom_offset) * 2 * relative_correction_bot
 		}% + ${absolute_spacing * (length - abs_padding_bottom_offset)}px)`,
 	};
 };

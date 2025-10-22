@@ -1,22 +1,15 @@
 // src/pages/home-page/parts/impact/impact.styles.ts
 
-import { borderGrad, Theme } from "../../../../styles";
+import { borderGrad, Theme, volume_constant_size } from "../../../../styles";
 
 const idx = 1;
 let theme = Theme(idx);
 
 const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
-	// fontSize: "3rem",
 	paddingTop: "20%",
-	// ["--h"]: "calc(2vw)",
-	// fontSize: "calc(2rem*calc(1vw/1vh))",
-	// fontSize: "calc(((4vw /var(--h))vw))",
-	// fontSize: "calc(2rem + 1px * pow(1px / 2vw, 1))",
-	// fontSize: "calc(2rem + 1px * calc(1px / 2vw))",
-	// fontSize: "200%",
+	fontSize: `calc(3*${volume_constant_size})`,
 
-	// height: "10%",
 	width: "100%",
 	fontWeight: "500",
 	justifySelf: "center",
@@ -31,10 +24,11 @@ const stat_body_style: React.CSSProperties = {
 	borderImage: borderGrad,
 	margin: "auto",
 	padding: "1%",
+	fontSize: `calc(2*${volume_constant_size})`,
 
 	textAlign: "center",
 	overflow: "visible",
-	fontSize: "100%",
+	// fontSize: "100%",
 };
 const LetterFooterContainerStyle: React.CSSProperties = {
 	display: "grid",
@@ -45,10 +39,12 @@ const LetterFooterContainerStyle: React.CSSProperties = {
 const LetterFooterWrapperStyle: React.CSSProperties = {
 	display: "flex",
 	flexDirection: "row",
+
 	maxWidth: "100vw",
 };
 const FounderLetterWrapperStyle: React.CSSProperties = {
 	width: "100%",
+	fontSize: `calc(2*${volume_constant_size})`,
 	// display: "flex",
 	// flexDirection: "column",
 };

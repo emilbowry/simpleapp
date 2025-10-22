@@ -40,45 +40,45 @@ const TimelineData = [
 			"AI Compatible  (AIC) is founded and collates 2023s discoveries in prompt engineering into a methodology, to help people use AI effectively and ethically",
 		icon: bulb,
 	},
-	{
-		date: "JAN 2024",
-		content:
-			"AIC runs its first series of prompt engineering training workshops with live clients, using the new methodology. Initially delivered through AIC first partner, The Growth House who offer leadership and teamship corporate training",
-		icon: bullseye,
-	},
-	{
-		date: "MARCH 2024",
-		content:
-			"The EU AI act is passed - there's questions around how suitable it is for generative AI. Joe Fennell co-led the 'SafeNet' project for improving online safety and AI literacy among young people in the Balkans, founded by the UNMIK",
-	},
-	{
-		date: "JUL 2024",
-		content:
-			"NotebookLM is released, everyone loves it, go try it now if you haven't",
-		image: bw1,
-	},
-	{
-		date: "SEP 2024",
-		content:
-			"Open AI's release of o1 'strawberry', first of the 'reasoning model' generation of generative AI.",
-	},
-	{
-		date: "OCT 2024",
-		content:
-			"O3 gets 85% accuracy on the ARC 1 benchmark - this is the going to the moon moment for Foundation models, ARC 1 was THE benchmark to beat. The AI Compatible team grows alongside our roster of partners",
-	},
-	{
-		date: "JAN 2025",
-		content:
-			" Deepseek R1 matches Open AI's o1 Benchmark performance. Working closely with Heward Mills data protection officers we became an advisor and partner. We add Policy assistance and consultancy to the services we offer.",
-		icon: pencil,
-		image: bw2,
-	},
-	{
-		date: "APRIL 2025",
-		content:
-			"Open AI O3 high gets 20% on 'Humanity's Last Exam', a compilation of problems that specialised human experts find particularly hard",
-	},
+	// {
+	// 	date: "JAN 2024",
+	// 	content:
+	// 		"AIC runs its first series of prompt engineering training workshops with live clients, using the new methodology. Initially delivered through AIC first partner, The Growth House who offer leadership and teamship corporate training",
+	// 	icon: bullseye,
+	// },
+	// {
+	// 	date: "MARCH 2024",
+	// 	content:
+	// 		"The EU AI act is passed - there's questions around how suitable it is for generative AI. Joe Fennell co-led the 'SafeNet' project for improving online safety and AI literacy among young people in the Balkans, founded by the UNMIK",
+	// },
+	// {
+	// 	date: "JUL 2024",
+	// 	content:
+	// 		"NotebookLM is released, everyone loves it, go try it now if you haven't",
+	// 	image: bw1,
+	// },
+	// {
+	// 	date: "SEP 2024",
+	// 	content:
+	// 		"Open AI's release of o1 'strawberry', first of the 'reasoning model' generation of generative AI.",
+	// },
+	// {
+	// 	date: "OCT 2024",
+	// 	content:
+	// 		"O3 gets 85% accuracy on the ARC 1 benchmark - this is the going to the moon moment for Foundation models, ARC 1 was THE benchmark to beat. The AI Compatible team grows alongside our roster of partners",
+	// },
+	// {
+	// 	date: "JAN 2025",
+	// 	content:
+	// 		" Deepseek R1 matches Open AI's o1 Benchmark performance. Working closely with Heward Mills data protection officers we became an advisor and partner. We add Policy assistance and consultancy to the services we offer.",
+	// 	icon: pencil,
+	// 	image: bw2,
+	// },
+	// {
+	// 	date: "APRIL 2025",
+	// 	content:
+	// 		"Open AI O3 high gets 20% on 'Humanity's Last Exam', a compilation of problems that specialised human experts find particularly hard",
+	// },
 ];
 
 const getThirdHex = (index: number) => {
@@ -122,6 +122,9 @@ const getThirdHex = (index: number) => {
 		);
 	} else if (_image) {
 		thirdHexagon = <ImageHexagon img={_image} />;
+		// {
+		// 	/* <ImageHexagon img={_image} />; */
+		// }
 	}
 	return thirdHexagon;
 };
@@ -175,38 +178,36 @@ const getRows = (isNarrow = false) => {
 			/>,
 
 			isNarrow ? (
-				i === 0 ? null : (
-					<Hexagon
-						args={{
-							colour: "transparent",
-						}}
-						opacity={1}
-						element={
-							<div
-								style={{
-									...(!isNarrow
-										? {
-												display: "flex",
-												flexDirection: "column",
-												justifyContent: "center",
-												margin: "auto",
-												height: "100%",
-										  }
-										: {}),
-									opacity: 1,
-								}}
-								className="aos-ignore"
-							>
-								<BoxedImage
-									image={vline}
-									width="100%"
-									aspectRatio={`1`}
-									// imageStyling={{ margin: "auto" }}
-								/>
-							</div>
-						}
-					/>
-				)
+				<Hexagon
+					args={{
+						colour: "transparent",
+					}}
+					opacity={1}
+					element={
+						<div
+							style={{
+								...(!isNarrow
+									? {
+											display: "flex",
+											flexDirection: "column",
+											justifyContent: "center",
+											margin: "auto",
+											height: "100%",
+									  }
+									: {}),
+								opacity: 1,
+							}}
+							className="aos-ignore"
+						>
+							<BoxedImage
+								image={vline}
+								width="100%"
+								aspectRatio={`1`}
+								// imageStyling={{ margin: "auto" }}
+							/>
+						</div>
+					}
+				/>
 			) : (
 				<Hexagon args={{ colour: colours[i] }} />
 			),
@@ -252,8 +253,14 @@ const theJourneyPage: React.FC = () => {
 	}, [isNarrow]);
 
 	return (
-		<div>
-			<div
+		<div
+			style={{
+				display: "grid",
+				gridTemplateColumns: "100%",
+				// marginTop: "200px",
+			}}
+		>
+			{/* <div
 				style={{
 					height: "100%",
 					width: "100%",
@@ -263,18 +270,17 @@ const theJourneyPage: React.FC = () => {
 					maskImage:
 						"linear-gradient(to bottom,black 95%, transparent 100%)",
 				}}
-			/>
-			<HexagonGrid
-				rows={getRows(isNarrow) as any}
-				relative_spacing={isNarrow ? 1 : 10}
-				// absolute_spacing={-15}
-				containerStyle={
-					{
-						// overflow: "clip",
-					}
-				}
-				class_name="aos-ignore"
-			/>
+			/> */}
+			<div
+				style={{
+					margin: "5%",
+				}}
+			>
+				<HexagonGrid
+					rows={getRows(isNarrow) as any}
+					relative_spacing={isNarrow ? 1 : 10}
+				/>
+			</div>
 		</div>
 	);
 };

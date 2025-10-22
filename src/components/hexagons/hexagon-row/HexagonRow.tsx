@@ -10,7 +10,7 @@ import {
 } from "./HexagonRow.styles";
 import { IHexagonGridElements, THexRowLayoutProps } from "./HexagonRow.types";
 
-import { ABSOLUTE_SPACING, RELATIVE_SPACING } from "./HexagonRow.consts";
+// import { ABSOLUTE_SPACING, RELATIVE_SPACING } from "./HexagonRow.consts";
 
 const HexagonRow: React.FC<THexRowLayoutProps> = ({
 	elements,
@@ -35,6 +35,8 @@ const HexagonRow: React.FC<THexRowLayoutProps> = ({
 		</>
 	);
 };
+const RELATIVE_SPACING: number = 10;
+const ABSOLUTE_SPACING = 0;
 
 const HexagonGrid: React.FC<IHexagonGridElements> = ({
 	rows,
@@ -49,6 +51,8 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 		<div
 			className={class_name ?? ""}
 			style={{
+				// background: "rgb(255,0,0,0.5)",
+				// height: "100%",
 				...gridPositionCSS(
 					rows[0].elements[1],
 					rows[rows.length - 1].elements[0],
@@ -57,7 +61,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 					relative_spacing,
 					absolute_spacing
 				),
-				overflow: "visible",
+				// overflow: "hidden",
 				...containerStyle,
 			}}
 		>
