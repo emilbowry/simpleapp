@@ -237,7 +237,7 @@ const getRows = (isNarrow = false) => {
 		baseRowElements = isNarrow
 			? [baseRowElements[0], baseRowElements[2]]
 			: baseRowElements;
-		console.log(isNarrow);
+		// console.log(isNarrow);
 		baseRowElements =
 			i % 2 === 0 || isNarrow
 				? baseRowElements
@@ -271,7 +271,7 @@ const theJourneyPage: React.FC = () => {
 	const absolute_spacing = 0;
 
 	// const k = K({ relative_spacing, absolute_spacing });
-	console.log((relative_spacing * Math.sqrt(3)) / 2);
+	// console.log((relative_spacing * Math.sqrt(3)) / 2);
 	return (
 		<div
 			style={

@@ -97,7 +97,7 @@ const PText: React.FC<
 
 const Persona: React.FC<IPersona> = (props) => {
 	const scale = useBrowserScale();
-	console.log(scale.toFixed(2));
+	// console.log(scale.toFixed(2));
 	const {
 		image,
 
