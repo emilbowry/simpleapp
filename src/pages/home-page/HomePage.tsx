@@ -22,5 +22,5 @@ const HomePage = () => (
 		bg={true}
 	/>
 );
-// export default TheJourneyPage;
-export default HomePage;
+export default TheJourneyPage;
+// export default HomePage;

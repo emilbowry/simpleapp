@@ -14,14 +14,20 @@ import {
 	bullseye,
 	pencil,
 	vline,
+	vline2,
 } from "../../components/callingcard/graphics";
-import { generateGradient, volume_constant_size } from "../../styles";
+import {
+	generateGradient,
+	volume_constant_size,
+	volume_constant_size_prime,
+} from "../../styles";
 import {
 	bgwhite,
 	dark_midnight_green,
 	midnight_green,
 } from "../../utils/defaultColours";
 import { BoxedImage } from "../../utils/reactUtils";
+import { K } from "../../components/hexagons/hexagon-row/HexagonRow.styles";
 
 const TimelineData = [
 	{
@@ -125,11 +131,12 @@ const getThirdHex = (index: number) => {
 	}
 	return thirdHexagon;
 };
+const sf = `${volume_constant_size_prime}`;
 const RowHeader: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 	<h3
 		style={{
 			// fontSize: "3vw",
-			fontSize: `calc(2*${volume_constant_size})`,
+			fontSize: `calc(2*${sf})`,
 			// height: "calc(100%)",
 			textAlign: "center",
 
@@ -145,7 +152,7 @@ const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 		style={{
 			// fontSize: "2.5vw",
 			// fontSize: "max(1.8vw,calc(0.8rem*calc(1vw/1vh)))",
-			fontSize: `calc(1.5*${volume_constant_size})`,
+			fontSize: `calc(1.3*${sf})`,
 			wordBreak: "break-word",
 			// marginTop: "1px",
 			textAlign: "center",
@@ -158,7 +165,7 @@ const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 	</p>
 );
 const getRows = (isNarrow = false) => {
-	const colours = generateGradient(TimelineData.length).reverse();
+	const colours = generateGradient(TimelineData.length - 1).reverse();
 
 	return TimelineData.map((item, i) => {
 		const baseRowElements = [
@@ -193,18 +200,31 @@ const getRows = (isNarrow = false) => {
 												flexDirection: "column",
 												justifyContent: "center",
 												margin: "auto",
-												// height: "100%",
+												height: "100%",
 										  }
-										: {}),
+										: {
+												display: "flex",
+												flexDirection: "row",
+												// flexDirection: "column",
+												alignItems: "center",
+												justifyContent: "center",
+												margin: "auto",
+												marginTop: "-25%",
+												marginBottom: "-25%",
+
+												height: "150%",
+										  }),
 									opacity: 1,
 								}}
 								className="aos-ignore"
 							>
 								<BoxedImage
-									image={vline}
-									width="100%"
+									image={vline2(colours[i - 1])}
+									// image={vline}
+
+									width="200%"
 									aspectRatio={`1`}
-									imageStyling={{ margin: "auto" }}
+									imageStyling={{}}
 								/>
 							</div>
 						}
@@ -254,9 +274,20 @@ const theJourneyPage: React.FC = () => {
 			window.removeEventListener("resize", updateLayout);
 		};
 	}, [isNarrow]);
+	const relative_spacing = isNarrow ? 1 : 10;
+	const absolute_spacing = 0;
 
+	// const k = K({ relative_spacing, absolute_spacing });
+	console.log((relative_spacing * Math.sqrt(3)) / 2);
 	return (
-		<div>
+		<div
+			style={
+				{
+					// marginLeft: `-${(relative_spacing * Math.sqrt(3)) / 2}%`,
+					// marginRight: `-${(relative_spacing * Math.sqrt(3)) / 2}%`,
+				}
+			}
+		>
 			<div
 				style={{
 					height: "100%",
@@ -270,7 +301,7 @@ const theJourneyPage: React.FC = () => {
 			/>
 			<HexagonGrid
 				rows={getRows(isNarrow) as any}
-				relative_spacing={isNarrow ? 1 : 10}
+				relative_spacing={relative_spacing}
 				// absolute_spacing={-15}
 				containerStyle={
 					{

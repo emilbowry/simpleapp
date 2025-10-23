@@ -158,6 +158,8 @@ const useBrowserScale = (): number => {
 	return scale;
 };
 const volume_constant_size = "1vw*calc(sqrt(calc(1vw/1vw)*calc(1vh/1vw)))";
+const volume_constant_size_prime =
+	"1vh*calc(sqrt(calc(1vw/1vh)*calc(1vh/1vh)))";
 
 const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
 
@@ -172,5 +174,6 @@ export {
 	styleObjectToString,
 	useBrowserScale,
 	volume_constant_size,
+	volume_constant_size_prime,
 	IS_CHROME,
 };
