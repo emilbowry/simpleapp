@@ -8,11 +8,9 @@
  */
 import React from "react";
 
-import { ValidComponent } from "../../../utils/reactUtils";
 import {
 	ASPECT_RATIO,
 	CONTAINER_per_Element,
-	n,
 	SIDE_SHIFT,
 } from "./HexagonRow.consts";
 import {
@@ -65,16 +63,16 @@ const gapMidpointTranslation: TScalingFunction = ({ relative_spacing = 0 }) =>
  **IMPORTANT**:	- CANNONICALLY DEFINED in terms of item **width**
  */
 const centreYOffset: TDualScalingFunction = (
-	scale_params,
-	hasTopOffset: boolean = true
+	scale_params
 ): [number, number] => {
-	const sign = hasTopOffset ? -1 : 1;
-	return [
-		sign *
-			(centerVertTranslation(scale_params) +
-				gapMidpointTranslation(scale_params)),
-		(sign * scale_params.absolute_spacing) / 2,
-	];
+	return scale_params.index % 2 === (scale_params.upper_first ? 0 : 1)
+		? [
+				-1 *
+					(centerVertTranslation(scale_params) +
+						gapMidpointTranslation(scale_params)),
+				-scale_params.absolute_spacing / 2,
+		  ]
+		: [0, 0];
 };
 const edgeYOffset: TScalingFunction = () => 0;
 /* Since column-gap is our cannonical inner translation we need to maintain the absolute shift */
@@ -92,11 +90,7 @@ const XScaleCorrectionFactor: TScalingFunction = (scale_params) =>
 const edgeXOffset: TDualScalingFunction = (scale_params) => {
 	const halfPoint = (scale_params.n - 1) / 2;
 
-	// const shift_factor = 1; // scale_params.index - halfPoint;
 	const shift_factor = halfPoint - scale_params.index;
-	console.log(scale_params.index, halfPoint);
-	// console.log(halfPoint);
-	// console.log(shift_factor);
 
 	return [
 		shift_factor *
@@ -106,12 +100,7 @@ const edgeXOffset: TDualScalingFunction = (scale_params) => {
 		shift_factor * (-scale_params.absolute_spacing * ASPECT_RATIO),
 	];
 };
-// const edgeXOffset2: TDualScalingFunction = (scale_params) => [
-// 	overlapTranslation(scale_params) +
-// 		PositionCorrectionFactor(scale_params) +
-// 		XScaleCorrectionFactor(scale_params),
-// 	-scale_params.absolute_spacing * ASPECT_RATIO,
-// ];
+
 /* Util Functions */
 const getCalc = (
 	vals: ReturnType<TScalingFunction | TDualScalingFunction>,
@@ -129,51 +118,21 @@ const withCalc: TWithCalc = (fn, dual) => {
 		return getCalc(fn(...(args as [any])), dual) as any;
 	};
 };
-/* not the actual offset just a demo */
-const offset: TDualScalingFunction = (scale_params: IScaleParams) => {
-	return [
-		0,
 
-		0,
-	];
-};
-
-const calculateOffest = withCalc(offset, true);
 const calculateColGap = withCalc(colGap, false);
 
-const centreHexYShift = withCalc(centreYOffset, true);
-// const centreHexXShift = calculateOffest;
+const edgeHexYShift = withCalc(centreYOffset, true);
+const calculateXShift = withCalc(edgeXOffset, true);
 
-const edgeHexYShift = withCalc(edgeYOffset, true);
-const edgeHexXShift = withCalc(edgeXOffset, true);
-// const edgeHexXShift = withCalc(edgeXOffset, false);
-
-const sideStyle = (scale_params: IScaleParams): React.CSSProperties => {
-	const Xshifts = edgeHexXShift(scale_params);
+const elementStyle = (scale_params: IScaleParams): React.CSSProperties => {
+	const Xshifts = calculateXShift(scale_params);
 	const Yshifts = edgeHexYShift(scale_params);
-	console.log(Xshifts);
 	return {
 		marginLeft: Xshifts[0],
 		marginRight: Xshifts[1],
 		marginTop: Yshifts[0],
 		marginBottom: Yshifts[1],
 	};
-};
-const midStyle = (scale_params: IScaleParams): React.CSSProperties => {
-	const Yshifts = centreHexYShift(scale_params);
-	const Xshifts = edgeHexXShift(scale_params);
-
-	return {
-		marginTop: Yshifts[0],
-		marginBottom: `calc(${Yshifts[1]})`,
-		marginLeft: Xshifts[0],
-		marginRight: Xshifts[1],
-	};
-};
-const elementStyle = (scale_params: IScaleParams): React.CSSProperties => {
-	return scale_params.index % 2 == 0
-		? sideStyle(scale_params)
-		: midStyle(scale_params);
 };
 
 /**
@@ -265,15 +224,13 @@ const container = (
 };
 
 const wrapper = (
-	midTop: ValidComponent,
-	lBot: ValidComponent,
-	rBot: ValidComponent,
-
+	topExtension: boolean,
+	bottomExtension: boolean,
 	length: number,
+	n: number,
 	relative_spacing: number,
 	absolute_spacing: number,
-	index = 0,
-	n: number = 3
+	index = 0
 ) => {
 	const k = K({ relative_spacing, absolute_spacing, n, index });
 	const base_row_height = ((3 / 2) * (1 / ASPECT_RATIO) * 100) / 3;
@@ -282,18 +239,22 @@ const wrapper = (
 		(base_row_height * (1 / 3) * (relative_spacing / 100)) / k;
 	const relative_correction_top =
 		(base_row_height * (1 / 3) * (1 + relative_spacing / 100)) / k;
-	const rel_padding_bottom_offset = lBot === null && rBot === null ? 2 : 1;
-	const rel_padding_top_factor = midTop === null ? 0 : 1;
-	const abs_padding_bottom_offset = lBot === null && rBot === null ? 1.5 : 1;
-	const abs_padding_top_factor = midTop === null ? 0 : 0.5;
 
+	const rel_padding_top_factor = !topExtension ? 0 : 1;
+	const abs_padding_top_factor = !topExtension ? 0 : 0.5;
+
+	const rel_padding_bottom_offset = !bottomExtension ? 2 : 1;
+	const abs_padding_bottom_offset = !bottomExtension ? 1.5 : 1;
+
+	const hasTwoEls = n === 2;
+	const correction = hasTwoEls ? 1.5 : 1;
 	return {
 		paddingTop: `calc(${
-			rel_padding_top_factor * relative_correction_top
-		}% + ${absolute_spacing * abs_padding_top_factor}px)`,
+			correction * rel_padding_top_factor * relative_correction_top
+		}% + ${absolute_spacing * correction * abs_padding_top_factor}px)`,
 
 		paddingBottom: `calc(${
-			(length - rel_padding_bottom_offset) * 2 * relative_correction_bot
+			(length - rel_padding_bottom_offset) * 1 * relative_correction_bot
 		}% + ${absolute_spacing * (length - abs_padding_bottom_offset)}px)`,
 	};
 };

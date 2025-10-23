@@ -20,6 +20,7 @@ type IScaleParams = {
 	absolute_spacing: number;
 	n: number;
 	index: number;
+	upper_first?: boolean;
 };
 
 type TScalingFunction = (scale_params: IScaleParams) => number;

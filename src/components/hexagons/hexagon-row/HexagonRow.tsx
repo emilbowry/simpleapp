@@ -14,6 +14,7 @@ const HexagonRow: React.FC<THexRowLayoutProps> = ({
 	elements,
 	relative_spacing,
 	absolute_spacing,
+	upper_first = false,
 	n,
 }) => {
 	return (
@@ -23,6 +24,7 @@ const HexagonRow: React.FC<THexRowLayoutProps> = ({
 					style={elementStyle({
 						relative_spacing,
 						absolute_spacing,
+						upper_first,
 						index,
 						n,
 					})}
@@ -39,23 +41,31 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 	rows,
 	relative_spacing = DEFAULT_RELATIVE_SPACING,
 	absolute_spacing = DEFAULT_ABSOLUTE_SPACING,
+	upper_first = false,
 	containerStyle = {},
 	class_name,
 }) => {
 	const length = rows.length;
 	const n = rows[0].elements.length;
+	const topExtension = rows[0].elements.some(
+		(el, index) => index % 2 === (upper_first ? 0 : 1) && el !== null
+	);
+
+	const bottomExtension = rows[length - 1].elements.some(
+		(el, index) => index % 2 === (upper_first ? 0 : 1) && el !== null
+	);
+
 	return (
 		<div
 			className={class_name ?? ""}
 			style={{
 				...wrapper(
-					rows[0].elements[1],
-					rows[rows.length - 1].elements[0],
-					rows[rows.length - 1].elements[2],
+					topExtension,
+					bottomExtension,
 					length,
+					n,
 					relative_spacing,
-					absolute_spacing,
-					n
+					absolute_spacing
 				),
 				...containerStyle,
 			}}
@@ -67,6 +77,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 					<HexagonRow
 						key={_index}
 						n={n}
+						upper_first={upper_first}
 						elements={row.elements}
 						relative_spacing={relative_spacing}
 						absolute_spacing={absolute_spacing}

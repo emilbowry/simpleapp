@@ -136,7 +136,7 @@ const RowHeader: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 	<h3
 		style={{
 			// fontSize: "3vw",
-			fontSize: `calc(2*${sf})`,
+			fontSize: `calc(3*${sf})`,
 			// height: "calc(100%)",
 			textAlign: "center",
 
@@ -152,7 +152,7 @@ const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 		style={{
 			// fontSize: "2.5vw",
 			// fontSize: "max(1.8vw,calc(0.8rem*calc(1vw/1vh)))",
-			fontSize: `calc(1.3*${sf})`,
+			fontSize: `calc(1.8*${sf})`,
 			wordBreak: "break-word",
 			// marginTop: "1px",
 			textAlign: "center",
@@ -164,11 +164,12 @@ const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
 		{children}
 	</p>
 );
+
 const getRows = (isNarrow = false) => {
-	const colours = generateGradient(TimelineData.length - 1).reverse();
+	const colours = generateGradient(TimelineData.length).reverse();
 
 	return TimelineData.map((item, i) => {
-		const baseRowElements = [
+		let baseRowElements = [
 			<Hexagon
 				args={{ colour: bgwhite }}
 				element={
@@ -180,56 +181,54 @@ const getRows = (isNarrow = false) => {
 						  ]
 				}
 				opacity={1}
-				useVerticalAlignment={!isNarrow}
-				// useVerticalAlignment={true}
+				// useVerticalAlignment={!isNarrow}
+				useVerticalAlignment={true}
 			/>,
 
 			isNarrow ? (
-				i === 0 ? null : (
-					<Hexagon
-						args={{
-							colour: "white",
-						}}
-						opacity={1}
-						element={
-							<div
-								style={{
-									...(!isNarrow
-										? {
-												display: "flex",
-												flexDirection: "column",
-												justifyContent: "center",
-												margin: "auto",
-												height: "100%",
-										  }
-										: {
-												display: "flex",
-												flexDirection: "row",
-												// flexDirection: "column",
-												alignItems: "center",
-												justifyContent: "center",
-												margin: "auto",
-												marginTop: "-25%",
-												marginBottom: "-25%",
+				<Hexagon
+					args={{
+						colour: "white",
+					}}
+					opacity={1}
+					element={
+						<div
+							style={{
+								...(!isNarrow
+									? {
+											display: "flex",
+											flexDirection: "column",
+											justifyContent: "center",
+											margin: "auto",
+											height: "100%",
+									  }
+									: {
+											display: "flex",
+											flexDirection: "row",
+											// flexDirection: "column",
+											alignItems: "center",
+											justifyContent: "center",
+											margin: "auto",
+											marginTop: "-25%",
+											marginBottom: "-25%",
 
-												height: "150%",
-										  }),
-									opacity: 1,
-								}}
-								className="aos-ignore"
-							>
-								<BoxedImage
-									image={vline2(colours[i - 1])}
-									// image={vline}
+											height: "150%",
+									  }),
+								opacity: 1,
+							}}
+							className="aos-ignore"
+						>
+							<BoxedImage
+								image={vline2(colours[i - 1])}
+								// image={vline}
 
-									width="200%"
-									aspectRatio={`1`}
-									imageStyling={{}}
-								/>
-							</div>
-						}
-					/>
-				)
+								width="200%"
+								aspectRatio={`1`}
+								imageStyling={{}}
+							/>
+						</div>
+					}
+				/>
 			) : (
 				<Hexagon args={{ colour: colours[i] }} />
 			),
@@ -245,16 +244,20 @@ const getRows = (isNarrow = false) => {
 				getThirdHex(i)
 			),
 		];
+		baseRowElements = isNarrow
+			? [baseRowElements[0], baseRowElements[2]]
+			: baseRowElements;
+		console.log(isNarrow);
+		baseRowElements =
+			i % 2 === 0 || isNarrow
+				? baseRowElements
+				: baseRowElements.reverse();
 
 		return {
-			elements:
-				i % 2 === 0 || isNarrow
-					? baseRowElements
-					: baseRowElements.reverse(),
+			elements: baseRowElements,
 		};
 	});
 };
-
 const theJourneyPage: React.FC = () => {
 	const LAYOUT_BREAKPOINT = 1200;
 
@@ -302,6 +305,8 @@ const theJourneyPage: React.FC = () => {
 			<HexagonGrid
 				rows={getRows(isNarrow) as any}
 				relative_spacing={relative_spacing}
+				absolute_spacing={absolute_spacing}
+				upper_first={isNarrow}
 				containerStyle={
 					{
 						// overflow: "clip",
