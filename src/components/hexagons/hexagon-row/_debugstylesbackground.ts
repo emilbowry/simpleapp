@@ -3,20 +3,22 @@ Defining a debugging background
 */
 
 import {
-	ABSOLUTE_SPACING,
+	DEFAULT_ABSOLUTE_SPACING,
 	ASPECT_RATIO,
-	RELATIVE_SPACING,
+	DEFAULT_RELATIVE_SPACING,
 } from "./HexagonRow.consts";
 import { K } from "./HexagonRow.styles";
 const debug_background = ({
-	relative_spacing = RELATIVE_SPACING,
-	absolute_spacing = ABSOLUTE_SPACING,
+	relative_spacing = DEFAULT_RELATIVE_SPACING,
+	absolute_spacing = DEFAULT_ABSOLUTE_SPACING,
 }) => {
 	const offset =
 		(relative_spacing *
 			K({
 				relative_spacing: relative_spacing / ASPECT_RATIO,
 				absolute_spacing,
+				n: 3,
+				index: 0,
 			})) /
 		(2 * ASPECT_RATIO);
 

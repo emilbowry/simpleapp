@@ -2,66 +2,60 @@
 
 import React from "react";
 import { formatComponent } from "../../../utils/reactUtils";
-import {
-	container,
-	gridPositionCSS,
-	midStyle,
-	sideStyle,
-} from "./HexagonRow.styles";
+import { container, wrapper, elementStyle } from "./HexagonRow.styles";
 import { IHexagonGridElements, THexRowLayoutProps } from "./HexagonRow.types";
 
-// import { ABSOLUTE_SPACING, RELATIVE_SPACING } from "./HexagonRow.consts";
+import {
+	DEFAULT_ABSOLUTE_SPACING,
+	DEFAULT_RELATIVE_SPACING,
+} from "./HexagonRow.consts";
 
 const HexagonRow: React.FC<THexRowLayoutProps> = ({
 	elements,
 	relative_spacing,
 	absolute_spacing,
+	n,
 }) => {
 	return (
 		<>
-			<div
-				style={sideStyle({ relative_spacing, absolute_spacing }, true)}
-			>
-				{formatComponent(elements[0], true)}
-			</div>
-			<div style={midStyle({ relative_spacing, absolute_spacing })}>
-				{formatComponent(elements[1], true)}
-			</div>
-			<div
-				style={sideStyle({ relative_spacing, absolute_spacing }, false)}
-			>
-				{formatComponent(elements[2], true)}
-			</div>
+			{elements.map((el, index) => (
+				<div
+					style={elementStyle({
+						relative_spacing,
+						absolute_spacing,
+						index,
+						n,
+					})}
+				>
+					{formatComponent(el, true)}
+				</div>
+			))}
 		</>
 	);
 };
-const RELATIVE_SPACING: number = 10;
-const ABSOLUTE_SPACING = 0;
 
 const HexagonGrid: React.FC<IHexagonGridElements> = ({
 	rows,
-	relative_spacing = RELATIVE_SPACING,
-	absolute_spacing = ABSOLUTE_SPACING,
+	relative_spacing = DEFAULT_RELATIVE_SPACING,
+	absolute_spacing = DEFAULT_ABSOLUTE_SPACING,
 	containerStyle = {},
 	class_name,
 }) => {
 	const length = rows.length;
-
+	const n = rows[0].elements.length;
 	return (
 		<div
 			className={class_name ?? ""}
 			style={{
-				// background: "rgb(255,0,0,0.5)",
-				// height: "100%",
-				...gridPositionCSS(
+				...wrapper(
 					rows[0].elements[1],
 					rows[rows.length - 1].elements[0],
 					rows[rows.length - 1].elements[2],
 					length,
 					relative_spacing,
-					absolute_spacing
+					absolute_spacing,
+					n
 				),
-				// overflow: "hidden",
 				...containerStyle,
 			}}
 		>
@@ -69,6 +63,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 				{rows.map((row, _index) => (
 					<HexagonRow
 						key={_index}
+						n={3}
 						elements={row.elements}
 						relative_spacing={relative_spacing}
 						absolute_spacing={absolute_spacing}

@@ -13,7 +13,6 @@ import {
 	ASPECT_RATIO,
 	CONTAINER_per_Element,
 	n,
-	RELATIVE_SPACING,
 	SIDE_SHIFT,
 } from "./HexagonRow.consts";
 import {
@@ -48,7 +47,8 @@ const rowGap: TDualScalingFunction = ({
 		k = n/(n-(n-1).(x/100))
  */
 const K: TScalingFunction = (scale_params) =>
-	n / (n - (n - 1) * (colGap(scale_params) / 100));
+	scale_params.n /
+	(scale_params.n - (scale_params.n - 1) * (colGap(scale_params) / 100));
 /*
 SCALING CORRECTION FACTOR RESULTS
 */
@@ -112,29 +112,34 @@ const withCalc: TWithCalc = (fn, dual) => {
 		return getCalc(fn(...(args as [any])), dual) as any;
 	};
 };
+const offset: TDualScalingFunction = (scale_params: IScaleParams) => [
+	Math.floor(scale_params.index / 3) * edgeXOffset(scale_params)[0],
+	Math.floor(scale_params.index / 3) * edgeXOffset(scale_params)[1],
+];
 
+const calculateOffest = withCalc(offset, true);
 const calculateColGap = withCalc(colGap, false);
 
 const centreHexYShift = withCalc(centreYOffset, true);
+const centreHexXShift = calculateOffest;
 
 const edgeHexYShift = withCalc(edgeYOffset, true);
 const edgeHexXShift = withCalc(edgeXOffset, true);
 
-const sideStyle = (
-	scale_params: IScaleParams,
-	isLeft: boolean = true
-): React.CSSProperties => {
+const sideStyle = (scale_params: IScaleParams): React.CSSProperties => {
+	const isLeft = scale_params.index % 4 === 0;
 	const Xshifts = edgeHexXShift(scale_params);
 	const Yshifts = edgeHexYShift(scale_params);
+	const offsets = calculateOffest(scale_params, scale_params.index).reverse();
 	return {
 		...(isLeft
 			? {
-					marginLeft: Xshifts[0],
-					marginRight: Xshifts[1],
+					marginLeft: `calc(${Xshifts[0]} + ${offsets[0]})`,
+					marginRight: `calc(${Xshifts[1]} + ${offsets[1]})`,
 			  }
 			: {
-					marginRight: Xshifts[0],
-					marginLeft: Xshifts[1],
+					marginRight: `calc(${Xshifts[0]} + ${offsets[1]})`,
+					marginLeft: `calc(${Xshifts[1]} + ${offsets[0]})`,
 			  }),
 		marginTop: Yshifts[0],
 		marginBottom: Yshifts[1],
@@ -142,13 +147,18 @@ const sideStyle = (
 };
 const midStyle = (scale_params: IScaleParams): React.CSSProperties => {
 	const Yshifts = centreHexYShift(scale_params);
+	const offsets = centreHexXShift(scale_params, scale_params.index).reverse();
 	return {
-		// background: "rgb(0,0,255,0.1)",
-		// border: "1px solid black",
 		marginTop: Yshifts[0],
 		marginBottom: `calc(${Yshifts[1]})`,
-		// height: `calc(calc(${Yshifts[1]}) )`,
+		marginLeft: offsets[0],
+		marginRight: offsets[1],
 	};
+};
+const elementStyle = (scale_params: IScaleParams): React.CSSProperties => {
+	return scale_params.index % 2 == 0
+		? sideStyle(scale_params)
+		: midStyle(scale_params);
 };
 
 /**
@@ -192,36 +202,25 @@ const rowHeight: TDualScalingFunction = (scale_params, length: number) => [
 ];
 const calculateRowHeight = withCalc(rowHeight, false);
 const calculateRowGap = withCalc(rowGap, false);
-
 const container = (
 	_relative_spacing: number = 0,
 	absolute_spacing: number = 0,
 	length: number = 1,
 	useRowGap = false,
-	useDebugBackground = false
+	useDebugBackground = false,
+	n = 3,
+	index = 0
 ): React.CSSProperties => {
 	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
 	const row_rel_spacing = _relative_spacing / length;
-	const k = K({
-		relative_spacing: _relative_spacing,
-		absolute_spacing,
-	});
-	const Yshifts = centreHexYShift({
-		relative_spacing: row_rel_spacing,
-		absolute_spacing,
-	})[1];
-	// console.log(k);
-	// console.log(50 / ASPECT_RATIO / 3);
-	// console.log(k * (100 / length));
-	// console.log(Yshifts);
 
 	return {
-		// border: "1px red solid",
-		// background: "rgb(255,0,0,0.5)",
 		...background_override(
 			{
 				relative_spacing: row_rel_spacing,
 				absolute_spacing,
+				n,
+				index,
 			},
 			useDebugBackground
 		),
@@ -229,6 +228,8 @@ const container = (
 			{
 				relative_spacing: row_rel_spacing,
 				absolute_spacing,
+				n,
+				index,
 			},
 			length,
 			useRowGap
@@ -238,6 +239,8 @@ const container = (
 		columnGap: calculateColGap({
 			relative_spacing: col_rel_spacing,
 			absolute_spacing,
+			n,
+			index,
 		}),
 		display: "grid",
 		gridTemplateColumns: `repeat(${n}, 1fr)`,
@@ -245,16 +248,18 @@ const container = (
 	};
 };
 
-const gridPositionCSS = (
+const wrapper = (
 	midTop: ValidComponent,
 	lBot: ValidComponent,
 	rBot: ValidComponent,
 
 	length: number,
 	relative_spacing: number,
-	absolute_spacing: number
+	absolute_spacing: number,
+	index = 0,
+	n: number = 3
 ) => {
-	const k = K({ relative_spacing, absolute_spacing });
+	const k = K({ relative_spacing, absolute_spacing, n, index });
 	const base_row_height = ((3 / 2) * (1 / ASPECT_RATIO) * 100) / 3;
 
 	const relative_correction_bot =
@@ -277,4 +282,4 @@ const gridPositionCSS = (
 	};
 };
 
-export { container, gridPositionCSS, K, midStyle, sideStyle };
+export { container, wrapper, K, elementStyle };

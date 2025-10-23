@@ -6,7 +6,7 @@ interface IHexagonRowElements {
 	len?: number;
 }
 
-type THexRowLayoutProps = IHexagonRowElements & IScaleParams;
+type THexRowLayoutProps = IHexagonRowElements & Omit<IScaleParams, "index">;
 
 interface IHexagonGridElements extends Partial<THexRowLayoutProps> {
 	rows: IHexagonRowElements[];
@@ -18,6 +18,8 @@ interface IHexagonGridElements extends Partial<THexRowLayoutProps> {
 type IScaleParams = {
 	relative_spacing: number;
 	absolute_spacing: number;
+	n: number;
+	index: number;
 };
 
 type TScalingFunction = (scale_params: IScaleParams) => number;

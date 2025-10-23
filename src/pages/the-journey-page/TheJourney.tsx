@@ -188,7 +188,7 @@ const getRows = (isNarrow = false) => {
 				i === 0 ? null : (
 					<Hexagon
 						args={{
-							colour: "transparent",
+							colour: "white",
 						}}
 						opacity={1}
 						element={
@@ -302,7 +302,6 @@ const theJourneyPage: React.FC = () => {
 			<HexagonGrid
 				rows={getRows(isNarrow) as any}
 				relative_spacing={relative_spacing}
-				// absolute_spacing={-15}
 				containerStyle={
 					{
 						// overflow: "clip",
