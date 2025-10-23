@@ -1,5 +1,5 @@
 // src/utils/reactUtils.tsx
-import React, { useMemo } from "react";
+import React from "react";
 import { get_data_uri, stringifySVG } from "./misc/image-handelling";
 
 export const wrapLink = (

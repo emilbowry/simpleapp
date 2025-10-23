@@ -74,7 +74,6 @@ const centreYOffset: TDualScalingFunction = (
 		  ]
 		: [0, 0];
 };
-const edgeYOffset: TScalingFunction = () => 0;
 /* Since column-gap is our cannonical inner translation we need to maintain the absolute shift */
 
 const overlapTranslation: TScalingFunction = (scale_params) => {

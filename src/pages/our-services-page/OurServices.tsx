@@ -56,36 +56,39 @@ const tserv = {
 	],
 };
 
-const ourServicesFeatureCallouts = (
-	renderIcon = true,
-	scale_adjustement = 1
-) => [
+const ourServicesFeatureCallouts = (renderIcon = true) => [
 	[
-		<BoxedImage
-			image={bulb}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>,
+		renderIcon ?? (
+			<BoxedImage
+				image={bulb}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
 		<div style={titleStyle}>Our Work</div>,
 	],
 	[
-		<BoxedImage
-			image={bullseye}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>,
+		renderIcon ?? (
+			<BoxedImage
+				image={bullseye}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
 		<div style={titleStyle}>Our Vision</div>,
 	],
 
 	[
-		<BoxedImage
-			image={pencil}
-			width="30%"
-			aspectRatio="1"
-			imageStyling={imageStyling}
-		/>,
+		renderIcon ?? (
+			<BoxedImage
+				image={pencil}
+				width="30%"
+				aspectRatio="1"
+				imageStyling={imageStyling}
+			/>
+		),
 
 		<div style={titleStyle}>Our Work</div>,
 	],

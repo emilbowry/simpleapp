@@ -57,7 +57,7 @@ const wGif = (
 		})}
 	</div>
 );
-const aboutUsFeatureCallouts = (renderIcon = true, scale_adjustement = 1) => [
+const aboutUsFeatureCallouts = (renderIcon = true) => [
 	[
 		renderIcon && (
 			<BoxedImage
@@ -149,7 +149,7 @@ const AboutUsCallingCard: React.FC = () => {
 				sideBar={{ components: [<Foot />], header: head }}
 				footer={
 					<PointedtopHexagonFeatureGrid
-						featureCallouts={aboutUsFeatureCallouts(!IS_CHROME, 1)} // seems odd that it doesnt work on android
+						featureCallouts={aboutUsFeatureCallouts(!IS_CHROME)} // seems odd that it doesnt work on android
 						useVerticalAlignment={true}
 						hexagonArgs={hStyle}
 						theme={-1}

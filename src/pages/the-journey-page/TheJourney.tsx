@@ -9,25 +9,14 @@ import { Page } from "../../features/page/Page";
 import bw1 from "../../assets/bw1.jpg";
 import bw2 from "../../assets/bw2.jpg";
 import bw3 from "../../assets/bw3.jpg";
-import {
-	bulb,
-	bullseye,
-	pencil,
-	vline,
-	vline2,
-} from "../../components/callingcard/graphics";
-import {
-	generateGradient,
-	volume_constant_size,
-	volume_constant_size_prime,
-} from "../../styles";
+import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import { generateGradient, volume_constant_size_prime } from "../../styles";
 import {
 	bgwhite,
 	dark_midnight_green,
 	midnight_green,
 } from "../../utils/defaultColours";
 import { BoxedImage } from "../../utils/reactUtils";
-import { K } from "../../components/hexagons/hexagon-row/HexagonRow.styles";
 
 const TimelineData = [
 	{
@@ -186,49 +175,50 @@ const getRows = (isNarrow = false) => {
 			/>,
 
 			isNarrow ? (
-				<Hexagon
-					args={{
-						colour: "white",
-					}}
-					opacity={1}
-					element={
-						<div
-							style={{
-								...(!isNarrow
-									? {
-											display: "flex",
-											flexDirection: "column",
-											justifyContent: "center",
-											margin: "auto",
-											height: "100%",
-									  }
-									: {
-											display: "flex",
-											flexDirection: "row",
-											// flexDirection: "column",
-											alignItems: "center",
-											justifyContent: "center",
-											margin: "auto",
-											marginTop: "-25%",
-											marginBottom: "-25%",
+				// <Hexagon
+				// 	args={{
+				// 		colour: "white",
+				// 	}}
+				// 	opacity={1}
+				// 	element={
+				// 		<div
+				// 			style={{
+				// 				...(!isNarrow
+				// 					? {
+				// 							display: "flex",
+				// 							flexDirection: "column",
+				// 							justifyContent: "center",
+				// 							margin: "auto",
+				// 							height: "100%",
+				// 					  }
+				// 					: {
+				// 							display: "flex",
+				// 							flexDirection: "row",
+				// 							// flexDirection: "column",
+				// 							alignItems: "center",
+				// 							justifyContent: "center",
+				// 							margin: "auto",
+				// 							marginTop: "-25%",
+				// 							marginBottom: "-25%",
 
-											height: "150%",
-									  }),
-								opacity: 1,
-							}}
-							className="aos-ignore"
-						>
-							<BoxedImage
-								image={vline2(colours[i - 1])}
-								// image={vline}
+				// 							height: "150%",
+				// 					  }),
+				// 				opacity: 1,
+				// 			}}
+				// 			className="aos-ignore"
+				// 		>
+				// 			<BoxedImage
+				// 				image={vline2(colours[i - 1])}
+				// 				// image={vline}
 
-								width="200%"
-								aspectRatio={`1`}
-								imageStyling={{}}
-							/>
-						</div>
-					}
-				/>
+				// 				width="200%"
+				// 				aspectRatio={`1`}
+				// 				imageStyling={{}}
+				// 			/>
+				// 		</div>
+				// 	}
+				// />
+				<></>
 			) : (
 				<Hexagon args={{ colour: colours[i] }} />
 			),
