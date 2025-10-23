@@ -26,6 +26,7 @@ const HexagonRow: React.FC<THexRowLayoutProps> = ({
 						index,
 						n,
 					})}
+					key={index}
 				>
 					{formatComponent(el, true)}
 				</div>
@@ -59,11 +60,13 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 				...containerStyle,
 			}}
 		>
-			<div style={container(relative_spacing, absolute_spacing, length)}>
+			<div
+				style={container(relative_spacing, absolute_spacing, length, n)}
+			>
 				{rows.map((row, _index) => (
 					<HexagonRow
 						key={_index}
-						n={3}
+						n={n}
 						elements={row.elements}
 						relative_spacing={relative_spacing}
 						absolute_spacing={absolute_spacing}

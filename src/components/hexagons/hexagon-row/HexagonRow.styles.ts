@@ -79,8 +79,9 @@ const centreYOffset: TDualScalingFunction = (
 const edgeYOffset: TScalingFunction = () => 0;
 /* Since column-gap is our cannonical inner translation we need to maintain the absolute shift */
 
-const overlapTranslation: TScalingFunction = (scale_params) =>
-	SIDE_SHIFT * K(scale_params) * 1;
+const overlapTranslation: TScalingFunction = (scale_params) => {
+	return SIDE_SHIFT * K(scale_params) * 1;
+};
 /* overlapTranslation would shift the sclaed hexagon correctly if the centered at the same point */
 
 const PositionCorrectionFactor: TScalingFunction = (scale_params) =>
@@ -88,13 +89,29 @@ const PositionCorrectionFactor: TScalingFunction = (scale_params) =>
 
 const XScaleCorrectionFactor: TScalingFunction = (scale_params) =>
 	(K(scale_params) * scale_params.relative_spacing) / 4;
-const edgeXOffset: TDualScalingFunction = (scale_params) => [
-	overlapTranslation(scale_params) +
-		PositionCorrectionFactor(scale_params) +
-		XScaleCorrectionFactor(scale_params),
-	-scale_params.absolute_spacing * ASPECT_RATIO,
-];
+const edgeXOffset: TDualScalingFunction = (scale_params) => {
+	const halfPoint = (scale_params.n - 1) / 2;
 
+	// const shift_factor = 1; // scale_params.index - halfPoint;
+	const shift_factor = halfPoint - scale_params.index;
+	console.log(scale_params.index, halfPoint);
+	// console.log(halfPoint);
+	// console.log(shift_factor);
+
+	return [
+		shift_factor *
+			(overlapTranslation(scale_params) +
+				PositionCorrectionFactor(scale_params) +
+				XScaleCorrectionFactor(scale_params)),
+		shift_factor * (-scale_params.absolute_spacing * ASPECT_RATIO),
+	];
+};
+// const edgeXOffset2: TDualScalingFunction = (scale_params) => [
+// 	overlapTranslation(scale_params) +
+// 		PositionCorrectionFactor(scale_params) +
+// 		XScaleCorrectionFactor(scale_params),
+// 	-scale_params.absolute_spacing * ASPECT_RATIO,
+// ];
 /* Util Functions */
 const getCalc = (
 	vals: ReturnType<TScalingFunction | TDualScalingFunction>,
@@ -112,47 +129,45 @@ const withCalc: TWithCalc = (fn, dual) => {
 		return getCalc(fn(...(args as [any])), dual) as any;
 	};
 };
-const offset: TDualScalingFunction = (scale_params: IScaleParams) => [
-	Math.floor(scale_params.index / 3) * edgeXOffset(scale_params)[0],
-	Math.floor(scale_params.index / 3) * edgeXOffset(scale_params)[1],
-];
+/* not the actual offset just a demo */
+const offset: TDualScalingFunction = (scale_params: IScaleParams) => {
+	return [
+		0,
+
+		0,
+	];
+};
 
 const calculateOffest = withCalc(offset, true);
 const calculateColGap = withCalc(colGap, false);
 
 const centreHexYShift = withCalc(centreYOffset, true);
-const centreHexXShift = calculateOffest;
+// const centreHexXShift = calculateOffest;
 
 const edgeHexYShift = withCalc(edgeYOffset, true);
 const edgeHexXShift = withCalc(edgeXOffset, true);
+// const edgeHexXShift = withCalc(edgeXOffset, false);
 
 const sideStyle = (scale_params: IScaleParams): React.CSSProperties => {
-	const isLeft = scale_params.index % 4 === 0;
 	const Xshifts = edgeHexXShift(scale_params);
 	const Yshifts = edgeHexYShift(scale_params);
-	const offsets = calculateOffest(scale_params, scale_params.index).reverse();
+	console.log(Xshifts);
 	return {
-		...(isLeft
-			? {
-					marginLeft: `calc(${Xshifts[0]} + ${offsets[0]})`,
-					marginRight: `calc(${Xshifts[1]} + ${offsets[1]})`,
-			  }
-			: {
-					marginRight: `calc(${Xshifts[0]} + ${offsets[1]})`,
-					marginLeft: `calc(${Xshifts[1]} + ${offsets[0]})`,
-			  }),
+		marginLeft: Xshifts[0],
+		marginRight: Xshifts[1],
 		marginTop: Yshifts[0],
 		marginBottom: Yshifts[1],
 	};
 };
 const midStyle = (scale_params: IScaleParams): React.CSSProperties => {
 	const Yshifts = centreHexYShift(scale_params);
-	const offsets = centreHexXShift(scale_params, scale_params.index).reverse();
+	const Xshifts = edgeHexXShift(scale_params);
+
 	return {
 		marginTop: Yshifts[0],
 		marginBottom: `calc(${Yshifts[1]})`,
-		marginLeft: offsets[0],
-		marginRight: offsets[1],
+		marginLeft: Xshifts[0],
+		marginRight: Xshifts[1],
 	};
 };
 const elementStyle = (scale_params: IScaleParams): React.CSSProperties => {
@@ -206,9 +221,10 @@ const container = (
 	_relative_spacing: number = 0,
 	absolute_spacing: number = 0,
 	length: number = 1,
+	n: number,
+
 	useRowGap = false,
 	useDebugBackground = false,
-	n = 3,
 	index = 0
 ): React.CSSProperties => {
 	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
