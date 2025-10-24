@@ -1,14 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-// Convert module.exports to a function that accepts env and argv
 module.exports = (env, argv) => {
-	// 1. Determine the mode and if it's a production build
 	const isProduction = argv.mode === "production";
 
-	// 2. Return the configuration object
 	return {
-		// Use the mode passed from the CLI
 		mode: isProduction ? "production" : "development",
 
 		entry: path.resolve(__dirname, "src/index.tsx"),
