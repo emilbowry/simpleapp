@@ -6,7 +6,7 @@ import "./../public/apple-touch-icon.png";
 import "./../public/favicon-16x16.png";
 import "./../public/favicon-32x32.png";
 import "./../public/favicon.ico";
-import "./../public/manifest.json";
+import "./../public/site.webmanifest";
 import App from "./App";
 import { store } from "./store";
 const root = createRoot(document.getElementById("root")!);
