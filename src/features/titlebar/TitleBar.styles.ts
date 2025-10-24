@@ -5,8 +5,8 @@ import { VISIBLE_TITLEBAR_HEIGHT } from "./TitleBar.consts";
 const hamburgerStyle: React.CSSProperties = {
 	background: "none",
 	border: "none",
-	cursor: "none",
 	marginLeft: "1rem",
+	color: "#333",
 };
 
 const interactionWrapperStyles: React.CSSProperties = {
@@ -61,8 +61,6 @@ const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	...linkStyle(isUnderlined),
 	transition: "background-size 0.3s ease-in",
 	padding: 0,
-	// fontSize: "1rem",
-	// fontSize: `calc(1.5*${volume_constant_size})`,
 	cursor: "none",
 });
 const dropdownStyles: React.CSSProperties = {
@@ -133,9 +131,6 @@ const pillBarOverrides: React.CSSProperties = {
 	backdropFilter: "blur(8px)",
 	margin: "0 5%",
 	marginTop: "3rem",
-	// fontSize: "10%",
-	// marginRight: "10%",
-	// marginLeft: "10%",
 };
 export {
 	dropdownContainerStyles,

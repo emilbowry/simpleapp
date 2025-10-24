@@ -11,23 +11,19 @@ import {
 
 import { SideBarCallingCard } from "../../../../components/callingcard/CallingCard";
 import { SideBarOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
-import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
+import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { partners } from "../../../../components/partnership-bar/Partner";
 import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
+import { IS_CHROME } from "../../../../hooks/BrowserDependant";
+import { volume_constant_size } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
-import {
-	BoxedImage,
-	getImageEl,
-	// isAndroid,
-} from "../../../../utils/reactUtils";
+import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import {
 	footerStyle,
 	hStyle,
 	imageStyling,
 	titleStyle,
 } from "./AboutUs.styles";
-import { volume_constant_size } from "../../../../styles";
-import { IS_CHROME } from "../../../../hooks/BrowserDependant";
 const head = (
 	<h2 style={{ fontSize: `calc(3*${volume_constant_size})` }}>About Us</h2>
 );
@@ -66,7 +62,6 @@ const aboutUsFeatureCallouts = (renderIcon = true) => [
 				aspectRatio="1"
 				imageStyling={{
 					...imageStyling,
-					// scale: `${Math.sqrt(scale_adjustement)}`,
 				}}
 			/>
 		),
@@ -83,9 +78,6 @@ const aboutUsFeatureCallouts = (renderIcon = true) => [
 				aspectRatio="1"
 				imageStyling={{
 					...imageStyling,
-					// scale: `${1 / Math.sqrt(scale_adjustement)}`,
-
-					// scale: `${1 / scale_adjustement}`,
 				}}
 			/>
 		),
@@ -104,9 +96,6 @@ const aboutUsFeatureCallouts = (renderIcon = true) => [
 				aspectRatio="1"
 				imageStyling={{
 					...imageStyling,
-					// scale: `${Math.sqrt(scale_adjustement)}`,
-
-					// scale: `${1 / scale_adjustement}`,
 				}}
 				wrapperStyling={{
 					position: "relative",
@@ -128,6 +117,8 @@ const AboutUsCallingCard: React.FC = () => {
 	// const scale_adj = useBrowserScale();
 	return (
 		<>
+			{/* <div style={BackgroundFade} /> */}
+
 			<SideBarCallingCard
 				components={[wGif]}
 				header={
@@ -138,6 +129,7 @@ const AboutUsCallingCard: React.FC = () => {
 							display: "flex",
 							flexDirection: "column",
 							justifyContent: "center",
+							padding: "2%",
 						}}
 					>
 						<PartnershipWall

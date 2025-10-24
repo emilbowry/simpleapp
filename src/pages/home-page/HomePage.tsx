@@ -1,8 +1,10 @@
 import React from "react";
 import { Page } from "../../features/page/Page";
+// import TheJourneyPage from "../the-journey-page/TheJourney";
 import { AboutUsCallingCard } from "./parts/about-us/AboutUs";
 import { Hero } from "./parts/hero/Hero";
 import { ImpactCC } from "./parts/impact/impact";
+import { KeyPartnersCallingCard } from "./parts/key-partners/KeyPartners";
 import { OurTeam } from "./parts/ourteam/OurTeam";
 const homePage: React.FC = () => {
 	return (
@@ -11,6 +13,7 @@ const homePage: React.FC = () => {
 			<OurTeam />
 			<AboutUsCallingCard />
 			<ImpactCC />
+			<KeyPartnersCallingCard />
 		</div>
 	);
 };

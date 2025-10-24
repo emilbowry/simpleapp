@@ -3,13 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { TRAIL_SPEED } from "./Cursor.consts";
 import { largeCursorStyle, smallCursorStyle } from "./Cursor.styles";
+import { IPosition } from "./Cursor.types";
 
-const CustomCursor: React.FC = () => {
-	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-	const [largerCursorPosition, setLargerCursorPosition] = useState({
-		x: 0,
-		y: 0,
-	});
+const useMousePosition = (): IPosition => {
+	const [mouse_position, setMousePosition] = useState({ x: 0, y: 0 });
 
 	useEffect(() => {
 		const updateMousePosition = (e: MouseEvent) => {
@@ -20,13 +17,22 @@ const CustomCursor: React.FC = () => {
 			window.removeEventListener("mousemove", updateMousePosition);
 		};
 	}, []);
+	return mouse_position;
+};
+
+const useTrailingPosition = (
+	target_position: IPosition,
+	trail_speed = TRAIL_SPEED
+) => {
+	const [trailing_position, setTrailingCursorPosition] =
+		useState(target_position);
 
 	useEffect(() => {
 		let animationFrameId: number;
 		const animateLargerCursor = () => {
-			setLargerCursorPosition((prevPos) => ({
-				x: prevPos.x + (mousePosition.x - prevPos.x) * TRAIL_SPEED,
-				y: prevPos.y + (mousePosition.y - prevPos.y) * TRAIL_SPEED,
+			setTrailingCursorPosition((prevPos) => ({
+				x: prevPos.x + (target_position.x - prevPos.x) * trail_speed,
+				y: prevPos.y + (target_position.y - prevPos.y) * trail_speed,
 			}));
 			animationFrameId = requestAnimationFrame(animateLargerCursor);
 		};
@@ -34,13 +40,19 @@ const CustomCursor: React.FC = () => {
 		return () => {
 			cancelAnimationFrame(animationFrameId);
 		};
-	}, [mousePosition, TRAIL_SPEED]);
-	// const cursorStyle:React.CSSProperties = {cursor:"none !important"}
+	}, [target_position, trail_speed]);
+
+	return trailing_position;
+};
+const CustomCursor: React.FC = () => {
+	const mouse_position = useMousePosition();
+	const trailing_position = useTrailingPosition(mouse_position);
+
 	return (
 		<>
 			<style>{`* {cursor: none !important;}`}</style>
-			<div style={smallCursorStyle(mousePosition)} />
-			<div style={largeCursorStyle(largerCursorPosition)} />
+			<div style={smallCursorStyle(mouse_position)} />
+			<div style={largeCursorStyle(trailing_position)} />
 		</>
 	);
 };

@@ -8,7 +8,7 @@ interface IComponentDefinitions {
 	paths: Required<React.ReactNode[]>;
 }
 
-interface HexagonStyleParams {
+interface THexagonStyleParams {
 	size?: number;
 	scale?: number;
 	opacity?: number;
@@ -17,7 +17,7 @@ type TSanitationFunction = (
 	args: TOptionalParameters,
 	optional_f_params: any
 ) => any;
-type ValidInput =
+type TValidInput =
 	| object
 	| TSanitationFunction
 	| string
@@ -33,7 +33,7 @@ type TOptionalParameters = any;
 interface IOptParamMap {
 	key: string;
 	alias?: string;
-	return_value: ValidInput;
+	return_value: TValidInput;
 
 	f_params?: any;
 }
@@ -66,11 +66,11 @@ interface IHexagonState extends IHexObjState {
 }
 
 export type {
-	HexagonStyleParams,
 	IHexagonState,
 	IHexObjState,
 	IOptParamMap,
 	TContentObserver,
+	THexagonStyleParams,
 	THexFC,
 	TOscillation,
 	TRefNode,

@@ -1,6 +1,7 @@
 // src/components/callingcard/CallingCard.tsx
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
 import { Theme } from "../../styles";
 import { formatComponent } from "../../utils/reactUtils";
 import {
@@ -16,7 +17,6 @@ import {
 	IGridItemProps,
 	IHeaderProps,
 } from "./CallingCard.types";
-import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
 
 const CompWrapper: React.FC<ICallOutProps> = ({
 	content,
@@ -86,7 +86,12 @@ const GridBody: React.FC<IGridBodyProps> = ({
 	);
 };
 
-const CallingCard: React.FC<ICallingCardProps> = ({
+const CallingCard: React.FC<
+	ICallingCardProps & {
+		testEl?: React.ReactNode;
+		gridOverriders?: React.CSSProperties;
+	}
+> = ({
 	components,
 	index = 0,
 	header,
@@ -97,6 +102,8 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 	narrowPageEl = false,
 	noAos,
 	children,
+	testEl,
+	gridOverriders = {},
 }) => {
 	let theme = Theme(index);
 	return (
@@ -112,6 +119,7 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 					...styleOverrides,
 				}}
 			>
+				{testEl}
 				<Header
 					content={header}
 					wrapper_style={{ color: theme.primaryColor }}
@@ -129,12 +137,14 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 									marginTop: "1%",
 									paddingTop: "2%",
 									borderTop: header ? `4px solid` : "",
+									...gridOverriders,
 							  }
 							: {
 									padding: !fullSpread ? "2%" : "0",
 									borderRadius: !fullSpread
 										? "50px 10px"
 										: "",
+									...gridOverriders,
 							  }
 					}
 				/>
@@ -151,6 +161,10 @@ const CallingCard: React.FC<ICallingCardProps> = ({
 - Potential fix, use normal calling card, add another grid body between Header and GridBody for sidebar comp
 
 */
+
+const BackgroundFade: React.CSSProperties = {};
+
+const testBG = <div style={BackgroundFade} />;
 const SideBarCallingCard: React.FC<
 	ICallingCardProps & { sideBar?: ICallingCardProps }
 > = (props) => {
@@ -173,6 +187,7 @@ const SideBarCallingCard: React.FC<
 			{...props}
 			components={components}
 			narrowPageEl={isPageElement}
+			testEl={testBG}
 		>
 			<Child />
 		</CallingCard>
@@ -185,6 +200,7 @@ const SideBarCallingCard: React.FC<
 					: components
 			}
 			isPageElement={isPageElement}
+			testEl={testBG}
 		/>
 	);
 };

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { HexagonStyleParams } from "./Hexagons.types";
+import { THexagonStyleParams } from "./Hexagons.types";
 
 const containerStyle = ({
 	opacity = 0.8,
-}: HexagonStyleParams): React.CSSProperties => {
+}: THexagonStyleParams): React.CSSProperties => {
 	return {
 		position: "relative",
 		fontSize: 0,
@@ -14,7 +14,7 @@ const containerStyle = ({
 	};
 };
 
-const svgStyle = ({}: HexagonStyleParams): React.CSSProperties => {
+const svgStyle = ({}: THexagonStyleParams): React.CSSProperties => {
 	return {};
 };
 

@@ -1,35 +1,31 @@
-// src/features/titlebar/TitleBar.tsx
+// src/features/titlebar/Bars.tsx
 
 import React from "react";
-import dropdownImage from "../../assets/dude1.jpg";
-import logo from "../../assets/logo.png";
-import { PillTitleBar } from "./Bars";
-import { ITitleBarLink } from "./TitleBar.types";
 
-/** 
+import { ITitleBarProps } from "./TitleBar.types";
 
-* @issues - size overflow on mobile
-- Maybe move to menu bar or make scrollable
+import { titleBarStyles } from "./TitleBar.styles";
+import { usePillBarStyle } from "./TitleBarHelpers";
+import { Dropdown, TitleBarUI } from "./TitleBarUI";
+const TitleBar: React.FC<ITitleBarProps> = (props) => (
+	<TitleBarUI
+		{...props}
+		style_fn={props.style_fn || titleBarStyles}
+	>
+		{props.children}
+	</TitleBarUI>
+);
 
-*/
-const navLinks: ITitleBarLink[][] = [
-	[
-		{ path: "/", alias: "Home", image: dropdownImage },
-		{ path: "/demo_and_testing", alias: "Demo Page" },
-		{ path: "/dpotool", alias: "DPO Tool" },
-	],
-	[{ path: "/thejourney", alias: "The Journey" }],
+const ExpandableTitleBar: React.FC<ITitleBarProps> = (props) => (
+	<TitleBar {...props}>
+		<Dropdown {...props} />
+	</TitleBar>
+);
+const PillTitleBar: React.FC<ITitleBarProps> = (props) => (
+	<ExpandableTitleBar
+		{...props}
+		style_fn={usePillBarStyle}
+	/>
+);
 
-	[{ path: "/ourservices", alias: "Our Services" }],
-	[{ path: "/contact", alias: "Contact" }],
-];
-const AppTitleBar: React.FC = () => {
-	return (
-		<PillTitleBar
-			logoSrc={logo}
-			links={navLinks}
-		/>
-	);
-};
-
-export { AppTitleBar };
+export { PillTitleBar };

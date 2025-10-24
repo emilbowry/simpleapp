@@ -30,7 +30,8 @@ import {
 	TOscillation,
 	TRefNode,
 } from "./Hexagons.types";
-/* todo
+/**  
+* @improvement
 The first time the first element is outside hex, trigger exactly 1 window refresh,
 same if an element's middle is not centered
 
@@ -301,7 +302,6 @@ class Hexagon
 	construct() {
 		const { color, borderColor, borderWidth } =
 			this.santiseOptionalParameters();
-		// console.log(IS_CHROME);
 		return {
 			defs: !IS_CHROME
 				? [

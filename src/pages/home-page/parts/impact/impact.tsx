@@ -2,13 +2,16 @@
 
 import React from "react";
 
-import { SideBarCallingCard } from "../../../../components/callingcard/CallingCard";
-import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
-import { BoxedImage } from "../../../../utils/reactUtils";
+import cam from "../../../../assets/cam.png";
+import ls from "../../../../assets/leverCent.png";
 
 import logo from "../../../../assets/logo.png";
+import { SideBarCallingCard } from "../../../../components/callingcard/CallingCard";
 import { SideBarFullOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
+import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { Theme, volume_constant_size } from "../../../../styles";
+import { midnight_green } from "../../../../utils/defaultColours";
+import { BoxedImage } from "../../../../utils/reactUtils";
 import {
 	FounderLetterWrapperStyle,
 	LetterFooterContainerStyle,
@@ -89,45 +92,81 @@ const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 
 const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 	const letter = (
-		<div style={FounderLetterWrapperStyle}>
-			<div style={{ textAlign: "left" }}>
-				<h2
-					style={{
-						color: Theme(index).primaryColor,
-						fontSize: `calc(3*${volume_constant_size})`,
-					}}
-				>
-					A letter from our Founder
-				</h2>
-				<p>
-					The Alignment Problem’ is the challenge of aligning powerful
-					AI systems with human values. That is, to make sure that AI
-					systems only ‘wants’ what we want.
-				</p>
-				<p>
-					There are lots of hardworking researchers, policymakers and
-					businesses working on the problem of how to align powerful
-					AI systems to human values. One of my favorite books on the
-					alignment problem is ‘Human Compatible’, by Stuart Russell.
-				</p>
+		<>
+			{" "}
+			<div style={FounderLetterWrapperStyle}>
+				<div style={{ textAlign: "left" }}>
+					<h2
+						style={{
+							color: Theme(index).primaryColor,
+							fontSize: `calc(3*${volume_constant_size})`,
+						}}
+					>
+						A letter from our Founder
+					</h2>
+					<p>
+						The Alignment Problem’ is the challenge of aligning
+						powerful AI systems with human values. That is, to make
+						sure that AI systems only ‘wants’ what we want.
+					</p>
+					<p>
+						There are lots of hardworking researchers, policymakers
+						and businesses working on the problem of how to align
+						powerful AI systems to human values. One of my favorite
+						books on the alignment problem is ‘Human Compatible’, by
+						Stuart Russell.
+					</p>
 
-				<p>
-					But Alignment from AI to humans isn’t enough: we need to do
-					our bit too. That is, we need to have values to begin with
-					to be aligned, and we need to be familiar enough with AI
-					systems that we are informed, able, and well-intentioned
-					with the powerful AI systems that are being released.
-				</p>
-				<p>
-					AI Compatible is a consultancy that works on this neglected
-					side of the alignment problem – the human side. We boost AI
-					literacy, familiarity, and ethics: in a word, compatibility.
-				</p>
+					<p>
+						But Alignment from AI to humans isn’t enough: we need to
+						do our bit too. That is, we need to have values to begin
+						with to be aligned, and we need to be familiar enough
+						with AI systems that we are informed, able, and
+						well-intentioned with the powerful AI systems that are
+						being released.
+					</p>
+					<p>
+						AI Compatible is a consultancy that works on this
+						neglected side of the alignment problem – the human
+						side. We boost AI literacy, familiarity, and ethics: in
+						a word, compatibility.
+					</p>
+				</div>
+				<div>
+					<LetterFooter index={index} />
+				</div>
 			</div>
-			<div>
-				<LetterFooter index={index} />
+			<div
+				style={{
+					display: "flex",
+					isolation: "isolate",
+
+					backgroundColor: midnight_green,
+					borderRadius: "10px 0 0 10px",
+				}}
+			>
+				<BoxedImage
+					image={cam}
+					aspectRatio="5"
+					width="100%"
+					wrapperStyling={{
+						width: "20vw",
+						margin: "auto 0",
+					}}
+				/>
+				<BoxedImage
+					image={ls}
+					aspectRatio="5"
+					width="100%"
+					// wrapperStyling={{ height: "100%" }}
+					// wrapperStyling={{ width: "20vw" }}
+					wrapperStyling={{
+						width: "20vw",
+						margin: "auto 0",
+					}}
+				/>
 			</div>
-		</div>
+		</>
 	);
 
 	return letter;

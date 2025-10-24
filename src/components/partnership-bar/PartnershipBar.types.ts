@@ -22,7 +22,7 @@ interface IPartnerMarqueeContentProps {
 	partners: readonly IPartner[];
 }
 
-interface PartnershipBarCompactWallProps {
+interface IPartnershipBarCompactWallProps {
 	partners: readonly IPartner[];
 	staticStyle: React.CSSProperties;
 }
@@ -32,7 +32,7 @@ interface IRows {
 	mid: IPartner[];
 	bottom: IPartner[];
 }
-interface PartnershipBarFullWallProps {
+interface IPartnershipBarFullWallProps {
 	maxBricks: number;
 	rows: IRows;
 	staticStyle: React.CSSProperties;
@@ -42,8 +42,8 @@ export type {
 	IPartnerMarqueeContentProps,
 	IPartners,
 	IPartnershipBar,
+	IPartnershipBarCompactWallProps,
+	IPartnershipBarFullWallProps,
 	IRows,
-	PartnershipBarCompactWallProps,
-	PartnershipBarFullWallProps,
 	TPartnerSize,
 };

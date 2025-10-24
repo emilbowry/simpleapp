@@ -43,7 +43,8 @@ const LetterFooterWrapperStyle: React.CSSProperties = {
 	maxWidth: "100vw",
 };
 const FounderLetterWrapperStyle: React.CSSProperties = {
-	width: "100%",
+	width: "90%",
+
 	fontSize: `calc(2*${volume_constant_size})`,
 	// display: "flex",
 	// flexDirection: "column",

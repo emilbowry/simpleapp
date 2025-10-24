@@ -1,9 +1,9 @@
 // src/components/hexagons/hexagonRow/HexagonRow.tsx
 
 import React from "react";
-import { formatComponent } from "../../../utils/reactUtils";
-import { container, wrapper, elementStyle } from "./HexagonRow.styles";
-import { IHexagonGridElements, THexRowLayoutProps } from "./HexagonRow.types";
+import { formatComponent } from "../../../../utils/reactUtils";
+import { IHexagonGridElements, THexRowLayoutProps } from "../HexagonGrid.types";
+import { container, elementStyle, wrapper } from "./HexagonRow.styles";
 
 import {
 	DEFAULT_ABSOLUTE_SPACING,
@@ -59,6 +59,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 		<div
 			className={class_name ?? ""}
 			style={{
+				height: "100%",
 				...wrapper(
 					topExtension,
 					bottomExtension,

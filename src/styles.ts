@@ -1,6 +1,6 @@
 // src/styles.tsx
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import background from "./assets/background.png";
 import {
@@ -19,10 +19,8 @@ import { TValidStyle } from "./utils/styles.types";
 const BackgroundStyle: React.CSSProperties = {
 	backgroundImage: `url(${background})`,
 	backgroundRepeat: "repeat",
-	// position: "fixed",
-	// backgroundSize: "contain",
+
 	backgroundSize: "cover",
-	// backgroundAttachment: "fixed",
 
 	width: "100vw",
 	position: "fixed",
@@ -61,17 +59,14 @@ const Theme = (index: number) => {
 const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	textDecorationLine: isUnderlined ? `underline` : "none",
 	textDecorationColor: `${logo_blue}`,
-	// textUnderlinePosition: `under`,
 	backgroundOrigin: "content-box",
 	backgroundImage: `${logoGrag}`,
 	backgroundPosition: "bottom left",
 	backgroundRepeat: "no-repeat",
 	boxSizing: "border-box",
-	backgroundSize: isUnderlined ? "100% 2px" : "0% 2px",
-
+	backgroundSize: isUnderlined ? "100% 3px" : "0% 3px",
+	width: "fit-content",
 	color: "#333",
-	// fontSize: "16px",
-	// padding: "5px 0",
 });
 const generateGradient = (
 	n: number,
@@ -131,8 +126,8 @@ export {
 	generateGradient,
 	genericSectionStyle,
 	linkStyle,
-	Theme,
 	styleObjectToString,
+	Theme,
 	volume_constant_size,
 	volume_constant_size_prime,
 };

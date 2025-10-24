@@ -3,21 +3,24 @@
 import React from "react";
 import { Hexagon } from "../../components/hexagons/Hexagons";
 import { ImageHexagon } from "../../components/hexagons/ImageHexagon";
-import { HexagonGrid } from "../../components/hexagons/hexagon-row/HexagonRow";
+import { HexagonGrid } from "../../components/hexagons/hexagon-grid/honeycomb/HexagonRow";
 import { Page } from "../../features/page/Page";
 
 import bw1 from "../../assets/bw1.jpg";
 import bw2 from "../../assets/bw2.jpg";
 import bw3 from "../../assets/bw3.jpg";
 import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
-import { generateGradient, volume_constant_size_prime } from "../../styles";
-import {
-	bgwhite,
-	dark_midnight_green,
-	midnight_green,
-} from "../../utils/defaultColours";
-import { BoxedImage } from "../../utils/reactUtils";
+import { IS_CHROME } from "../../hooks/BrowserDependant";
 import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
+import { generateGradient } from "../../styles";
+import { bgwhite, purple } from "../../utils/defaultColours";
+import { BoxedImage } from "../../utils/reactUtils";
+import {
+	BlurBackgroundStyle,
+	IconHexStyle,
+	RowContentStyle,
+	RowHeaderStyle,
+} from "./TheJourney.styles";
 
 const TimelineData = [
 	{
@@ -40,7 +43,7 @@ const TimelineData = [
 		date: "JAN 2024",
 		content:
 			"AIC runs its first series of prompt engineering training workshops with live clients, using the new methodology. Initially delivered through AIC first partner, The Growth House who offer leadership and teamship corporate training",
-		icon: bullseye,
+		// icon: bullseye,
 	},
 	{
 		date: "MARCH 2024",
@@ -52,6 +55,7 @@ const TimelineData = [
 		content:
 			"NotebookLM is released, everyone loves it, go try it now if you haven't",
 		image: bw1,
+		icon: bullseye,
 	},
 	{
 		date: "SEP 2024",
@@ -96,16 +100,7 @@ const getThirdHex = (index: number) => {
 				}}
 				opacity={1}
 				element={
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: "center",
-							margin: "auto",
-							height: "100%",
-							opacity: 1,
-						}}
-					>
+					<div style={IconHexStyle}>
 						<BoxedImage
 							image={_icon}
 							width="90%"
@@ -121,115 +116,87 @@ const getThirdHex = (index: number) => {
 	}
 	return thirdHexagon;
 };
-const sf = `${volume_constant_size_prime}`;
-const RowHeader: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-	<h3
-		style={{
-			// fontSize: "3vw",
-			fontSize: `calc(3*${sf})`,
-			// height: "calc(100%)",
-			textAlign: "center",
-
-			color: dark_midnight_green,
-		}}
-	>
-		{children}
-	</h3>
+const RowHeader: React.FC<{
+	children?: React.ReactNode;
+	styleoverrides?: React.CSSProperties;
+}> = ({ children, styleoverrides }) => (
+	<h2 style={{ ...RowHeaderStyle, ...styleoverrides }}>{children}</h2>
 );
 
 const RowContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-	<p
-		style={{
-			// fontSize: "2.5vw",
-			// fontSize: "max(1.8vw,calc(0.8rem*calc(1vw/1vh)))",
-			fontSize: `calc(1.8*${sf})`,
-			wordBreak: "break-word",
-			// marginTop: "1px",
-			textAlign: "center",
-			whiteSpace: "collapse",
-			color: midnight_green,
-			// height: "calc(100%)",
-		}}
-	>
-		{children}
-	</p>
+	<p style={RowContentStyle}>{children}</p>
 );
 
 const getRows = (isNarrow = false) => {
 	const colours = generateGradient(TimelineData.length).reverse();
 
 	return TimelineData.map((item, i) => {
+		const img = TimelineData[i]?.image;
+		const icon = TimelineData[i + 1]?.icon;
+
+		// TimelineData[i + 1]?.icon || TimelineData[i]?.image || undefined;
+
 		let baseRowElements = [
-			<Hexagon
-				args={{ colour: bgwhite }}
-				element={
-					isNarrow
-						? [<RowContent>{item.date}</RowContent>]
-						: [
-								<RowHeader>{item.date}</RowHeader>,
-								<RowContent>{item.content}</RowContent>,
-						  ]
-				}
-				opacity={1}
-				// useVerticalAlignment={!isNarrow}
-				useVerticalAlignment={true}
-			/>,
-
-			isNarrow ? (
-				// <Hexagon
-				// 	args={{
-				// 		colour: "white",
-				// 	}}
-				// 	opacity={1}
-				// 	element={
-				// 		<div
-				// 			style={{
-				// 				...(!isNarrow
-				// 					? {
-				// 							display: "flex",
-				// 							flexDirection: "column",
-				// 							justifyContent: "center",
-				// 							margin: "auto",
-				// 							height: "100%",
-				// 					  }
-				// 					: {
-				// 							display: "flex",
-				// 							flexDirection: "row",
-				// 							// flexDirection: "column",
-				// 							alignItems: "center",
-				// 							justifyContent: "center",
-				// 							margin: "auto",
-				// 							marginTop: "-25%",
-				// 							marginBottom: "-25%",
-
-				// 							height: "150%",
-				// 					  }),
-				// 				opacity: 1,
-				// 			}}
-				// 			className="aos-ignore"
-				// 		>
-				// 			<BoxedImage
-				// 				image={vline2(colours[i - 1])}
-				// 				// image={vline}
-
-				// 				width="200%"
-				// 				aspectRatio={`1`}
-				// 				imageStyling={{}}
-				// 			/>
-				// 		</div>
-				// 	}
-				// />
-				<></>
+			img && isNarrow ? (
+				<ImageHexagon
+					img={img}
+					element={[
+						<RowHeader styleoverrides={{ color: bgwhite }}>
+							{item.date}
+						</RowHeader>,
+					]}
+				/>
+			) : icon && isNarrow && !IS_CHROME ? (
+				<Hexagon
+					args={{ colour: "transparent" }}
+					element={[
+						<RowHeader styleoverrides={{ color: bgwhite }}>
+							{item.date}
+						</RowHeader>,
+						<div style={IconHexStyle}>
+							<BoxedImage
+								image={icon}
+								width="90%"
+								aspectRatio="1"
+								imageStyling={{
+									margin: "auto",
+								}}
+							/>
+						</div>,
+					]}
+					opacity={1}
+					useVerticalAlignment={!isNarrow}
+				/>
+			) : isNarrow ? (
+				<Hexagon
+					args={{ colour: purple }}
+					element={[
+						<RowHeader styleoverrides={{ color: bgwhite }}>
+							{item.date}
+						</RowHeader>,
+					]}
+					opacity={1}
+					useVerticalAlignment={!isNarrow}
+				/>
 			) : (
-				<Hexagon args={{ colour: colours[i] }} />
+				<Hexagon
+					args={{ colour: bgwhite }}
+					element={[
+						<RowHeader>{item.date}</RowHeader>,
+						<RowContent>{item.content}</RowContent>,
+					]}
+					opacity={1}
+					useVerticalAlignment={!isNarrow}
+				/>
 			),
+
+			<Hexagon args={{ colour: colours[i] }} />,
 			isNarrow ? (
 				<Hexagon
 					args={{ colour: bgwhite }}
 					element={[<RowContent>{item.content}</RowContent>]}
 					opacity={1}
 					useVerticalAlignment={!isNarrow}
-					// useVerticalAlignment={true}
 				/>
 			) : (
 				getThirdHex(i)
@@ -238,7 +205,6 @@ const getRows = (isNarrow = false) => {
 		baseRowElements = isNarrow
 			? [baseRowElements[0], baseRowElements[2]]
 			: baseRowElements;
-		// console.log(isNarrow);
 		baseRowElements =
 			i % 2 === 0 || isNarrow
 				? baseRowElements
@@ -251,51 +217,30 @@ const getRows = (isNarrow = false) => {
 };
 const theJourneyPage: React.FC = () => {
 	const isNarrow = useNarrowLayout();
-	const relative_spacing = isNarrow ? 1 : 10;
+	const relative_spacing = 10;
 	const absolute_spacing = 0;
 
 	return (
-		<div>
-			<div
-				style={{
-					height: "100%",
-					width: "100%",
-					backdropFilter: "blur(8px)",
-					position: "absolute",
-					overflow: "visible",
-					maskImage:
-						"linear-gradient(to bottom,black 95%, transparent 100%)",
-				}}
-			/>
+		<div
+			style={
+				{
+					// margin: "5% 0",
+				}
+			}
+		>
+			<div style={BlurBackgroundStyle} />
 			<HexagonGrid
 				rows={getRows(isNarrow) as any}
 				relative_spacing={relative_spacing}
 				absolute_spacing={absolute_spacing}
 				upper_first={isNarrow}
-				containerStyle={
-					{
-						// overflow: "clip",
-					}
-				}
 				class_name="aos-ignore"
+				// containerStyle={{overflow:"visible"}}
 			/>
 		</div>
 	);
 };
 
-// const TheJourneyPage = (
-// 	<Page
-// 		page={theJourneyPage}
-// 		bg={true}
-// 	/>
-// );
-const TheJourneyPage = () => (
-	<Page
-		page={theJourneyPage}
-		bg={true}
-	/>
-);
-
-// export { TheJourneyPage };
+const TheJourneyPage = () => <Page page={theJourneyPage} />;
 
 export default TheJourneyPage;

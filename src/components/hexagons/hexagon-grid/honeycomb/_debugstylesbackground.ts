@@ -3,8 +3,8 @@ Defining a debugging background
 */
 
 import {
-	DEFAULT_ABSOLUTE_SPACING,
 	ASPECT_RATIO,
+	DEFAULT_ABSOLUTE_SPACING,
 	DEFAULT_RELATIVE_SPACING,
 } from "./HexagonRow.consts";
 import { K } from "./HexagonRow.styles";

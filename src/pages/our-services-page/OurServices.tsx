@@ -2,13 +2,13 @@
 
 import React from "react";
 import { SideBarCallingCard } from "../../components/callingcard/CallingCard";
-import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
+import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
+import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { Page } from "../../features/page/Page";
 import { bgwhite } from "../../utils/defaultColours";
-import { hStyle } from "../home-page/parts/about-us/AboutUs.styles";
-import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
 import { BoxedImage } from "../../utils/reactUtils";
 import {
+	hStyle,
 	imageStyling,
 	titleStyle,
 } from "../home-page/parts/about-us/AboutUs.styles";
@@ -58,7 +58,7 @@ const tserv = {
 
 const ourServicesFeatureCallouts = (renderIcon = true) => [
 	[
-		renderIcon ?? (
+		renderIcon && (
 			<BoxedImage
 				image={bulb}
 				width="30%"
@@ -69,7 +69,7 @@ const ourServicesFeatureCallouts = (renderIcon = true) => [
 		<div style={titleStyle}>Our Work</div>,
 	],
 	[
-		renderIcon ?? (
+		renderIcon && (
 			<BoxedImage
 				image={bullseye}
 				width="30%"
@@ -81,7 +81,7 @@ const ourServicesFeatureCallouts = (renderIcon = true) => [
 	],
 
 	[
-		renderIcon ?? (
+		renderIcon && (
 			<BoxedImage
 				image={pencil}
 				width="30%"
@@ -89,12 +89,12 @@ const ourServicesFeatureCallouts = (renderIcon = true) => [
 				imageStyling={imageStyling}
 			/>
 		),
-
 		<div style={titleStyle}>Our Work</div>,
 	],
 ];
 
 import { SideBarOverlapStyle } from "../../components/callingcard/CallingCard.styles";
+// import { IS_CHROME } from "../../hooks/BrowserDependant";
 import {
 	ServicesContainerStyle,
 	ServicesSideBarStyle,
@@ -102,7 +102,6 @@ import {
 	ServiceStyle,
 } from "./OurServices.styles";
 import { PiChart } from "./pi_chart";
-import { IS_CHROME } from "../../hooks/BrowserDependant";
 const ServicesSideBar: React.FC = () => {
 	return (
 		<div>
@@ -120,6 +119,9 @@ const ServicesSideBar: React.FC = () => {
 	);
 };
 
+const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
+
+const IS_CHROME = /Chrome/i.test(userAgent);
 const ourServices: React.FC = () => (
 	<>
 		<SideBarCallingCard

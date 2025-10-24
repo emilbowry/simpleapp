@@ -15,7 +15,8 @@ const o_mix_green = "#A4E4DF";
 const b_green = "#29ACB3"; */
 const dark_mix_green = "#43684E";
 const light_mix_green = "#C3E7CE";
-/* const purple = "#866070";
+const purple = "#866070";
+/* 
 const orange = "#FF6F2D";
 const grey = " #81989C";
 const light_grey = " #C0CCCE"; */
@@ -34,5 +35,6 @@ export {
 	logo_yellow,
 	midnight_green,
 	o_mix_green,
+	purple,
 	title_font_colour,
 };

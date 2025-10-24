@@ -105,6 +105,13 @@ const TitleBarUI: React.FC<ITitleBarProps> = (props) => (
 		<InnerTitleBarUI {...props} />
 	</UICTX>
 );
+
+/** 
+
+* @improvment - size overflow on mobile
+- Analyse window width, and put overflowing top level items into menu
+
+*/
 const InnerTitleBarUI: React.FC<ITitleBarProps> = (props) => {
 	const { links, style_fn = () => ({}) } = props;
 	const { onWrapperMouseLeave, onLinkOver } = useActiveTitleLink();

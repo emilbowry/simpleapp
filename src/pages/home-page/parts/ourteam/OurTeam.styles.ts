@@ -47,13 +47,13 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	display: "grid",
 	rowGap: "1%",
 	width: "100%",
-
+	fontSize: `calc(2*${volume_constant_size})`,
 	paddingBottom: "10vh",
 };
 export {
+	_PersonaTextStyle,
 	OurTeamContainerStyle,
 	PersonaHeadshotStyle,
 	PersonaTextStyle,
 	personaWrapperStyle,
-	_PersonaTextStyle,
 };

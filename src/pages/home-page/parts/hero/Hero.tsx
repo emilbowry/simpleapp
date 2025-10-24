@@ -7,7 +7,7 @@ import hi3 from "../../../../assets/heroimage3.jpg";
 import { Hexagon } from "../../../../components/hexagons/Hexagons";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
 import { LogoHexagon } from "../../../../components/hexagons/LogoHexagon";
-import { HexagonGrid } from "../../../../components/hexagons/hexagon-row/HexagonRow";
+import { HexagonGrid } from "../../../../components/hexagons/hexagon-grid/honeycomb/HexagonRow";
 import { light_mix_green } from "../../../../utils/defaultColours";
 
 const textEl = (
@@ -71,7 +71,7 @@ const Hero: React.FC = () => {
 		<div
 			style={{
 				// height: "100%",
-				margin: "5%",
+				margin: "5% 0",
 				// marginTop: `calc(10%)`,
 			}}
 		>

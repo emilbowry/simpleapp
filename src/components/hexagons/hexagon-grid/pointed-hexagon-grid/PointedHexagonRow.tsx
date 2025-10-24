@@ -1,12 +1,13 @@
 // src/components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow.tsx
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { IHexagonRowElements } from "../HexagonRow.types";
+import { IHexagonRowElements } from "../HexagonGrid.types";
 
 import { formatComponent } from "../../../../utils/reactUtils";
 import { PointedTopHexagon } from "../../Hexagons";
 
+import { useNarrowLayout } from "../../../../hooks/WindowSizeDependent";
 import {
 	lItemStyle,
 	narrowBottomRowStyle,
@@ -16,10 +17,8 @@ import {
 	wideLayoutContainerStyle,
 } from "./PointedHexagonRow.styles";
 import { PointedtopHexagonFeatureGridProps } from "./PointedHexagonRow.types";
-import { useNarrowLayout } from "../../../../hooks/WindowSizeDependent";
 
 const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
-	const isNarrow = useNarrowLayout();
 	const renderWideLayout = () => {
 		return (
 			<div style={wideLayoutContainerStyle}>
@@ -59,7 +58,7 @@ const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
 
 	return (
 		<div style={{ zIndex: 50 }}>
-			{isNarrow ? renderNarrowLayout() : renderWideLayout()}
+			{useNarrowLayout() ? renderNarrowLayout() : renderWideLayout()}
 		</div>
 	);
 };

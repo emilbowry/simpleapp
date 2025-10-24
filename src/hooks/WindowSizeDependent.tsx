@@ -1,28 +1,7 @@
 // src/hooks/WindowSizeDependent.tsx
 
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-// const useResponsiveLayout = (partnerCount: number) => {
-// 	const [isCompactView, setIsCompactView] = useState(false);
-
-// 	useEffect(() => {
-// 		const checkViewportWidth = () => {
-// 			const layout = WallLayout(partnerCount);
-// 			const maxBricks = Math.max(layout[0], layout[1]);
-
-// 			const threshold =
-// 				PARTNER_EFFECTIVE_WIDTH * (maxBricks + +!(maxBricks % 2 === 0));
-
-// 			setIsCompactView(window.innerWidth < threshold);
-// 		};
-
-// 		checkViewportWidth();
-// 		window.addEventListener("resize", checkViewportWidth);
-// 		return () => window.removeEventListener("resize", checkViewportWidth);
-// 	}, [partnerCount]);
-
-// 	return isCompactView;
-// };
 const LAYOUT_BREAKPOINT = 1200;
 
 const useNarrowLayout = (threshold = LAYOUT_BREAKPOINT) => {
@@ -81,4 +60,4 @@ const useBrowserScale = (): number => {
 
 	return scale;
 };
-export { useNarrowLayout, useBrowserScale };
+export { useBrowserScale, useNarrowLayout };

@@ -5,8 +5,8 @@ import React from "react";
 import { SideBarCallingCard } from "../../components/callingcard/CallingCard";
 import { Page } from "../../features/page/Page";
 
-import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-row/pointed-hexagon-row/PointedHexagonRow";
-import { bgwhite, logo_blue } from "../../utils/defaultColours";
+import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
+import { bgwhite } from "../../utils/defaultColours";
 
 import { linkStyle, Theme } from "../../styles";
 import { formatComponent, ValidComponent } from "../../utils/reactUtils";
@@ -101,9 +101,8 @@ const contactPage: React.FC = () => (
 				<PointedtopHexagonFeatureGrid
 					featureCallouts={contactFeatureCallouts}
 					hexagonArgs={{
-						/* colour: Theme(1).backgroundColor  */ colour: Theme(0)
-							.backgroundColor,
-						borderColour: logo_blue,
+						colour: Theme(0).backgroundColor,
+						// borderColour: logo_blue,
 					}}
 					useVerticalAlignment={true}
 				/>
@@ -117,19 +116,7 @@ const contactPage: React.FC = () => (
 		/>
 	</>
 );
-// const ContactPage = (
-// 	<Page
-// 		page={contactPage}
-// 		bg={true}
-// 	/>
-// );
 
-const ContactPage = () => (
-	<Page
-		page={contactPage}
-		bg={true}
-	/>
-);
+const ContactPage = () => <Page page={contactPage} />;
 
-// export { ContactPage };
 export default ContactPage;

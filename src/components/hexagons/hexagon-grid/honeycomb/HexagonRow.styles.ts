@@ -2,17 +2,17 @@
 import React from "react";
 
 import {
-	ASPECT_RATIO,
-	CONTAINER_per_Element,
-	SIDE_SHIFT,
-} from "./HexagonRow.consts";
-import {
 	IScaleParams,
 	TDualScalingFunction,
 	TScalingFunction,
 	TWithCalc,
-} from "./HexagonRow.types";
+} from "../HexagonGrid.types";
 import { debug_background } from "./_debugstylesbackground";
+import {
+	ASPECT_RATIO,
+	CONTAINER_per_Element,
+	SIDE_SHIFT,
+} from "./HexagonRow.consts";
 /* 	 Makes sense since devolves into an equilateral triangle problem
 	== 1/cos(30) */
 const colGap: TScalingFunction = ({ relative_spacing = 0 }) =>
@@ -76,6 +76,7 @@ const PositionCorrectionFactor: TScalingFunction = (scale_params) =>
 
 const XScaleCorrectionFactor: TScalingFunction = (scale_params) =>
 	(K(scale_params) * scale_params.relative_spacing) / 4;
+
 const XOffset: TDualScalingFunction = (scale_params) => {
 	const shift_factor = (scale_params.n - 1) / 2 - scale_params.index;
 
@@ -173,37 +174,21 @@ const container = (
 	useDebugBackground = false,
 	index = 0
 ): React.CSSProperties => {
-	const col_rel_spacing = _relative_spacing * CONTAINER_per_Element;
-	const row_rel_spacing = _relative_spacing / length;
-
+	const scale_params_prime = { absolute_spacing, n, index };
+	const row_scale_params = {
+		relative_spacing: _relative_spacing / length,
+		...scale_params_prime,
+	};
+	const col_scale_params = {
+		relative_spacing: _relative_spacing * CONTAINER_per_Element,
+		...scale_params_prime,
+	};
 	return {
-		...background_override(
-			{
-				relative_spacing: row_rel_spacing,
-				absolute_spacing,
-				n,
-				index,
-			},
-			useDebugBackground
-		),
-		...vertGap(
-			{
-				relative_spacing: row_rel_spacing,
-				absolute_spacing,
-				n,
-				index,
-			},
-			length,
-			useRowGap
-		),
+		...background_override(row_scale_params, useDebugBackground),
+		...vertGap(row_scale_params, length, useRowGap),
 		position: "relative",
 
-		columnGap: calculateColGap({
-			relative_spacing: col_rel_spacing,
-			absolute_spacing,
-			n,
-			index,
-		}),
+		columnGap: calculateColGap(col_scale_params),
 		display: "grid",
 		gridTemplateColumns: `repeat(${n}, 1fr)`,
 		overflow: "visible",
@@ -223,7 +208,7 @@ const wrapper = (
 	const base_row_height = ((3 / 2) * (1 / ASPECT_RATIO) * 100) / 3;
 
 	const relative_correction_bot =
-		(base_row_height * (1 / 3) * (relative_spacing / 100)) / k;
+		(base_row_height * (1 / 3) * 2 * (relative_spacing / 100)) / k;
 	const relative_correction_top =
 		(base_row_height * (1 / 3) * (1 + relative_spacing / 100)) / k;
 
@@ -240,9 +225,13 @@ const wrapper = (
 		}% + ${absolute_spacing * correction * abs_padding_top_factor}px)`,
 
 		paddingBottom: `calc(${
-			(length - rel_padding_bottom_offset) * 1 * relative_correction_bot
-		}% + ${absolute_spacing * (length - abs_padding_bottom_offset)}px)`,
+			(length - rel_padding_bottom_offset) *
+			correction *
+			relative_correction_bot
+		}% + ${
+			correction * absolute_spacing * (length - abs_padding_bottom_offset)
+		}px)`,
 	};
 };
 
-export { container, wrapper, K, elementStyle };
+export { container, elementStyle, K, wrapper };

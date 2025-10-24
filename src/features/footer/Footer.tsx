@@ -1,10 +1,12 @@
 // src/features/footer/Footer.tsx
 
 import React from "react";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { linkedin_svg } from "../../components/callingcard/graphics";
 import { partners } from "../../components/partnership-bar/Partner";
 import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
+import { linkStyle } from "../../styles";
 import { BoxedImage } from "../../utils/reactUtils";
 import { centerable } from "./Footer.styles";
 import { FooterLayoutHandler } from "./FooterLayoutHandler";
@@ -51,7 +53,21 @@ const FooterLayout: React.FC = () => {
 
 	const row2 = [null, <FooterPartershipBar />, null];
 
-	const row3 = [<FooterBottomLeftSideBar />, <FooterBottomRightSideBar />];
+	const row3 = [
+		<FooterBottomLeftSideBar />,
+		<ScrollVisibilityDependent
+			element={Quote2}
+			styling={{
+				...centerable,
+
+				justifyContent: "center",
+
+				maxHeight: "50%",
+			}}
+			borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
+		/>,
+		<FooterBottomRightSideBar />,
+	];
 	return (
 		<GridFooter n_rows={n}>
 			<GridFooterRows
@@ -69,7 +85,12 @@ const FooterLayout: React.FC = () => {
 		</GridFooter>
 	);
 };
-
+// <a
+// 			href={href}
+// 			style={{ ...linkStyle(isUnderlined), ...titleStyle }}
+// 		>
+// 			{formatComponent(content)}
+// 		</a>
 const FooterBottomLeftSideBar: React.FC = () => (
 	<div
 		style={{
@@ -82,7 +103,14 @@ const FooterBottomLeftSideBar: React.FC = () => (
 		}}
 	>
 		<ScrollVisibilityDependent
-			element={linkedin_svg}
+			element={
+				<a
+					href="https://www.linkedin.com/in/joe-fennell-379466170"
+					style={{ color: "white" }}
+				>
+					{linkedin_svg}
+				</a>
+			}
 			styling={{
 				display: "flex",
 				justifyContent: "left",
@@ -91,19 +119,45 @@ const FooterBottomLeftSideBar: React.FC = () => (
 			borders={[1 / 3, 0.75 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
-			element={<p>Joe Fennell</p>}
+			element={
+				<a
+					href="https://www.linkedin.com/in/joe-fennell-379466170"
+					style={{ ...linkStyle(), color: "white" }}
+				>
+					Joe Fennell
+				</a>
+			}
 			styling={centerable}
 			borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
-			element={<p>Inquiries</p>}
+			element={
+				<NavLink
+					to={"/demo_and_testing"}
+					style={{
+						...linkStyle(),
+						color: "white",
+					}}
+				>
+					Inquiries
+				</NavLink>
+			}
 			styling={{ ...centerable }}
 			borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
 		/>
 
 		<ScrollVisibilityDependent
 			element={
-				<p style={{ wordBreak: "break-word" }}>aicompatible.com</p>
+				<a
+					href="emilbowry.com"
+					style={{
+						...linkStyle(),
+						color: "white",
+						wordBreak: "break-word",
+					}}
+				>
+					aicompatible.com
+				</a>
 			}
 			styling={centerable}
 			borders={[0.25 * (1 / 3), 0]}
@@ -113,17 +167,6 @@ const FooterBottomLeftSideBar: React.FC = () => (
 
 const FooterBottomRightSideBar: React.FC = () => (
 	<>
-		<ScrollVisibilityDependent
-			element={Quote2}
-			styling={{
-				...centerable,
-
-				justifyContent: "center",
-
-				maxHeight: "50%",
-			}}
-			borders={[0.8 * (1 / 3), 0.2 * (1 / 3)]}
-		/>
 		<div
 			style={{
 				...centerable,

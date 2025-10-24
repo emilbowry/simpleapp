@@ -2,9 +2,9 @@
 import React, { lazy, Suspense } from "react";
 
 import { Route, Routes } from "react-router-dom";
-import "./styles.css";
 import logo from "./assets/logoshape.svg";
-import { useAnimationTagging } from "./utils/animationTagging";
+import { useAnimationTagging } from "./hooks/AnimationTagging";
+import "./styles.css";
 
 const ContactPage = lazy(() => import("./pages/contact-page/ContactPage"));
 const ToolPage = lazy(() => import("./pages/dpo-tool/tool"));
@@ -15,18 +15,15 @@ const TheJourneyPage = lazy(
 );
 const DemoPage = lazy(() => import("./pages/demo/DemoPage"));
 
-import { dark_midnight_green, lighter_logo_blue } from "./utils/defaultColours";
 import { useScrollToTop } from "./hooks/ScrollToTop";
-// const stylestr =
+import { dark_midnight_green, lighter_logo_blue } from "./utils/defaultColours";
 const LoadingFC = () => (
 	<>
 		<div
 			style={{
 				height: "100vh",
 				width: "100vw",
-
 				padding: "5%",
-
 				color: lighter_logo_blue,
 				background: dark_midnight_green,
 			}}
@@ -41,8 +38,6 @@ const App: React.FC = () => {
 	useScrollToTop();
 	return (
 		<>
-			{/* <ScrollToTop /> */}
-
 			<Suspense fallback={<LoadingFC />}>
 				<Routes>
 					<Route
