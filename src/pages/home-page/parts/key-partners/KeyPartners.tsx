@@ -114,7 +114,7 @@ const KeyPartnersCallingCard: React.FC = () => {
 				styleOverrides={{
 					backgroundColor: bgwhite,
 					...SideBarFullOverlapStyle,
-					zIndex: 5,
+					zIndex: 0,
 				}}
 				footer={
 					<div
