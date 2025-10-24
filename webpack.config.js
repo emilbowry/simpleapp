@@ -55,6 +55,13 @@ module.exports = (env, argv) => {
 					],
 				},
 				{
+					test: /favicon|apple-touch-icon|android-chrome|manifest/i,
+					type: "asset/resource",
+					generator: {
+						filename: "[name][ext]",
+					},
+				},
+				{
 					test: /\.(png|jpe?g|gif)$/i,
 					oneOf: [
 						{
