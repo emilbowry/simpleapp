@@ -121,49 +121,10 @@ const styleObjectToString = <T extends string, U extends string, V>(
 	return cssString;
 };
 
-const useBrowserScale = (): number => {
-	const [scale, setScale] = useState(1.0);
-
-	useEffect(() => {
-		const visualViewport = window.visualViewport;
-
-		let initialScale = window.devicePixelRatio || 1;
-
-		if (visualViewport) {
-			initialScale *= visualViewport.scale;
-		}
-
-		setScale(initialScale);
-
-		if (visualViewport) {
-			const updateScale = () => {
-				const currentScale = window.outerWidth / window.innerWidth;
-
-				setScale(currentScale);
-			};
-
-			visualViewport.addEventListener("resize", updateScale);
-
-			return () => {
-				visualViewport.removeEventListener("resize", updateScale);
-			};
-		} else {
-			console.warn(
-				"window.visualViewport not supported. Only using devicePixelRatio."
-			);
-		}
-		return () => {};
-	}, []);
-
-	return scale;
-};
 const volume_constant_size = "1vw*calc(sqrt(calc(1vw/1vw)*calc(1vh/1vw)))";
 const volume_constant_size_prime =
 	"1vh*calc(sqrt(calc(1vw/1vh)*calc(1vh/1vh)))";
 
-const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
-
-const IS_CHROME = /Chrome/i.test(userAgent);
 export {
 	BackgroundStyle,
 	borderGrad,
@@ -172,8 +133,6 @@ export {
 	linkStyle,
 	Theme,
 	styleObjectToString,
-	useBrowserScale,
 	volume_constant_size,
 	volume_constant_size_prime,
-	IS_CHROME,
 };

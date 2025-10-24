@@ -1,18 +1,11 @@
 // src/App.tsx
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./styles.css";
 import logo from "./assets/logoshape.svg";
-import { animationTagging } from "./utils/animationTagging";
-// import { LogoHexagon } from "./components/hexagons/LogoHexagon";
+import { useAnimationTagging } from "./utils/animationTagging";
 
-// import { ContactPage } from "./pages/contact-page/ContactPage";
-// import { ToolPage } from "./pages/dpo-tool/tool";
-// import { HomePage } from "./pages/home-page/HomePage";
-// import { OurServices } from "./pages/our-services-page/OurServices";
-// import { TheJourneyPage } from "./pages/the-journey-page/TheJourney";
-// import { DemoPage } from "./pages/demo/DemoPage";
 const ContactPage = lazy(() => import("./pages/contact-page/ContactPage"));
 const ToolPage = lazy(() => import("./pages/dpo-tool/tool"));
 const HomePage = lazy(() => import("./pages/home-page/HomePage"));
@@ -21,14 +14,9 @@ const TheJourneyPage = lazy(
 	() => import("./pages/the-journey-page/TheJourney")
 );
 const DemoPage = lazy(() => import("./pages/demo/DemoPage"));
-function ScrollToTop() {
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [useLocation()]);
 
-	return null; // doesn’t render anything
-}
 import { dark_midnight_green, lighter_logo_blue } from "./utils/defaultColours";
+import { useScrollToTop } from "./hooks/ScrollToTop";
 // const stylestr =
 const LoadingFC = () => (
 	<>
@@ -47,15 +35,13 @@ const LoadingFC = () => (
 		</div>
 	</>
 );
-// const canvas = document.getElementById("body").ele;
-// const ctx = canvas.getContext("2d");
 
 const App: React.FC = () => {
-	useEffect(animationTagging, [useLocation().pathname]);
-	// useBrowserScale();
+	useAnimationTagging();
+	useScrollToTop();
 	return (
 		<>
-			<ScrollToTop />
+			{/* <ScrollToTop /> */}
 
 			<Suspense fallback={<LoadingFC />}>
 				<Routes>

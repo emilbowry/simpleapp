@@ -64,10 +64,7 @@ const HexSVG: React.FC<{
 
 const HexagonContext = createContext<IHexagonState>({} as any);
 // const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
-const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
-
-// The check is performed ONCE here and the result is exported.
-const IS_CHROME = /Chrome/i.test(userAgent);
+import { IS_CHROME } from "../../hooks/BrowserDependant";
 const ComposedHexSVG: THexFC = ({ styles }) => {
 	const { construct } = useContext(HexagonContext);
 	const { defs, paths } = construct();

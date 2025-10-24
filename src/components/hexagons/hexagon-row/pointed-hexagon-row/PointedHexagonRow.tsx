@@ -16,27 +16,10 @@ import {
 	wideLayoutContainerStyle,
 } from "./PointedHexagonRow.styles";
 import { PointedtopHexagonFeatureGridProps } from "./PointedHexagonRow.types";
+import { useNarrowLayout } from "../../../../hooks/WindowSizeDependent";
 
 const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
-	const LAYOUT_BREAKPOINT = 1200;
-
-	const [isNarrow, setIsNarrow] = useState(false);
-
-	const updateLayout = () => {
-		const shouldBeNarrow = window.innerWidth < LAYOUT_BREAKPOINT;
-		if (shouldBeNarrow !== isNarrow) {
-			setIsNarrow(shouldBeNarrow);
-		}
-	};
-
-	useEffect(() => {
-		updateLayout();
-		window.addEventListener("resize", updateLayout);
-		return () => {
-			window.removeEventListener("resize", updateLayout);
-		};
-	}, [isNarrow]);
-
+	const isNarrow = useNarrowLayout();
 	const renderWideLayout = () => {
 		return (
 			<div style={wideLayoutContainerStyle}>

@@ -1,5 +1,8 @@
 // src/utils/animationTagging.ts
 
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 const isHTMLElement = (el: Element): el is HTMLElement =>
 	el instanceof HTMLElement;
 const isInSVG = (el: Element) =>
@@ -126,3 +129,9 @@ export const animationTagging = () => {
 		mo.disconnect();
 	};
 };
+
+const useAnimationTagging = () => {
+	useEffect(animationTagging, [useLocation().pathname]);
+};
+
+export { useAnimationTagging };

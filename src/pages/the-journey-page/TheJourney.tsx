@@ -1,6 +1,6 @@
 // src/pages/the-journey-page/TheJourney.tsx
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Hexagon } from "../../components/hexagons/Hexagons";
 import { ImageHexagon } from "../../components/hexagons/ImageHexagon";
 import { HexagonGrid } from "../../components/hexagons/hexagon-row/HexagonRow";
@@ -17,6 +17,7 @@ import {
 	midnight_green,
 } from "../../utils/defaultColours";
 import { BoxedImage } from "../../utils/reactUtils";
+import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
 
 const TimelineData = [
 	{
@@ -249,38 +250,12 @@ const getRows = (isNarrow = false) => {
 	});
 };
 const theJourneyPage: React.FC = () => {
-	const LAYOUT_BREAKPOINT = 1200;
-
-	const [isNarrow, setIsNarrow] = useState(false);
-
-	const updateLayout = () => {
-		const shouldBeNarrow = window.innerWidth < LAYOUT_BREAKPOINT;
-		if (shouldBeNarrow !== isNarrow) {
-			setIsNarrow(shouldBeNarrow);
-		}
-	};
-
-	useEffect(() => {
-		updateLayout();
-		window.addEventListener("resize", updateLayout);
-		return () => {
-			window.removeEventListener("resize", updateLayout);
-		};
-	}, [isNarrow]);
+	const isNarrow = useNarrowLayout();
 	const relative_spacing = isNarrow ? 1 : 10;
 	const absolute_spacing = 0;
 
-	// const k = K({ relative_spacing, absolute_spacing });
-	// console.log((relative_spacing * Math.sqrt(3)) / 2);
 	return (
-		<div
-			style={
-				{
-					// marginLeft: `-${(relative_spacing * Math.sqrt(3)) / 2}%`,
-					// marginRight: `-${(relative_spacing * Math.sqrt(3)) / 2}%`,
-				}
-			}
-		>
+		<div>
 			<div
 				style={{
 					height: "100%",

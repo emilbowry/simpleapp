@@ -102,8 +102,7 @@ import {
 	ServiceStyle,
 } from "./OurServices.styles";
 import { PiChart } from "./pi_chart";
-import { IS_CHROME } from "../../styles";
-
+import { IS_CHROME } from "../../hooks/BrowserDependant";
 const ServicesSideBar: React.FC = () => {
 	return (
 		<div>

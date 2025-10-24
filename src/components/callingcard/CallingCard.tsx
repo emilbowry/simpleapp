@@ -16,6 +16,7 @@ import {
 	IGridItemProps,
 	IHeaderProps,
 } from "./CallingCard.types";
+import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
 
 const CompWrapper: React.FC<ICallOutProps> = ({
 	content,
@@ -154,24 +155,7 @@ const SideBarCallingCard: React.FC<
 	ICallingCardProps & { sideBar?: ICallingCardProps }
 > = (props) => {
 	const { components, isPageElement = true, sideBar } = props;
-	const LAYOUT_BREAKPOINT = 1200;
-
-	const [isNarrow, setIsNarrow] = useState(false);
-
-	const updateLayout = () => {
-		const shouldBeNarrow = window.innerWidth < LAYOUT_BREAKPOINT;
-		if (shouldBeNarrow !== isNarrow) {
-			setIsNarrow(shouldBeNarrow);
-		}
-	};
-
-	useEffect(() => {
-		updateLayout();
-		window.addEventListener("resize", updateLayout);
-		return () => {
-			window.removeEventListener("resize", updateLayout);
-		};
-	}, [isNarrow]);
+	const isNarrow = useNarrowLayout();
 
 	const Child = () =>
 		sideBar ? (

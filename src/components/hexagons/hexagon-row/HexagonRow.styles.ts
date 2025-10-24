@@ -1,11 +1,4 @@
 // src/components/hexagons/hexagonRow/HexagonRow.styles.ts
-
-/**
-	@improvement 
-	- Generalise for n >3
-	- integrate pointed top (VHex) hexagon logic into centralised styling system
-
- */
 import React from "react";
 
 import {
@@ -62,17 +55,14 @@ const gapMidpointTranslation: TScalingFunction = ({ relative_spacing = 0 }) =>
 /*
  **IMPORTANT**:	- CANNONICALLY DEFINED in terms of item **width**
  */
-const centreYOffset: TDualScalingFunction = (
-	scale_params
-): [number, number] => {
-	return scale_params.index % 2 === (scale_params.upper_first ? 0 : 1)
-		? [
-				-1 *
-					(centerVertTranslation(scale_params) +
-						gapMidpointTranslation(scale_params)),
-				-scale_params.absolute_spacing / 2,
-		  ]
-		: [0, 0];
+const YOffset: TDualScalingFunction = (scale_params): [number, number] => {
+	const factor = -(+scale_params.index % 2 === +!scale_params.upper_first);
+	return [
+		factor *
+			(centerVertTranslation(scale_params) +
+				gapMidpointTranslation(scale_params)),
+		(factor * scale_params.absolute_spacing) / 2,
+	];
 };
 /* Since column-gap is our cannonical inner translation we need to maintain the absolute shift */
 
@@ -86,10 +76,8 @@ const PositionCorrectionFactor: TScalingFunction = (scale_params) =>
 
 const XScaleCorrectionFactor: TScalingFunction = (scale_params) =>
 	(K(scale_params) * scale_params.relative_spacing) / 4;
-const edgeXOffset: TDualScalingFunction = (scale_params) => {
-	const halfPoint = (scale_params.n - 1) / 2;
-
-	const shift_factor = halfPoint - scale_params.index;
+const XOffset: TDualScalingFunction = (scale_params) => {
+	const shift_factor = (scale_params.n - 1) / 2 - scale_params.index;
 
 	return [
 		shift_factor *
@@ -120,12 +108,12 @@ const withCalc: TWithCalc = (fn, dual) => {
 
 const calculateColGap = withCalc(colGap, false);
 
-const edgeHexYShift = withCalc(centreYOffset, true);
-const calculateXShift = withCalc(edgeXOffset, true);
+const calcYShift = withCalc(YOffset, true);
+const calcXShift = withCalc(XOffset, true);
 
 const elementStyle = (scale_params: IScaleParams): React.CSSProperties => {
-	const Xshifts = calculateXShift(scale_params);
-	const Yshifts = edgeHexYShift(scale_params);
+	const Xshifts = calcXShift(scale_params);
+	const Yshifts = calcYShift(scale_params);
 	return {
 		marginLeft: Xshifts[0],
 		marginRight: Xshifts[1],
@@ -245,8 +233,7 @@ const wrapper = (
 	const rel_padding_bottom_offset = !bottomExtension ? 2 : 1;
 	const abs_padding_bottom_offset = !bottomExtension ? 1.5 : 1;
 
-	const hasTwoEls = n === 2;
-	const correction = hasTwoEls ? 1.5 : 1;
+	const correction = n === 2 ? 1.5 : 1;
 	return {
 		paddingTop: `calc(${
 			correction * rel_padding_top_factor * relative_correction_top

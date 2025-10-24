@@ -35,9 +35,10 @@ const CustomCursor: React.FC = () => {
 			cancelAnimationFrame(animationFrameId);
 		};
 	}, [mousePosition, TRAIL_SPEED]);
-
+	// const cursorStyle:React.CSSProperties = {cursor:"none !important"}
 	return (
 		<>
+			<style>{`* {cursor: none !important;}`}</style>
 			<div style={smallCursorStyle(mousePosition)} />
 			<div style={largeCursorStyle(largerCursorPosition)} />
 		</>

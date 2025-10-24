@@ -26,8 +26,8 @@ import {
 	imageStyling,
 	titleStyle,
 } from "./AboutUs.styles";
-import { IS_CHROME, volume_constant_size } from "../../../../styles";
-
+import { volume_constant_size } from "../../../../styles";
+import { IS_CHROME } from "../../../../hooks/BrowserDependant";
 const head = (
 	<h2 style={{ fontSize: `calc(3*${volume_constant_size})` }}>About Us</h2>
 );

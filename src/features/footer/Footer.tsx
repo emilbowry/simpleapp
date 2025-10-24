@@ -78,7 +78,6 @@ const FooterBottomLeftSideBar: React.FC = () => (
 			columnGap: "2px",
 			height: "100%",
 			maxWidth: "100%",
-			// margin: "0 auto",
 			paddingLeft: "4px",
 		}}
 	>

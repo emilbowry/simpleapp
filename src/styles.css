@@ -57,9 +57,7 @@ body {
   contain: paint;
   transform: none
 }
-* {
-cursor: none !important;
-}
+
 .aos-ignore {
   isolation: isolate;
 } 

@@ -3,8 +3,8 @@
 import React from "react";
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
-import { Theme, useBrowserScale } from "../../../../styles";
-
+import { Theme } from "../../../../styles";
+import { useBrowserScale } from "../../../../hooks/WindowSizeDependent";
 import will from "../../../../assets/dude1.jpg";
 import ben from "../../../../assets/dude2.jpg";
 import omar from "../../../../assets/dude3.jpg";
@@ -97,7 +97,6 @@ const PText: React.FC<
 
 const Persona: React.FC<IPersona> = (props) => {
 	const scale = useBrowserScale();
-	// console.log(scale.toFixed(2));
 	const {
 		image,
 

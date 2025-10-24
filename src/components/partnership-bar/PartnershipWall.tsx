@@ -14,6 +14,7 @@ import {
 	PartnershipBarCompactWallProps,
 	PartnershipBarFullWallProps,
 } from "./PartnershipBar.types";
+import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
 const PartnerWallRow: React.FC<{
 	partners: readonly IPartner[];
 	style: React.CSSProperties;
@@ -46,27 +47,13 @@ const getLayoutData = (partners: readonly IPartner[]) => {
 };
 
 const useResponsiveLayout = (partnerCount: number) => {
-	const [isCompactView, setIsCompactView] = useState(false);
+	const layout = WallLayout(partnerCount);
+	const maxBricks = Math.max(layout[0], layout[1]);
 
-	useEffect(() => {
-		const checkViewportWidth = () => {
-			const layout = WallLayout(partnerCount);
-			const maxBricks = Math.max(layout[0], layout[1]);
-
-			const threshold =
-				PARTNER_EFFECTIVE_WIDTH * (maxBricks + +!(maxBricks % 2 === 0));
-
-			setIsCompactView(window.innerWidth < threshold);
-		};
-
-		checkViewportWidth();
-		window.addEventListener("resize", checkViewportWidth);
-		return () => window.removeEventListener("resize", checkViewportWidth);
-	}, [partnerCount]);
-
-	return isCompactView;
+	const threshold =
+		PARTNER_EFFECTIVE_WIDTH * (maxBricks + +!(maxBricks % 2 === 0));
+	return useNarrowLayout(threshold);
 };
-
 const PartnershipBarFullWall: React.FC<PartnershipBarFullWallProps> = ({
 	maxBricks,
 	rows,
