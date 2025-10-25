@@ -1,15 +1,14 @@
 // src/features/page/page.tsx
 
-import React from "react";
-import { CustomCursor } from "../../components/cursor/Cursor";
+import React, { useContext, useEffect } from "react";
 import { Footer } from "../footer/Footer";
 
 import dropdownImage from "../../assets/aicwork.jpg";
 import logo from "../../assets/logo.png";
-import { useIsMobile } from "../../hooks/BrowserDependant";
 import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
 import { BackgroundStyle } from "../../styles";
 
+import { CursorContext } from "../../components/cursor/Cursor";
 import { PillTitleBar } from "../titlebar/TitleBar";
 import { VISIBLE_TITLEBAR_HEIGHT } from "../titlebar/TitleBar.consts";
 import { ITitleBarLink } from "../titlebar/TitleBar.types";
@@ -31,12 +30,13 @@ const Page: React.FC<{
 	bg?: boolean;
 	useCursor?: boolean;
 }> = ({ page: Page, bg = true, useCursor = true }) => {
-	const isMobile = useIsMobile();
+	const { setHasCustomCursor } = useContext(CursorContext);
+	useEffect(() => {
+		setHasCustomCursor(useCursor);
+	}, [setHasCustomCursor, useCursor]);
 	const isNarrow = useNarrowLayout();
 	return (
 		<>
-			{useCursor && !isMobile ? <CustomCursor /> : null}
-
 			{bg ? <div style={BackgroundStyle}></div> : null}
 
 			<PillTitleBar
