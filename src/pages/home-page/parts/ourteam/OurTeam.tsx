@@ -72,7 +72,7 @@ const PHeader: React.FC<IPersona & { theme: ReturnType<typeof getTheme> }> = ({
 					href={`mailto:${email}`}
 					{...useDynamicLink({
 						useDefaultDecoration: true,
-						style_args: ["1px"],
+						style_args: ["3px"],
 						StyleOverrides: {
 							color: theme.primaryColor,
 						},

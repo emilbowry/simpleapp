@@ -1,7 +1,7 @@
 // src/App.tsx
 import React, { lazy, Suspense, useState } from "react";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import logo from "./assets/logoshape.svg";
 import { useAnimationTagging } from "./hooks/AnimationTagging";
 import "./styles.css";
@@ -37,6 +37,8 @@ const LoadingFC = () => (
 const App: React.FC = () => {
 	const [hasCustomCursor, setHasCustomCursor] = useState(true);
 	const [global_position, setGlobalMousePosition] = useState({ x: 0, y: 0 }); // to track between navlinks
+	const location = useLocation();
+	const [loc, setLoc] = useState(location);
 	useAnimationTagging();
 	useScrollToTop();
 	return (
@@ -48,6 +50,8 @@ const App: React.FC = () => {
 						setHasCustomCursor,
 						global_position,
 						setGlobalMousePosition,
+						loc,
+						setLoc,
 					}}
 				>
 					<CustomCursor />

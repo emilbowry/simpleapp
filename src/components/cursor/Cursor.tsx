@@ -1,6 +1,7 @@
 // src/components/cursor/Cursor.tsx
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useIsMobile } from "../../hooks/BrowserDependant";
 import { TRAIL_SPEED } from "./Cursor.consts";
 import {
@@ -56,8 +57,23 @@ const useTrailingPosition = (
 	return trailing_position;
 };
 
-const useHoveringLink = () => {
+const useHoveringLink = (loc?: any, setLoc?: any) => {
 	const [isHoveringLink, setIsHoveringLink] = useState(false);
+	const location = useLocation();
+	useEffect(() => {
+		if (loc && setLoc) {
+			if (location !== loc) {
+				setIsHoveringLink(false);
+				setLoc(loc);
+			}
+		}
+		window.addEventListener("mouseover", () => {});
+		window.addEventListener("mouseout", () => {});
+		return () => {
+			window.removeEventListener("mouseover", () => {});
+			window.removeEventListener("mouseout", () => {});
+		};
+	}, [loc, location]);
 	useEffect(() => {
 		const handleMouseOver = (e: MouseEvent) => {
 			if ((e.target as HTMLElement).tagName === "A") {
@@ -166,8 +182,13 @@ const HexCursor: React.FC<ICustomCursorProps> = (props: ICustomCursorProps) =>
 
 const CustomCursor: React.FC = (useBasic = false) => {
 	const isMobile = useIsMobile();
-	const { hasCustomCursor, global_position, setGlobalMousePosition } =
-		useContext(CursorContext);
+	const {
+		hasCustomCursor,
+		global_position,
+		setGlobalMousePosition,
+		loc,
+		setLoc,
+	} = useContext(CursorContext);
 
 	const mouse_position = useMousePosition(global_position);
 	useEffect(() => {
@@ -177,7 +198,7 @@ const CustomCursor: React.FC = (useBasic = false) => {
 	const MouseProps = {
 		mouse_position,
 		trailing_position: useTrailingPosition(mouse_position),
-		isHoveringLink: useHoveringLink(),
+		isHoveringLink: useHoveringLink(loc, setLoc),
 		isMouseClicked: useMouseClick(),
 	};
 	return !isMobile && hasCustomCursor ? (
@@ -199,5 +220,7 @@ const CursorContext = createContext<{
 	setHasCustomCursor: React.Dispatch<React.SetStateAction<boolean>>;
 	global_position?: IPosition;
 	setGlobalMousePosition?: React.Dispatch<React.SetStateAction<IPosition>>;
+	loc?: any;
+	setLoc?: any;
 }>({} as any);
 export { CursorContext, CustomCursor };

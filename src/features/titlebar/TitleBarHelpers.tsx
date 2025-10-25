@@ -67,10 +67,11 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 						useDefaultDecoration: false,
 						condition_function: () =>
 							active_link_alias === display_alias,
+						style_args: ["2px"],
 						StyleOverrides: {
-							textUnderlineOffset: "1px",
-							backgroundPosition: "bottom -1px left",
-							paddingBottom: "5px",
+							// textUnderlineOffset: "1px",
+							backgroundPosition: "bottom  left",
+							paddingBottom: "1px",
 						},
 					})}
 				>

@@ -30,6 +30,9 @@ const smallCursorStyle = (mousePosition: {
 	left: `${mousePosition.x - INNER_RADIUS / 2}px`,
 	top: `${mousePosition.y - INNER_RADIUS / 2}px`,
 });
+
+// import { logo_blue } from "../../utils/defaultColours";
+import { logo_gradient_prime } from "../../styles";
 const largeCursorStyle = (largerCursorPosition: {
 	x: number;
 	y: number;
@@ -43,8 +46,7 @@ const largeCursorStyle = (largerCursorPosition: {
 
 const BaseHexStyle: React.CSSProperties = {
 	position: "fixed",
-	backgroundColor: "white",
-
+	backgroundImage: `${logo_gradient_prime}`,
 	pointerEvents: "none",
 	mixBlendMode: "difference",
 	width: `${HEX_SIZE}px`,
