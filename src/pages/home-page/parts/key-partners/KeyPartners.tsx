@@ -8,11 +8,12 @@ import ms from "../../../../assets/ms.png";
 
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { SideBarTopOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
-import { linkStyle, VOLUME_CONSTANT_SIZE } from "../../../../styles";
+import { useDynamicLink } from "../../../../hooks/DynamicLink";
+import { VOLUME_CONSTANT_SIZE } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { BoxedImage } from "../../../../utils/reactUtils";
 
-const f1 = (
+const F1 = () => (
 	<div
 		style={{
 			maxWidth: "30vw",
@@ -27,12 +28,14 @@ const f1 = (
 		<div>
 			<a
 				href="https://thegrowthhouse.com/ai-programme/"
-				style={{
-					...linkStyle(true),
-					color: "inherit",
-					fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
-					fontWeight: "bold",
-				}}
+				{...useDynamicLink({
+					useDefaultDecoration: true,
+					StyleOverrides: {
+						color: "inherit",
+						fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
+						fontWeight: "bold",
+					},
+				})}
 			>
 				The Growth House
 			</a>
@@ -47,7 +50,7 @@ const f1 = (
 	</div>
 );
 
-const f2 = (
+const F2 = () => (
 	<div
 		style={{
 			maxWidth: "30vw",
@@ -62,12 +65,14 @@ const f2 = (
 		<div>
 			<a
 				href="https://community.mindstone.com/events"
-				style={{
-					...linkStyle(true),
-					color: "inherit",
-					fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
-					fontWeight: "bold",
-				}}
+				{...useDynamicLink({
+					useDefaultDecoration: true,
+					StyleOverrides: {
+						color: "inherit",
+						fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
+						fontWeight: "bold",
+					},
+				})}
 			>
 				Mindstone
 			</a>
@@ -81,7 +86,7 @@ const f2 = (
 	</div>
 );
 
-const f3 = (
+const F3 = () => (
 	<div
 		style={{
 			maxWidth: "30vw",
@@ -97,12 +102,14 @@ const f3 = (
 		<div>
 			<a
 				href="https://www.hewardmills.com"
-				style={{
-					...linkStyle(true),
-					color: "inherit",
-					fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
-					fontWeight: "bold",
-				}}
+				{...useDynamicLink({
+					useDefaultDecoration: true,
+					StyleOverrides: {
+						color: "inherit",
+						fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
+						fontWeight: "bold",
+					},
+				})}
 			>
 				Heward Mills
 			</a>
@@ -121,7 +128,7 @@ const KeyPartnersCallingCard: React.FC = () => {
 	return (
 		<>
 			<CallingCard
-				components={[f1, f2, f3]}
+				components={[<F1 />, <F2 />, <F3 />]}
 				header={<h1>Key Partners</h1>}
 				styleOverrides={{
 					backgroundColor: bgwhite,
@@ -137,9 +144,6 @@ const KeyPartnersCallingCard: React.FC = () => {
 								height: "50px",
 								background: bgwhite,
 								zIndex: "100",
-								// paddingTop: "50px",
-								// marginBottom: "50px",
-
 								["--borderrad"]: `calc(4*${VOLUME_CONSTANT_SIZE})`,
 
 								borderRadius:

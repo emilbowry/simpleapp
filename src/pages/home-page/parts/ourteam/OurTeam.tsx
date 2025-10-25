@@ -8,6 +8,7 @@ import joefennelhs from "../../../../assets/joeheadshot.png";
 import miranda from "../../../../assets/miranda.jpg";
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
+import { useDynamicLink } from "../../../../hooks/DynamicLink";
 import { useBrowserScale } from "../../../../hooks/WindowSizeDependent";
 import { border_gradient, getTheme } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
@@ -66,8 +67,22 @@ const PHeader: React.FC<IPersona & { theme: ReturnType<typeof getTheme> }> = ({
 			</span>
 		</h3>
 		{email ? (
-			<div style={{ color: theme.primaryColor }}>{email}</div>
+			<div>
+				<a
+					href={`mailto:${email}`}
+					{...useDynamicLink({
+						useDefaultDecoration: true,
+						style_args: ["1px"],
+						StyleOverrides: {
+							color: theme.primaryColor,
+						},
+					})}
+				>
+					{email}
+				</a>
+			</div>
 		) : (
+			// <div style={{ color: theme.primaryColor }}>{email}</div>
 			<div></div>
 		)}
 	</div>

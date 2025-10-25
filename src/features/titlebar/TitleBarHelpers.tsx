@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { useDynamicLink } from "../../hooks/DynamicLink";
 import {
 	DropdownImageContainerStyles,
 	DropdownImageStyles,
@@ -15,7 +16,6 @@ import {
 	LogoContainerStyles,
 	LogoStyles,
 	NavLinksContainerStyles,
-	navLinkStyles,
 	PillBarOverrides,
 	RightHandContainerStyles,
 	titleBarStyles,
@@ -61,15 +61,15 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 			if (!main_link) return null;
 			const display_alias = formatLabel(main_link.path, main_link.alias);
 			return (
-				<div
-					key={display_alias}
-					onMouseOver={() => onLinkOver(display_alias)}
-				>
+				<div key={display_alias}>
 					<NavLink
 						to={main_link.path}
-						style={navLinkStyles(
-							active_link_alias === display_alias
-						)}
+						onMouseOver={() => onLinkOver(display_alias)}
+						{...useDynamicLink({
+							useDefaultDecoration: false,
+							condition_function: () =>
+								active_link_alias === display_alias,
+						})}
 					>
 						{display_alias}
 					</NavLink>
@@ -117,7 +117,11 @@ const DropDownOuter: React.FC<{ ActiveLinkGroup: ITitleBarLink[] }> = ({
 					<NavLink
 						key={`${link.path}-${index}`}
 						to={link.path}
-						style={DropdownLinkStyles}
+						{...useDynamicLink({
+							useDefaultDecoration: true,
+							StyleOverrides: DropdownLinkStyles,
+						})}
+						// style={DropdownLinkStyles}
 					>
 						{formatLabel(link.path, link.alias)}
 					</NavLink>

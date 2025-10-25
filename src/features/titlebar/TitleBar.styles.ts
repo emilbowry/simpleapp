@@ -1,6 +1,6 @@
 // src/components/titlebar/TitleBar.styles.ts
 import React from "react";
-import { linkStyle, VOLUME_CONSTANT_SIZE } from "../../styles";
+import { interactiveLinkStyle, VOLUME_CONSTANT_SIZE } from "../../styles";
 import { VISIBLE_TITLEBAR_HEIGHT } from "./TitleBar.consts";
 const HamburgerStyle: React.CSSProperties = {
 	background: "none",
@@ -50,11 +50,7 @@ const RightHandContainerStyles: React.CSSProperties = {
 	justifyContent: "flex-end",
 	alignItems: "center",
 };
-const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
-	...linkStyle(isUnderlined),
-	transition: "background-size 0.3s ease-in",
-	padding: 0,
-});
+const navLinkStyles = interactiveLinkStyle;
 const DropdownStyles: React.CSSProperties = {
 	left: "0",
 	right: "0",
@@ -87,7 +83,6 @@ const DropdownLinksColumnStyles: React.CSSProperties = {
 const DropdownLinkStyles: React.CSSProperties = {
 	color: "#333",
 	fontSize: "15px",
-	textDecoration: "none",
 	padding: "5px 0",
 	whiteSpace: "nowrap",
 };
