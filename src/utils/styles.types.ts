@@ -436,11 +436,11 @@ type TValidCSS<
 	U extends string | undefined = undefined,
 	V = undefined
 > = TValidStyle<TValidInner<T, U, V>, U, V> | CSS.Properties;
-export {
+export type {
 	TAllPseudos,
 	TAtRule,
-	TElementTag,
 	TClassSelector,
+	TElementTag,
 	THtmlAttributes,
 	TIDSelector,
 	TValidCSS,

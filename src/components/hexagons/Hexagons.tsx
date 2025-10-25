@@ -236,7 +236,6 @@ class Hexagon
 		super(props);
 		this.setOrientation();
 		this.state = Hexagon.starting_state;
-		// this.ElContext = createContext<IHexagonState>(this.hex_state);
 	}
 	santiseOptionalParameters() {
 		const { args } = this.props;
@@ -275,7 +274,6 @@ class Hexagon
 			const activeHeight = this.nudgeHeight(entry.contentRect.height);
 
 			this.updateGuard(activeHeight);
-			// console.log("resize");
 			this.oscillations += 1;
 		}
 	};

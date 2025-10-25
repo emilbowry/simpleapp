@@ -5,7 +5,6 @@ import { borderGrad } from "../../styles";
 const GridBodyStyle: React.CSSProperties = {
 	borderImage: borderGrad,
 	display: "grid",
-	// zIndex: 15,
 };
 
 const GridItemStyle: React.CSSProperties = {
@@ -13,7 +12,6 @@ const GridItemStyle: React.CSSProperties = {
 	width: "100%",
 	margin: 0,
 	padding: 0,
-	// zIndex: 15,
 };
 const containerStyle: React.CSSProperties = {
 	position: "relative",
