@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = (env, argv) => {
 	// 1. Determine the mode and if it's a production build
 	const isProduction = argv.mode === "production";
+	const faviconRegex = /favicon|apple-touch-icon|android-chrome|manifest/i;
 
 	// 2. Return the configuration object
 	return {
@@ -63,7 +64,8 @@ module.exports = (env, argv) => {
 					},
 				},
 				{
-					test: /\.(png|jpe?g|gif)$/i,
+					test: /\.(png|jpe?g|gif|ico)$/i,
+					exclude: faviconRegex,
 					oneOf: [
 						{
 							resourceQuery: /inline/,
