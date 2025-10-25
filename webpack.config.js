@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
 			path: path.resolve(__dirname, "dist"),
 			filename: "bundle.js",
 			clean: true,
-			publicPath: "/",
+			// publicPath: "/",
 		},
 
 		devtool: isProduction ? "source-map" : "eval-source-map",
@@ -91,6 +91,7 @@ module.exports = (env, argv) => {
 		plugins: [
 			new HtmlWebpackPlugin({
 				template: "public/index.html",
+				favicon: "public/favicon.ico",
 			}),
 		],
 	};
