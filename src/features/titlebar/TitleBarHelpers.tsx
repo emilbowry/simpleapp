@@ -61,15 +61,27 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 			if (!main_link) return null;
 			const display_alias = formatLabel(main_link.path, main_link.alias);
 			return (
-				<div key={display_alias}>
+				<div
+					key={display_alias}
+					{...useDynamicLink({
+						useDefaultDecoration: false,
+						condition_function: () =>
+							active_link_alias === display_alias,
+						StyleOverrides: {
+							textUnderlineOffset: "1px",
+							backgroundPosition: "bottom -1px left",
+							paddingBottom: "5px",
+						},
+					})}
+				>
 					<NavLink
 						to={main_link.path}
 						onMouseOver={() => onLinkOver(display_alias)}
-						{...useDynamicLink({
-							useDefaultDecoration: false,
-							condition_function: () =>
-								active_link_alias === display_alias,
-						})}
+						style={{
+							color: "inherit",
+							textDecorationColor: "inherit",
+							textDecorationLine: "inherit",
+						}}
 					>
 						{display_alias}
 					</NavLink>
@@ -119,6 +131,7 @@ const DropDownOuter: React.FC<{ ActiveLinkGroup: ITitleBarLink[] }> = ({
 						to={link.path}
 						{...useDynamicLink({
 							useDefaultDecoration: true,
+
 							StyleOverrides: DropdownLinkStyles,
 						})}
 						// style={DropdownLinkStyles}
