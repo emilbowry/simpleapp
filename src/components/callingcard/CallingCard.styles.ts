@@ -21,22 +21,26 @@ const containerStyle: React.CSSProperties = {
 	height: "100%",
 };
 
-const SideBarOverlapStyle: React.CSSProperties = {
+const SideBarBottomOverlapStyle: React.CSSProperties = {
 	paddingBottom: "20%",
 	marginBottom: "-20%",
 	zIndex: 10,
 };
-const SideBarFullOverlapStyle: React.CSSProperties = {
-	...SideBarOverlapStyle,
+const SideBarTopOverlapStyle: React.CSSProperties = {
 	paddingTop: "66%",
 	marginTop: "-66%",
 	zIndex: 5,
+};
+const SideBarFullOverlapStyle: React.CSSProperties = {
+	...SideBarBottomOverlapStyle,
+	...SideBarTopOverlapStyle,
 };
 
 export {
 	containerStyle,
 	GridBodyStyle,
 	GridItemStyle,
+	SideBarBottomOverlapStyle,
 	SideBarFullOverlapStyle,
-	SideBarOverlapStyle,
+	SideBarTopOverlapStyle,
 };
