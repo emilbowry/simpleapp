@@ -122,7 +122,6 @@ export {
 	MarqueeFrameStyle,
 	MarqueeWindowStyle,
 	PartnerImageWrapperStyle,
-	PartnerStyles,
 	PartnerWrapperStyle,
 	PBWallStyle,
 	rowLayoutStyle,

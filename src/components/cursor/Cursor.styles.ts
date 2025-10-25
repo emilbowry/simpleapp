@@ -82,16 +82,16 @@ const diamondStyle = (mousePosition: IPosition): React.CSSProperties => ({
 	}%)`,
 });
 
-const clickInsertStyle = (mousePosition: IPosition): React.CSSProperties => ({
-	...baseHexStyle(mousePosition),
-	clipPath: `polygon(50% 50%,  ${50 - CHEV_GAP / 2}% ${
-		50 - CHEV_GAP * ASPECT_RATIO
-	}%,  ${100 - CHEV_GAP / 2}% ${50 - CHEV_GAP * ASPECT_RATIO}%, 100% 50%,  ${
-		100 - CHEV_GAP / 2
-	}% ${50 + CHEV_GAP * ASPECT_RATIO}%, ${50 - CHEV_GAP / 2}% ${
-		50 + CHEV_GAP * ASPECT_RATIO
-	}%)`,
-});
+// const clickInsertStyle = (mousePosition: IPosition): React.CSSProperties => ({
+// 	...baseHexStyle(mousePosition),
+// 	clipPath: `polygon(50% 50%,  ${50 - CHEV_GAP / 2}% ${
+// 		50 - CHEV_GAP * ASPECT_RATIO
+// 	}%,  ${100 - CHEV_GAP / 2}% ${50 - CHEV_GAP * ASPECT_RATIO}%, 100% 50%,  ${
+// 		100 - CHEV_GAP / 2
+// 	}% ${50 + CHEV_GAP * ASPECT_RATIO}%, ${50 - CHEV_GAP / 2}% ${
+// 		50 + CHEV_GAP * ASPECT_RATIO
+// 	}%)`,
+// });
 const clickInsertStyleA = (mousePosition: IPosition): React.CSSProperties => ({
 	...baseHexStyle(mousePosition),
 
@@ -109,9 +109,7 @@ const clickInsertStyleB = (mousePosition: IPosition): React.CSSProperties => ({
 	}%, 75% 100%, 25% 100%)`,
 });
 export {
-	baseCursorStyle,
 	chevStyle,
-	clickInsertStyle,
 	clickInsertStyleA,
 	clickInsertStyleB,
 	diamondStyle,

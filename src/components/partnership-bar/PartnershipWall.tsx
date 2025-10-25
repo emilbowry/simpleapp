@@ -1,11 +1,10 @@
 import React from "react";
 import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
-import { getTheme } from "../../styles";
 import { PartnerImage } from "./PartnershipBar";
 import { PARTNER_EFFECTIVE_WIDTH } from "./PartnershipBar.consts";
 import {
 	CompactViewStyle,
-	PartnerStyles,
+	PBWallStyle,
 	rowLayoutStyle,
 } from "./PartnershipBar.styles";
 import {
@@ -110,10 +109,7 @@ const PartnershipWall: React.FC<IPartnershipBar> = ({
 	partners,
 	index = 0,
 }) => {
-	const StaticStyle: React.CSSProperties = {
-		...PartnerStyles["Large"],
-		borderColor: getTheme(index).tertiaryColor,
-	};
+	const StaticStyle = PBWallStyle(index);
 	const layout = WallLayout(partners.length);
 	const max_bricks = Math.max(layout[0], layout[1]);
 

@@ -113,7 +113,7 @@ const observeAll = (io: IntersectionObserver) => {
 	});
 };
 
-export const animationTagging = () => {
+const animationTagging = () => {
 	const io = new IntersectionObserver(
 		(entries) => {
 			for (const entry of entries) {

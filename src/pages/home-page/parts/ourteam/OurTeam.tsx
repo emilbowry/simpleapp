@@ -13,9 +13,9 @@ import { useBrowserScale } from "../../../../hooks/WindowSizeDependent";
 import { border_gradient, getTheme } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import {
-	_PersonaTextStyle,
 	OurTeamContainerStyle,
 	PersonaHeadshotStyle,
+	personaTextStyle,
 	personaWrapperStyle,
 } from "./OurTeam.styles";
 import { IPersona } from "./OurTeam.types";
@@ -133,7 +133,7 @@ const Persona: React.FC<IPersona> = (props) => {
 			<div
 				style={{
 					backgroundColor: theme.backgroundColor,
-					..._PersonaTextStyle(scale),
+					...personaTextStyle(scale),
 					// borderRadius: "10px",
 				}}
 			>

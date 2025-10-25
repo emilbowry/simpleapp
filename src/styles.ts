@@ -35,10 +35,10 @@ const logo_gradient_prime = `linear-gradient(to right, ${logo_yellow} 40%, ${log
 // const logo_gradient_prime = `linear-gradient(to right, ${logo_blue} 0%, ${logo_yellow} 100%)`;
 
 const border_gradient = `${logo_gradient} 1`;
-const GenericSectionStyle: React.CSSProperties = {
-	border: "1px solid black",
-	backgroundColor: "rgba(255, 0, 0, 0.2)",
-};
+// const GenericSectionStyle: React.CSSProperties = {
+// 	border: "1px solid black",
+// 	backgroundColor: "rgba(255, 0, 0, 0.2)",
+// };
 const getTheme = (index: number) => {
 	const theme = {
 		backgroundColor: bgwhite,
@@ -144,11 +144,9 @@ export {
 	BackgroundStyle,
 	border_gradient,
 	generateGradient,
-	GenericSectionStyle,
 	getTheme,
 	interactiveLinkStyle,
 	linkStyle,
-	logo_gradient,
 	logo_gradient_prime,
 	styleObjectToString,
 	VOLUME_CONSTANT_SIZE,

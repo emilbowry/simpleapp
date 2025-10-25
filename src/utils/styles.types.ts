@@ -437,13 +437,13 @@ type TValidCSS<
 	V = undefined
 > = TValidStyle<TValidInner<T, U, V>, U, V> | CSS.Properties;
 export type {
-	TAllPseudos,
+	// TAllPseudos,
 	TAtRule,
-	TClassSelector,
-	TElementTag,
-	THtmlAttributes,
-	TIDSelector,
-	TValidCSS,
-	TValidKeys,
+	// TClassSelector,
+	// TElementTag,
+	// THtmlAttributes,
+	// TIDSelector,
+	// TValidCSS,
+	// TValidKeys,
 	TValidStyle,
 };

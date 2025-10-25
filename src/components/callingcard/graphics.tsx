@@ -1,7 +1,7 @@
 // src/components/callingcard/graphics.tsx
 
 // import React from "react";
-import { logo_yellow, logo_blue } from "../../utils/defaultColours";
+import { logo_blue, logo_yellow } from "../../utils/defaultColours";
 
 const LogoLinearGradient = (
 	<linearGradient
@@ -58,68 +58,6 @@ const bullseye = (
 	</svg>
 );
 
-const vline = (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		stroke="url(#logoGradient2)"
-		strokeWidth="1.4px"
-		strokeLinecap="round"
-		viewBox="0 0 34 34"
-	>
-		<defs>
-			<linearGradient
-				id="logoGradient2"
-				x1="50%"
-				y1="0%"
-				x2="50%"
-				y2="100%"
-			>
-				<stop
-					offset="0%"
-					stopColor={`${logo_yellow}`}
-				/>
-				<stop
-					offset="100%"
-					stopColor={`${logo_blue}`}
-				/>
-			</linearGradient>
-		</defs>
-		<path d="M 17 0 l 0 34 h 0.01" />
-	</svg>
-);
-const vline2 = (colour?: string) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill={colour ?? ""}
-		stroke={colour ?? "url(#logoGradient2)"}
-		strokeWidth="1.4px"
-		strokeLinecap="round"
-		viewBox="0 0 34 34"
-	>
-		{colour ? (
-			<defs>
-				<linearGradient
-					id="logoGradient2"
-					x1="50%"
-					y1="0%"
-					x2="50%"
-					y2="100%"
-				>
-					<stop
-						offset="0%"
-						stopColor={`${logo_yellow}`}
-					/>
-					<stop
-						offset="100%"
-						stopColor={`${logo_blue}`}
-					/>
-				</linearGradient>
-			</defs>
-		) : null}
-		<path d="M 17 0 l 0 34 h 0.01" />
-	</svg>
-);
 const pencil = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -188,12 +126,4 @@ const linkedin_svg = (
 	</svg>
 );
 
-export {
-	linkedin_svg,
-	bulb,
-	bullseye,
-	pencil,
-	LogoLinearGradient,
-	vline,
-	vline2,
-};
+export { bulb, bullseye, linkedin_svg, LogoLinearGradient, pencil };

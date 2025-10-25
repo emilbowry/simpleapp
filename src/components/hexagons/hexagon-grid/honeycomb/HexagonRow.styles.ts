@@ -8,11 +8,7 @@ import {
 	TWithCalc,
 } from "../HexagonGrid.types";
 import { DebugBackground } from "./_debugstylesbackground";
-import {
-	ASPECT_RATIO,
-	CONTAINER_per_Element,
-	SIDE_SHIFT,
-} from "./HexagonRow.consts";
+import { ASPECT_RATIO, SIDE_SHIFT } from "./HexagonRow.consts";
 /* 	 Makes sense since devolves into an equilateral triangle problem
 	== 1/cos(30) */
 const colGap: TScalingFunction = ({ relative_spacing = 0 }) =>
@@ -180,7 +176,7 @@ const ContainerStyle = (
 		...scale_params_prime,
 	};
 	const col_scale_params = {
-		relative_spacing: _relative_spacing * CONTAINER_per_Element,
+		relative_spacing: _relative_spacing * (1 / n),
 		...scale_params_prime,
 	};
 	return {

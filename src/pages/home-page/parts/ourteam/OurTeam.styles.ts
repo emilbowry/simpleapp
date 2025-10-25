@@ -10,11 +10,7 @@ const personaWrapperStyle: React.CSSProperties = {
 	justifyContent: "center",
 };
 
-const PersonaTextStyle: React.CSSProperties = {
-	padding: "5%",
-	height: "30vh",
-};
-const _PersonaTextStyle = (
+const personaTextStyle = (
 	scale = 1
 ): React.CSSProperties & { [key: string]: string } => ({
 	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
@@ -53,9 +49,8 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	marginBottom: "calc(10%)",
 };
 export {
-	_PersonaTextStyle,
 	OurTeamContainerStyle,
 	PersonaHeadshotStyle,
-	PersonaTextStyle,
+	personaTextStyle,
 	personaWrapperStyle,
 };

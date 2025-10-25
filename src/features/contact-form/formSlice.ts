@@ -115,7 +115,7 @@ export const {
 	resetForm,
 } = FormSlice.actions;
 
-export type { IFormState, IUpdateFieldPayload, TDataKeys, TValidationCheck };
+export type { IFormState, TDataKeys, TValidationCheck };
 
 export { submitContactForm };
 export default FormSlice.reducer;
