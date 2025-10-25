@@ -3,7 +3,11 @@
 import React from "react";
 import { formatComponent } from "../../../../utils/reactUtils";
 import { IHexagonGridElements, THexRowLayoutProps } from "../HexagonGrid.types";
-import { container, elementStyle, wrapper } from "./HexagonRow.styles";
+import {
+	ContainerStyle,
+	ElementStyle,
+	WrapperStyle,
+} from "./HexagonRow.styles";
 
 import {
 	DEFAULT_ABSOLUTE_SPACING,
@@ -21,7 +25,7 @@ const HexagonRow: React.FC<THexRowLayoutProps> = ({
 		<>
 			{elements.map((el, index) => (
 				<div
-					style={elementStyle({
+					style={ElementStyle({
 						relative_spacing,
 						absolute_spacing,
 						upper_first,
@@ -60,7 +64,7 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 			className={class_name ?? ""}
 			style={{
 				height: "100%",
-				...wrapper(
+				...WrapperStyle(
 					topExtension,
 					bottomExtension,
 					length,
@@ -72,7 +76,12 @@ const HexagonGrid: React.FC<IHexagonGridElements> = ({
 			}}
 		>
 			<div
-				style={container(relative_spacing, absolute_spacing, length, n)}
+				style={ContainerStyle(
+					relative_spacing,
+					absolute_spacing,
+					length,
+					n
+				)}
 			>
 				{rows.map((row, _index) => (
 					<HexagonRow

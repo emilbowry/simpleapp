@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from "react";
 
+import { IS_CHROME } from "../../hooks/BrowserDependant";
 import {
 	formatComponent,
 	Map,
@@ -7,18 +8,20 @@ import {
 	SantisedElMap,
 } from "../../utils/reactUtils";
 import {
-	Flattop_Hex_Path,
-	Hex_Starting_State,
-	Pointedtop_Hex_Path,
+	FLATTOP_HEX_PATH,
+	HEX_STARTING_STATE,
+	MAX_OSCILLATIONS,
+	POINTEDTOP_HEX_PATH,
+	USE_POINTED_TOP,
 } from "./Hexagons.consts";
 import {
 	containerStyle,
 	ElContainerStyle,
-	elementSection,
-	elementWrapper,
+	ElementSectionStyle,
+	ElementWrapperStyle,
 	ELWrapperStyle,
-	hexagonalContentStyle,
-	PolyCutout,
+	HexagonalContentStyle,
+	polyCutoutStyle,
 	svgStyle,
 } from "./Hexagons.styles";
 import {
@@ -64,8 +67,6 @@ const HexSVG: React.FC<{
 };
 
 const HexagonContext = createContext<IHexagonState>({} as any);
-// const isAndroid = useMemo(() => /Android/i.test(navigator.userAgent), []);
-import { IS_CHROME } from "../../hooks/BrowserDependant";
 const ComposedHexSVG: THexFC = ({ styles }) => {
 	const { construct } = useContext(HexagonContext);
 	const { defs, paths } = construct();
@@ -115,7 +116,7 @@ const ScallingWrapper: THexFC = ({ children }) => {
 			style={{
 				...ElContainerStyle,
 				fontSize: `calc(max(${
-					useContext(HexagonContext).fontSize
+					useContext(HexagonContext).font_size
 				}vw,1px))`,
 			}}
 		>
@@ -128,29 +129,29 @@ const BoundingShape: React.FC = () => {
 
 	return (
 		<>
-			<div style={PolyCutout(usePointedTop, true)} />
-			<div style={PolyCutout(usePointedTop, false)} />
+			<div style={polyCutoutStyle(usePointedTop, true)} />
+			<div style={polyCutoutStyle(usePointedTop, false)} />
 		</>
 	);
 };
 
 const CenterAlignedElement: THexFC = ({ element, useVerticalAlignment }) => {
-	const { containerHeight, contentHeight, setContainerRef } =
+	const { container_height, content_height, setContainerRef } =
 		useContext(HexagonContext);
 	return (
 		element && (
 			<div
-				style={hexagonalContentStyle}
+				style={HexagonalContentStyle}
 				ref={setContainerRef}
 			>
-				<div style={elementWrapper}>
+				<div style={ElementWrapperStyle}>
 					<BoundingShape />
 					<div
 						style={{
-							...elementSection,
+							...ElementSectionStyle,
 							paddingTop: useVerticalAlignment
 								? `calc(${
-										(containerHeight - contentHeight) / 2
+										(container_height - content_height) / 2
 								  }px)`
 								: 0,
 						}}
@@ -170,33 +171,32 @@ class Hexagon
 	extends React.Component<any, IHexObjState>
 	implements IHexagonState
 {
-	static usePointedTop = false;
-	static defaultHexPath = Flattop_Hex_Path;
-	static altHexPath = Pointedtop_Hex_Path;
-	static starting_state = Hex_Starting_State;
-	static maxOsc = 10;
+	static usePointedTop = USE_POINTED_TOP;
+	static default_hex_path = FLATTOP_HEX_PATH;
+	static alt_hex_path = POINTEDTOP_HEX_PATH;
+	static starting_state = HEX_STARTING_STATE;
+	static max_osc = MAX_OSCILLATIONS;
 	private n_updates = 0;
 
-	private containerNode: TRefNode<Element> = null;
+	private container_node: TRefNode<Element> = null;
 
-	private contentNode: TRefNode<Element> = null;
-	private contentObserver: TContentObserver = null;
+	private content_node: TRefNode<Element> = null;
+	private content_observer: TContentObserver = null;
 	private _oscillations: TOscillation = undefined;
 
-	hexPath!: string;
+	hex_path!: string;
 	usePointedTop!: boolean;
-	// ElContext: React.Context<IHexagonState>;
 
-	get fontSize() {
-		return 2.5; // only to obey interface not used
+	get font_size() {
+		return 2.5;
 	}
 
-	get containerHeight() {
-		return this.containerNode ? this.containerNode.clientHeight : 400;
+	get container_height() {
+		return this.container_node ? this.container_node.clientHeight : 400;
 	}
 
-	get contentHeight() {
-		return this.state.contentHeight ?? 0;
+	get content_height() {
+		return this.state.content_height ?? 0;
 	}
 
 	get oscillations() {
@@ -209,22 +209,22 @@ class Hexagon
 		return {
 			setContainerRef: this.setContainerRef,
 			setContentRef: this.setContentRef,
-			containerHeight: this.containerHeight,
-			contentHeight: this.contentHeight,
+			container_height: this.container_height,
+			content_height: this.content_height,
 			usePointedTop: this.usePointedTop,
-			fontSize: this.state.fontSize,
+			font_size: this.state.font_size,
 			construct: this.construct.bind(this),
 		};
 	}
 
 	setContainerRef = (node: TRefNode<HTMLDivElement>) => {
-		this.containerNode = node;
+		this.container_node = node;
 	};
 	setContentRef = (node: TRefNode<Element>) => {
-		this.contentNode = node;
+		this.content_node = node;
 	};
 	private nudgeHeight = (height: number) => {
-		const delta = this.contentHeight - height;
+		const delta = this.content_height - height;
 		const pertubation = 2 * (this.oscillations % 2) - 1;
 		return (
 			height +
@@ -239,7 +239,7 @@ class Hexagon
 	}
 	santiseOptionalParameters() {
 		const { args } = this.props;
-		const sanitisedArgs: any = {};
+		const sanitised_args: any = {};
 		const getValue = (return_value: any, f_params?: any) =>
 			typeof return_value === "function"
 				? return_value(args, f_params)
@@ -248,10 +248,10 @@ class Hexagon
 		for (const assignment of this.getDefaultAssignments()) {
 			const { key, alias, return_value, f_params } = assignment;
 			const _return_value = getValue(return_value, f_params);
-			sanitisedArgs[alias || key] = args?.[key] || _return_value;
+			sanitised_args[alias || key] = args?.[key] || _return_value;
 		}
 
-		return sanitisedArgs;
+		return sanitised_args;
 	}
 	getDefaultAssignments(): IOptParamMap[] {
 		return [
@@ -279,20 +279,20 @@ class Hexagon
 	};
 
 	override componentWillUnmount() {
-		this.contentObserver && this.contentObserver.disconnect();
+		this.content_observer && this.content_observer.disconnect();
 	}
 
 	override componentDidMount() {
-		this.setState({ containerHeight: this.containerHeight });
-		if (this.contentNode) {
-			this.contentObserver = new ResizeObserver(this.observerCallback);
+		this.setState({ container_height: this.container_height });
+		if (this.content_node) {
+			this.content_observer = new ResizeObserver(this.observerCallback);
 
-			this.contentObserver.observe(this.contentNode);
+			this.content_observer.observe(this.content_node);
 		}
 	}
 	override componentDidUpdate() {
 		this.n_updates += 1;
-		if (this.n_updates / Hexagon.maxOsc < this.oscillations) {
+		if (this.n_updates / Hexagon.max_osc < this.oscillations) {
 			this._oscillations = undefined;
 		}
 	}
@@ -305,7 +305,7 @@ class Hexagon
 				? [
 						<mask id="hexagon">
 							<path
-								d={this.hexPath}
+								d={this.hex_path}
 								fill="white"
 							/>
 						</mask>,
@@ -313,7 +313,7 @@ class Hexagon
 				: [],
 			paths: [
 				<path
-					d={this.hexPath}
+					d={this.hex_path}
 					mask={!IS_CHROME ? "url(#hexagon)" : ""}
 					fill={color}
 					stroke={borderColor}
@@ -348,13 +348,13 @@ class Hexagon
 	protected setOrientation() {
 		const ctor = this.constructor as typeof Hexagon;
 		this.usePointedTop = this.props.usePointedTop ?? ctor.usePointedTop;
-		this.hexPath = !this.usePointedTop
-			? ctor.defaultHexPath
-			: ctor.altHexPath;
+		this.hex_path = !this.usePointedTop
+			? ctor.default_hex_path
+			: ctor.alt_hex_path;
 	}
 
 	private updateGuard(height: number) {
-		this.setState({ contentHeight: height });
+		this.setState({ content_height: height });
 	}
 }
 

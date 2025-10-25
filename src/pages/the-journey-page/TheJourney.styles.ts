@@ -1,7 +1,7 @@
 // src/pages/the-journey-page/TheJourney.styles.ts
 
 import React from "react";
-import { volume_constant_size_prime } from "../../styles";
+import { VOLUME_CONSTANT_SIZE_PRIME } from "../../styles";
 import {
 	dark_midnight_green,
 	midnight_green,
@@ -17,13 +17,13 @@ const IconHexStyle: React.CSSProperties = {
 };
 
 const RowHeaderStyle: React.CSSProperties = {
-	fontSize: `calc(2*${volume_constant_size_prime})`,
+	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE_PRIME})`,
 	textAlign: "center",
 
 	color: dark_midnight_green,
 };
 const RowContentStyle: React.CSSProperties = {
-	fontSize: `calc(1.8*${volume_constant_size_prime})`,
+	fontSize: `calc(1.8*${VOLUME_CONSTANT_SIZE_PRIME})`,
 	wordBreak: "break-word",
 	textAlign: "center",
 	whiteSpace: "collapse",

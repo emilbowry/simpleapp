@@ -1,18 +1,18 @@
 // src/features/footer/FooterLayoutHandler.tsx
 
 import React from "react";
+import { VOLUME_CONSTANT_SIZE } from "../../styles";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
-import { volume_constant_size } from "../../styles";
 
 const FooterLayoutHandler: React.FC<{
 	component: ValidComponent;
-	styling?: React.CSSProperties;
-}> = ({ component, styling = {} }) => {
+	StyleOverrides?: React.CSSProperties;
+}> = ({ component, StyleOverrides = {} }) => {
 	return (
 		<div
 			style={{
 				marginTop: "calc(-70vh - 60px)",
-				fontSize: `calc(1.5*${volume_constant_size})`,
+				fontSize: `calc(1.5*${VOLUME_CONSTANT_SIZE})`,
 				zIndex: "-15",
 			}}
 		>
@@ -43,7 +43,7 @@ const FooterLayoutHandler: React.FC<{
 						justifyContent: "center",
 
 						alignContent: "center",
-						...styling,
+						...StyleOverrides,
 					}}
 				>
 					{formatComponent(component)}

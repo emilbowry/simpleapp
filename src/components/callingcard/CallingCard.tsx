@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
-import { Theme } from "../../styles";
+import { getTheme } from "../../styles";
 import { formatComponent } from "../../utils/reactUtils";
 import {
 	containerStyle,
@@ -22,8 +22,8 @@ const CompWrapper: React.FC<ICallOutProps> = ({
 	content,
 	wrapper_style = {},
 	noAos,
-}) => {
-	return content ? (
+}) =>
+	content ? (
 		<div
 			className={noAos ? "no-aos" : "aos-ignore"}
 			style={wrapper_style}
@@ -31,7 +31,7 @@ const CompWrapper: React.FC<ICallOutProps> = ({
 			{formatComponent(content)}
 		</div>
 	) : null;
-};
+
 const Header: React.FC<IHeaderProps> = (props) => <CompWrapper {...props} />;
 const Footer: React.FC<IFooterProps> = ({ content }) =>
 	content && formatComponent(content);
@@ -40,8 +40,8 @@ const GridItem = ({
 	content,
 	item_key,
 	noAos,
-}: IGridItemProps): React.ReactNode => {
-	return content ? (
+}: IGridItemProps): React.ReactNode =>
+	content ? (
 		<CompWrapper
 			content={content}
 			wrapper_style={GridItemStyle}
@@ -54,37 +54,34 @@ const GridItem = ({
 			key={item_key}
 		/>
 	);
-};
 const GridBody: React.FC<IGridBodyProps> = ({
 	components,
 	styleOverrides = {},
 	columnOverrides = undefined,
 	noAos,
-}) => {
-	return (
-		<div
-			className={"aos-ignore"}
-			style={{
-				...GridBodyStyle,
-				...{
-					gridTemplateColumns:
-						columnOverrides ?? `repeat(${components.length}, 1fr)`,
-				},
-				...styleOverrides,
-			}}
-		>
-			{components.map((item, index) => (
-				<React.Fragment key={index}>
-					<GridItem
-						content={item}
-						item_key={index}
-						noAos={noAos}
-					/>
-				</React.Fragment>
-			))}
-		</div>
-	);
-};
+}) => (
+	<div
+		className={"aos-ignore"}
+		style={{
+			...GridBodyStyle,
+			...{
+				gridTemplateColumns:
+					columnOverrides ?? `repeat(${components.length}, 1fr)`,
+			},
+			...styleOverrides,
+		}}
+	>
+		{components.map((item, index) => (
+			<React.Fragment key={index}>
+				<GridItem
+					content={item}
+					item_key={index}
+					noAos={noAos}
+				/>
+			</React.Fragment>
+		))}
+	</div>
+);
 
 const CallingCard: React.FC<
 	ICallingCardProps & {
@@ -104,7 +101,7 @@ const CallingCard: React.FC<
 	children,
 	gridOverriders = {},
 }) => {
-	let theme = Theme(index);
+	let theme = getTheme(index);
 	return (
 		<>
 			<div

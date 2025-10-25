@@ -1,21 +1,21 @@
 // src/components/titlebar/TitleBar.styles.ts
 import React from "react";
-import { linkStyle, volume_constant_size } from "../../styles";
+import { linkStyle, VOLUME_CONSTANT_SIZE } from "../../styles";
 import { VISIBLE_TITLEBAR_HEIGHT } from "./TitleBar.consts";
-const hamburgerStyle: React.CSSProperties = {
+const HamburgerStyle: React.CSSProperties = {
 	background: "none",
 	border: "none",
 	marginLeft: "1rem",
 	color: "#333",
 };
 
-const interactionWrapperStyles: React.CSSProperties = {
+const InteractionWrapperStyles: React.CSSProperties = {
 	width: "100%",
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
 	// fontSize: "min(1.5rem,calc(1.5rem*calc(1vw/1vh)))",
-	fontSize: `calc(2*${volume_constant_size})`,
+	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 };
 const titleBarStyles = (): React.CSSProperties => {
 	return {
@@ -31,16 +31,16 @@ const titleBarStyles = (): React.CSSProperties => {
 		// minWidth: `fit-content`,
 	};
 };
-const logoContainerStyles: React.CSSProperties = {
+const LogoContainerStyles: React.CSSProperties = {
 	flex: 1,
 	display: "flex",
 	justifyContent: "flex-start",
 	alignItems: "center",
 };
-const logoStyles: React.CSSProperties = {
+const LogoStyles: React.CSSProperties = {
 	height: `${VISIBLE_TITLEBAR_HEIGHT / 2}vh`,
 };
-const navLinksContainerStyles: React.CSSProperties = {
+const NavLinksContainerStyles: React.CSSProperties = {
 	flex: 2,
 	display: "flex",
 	// justifyContent: "center",
@@ -51,7 +51,7 @@ const navLinksContainerStyles: React.CSSProperties = {
 	textWrap: "nowrap",
 	textAlign: "center",
 };
-const rightHandContainerStyles: React.CSSProperties = {
+const RightHandContainerStyles: React.CSSProperties = {
 	flex: 1,
 	display: "flex",
 	justifyContent: "flex-end",
@@ -63,7 +63,7 @@ const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	padding: 0,
 	cursor: "none",
 });
-const dropdownStyles: React.CSSProperties = {
+const DropdownStyles: React.CSSProperties = {
 	left: "0",
 	right: "0",
 	margin: "0 auto",
@@ -76,7 +76,7 @@ const dropdownStyles: React.CSSProperties = {
 	gap: "30px",
 	width: "fit-content",
 };
-const dropdownContainerStyles: React.CSSProperties = {
+const DropdownContainerStyles: React.CSSProperties = {
 	position: "relative",
 	left: "0",
 	right: "0",
@@ -88,12 +88,12 @@ const dropdownContainerStyles: React.CSSProperties = {
 	paddingTop: "10px",
 	width: "fit-content",
 };
-const dropdownLinksColumnStyles: React.CSSProperties = {
+const DropdownLinksColumnStyles: React.CSSProperties = {
 	display: "flex",
 	flexDirection: "column",
 	gap: "10px",
 };
-const dropdownLinkStyles: React.CSSProperties = {
+const DropdownLinkStyles: React.CSSProperties = {
 	color: "#333",
 	cursor: "none",
 	fontSize: "15px",
@@ -101,20 +101,20 @@ const dropdownLinkStyles: React.CSSProperties = {
 	padding: "5px 0",
 	whiteSpace: "nowrap",
 };
-const dropdownImageContainerStyles: React.CSSProperties = {
+const DropdownImageContainerStyles: React.CSSProperties = {
 	width: "200px",
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
 	justifyContent: "space-between",
 };
-const dropdownImageStyles: React.CSSProperties = {
+const DropdownImageStyles: React.CSSProperties = {
 	width: "99%",
 	height: "120px",
 	objectFit: "cover",
 	borderRadius: "4px",
 };
-const dropdownImageViewOverviewStyles: React.CSSProperties = {
+const DropdownImageViewOverviewStyles: React.CSSProperties = {
 	marginTop: "10px",
 	fontSize: "14px",
 	display: "flex",
@@ -122,7 +122,7 @@ const dropdownImageViewOverviewStyles: React.CSSProperties = {
 	gap: "5px",
 };
 
-const pillBarOverrides: React.CSSProperties = {
+const PillBarOverrides: React.CSSProperties = {
 	borderRadius: "5vh",
 	backgroundColor: "rgb(255 255 255 / 40%)",
 	background: `linear-gradient(to right, rgb(255 222 89 / 10%), rgb(12 192 223 / 10%)),
@@ -133,20 +133,20 @@ const pillBarOverrides: React.CSSProperties = {
 	marginTop: "3rem",
 };
 export {
-	dropdownContainerStyles,
-	dropdownImageContainerStyles,
-	dropdownImageStyles,
-	dropdownImageViewOverviewStyles,
-	dropdownLinksColumnStyles,
-	dropdownLinkStyles,
-	dropdownStyles,
-	hamburgerStyle,
-	interactionWrapperStyles,
-	logoContainerStyles,
-	logoStyles,
-	navLinksContainerStyles,
+	DropdownContainerStyles,
+	DropdownImageContainerStyles,
+	DropdownImageStyles,
+	DropdownImageViewOverviewStyles,
+	DropdownLinksColumnStyles,
+	DropdownLinkStyles,
+	DropdownStyles,
+	HamburgerStyle,
+	InteractionWrapperStyles,
+	LogoContainerStyles,
+	LogoStyles,
+	NavLinksContainerStyles,
 	navLinkStyles,
-	pillBarOverrides,
-	rightHandContainerStyles,
+	PillBarOverrides,
+	RightHandContainerStyles,
 	titleBarStyles,
 };

@@ -1,9 +1,9 @@
 // src/components/callingcard/CallingCard.styles.ts
 
 import React from "react";
-import { borderGrad } from "../../styles";
+import { border_gradient } from "../../styles";
 const GridBodyStyle: React.CSSProperties = {
-	borderImage: borderGrad,
+	borderImage: border_gradient,
 	display: "grid",
 };
 

@@ -12,12 +12,12 @@ const useIsMobile = (): boolean => {
 			return;
 		}
 
-		const pointerQuery = window.matchMedia("(pointer: coarse)");
-		const hoverQuery = window.matchMedia("(hover: none)");
+		const pointer_query = window.matchMedia("(pointer: coarse)");
+		const hover_query = window.matchMedia("(hover: none)");
 
 		const updateStatus = () => {
-			const isCoarsePointer = pointerQuery.matches;
-			const hasNoHover = hoverQuery.matches;
+			const isCoarsePointer = pointer_query.matches;
+			const hasNoHover = hover_query.matches;
 			const finalResult = isCoarsePointer && hasNoHover;
 
 			setIsMobile(finalResult);
@@ -25,19 +25,19 @@ const useIsMobile = (): boolean => {
 
 		updateStatus();
 
-		pointerQuery.addEventListener("change", updateStatus);
-		hoverQuery.addEventListener("change", updateStatus);
+		pointer_query.addEventListener("change", updateStatus);
+		hover_query.addEventListener("change", updateStatus);
 
 		return () => {
-			pointerQuery.removeEventListener("change", updateStatus);
-			hoverQuery.removeEventListener("change", updateStatus);
+			pointer_query.removeEventListener("change", updateStatus);
+			hover_query.removeEventListener("change", updateStatus);
 		};
 	}, []);
 
 	return isMobile;
 };
 
-const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
+const user_agent = typeof navigator !== "undefined" ? navigator.userAgent : "";
 
-const IS_CHROME = /Chrome/i.test(userAgent);
-export { useIsMobile, IS_CHROME };
+const IS_CHROME = /Chrome/i.test(user_agent);
+export { IS_CHROME, useIsMobile };

@@ -30,19 +30,19 @@ const useBrowserScale = (): number => {
 	useEffect(() => {
 		const visualViewport = window.visualViewport;
 
-		let initialScale = window.devicePixelRatio || 1;
+		let initial_scale = window.devicePixelRatio || 1;
 
 		if (visualViewport) {
-			initialScale *= visualViewport.scale;
+			initial_scale *= visualViewport.scale;
 		}
 
-		setScale(initialScale);
+		setScale(initial_scale);
 
 		if (visualViewport) {
 			const updateScale = () => {
-				const currentScale = window.outerWidth / window.innerWidth;
+				const current_scale = window.outerWidth / window.innerWidth;
 
-				setScale(currentScale);
+				setScale(current_scale);
 			};
 
 			visualViewport.addEventListener("resize", updateScale);

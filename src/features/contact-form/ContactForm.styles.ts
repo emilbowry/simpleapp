@@ -1,6 +1,6 @@
 // src/features/contact-form/ContactForm.styles.ts
 
-const formContainerStyle: React.CSSProperties = {
+const FormContainerStyle: React.CSSProperties = {
 	backgroundColor: "#ffffff",
 	padding: "2%",
 	borderRadius: "2%",
@@ -8,7 +8,7 @@ const formContainerStyle: React.CSSProperties = {
 	width: "100%",
 	// maxWidth: "500px",
 };
-const titleStyle: React.CSSProperties = {
+const TitleStyle: React.CSSProperties = {
 	marginBottom: "5%",
 	fontSize: "3rem",
 	fontWeight: 600,
@@ -16,18 +16,18 @@ const titleStyle: React.CSSProperties = {
 	color: "#1c1e21",
 };
 
-const formGroupStyle: React.CSSProperties = {
+const FormGroupStyle: React.CSSProperties = {
 	marginBottom: "2%",
 };
 
-const labelStyle: React.CSSProperties = {
+const LabelStyle: React.CSSProperties = {
 	display: "block",
 	marginBottom: "2%",
 	fontWeight: 500,
 	color: "#606770",
 };
 
-const inputBaseStyle: React.CSSProperties = {
+const InputBaseStyle: React.CSSProperties = {
 	width: "100%",
 	padding: "1rem",
 	// height: "100%",
@@ -39,19 +39,13 @@ const inputBaseStyle: React.CSSProperties = {
 	fontFamily: "inherit",
 };
 
-const textareaStyle: React.CSSProperties = {
-	...inputBaseStyle,
+const TextAreaStyle: React.CSSProperties = {
+	...InputBaseStyle,
 	minHeight: "120px",
 	resize: "vertical",
 };
 
-const checkboxGroupStyle: React.CSSProperties = {
-	display: "flex",
-	alignItems: "center",
-	gap: "10px",
-};
-
-const checkboxInputStyle: React.CSSProperties = {
+const CheckboxInputStyle: React.CSSProperties = {
 	height: "100%",
 	aspectRatio: 1,
 	zoom: 2,
@@ -59,13 +53,7 @@ const checkboxInputStyle: React.CSSProperties = {
 	accentColor: "#007bff",
 };
 
-const checkboxLabelStyle: React.CSSProperties = {
-	marginBottom: 0,
-	fontWeight: 400,
-	color: "#1c1e21",
-};
-
-const buttonStyle: React.CSSProperties = {
+const ButtonStyle: React.CSSProperties = {
 	width: "100%",
 	padding: "2%",
 	fontSize: "18px",
@@ -78,12 +66,12 @@ const buttonStyle: React.CSSProperties = {
 	marginTop: "2%",
 };
 
-const buttonDisabledStyle: React.CSSProperties = {
+const ButtonDisabledStyle: React.CSSProperties = {
 	backgroundColor: "#a0c7e4",
 	cursor: "not-allowed",
 };
 
-const successMessageStyle: React.CSSProperties = {
+const SuccessMessageStyle: React.CSSProperties = {
 	color: "#28a745",
 	backgroundColor: "#e9f7ef",
 	border: "1px solid #a8dfbb",
@@ -93,7 +81,7 @@ const successMessageStyle: React.CSSProperties = {
 	marginBottom: "20px",
 };
 
-const errorMessageStyle: React.CSSProperties = {
+const ErrorMessageStyle: React.CSSProperties = {
 	color: "#dc3545",
 	backgroundColor: "#fbe9eb",
 	border: "1px solid #f5c6cb",
@@ -102,20 +90,18 @@ const errorMessageStyle: React.CSSProperties = {
 	textAlign: "center",
 	marginBottom: "20px",
 };
-const callTimeStyle: React.CSSProperties = {};
+const CallTimeStyle: React.CSSProperties = {};
 export {
-	formContainerStyle,
-	titleStyle,
-	formGroupStyle,
-	labelStyle,
-	inputBaseStyle,
-	textareaStyle,
-	checkboxGroupStyle,
-	checkboxInputStyle,
-	callTimeStyle,
-	buttonStyle,
-	successMessageStyle,
-	errorMessageStyle,
-	buttonDisabledStyle,
-	checkboxLabelStyle,
+	ButtonDisabledStyle,
+	ButtonStyle,
+	CallTimeStyle,
+	CheckboxInputStyle,
+	ErrorMessageStyle,
+	FormContainerStyle,
+	FormGroupStyle,
+	InputBaseStyle,
+	LabelStyle,
+	SuccessMessageStyle,
+	TextAreaStyle,
+	TitleStyle,
 };

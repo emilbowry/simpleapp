@@ -5,19 +5,19 @@ import { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import {
-	dropdownImageContainerStyles,
-	dropdownImageStyles,
-	dropdownImageViewOverviewStyles,
-	dropdownLinksColumnStyles,
-	dropdownLinkStyles,
-	dropdownStyles,
-	hamburgerStyle,
-	logoContainerStyles,
-	logoStyles,
-	navLinksContainerStyles,
+	DropdownImageContainerStyles,
+	DropdownImageStyles,
+	DropdownImageViewOverviewStyles,
+	DropdownLinksColumnStyles,
+	DropdownLinkStyles,
+	DropdownStyles,
+	HamburgerStyle,
+	LogoContainerStyles,
+	LogoStyles,
+	NavLinksContainerStyles,
 	navLinkStyles,
-	pillBarOverrides,
-	rightHandContainerStyles,
+	PillBarOverrides,
+	RightHandContainerStyles,
 	titleBarStyles,
 } from "./TitleBar.styles";
 import { ITitleBarLink, ITitleBarUILinksProps } from "./TitleBar.types";
@@ -30,19 +30,19 @@ const formatLabel = (key: string, alias?: string): string => {
 		.replace(/\w\S*/g, (w) => w[0].toUpperCase() + w.slice(1));
 };
 const TitleBarLogo: React.FC = () => (
-	<div style={logoContainerStyles}>
+	<div style={LogoContainerStyles}>
 		<img
 			src={logo}
 			alt="Logo"
-			style={logoStyles}
+			style={LogoStyles}
 		/>
 	</div>
 );
 
 const TitleBarMenu: React.FC = () => (
-	<div style={rightHandContainerStyles}>
+	<div style={RightHandContainerStyles}>
 		<button
-			style={hamburgerStyle}
+			style={HamburgerStyle}
 			aria-label="Menu"
 		>
 			<Menu size={24} />
@@ -51,25 +51,27 @@ const TitleBarMenu: React.FC = () => (
 );
 
 const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
-	activeLinkAlias,
-	links,
+	active_link_alias,
+	Links,
 	onLinkOver,
 }) => (
-	<div style={navLinksContainerStyles}>
-		{links.map((linkGroup) => {
-			const mainLink = linkGroup[0];
-			if (!mainLink) return null;
-			const displayAlias = formatLabel(mainLink.path, mainLink.alias);
+	<div style={NavLinksContainerStyles}>
+		{Links.map((LinkGroup) => {
+			const main_link = LinkGroup[0];
+			if (!main_link) return null;
+			const display_alias = formatLabel(main_link.path, main_link.alias);
 			return (
 				<div
-					key={displayAlias}
-					onMouseOver={() => onLinkOver(displayAlias)}
+					key={display_alias}
+					onMouseOver={() => onLinkOver(display_alias)}
 				>
 					<NavLink
-						to={mainLink.path}
-						style={navLinkStyles(activeLinkAlias === displayAlias)}
+						to={main_link.path}
+						style={navLinkStyles(
+							active_link_alias === display_alias
+						)}
 					>
-						{displayAlias}
+						{display_alias}
 					</NavLink>
 				</div>
 			);
@@ -77,18 +79,19 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 	</div>
 );
 
-const usePillOnScroll = (dThreshold: number = 1, uThreshold: number = 10) => {
+const usePillOnScroll = (d_threshold: number = 1, u_threshold: number = 10) => {
 	const [isScrolled, setIsScrolled] = useState(false);
 	useEffect(() => {
 		const handleScroll = () => {
-			const currentScrollY = window.scrollY;
-			if (!isScrolled && currentScrollY > dThreshold) setIsScrolled(true);
-			else if (isScrolled && currentScrollY < uThreshold)
+			const current_scroll_y = window.scrollY;
+			if (!isScrolled && current_scroll_y > d_threshold)
+				setIsScrolled(true);
+			else if (isScrolled && current_scroll_y < u_threshold)
 				setIsScrolled(false);
 		};
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
-	}, [isScrolled, dThreshold, uThreshold]);
+	}, [isScrolled, d_threshold, u_threshold]);
 	return isScrolled;
 };
 const usePillBarStyle = () => {
@@ -98,7 +101,7 @@ const usePillBarStyle = () => {
 		() => ({
 			...titleBarStyles(),
 			transition: "all 0.5s ease-in-out",
-			...(isScrolled ? pillBarOverrides : {}),
+			...(isScrolled ? PillBarOverrides : {}),
 		}),
 		[isScrolled]
 	);
@@ -106,41 +109,41 @@ const usePillBarStyle = () => {
 	return TitleBarStyle;
 };
 
-const DropDownOuter: React.FC<{ activeLinkGroup: ITitleBarLink[] }> = ({
-	activeLinkGroup,
+const DropDownOuter: React.FC<{ ActiveLinkGroup: ITitleBarLink[] }> = ({
+	ActiveLinkGroup,
 }) => (
-	<div style={dropdownStyles}>
-		{activeLinkGroup.length > 1 && (
-			<div style={dropdownLinksColumnStyles}>
-				{activeLinkGroup.map((link, index) => (
+	<div style={DropdownStyles}>
+		{ActiveLinkGroup.length > 1 && (
+			<div style={DropdownLinksColumnStyles}>
+				{ActiveLinkGroup.map((link, index) => (
 					<NavLink
 						key={`${link.path}-${index}`}
 						to={link.path}
-						style={dropdownLinkStyles}
+						style={DropdownLinkStyles}
 					>
 						{formatLabel(link.path, link.alias)}
 					</NavLink>
 				))}
 			</div>
 		)}
-		<DropDownInner activeLinkGroup={activeLinkGroup} />
+		<DropDownInner ActiveLinkGroup={ActiveLinkGroup} />
 	</div>
 );
-const DropDownInner: React.FC<{ activeLinkGroup: ITitleBarLink[] }> = ({
-	activeLinkGroup,
+const DropDownInner: React.FC<{ ActiveLinkGroup: ITitleBarLink[] }> = ({
+	ActiveLinkGroup,
 }) => (
 	<>
-		{activeLinkGroup[0].image && (
-			<div style={dropdownImageContainerStyles}>
+		{ActiveLinkGroup[0].image && (
+			<div style={DropdownImageContainerStyles}>
 				<img
-					src={activeLinkGroup[0].image}
+					src={ActiveLinkGroup[0].image}
 					alt={`${formatLabel(
-						activeLinkGroup[0].path,
-						activeLinkGroup[0].alias
+						ActiveLinkGroup[0].path,
+						ActiveLinkGroup[0].alias
 					)} overview`}
-					style={dropdownImageStyles}
+					style={DropdownImageStyles}
 				/>
-				<div style={dropdownImageViewOverviewStyles}>
+				<div style={DropdownImageViewOverviewStyles}>
 					View overview
 					<span style={{ marginLeft: "5px" }}>&rarr;</span>
 				</div>

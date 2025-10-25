@@ -11,7 +11,6 @@ const GridFooter: React.FC<{
 		<div>
 			<div
 				style={{
-					// ...genericSectionStyle,
 					width: "100vw",
 					height: "70vh",
 					margin: "0 auto",
@@ -27,18 +26,18 @@ const GridFooter: React.FC<{
 	);
 };
 const GridFooterRows: React.FC<{
-	colratio?: number[];
+	col_ratio?: number[];
 	children: ValidComponent[];
-}> = ({ colratio = [1], children }) => {
+}> = ({ col_ratio = [1], children }) => {
 	return (
 		<div
 			style={{
 				display: "grid",
-				gridTemplateColumns: colratio
+				gridTemplateColumns: col_ratio
 					.map(
 						(number) =>
 							(100 * number) /
-							colratio.reduce(
+							col_ratio.reduce(
 								(accumulator, currentValue) =>
 									accumulator + currentValue,
 								0

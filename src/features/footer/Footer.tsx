@@ -8,7 +8,7 @@ import { partners } from "../../components/partnership-bar/Partner";
 import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
 import { linkStyle } from "../../styles";
 import { BoxedImage } from "../../utils/reactUtils";
-import { centerable } from "./Footer.styles";
+import { CenterableStyle } from "./Footer.styles";
 import { FooterLayoutHandler } from "./FooterLayoutHandler";
 import { GridFooter, GridFooterRows } from "./GridFooter";
 import { ScrollVisibilityDependent } from "./ScrollVisibilityDependent";
@@ -45,7 +45,7 @@ const FooterLayout: React.FC = () => {
 		null,
 		<ScrollVisibilityDependent
 			element={Quote1}
-			styling={{ ...centerable, alignItems: "center" }}
+			StyleOverrides={{ ...CenterableStyle, alignItems: "center" }}
 			borders={[1, 2 / 3]}
 		/>,
 		null,
@@ -57,8 +57,8 @@ const FooterLayout: React.FC = () => {
 		<FooterBottomLeftSideBar />,
 		<ScrollVisibilityDependent
 			element={Quote2}
-			styling={{
-				...centerable,
+			StyleOverrides={{
+				...CenterableStyle,
 
 				justifyContent: "center",
 
@@ -71,26 +71,21 @@ const FooterLayout: React.FC = () => {
 	return (
 		<GridFooter n_rows={n}>
 			<GridFooterRows
-				colratio={[1, 2, 1]}
+				col_ratio={[1, 2, 1]}
 				children={row1}
 			/>
 			<GridFooterRows
-				colratio={[1, 8, 1]}
+				col_ratio={[1, 8, 1]}
 				children={row2}
 			/>
 			<GridFooterRows
-				colratio={[1, 2, 1]}
+				col_ratio={[1, 2, 1]}
 				children={row3}
 			/>
 		</GridFooter>
 	);
 };
-// <a
-// 			href={href}
-// 			style={{ ...linkStyle(isUnderlined), ...titleStyle }}
-// 		>
-// 			{formatComponent(content)}
-// 		</a>
+
 const FooterBottomLeftSideBar: React.FC = () => (
 	<div
 		style={{
@@ -111,7 +106,7 @@ const FooterBottomLeftSideBar: React.FC = () => (
 					{linkedin_svg}
 				</a>
 			}
-			styling={{
+			StyleOverrides={{
 				display: "flex",
 				justifyContent: "left",
 				marginLeft: 0,
@@ -127,7 +122,7 @@ const FooterBottomLeftSideBar: React.FC = () => (
 					Joe Fennell
 				</a>
 			}
-			styling={centerable}
+			StyleOverrides={CenterableStyle}
 			borders={[0.75 * (1 / 3), 0.5 * (1 / 3)]}
 		/>
 		<ScrollVisibilityDependent
@@ -142,7 +137,7 @@ const FooterBottomLeftSideBar: React.FC = () => (
 					Inquiries
 				</NavLink>
 			}
-			styling={{ ...centerable }}
+			StyleOverrides={{ ...CenterableStyle }}
 			borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
 		/>
 
@@ -159,7 +154,7 @@ const FooterBottomLeftSideBar: React.FC = () => (
 					aicompatible.com
 				</a>
 			}
-			styling={centerable}
+			StyleOverrides={CenterableStyle}
 			borders={[0.25 * (1 / 3), 0]}
 		/>
 	</div>
@@ -169,7 +164,7 @@ const FooterBottomRightSideBar: React.FC = () => (
 	<>
 		<div
 			style={{
-				...centerable,
+				...CenterableStyle,
 
 				height: "100%",
 				minWidth: 0,
@@ -184,7 +179,7 @@ const FooterBottomRightSideBar: React.FC = () => (
 						width={"50%"}
 					/>
 				}
-				styling={centerable}
+				StyleOverrides={CenterableStyle}
 				percentage={0.5 * (1 / 3)}
 				borders={[1 / 3, 0]}
 			/>
@@ -200,7 +195,7 @@ const FooterPartershipBar: React.FC = () => (
 				index={-1}
 			/>
 		}
-		styling={{
+		StyleOverrides={{
 			position: "relative",
 			minWidth: 0,
 			isolation: "isolate",

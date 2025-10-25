@@ -8,7 +8,7 @@ import ms from "../../../../assets/ms.png";
 
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { SideBarFullOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
-import { linkStyle, volume_constant_size } from "../../../../styles";
+import { linkStyle, VOLUME_CONSTANT_SIZE } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { BoxedImage } from "../../../../utils/reactUtils";
 
@@ -16,7 +16,7 @@ const f1 = (
 	<div
 		style={{
 			maxWidth: "30vw",
-			fontSize: `calc(2*${volume_constant_size})`,
+			fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 		}}
 	>
 		<BoxedImage
@@ -46,7 +46,7 @@ const f2 = (
 	<div
 		style={{
 			maxWidth: "30vw",
-			fontSize: `calc(2*${volume_constant_size})`,
+			fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 		}}
 	>
 		<BoxedImage
@@ -75,7 +75,7 @@ const f3 = (
 	<div
 		style={{
 			maxWidth: "30vw",
-			fontSize: `calc(2*${volume_constant_size})`,
+			fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 		}}
 	>
 		<BoxedImage
@@ -128,7 +128,7 @@ const KeyPartnersCallingCard: React.FC = () => {
 								paddingTop: "50px",
 								marginTop: "50px",
 
-								["--borderrad"]: `calc(4*${volume_constant_size})`,
+								["--borderrad"]: `calc(4*${VOLUME_CONSTANT_SIZE})`,
 
 								borderRadius:
 									"0 0 var(--borderrad) var(--borderrad)",

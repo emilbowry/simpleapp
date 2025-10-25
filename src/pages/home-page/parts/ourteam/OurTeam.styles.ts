@@ -1,7 +1,7 @@
 // src/pages/home-page/parts/ourteam/OurTeam.styles.ts
 
 import React from "react";
-import { volume_constant_size } from "../../../../styles";
+import { VOLUME_CONSTANT_SIZE } from "../../../../styles";
 
 const personaWrapperStyle: React.CSSProperties = {
 	display: "grid",
@@ -17,9 +17,9 @@ const PersonaTextStyle: React.CSSProperties = {
 const _PersonaTextStyle = (
 	scale = 1
 ): React.CSSProperties & { [key: string]: string } => ({
-	fontSize: `calc(2*${volume_constant_size})`,
+	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 
-	["--borderrad"]: `calc(4*${volume_constant_size})`,
+	["--borderrad"]: `calc(4*${VOLUME_CONSTANT_SIZE})`,
 
 	borderRadius: "var(--borderrad) 0 0 var(--borderrad)",
 
@@ -47,7 +47,7 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	display: "grid",
 	rowGap: "1%",
 	width: "100%",
-	fontSize: `calc(2*${volume_constant_size})`,
+	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 	paddingBottom: "10vh",
 };
 export {

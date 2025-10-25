@@ -8,7 +8,7 @@ import { Page } from "../../features/page/Page";
 import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { bgwhite } from "../../utils/defaultColours";
 
-import { linkStyle, Theme } from "../../styles";
+import { getTheme, linkStyle } from "../../styles";
 import { formatComponent, ValidComponent } from "../../utils/reactUtils";
 import { titleStyle } from "./ContactPage.styles";
 
@@ -99,9 +99,9 @@ const contactPage: React.FC = () => (
 			}}
 			footer={
 				<PointedtopHexagonFeatureGrid
-					featureCallouts={contactFeatureCallouts}
-					hexagonArgs={{
-						colour: Theme(0).backgroundColor,
+					FeatureCallouts={contactFeatureCallouts}
+					hexagon_args={{
+						colour: getTheme(0).backgroundColor,
 						// borderColour: logo_blue,
 					}}
 					useVerticalAlignment={true}

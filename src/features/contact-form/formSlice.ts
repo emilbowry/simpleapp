@@ -1,12 +1,12 @@
 // src/features/contact-form/formSlice.ts
 
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 
 // --- TYPES ---
-type FormStatus = "idle" | "submitting" | "success" | "error";
+type TFormStatus = "idle" | "submitting" | "success" | "error";
 
-export interface FormState {
+interface IFormState {
 	name: string;
 	jobTitle: string;
 	organisation: string;
@@ -14,11 +14,11 @@ export interface FormState {
 	isForTeam: boolean;
 	reason: string;
 	callTime: string;
-	status: FormStatus;
+	status: TFormStatus;
 	errorMessage: string | null;
 }
 
-const initialState: FormState = {
+const InitialState: IFormState = {
 	name: "",
 	jobTitle: "",
 	organisation: "",
@@ -29,35 +29,33 @@ const initialState: FormState = {
 	status: "idle",
 	errorMessage: null,
 };
-
-export interface UpdateFieldPayload {
-	field: keyof Omit<FormState, "status" | "errorMessage" | "isForTeam">;
+interface IUpdateFieldPayload {
+	field: keyof Omit<IFormState, "status" | "errorMessage" | "isForTeam">;
 	value: string;
 }
+type TDataKeys = Exclude<keyof IFormState, "status" | "errorMessage">;
 
-export type DataKeys = Exclude<keyof FormState, "status" | "errorMessage">;
-
-export type ValidationCheck = (
-	state: RootState
+type TValidationCheck = (
+	State: RootState
 ) => { isValid: true } | { isValid: false; errorMessage: string };
 
-export const submitContactForm = createAsyncThunk<void, ValidationCheck>(
+const submitContactForm = createAsyncThunk<void, TValidationCheck>(
 	"contactForm/submit",
 	async (validationCheck, { getState, dispatch, rejectWithValue }) => {
-		const state = getState() as RootState;
-		const formState = state.form;
+		const State = getState() as RootState;
+		const FormState = State.form;
 
-		const validationResult = validationCheck(state);
+		const ValidationResult = validationCheck(State);
 
-		if (!validationResult.isValid) {
-			dispatch(setErrorMessage(validationResult.errorMessage));
+		if (!ValidationResult.isValid) {
+			dispatch(setErrorMessage(ValidationResult.errorMessage));
 			dispatch(setFormStatus("error"));
-			return rejectWithValue(validationResult.errorMessage);
+			return rejectWithValue(ValidationResult.errorMessage);
 		}
 
 		console.log("Submitting data:", {
-			...formState,
-			enquiryType: formState.isForTeam ? "For my team" : "For myself",
+			...FormState,
+			enquiryType: FormState.isForTeam ? "For my team" : "For myself",
 		});
 
 		await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -68,24 +66,24 @@ export const submitContactForm = createAsyncThunk<void, ValidationCheck>(
 );
 
 // --- SLICE ---
-const formSlice = createSlice({
+const FormSlice = createSlice({
 	name: "contactForm",
-	initialState,
+	initialState: InitialState,
 	reducers: {
-		updateField: (state, action: PayloadAction<UpdateFieldPayload>) => {
+		updateField: (state, action: PayloadAction<IUpdateFieldPayload>) => {
 			const { field, value } = action.payload;
 			(state as any)[field] = value;
 		},
 		setIsForTeam: (state, action: PayloadAction<boolean>) => {
 			state.isForTeam = action.payload;
 		},
-		setFormStatus: (state, action: PayloadAction<FormStatus>) => {
+		setFormStatus: (state, action: PayloadAction<TFormStatus>) => {
 			state.status = action.payload;
 		},
 		setErrorMessage: (state, action: PayloadAction<string | null>) => {
 			state.errorMessage = action.payload;
 		},
-		resetForm: () => initialState,
+		resetForm: () => InitialState,
 	},
 
 	extraReducers: (builder) => {
@@ -115,6 +113,9 @@ export const {
 	setFormStatus,
 	setErrorMessage,
 	resetForm,
-} = formSlice.actions;
+} = FormSlice.actions;
 
-export default formSlice.reducer;
+export type { IFormState, IUpdateFieldPayload, TDataKeys, TValidationCheck };
+
+export { submitContactForm };
+export default FormSlice.reducer;

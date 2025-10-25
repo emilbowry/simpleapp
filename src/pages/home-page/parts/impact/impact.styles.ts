@@ -1,14 +1,18 @@
 // src/pages/home-page/parts/impact/impact.styles.ts
 
-import { borderGrad, Theme, volume_constant_size } from "../../../../styles";
+import {
+	border_gradient,
+	getTheme,
+	VOLUME_CONSTANT_SIZE,
+} from "../../../../styles";
 
 const idx = 1;
-let theme = Theme(idx);
+let theme = getTheme(idx);
 
 const stat_value_style: React.CSSProperties = {
 	color: theme.tertiaryColor,
 	paddingTop: "20%",
-	fontSize: `calc(3*${volume_constant_size})`,
+	fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
 
 	width: "100%",
 	fontWeight: "500",
@@ -21,10 +25,10 @@ const stat_value_style: React.CSSProperties = {
 const stat_body_style: React.CSSProperties = {
 	color: theme.primaryColor,
 	borderTop: `1px solid`,
-	borderImage: borderGrad,
+	borderImage: border_gradient,
 	margin: "auto",
 	padding: "1%",
-	fontSize: `calc(2*${volume_constant_size})`,
+	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 
 	textAlign: "center",
 	overflow: "visible",
@@ -45,7 +49,7 @@ const LetterFooterWrapperStyle: React.CSSProperties = {
 const FounderLetterWrapperStyle: React.CSSProperties = {
 	width: "90%",
 
-	fontSize: `calc(2*${volume_constant_size})`,
+	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 	// display: "flex",
 	// flexDirection: "column",
 };

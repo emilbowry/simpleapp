@@ -13,7 +13,7 @@ import { BackgroundStyle } from "../../styles";
 import { PillTitleBar } from "../titlebar/TitleBar";
 import { VISIBLE_TITLEBAR_HEIGHT } from "../titlebar/TitleBar.consts";
 import { ITitleBarLink } from "../titlebar/TitleBar.types";
-import { mainStyle, pageStyle } from "./Page.styles";
+import { MainStyle, PageStyle } from "./Page.styles";
 const navLinks: ITitleBarLink[][] = [
 	[
 		{ path: "/", alias: "Home", image: dropdownImage },
@@ -40,44 +40,26 @@ const Page: React.FC<{
 			{bg ? <div style={BackgroundStyle}></div> : null}
 
 			<PillTitleBar
-				logoSrc={logo}
-				links={navLinks}
+				logo_src={logo}
+				Links={navLinks}
 			/>
 			<main
 				key={location.pathname}
 				style={{
-					...mainStyle,
+					...MainStyle,
 				}}
 			>
 				<section
 					className="aos-ignore"
 					style={{
 						position: "absolute",
-						...pageStyle,
+						...PageStyle,
 						marginTop: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
 						fontSize: isNarrow
 							? "calc(1.6rem*calc(1vw/1vh))"
 							: "2rem",
 					}}
 				>
-					{/* <style>{`
-.background-container {
-    width: 100%;
-    height: 400px;
-    position: relative;
-	background-color: #033038;
-}
-
-.masked-effect {
-    width: 100%;
-    height: 100%;
-
-   );
-`}</style> */}
-					{/* 
-					<div className="background-container">
-						<div className="masked-effect"></div>
-					</div> */}
 					<Page />
 				</section>
 			</main>

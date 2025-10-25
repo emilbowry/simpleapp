@@ -18,13 +18,13 @@ interface IPartnershipBar {
 }
 
 interface IPartnerMarqueeContentProps {
-	numSets: number[];
+	num_sets: number[];
 	partners: readonly IPartner[];
 }
 
 interface IPartnershipBarCompactWallProps {
 	partners: readonly IPartner[];
-	staticStyle: React.CSSProperties;
+	StaticStyle: React.CSSProperties;
 }
 interface IRows {
 	[key: string]: any;
@@ -33,9 +33,9 @@ interface IRows {
 	bottom: IPartner[];
 }
 interface IPartnershipBarFullWallProps {
-	maxBricks: number;
+	max_bricks: number;
 	rows: IRows;
-	staticStyle: React.CSSProperties;
+	StaticStyle: React.CSSProperties;
 }
 export type {
 	IPartner,

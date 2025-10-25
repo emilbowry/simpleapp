@@ -15,7 +15,7 @@ import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/he
 import { partners } from "../../../../components/partnership-bar/Partner";
 import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
 import { IS_CHROME } from "../../../../hooks/BrowserDependant";
-import { volume_constant_size } from "../../../../styles";
+import { VOLUME_CONSTANT_SIZE } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
 import {
@@ -25,11 +25,11 @@ import {
 	titleStyle,
 } from "./AboutUs.styles";
 const head = (
-	<h2 style={{ fontSize: `calc(3*${volume_constant_size})` }}>About Us</h2>
+	<h2 style={{ fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})` }}>About Us</h2>
 );
 
 const Foot = () => (
-	<p style={{ fontSize: `calc(2*${volume_constant_size})` }}>
+	<p style={{ fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})` }}>
 		At AI Compatible, we believe not everyone needs to be an AI expert but
 		everyone should be AI compatible. That means being alert to the
 		opportunities and the risks: we help businesses navigate both, with
@@ -141,9 +141,9 @@ const AboutUsCallingCard: React.FC = () => {
 				sideBar={{ components: [<Foot />], header: head }}
 				footer={
 					<PointedtopHexagonFeatureGrid
-						featureCallouts={aboutUsFeatureCallouts(!IS_CHROME)} // seems odd that it doesnt work on android
+						FeatureCallouts={aboutUsFeatureCallouts(!IS_CHROME)} // seems odd that it doesnt work on android
 						useVerticalAlignment={true}
-						hexagonArgs={hStyle}
+						hexagon_args={hStyle}
 						theme={-1}
 					/>
 				}

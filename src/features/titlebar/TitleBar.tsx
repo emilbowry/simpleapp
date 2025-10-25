@@ -10,7 +10,7 @@ import { Dropdown, TitleBarUI } from "./TitleBarUI";
 const TitleBar: React.FC<ITitleBarProps> = (props) => (
 	<TitleBarUI
 		{...props}
-		style_fn={props.style_fn || titleBarStyles}
+		styleFunction={props.styleFunction || titleBarStyles}
 	>
 		{props.children}
 	</TitleBarUI>
@@ -24,7 +24,7 @@ const ExpandableTitleBar: React.FC<ITitleBarProps> = (props) => (
 const PillTitleBar: React.FC<ITitleBarProps> = (props) => (
 	<ExpandableTitleBar
 		{...props}
-		style_fn={usePillBarStyle}
+		styleFunction={usePillBarStyle}
 	/>
 );
 

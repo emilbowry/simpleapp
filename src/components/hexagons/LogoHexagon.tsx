@@ -4,10 +4,10 @@ import { logo_yellow } from "../../utils/defaultColours";
 import { LogoLinearGradient } from "../callingcard/graphics";
 import { Hexagon } from "./Hexagons";
 import {
-	Logo_Chev_Colour_Mask,
-	Logo_Chev_Cutout,
-	Logo_Chev_Diamond,
-	Logo_Chev_Split,
+	LOGO_CHEV_COLOUR_MASK,
+	LOGO_CHEV_CUTOUT,
+	LOGO_CHEV_DIAMOND,
+	LOGO_CHEV_SPLIT,
 } from "./Hexagons.consts";
 
 class LogoHexagon extends Hexagon {
@@ -22,12 +22,12 @@ class LogoHexagon extends Hexagon {
 			defs: [LogoLinearGradient, <mask id="hexagon"></mask>],
 			paths: [
 				<path
-					d={Logo_Chev_Diamond}
+					d={LOGO_CHEV_DIAMOND}
 					fill={logo_yellow}
 					mask="url(#logoCutout)"
 				/>,
 				<path
-					d={Logo_Chev_Colour_Mask}
+					d={LOGO_CHEV_COLOUR_MASK}
 					fill="url(#logoGradient)"
 					mask="url(#logoCutout)"
 				/>,
@@ -42,11 +42,11 @@ class LogoHexagon extends Hexagon {
 						fill="white"
 					/>
 					<path
-						d={Logo_Chev_Cutout}
+						d={LOGO_CHEV_CUTOUT}
 						fill="black"
 					/>
 					<path
-						d={Logo_Chev_Split}
+						d={LOGO_CHEV_SPLIT}
 						fill="black"
 					/>
 				</mask>
@@ -59,7 +59,7 @@ class LogoHexagon extends Hexagon {
 						fill="white"
 					/>
 					<path
-						d={Logo_Chev_Cutout}
+						d={LOGO_CHEV_CUTOUT}
 						fill="black"
 					/>
 				</mask>

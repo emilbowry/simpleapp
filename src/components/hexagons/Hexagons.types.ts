@@ -8,7 +8,7 @@ interface IComponentDefinitions {
 	paths: Required<React.ReactNode[]>;
 }
 
-interface THexagonStyleParams {
+interface IHexagonStyleParams {
 	size?: number;
 	scale?: number;
 	opacity?: number;
@@ -51,26 +51,26 @@ type THexFCProps = {
 };
 
 interface IHexObjState {
-	contentHeight: number | undefined;
-	containerHeight: number;
-	fontSize: number;
+	content_height: number | undefined;
+	container_height: number;
+	font_size: number;
 }
 interface IHexagonState extends IHexObjState {
 	setContainerRef: (node: TRefNode<HTMLDivElement>) => void;
 	setContentRef: (node: TRefNode<Element>) => void;
-	containerHeight: number;
-	contentHeight: number;
+	content_height: number;
+	container_height: number;
 	usePointedTop: boolean;
-	fontSize: number;
+	font_size: number;
 	construct: (args?: any) => IComponentDefinitions;
 }
 
 export type {
 	IHexagonState,
+	IHexagonStyleParams,
 	IHexObjState,
 	IOptParamMap,
 	TContentObserver,
-	THexagonStyleParams,
 	THexFC,
 	TOscillation,
 	TRefNode,

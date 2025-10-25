@@ -2,12 +2,12 @@
 
 import React from "react";
 
-const pageStyle: React.CSSProperties = {
+const PageStyle: React.CSSProperties = {
 	flexGrow: "1",
 	position: "relative",
-	flexDirection: "column", // Have to do both
+	flexDirection: "column",
 };
-const mainStyle: React.CSSProperties = {
+const MainStyle: React.CSSProperties = {
 	position: "relative",
 	height: "100%",
 	maxWidth: "100%",
@@ -17,4 +17,4 @@ const mainStyle: React.CSSProperties = {
 	zIndex: "5",
 };
 
-export { mainStyle, pageStyle };
+export { MainStyle, PageStyle };

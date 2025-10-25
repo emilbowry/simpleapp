@@ -9,7 +9,7 @@ import logo from "../../../../assets/logo.png";
 import { SideBarCallingCard } from "../../../../components/callingcard/CallingCard";
 import { SideBarFullOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
-import { Theme, volume_constant_size } from "../../../../styles";
+import { getTheme, VOLUME_CONSTANT_SIZE } from "../../../../styles";
 import { midnight_green } from "../../../../utils/defaultColours";
 import { BoxedImage } from "../../../../utils/reactUtils";
 import {
@@ -21,7 +21,7 @@ import {
 } from "./impact.styles";
 
 const foot = (
-	<div style={{ fontSize: `calc(2*${volume_constant_size})` }}>
+	<div style={{ fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})` }}>
 		<p
 			style={{
 				fontStyle: "italic",
@@ -65,7 +65,7 @@ const impactFeatureCallouts = [
 	],
 ];
 const LetterFooter: React.FC<{ index?: number }> = ({ index = 0 }) => {
-	let theme = Theme(index);
+	let theme = getTheme(index);
 	return (
 		<div style={LetterFooterWrapperStyle}>
 			<div style={LetterFooterContainerStyle}>
@@ -98,8 +98,8 @@ const FounderLetter: React.FC<{ index?: number }> = ({ index = 0 }) => {
 				<div style={{ textAlign: "left" }}>
 					<h2
 						style={{
-							color: Theme(index).primaryColor,
-							fontSize: `calc(3*${volume_constant_size})`,
+							color: getTheme(index).primaryColor,
+							fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
 						}}
 					>
 						A letter from our Founder
@@ -183,8 +183,8 @@ const ImpactCC: React.FC<{ index?: number }> = ({ index = 1 }) => (
 			sideBar={{ components: [foot] }}
 			footer={
 				<PointedtopHexagonFeatureGrid
-					featureCallouts={impactFeatureCallouts}
-					hexagonArgs={{ colour: Theme(index).backgroundColor }}
+					FeatureCallouts={impactFeatureCallouts}
+					hexagon_args={{ colour: getTheme(index).backgroundColor }}
 				/>
 			}
 			index={1}

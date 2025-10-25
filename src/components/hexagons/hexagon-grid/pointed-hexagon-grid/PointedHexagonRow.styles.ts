@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const wideLayoutContainerStyle: React.CSSProperties = {
+const WideLayoutContainerStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "repeat(3, 1fr)",
 	width: "102%",
@@ -10,11 +10,11 @@ const wideLayoutContainerStyle: React.CSSProperties = {
 	alignItems: "center",
 };
 
-const narrowLayoutContainerStyle: React.CSSProperties = {
+const NarrowLayoutContainerStyle: React.CSSProperties = {
 	width: "100%",
 };
 
-const narrowTopRowStyle: React.CSSProperties = {
+const NarrowTopRowStyle: React.CSSProperties = {
 	display: "grid",
 	width: "102%",
 	marginLeft: `${-1.4}%`,
@@ -22,17 +22,17 @@ const narrowTopRowStyle: React.CSSProperties = {
 	gridTemplateColumns: "repeat(2, 1fr)",
 };
 
-const lItemStyle = (index: number): React.CSSProperties => {
+const wideItemStyle = (index: number): React.CSSProperties => {
 	if (index == 0) return { marginLeft: "1%", marginRight: "-1%" };
 	else if (index == 2) return { marginLeft: "-1%", marginRight: "1%" };
 	else return {};
 };
-const sItemStyle = (index: number): React.CSSProperties => {
+const narrowItemStyle = (index: number): React.CSSProperties => {
 	if (index == 0) return { marginLeft: "1%", marginRight: "-1%" };
 	else if (index == 1) return { marginLeft: "-1%", marginRight: "1%" };
 	return {};
 };
-const narrowBottomRowStyle: React.CSSProperties = {
+const NarrowBottomRowStyle: React.CSSProperties = {
 	display: "grid",
 	gridTemplateColumns: "1fr",
 	width: "50%",
@@ -41,10 +41,10 @@ const narrowBottomRowStyle: React.CSSProperties = {
 };
 
 export {
-	lItemStyle,
-	narrowBottomRowStyle,
-	narrowLayoutContainerStyle,
-	narrowTopRowStyle,
-	sItemStyle,
-	wideLayoutContainerStyle,
+	NarrowBottomRowStyle,
+	narrowItemStyle,
+	NarrowLayoutContainerStyle,
+	NarrowTopRowStyle,
+	wideItemStyle,
+	WideLayoutContainerStyle,
 };

@@ -1,12 +1,12 @@
 import React from "react";
 import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
-import { Theme } from "../../styles";
+import { getTheme } from "../../styles";
 import { PartnerImage } from "./PartnershipBar";
 import { PARTNER_EFFECTIVE_WIDTH } from "./PartnershipBar.consts";
 import {
 	CompactViewStyle,
 	PartnerStyles,
-	rowLayout,
+	rowLayoutStyle,
 } from "./PartnershipBar.styles";
 import {
 	IPartner,
@@ -29,11 +29,11 @@ import {
 */
 
 const WallLayout = (n: number): [number, number, number] => {
-	const a =
+	const top_row =
 		Math.sign(n) * ((((n % 3) + 1) % 2) + Math.max(1, Math.floor(n / 3)));
-	const c =
+	const bottom_row =
 		Math.floor((n + 1) / 3) - (((n + 1) % Math.max(1, Math.min(n, 3))) % 2);
-	return [a, n - (a + c), c];
+	return [top_row, n - (top_row + bottom_row), bottom_row];
 };
 
 const keys = ["top", "mid", "bottom"];
@@ -46,10 +46,10 @@ const getRows = (p: readonly IPartner[], sum = 0, r = {} as IRows) => (
 );
 const getLayoutData = (partners: readonly IPartner[]) => {
 	const rows = getRows(partners);
-	const maxBricks = Math.max(rows.top.length, rows.mid.length);
+	const max_bricks = Math.max(rows.top.length, rows.mid.length);
 	return {
 		rows: rows,
-		maxBricks: maxBricks + +!(maxBricks % 2 === 0),
+		max_bricks: max_bricks + +!(max_bricks % 2 === 0),
 	};
 };
 
@@ -68,33 +68,33 @@ const PartnerWallRow: React.FC<{
 );
 
 const PartnershipBarFullWall: React.FC<IPartnershipBarFullWallProps> = ({
-	maxBricks,
+	max_bricks,
 	rows,
-	staticStyle,
+	StaticStyle,
 }) => (
-	<div style={{ ...staticStyle, backgroundColor: "transparent" }}>
+	<div style={{ ...StaticStyle, backgroundColor: "transparent" }}>
 		<PartnerWallRow
 			partners={rows.top}
-			style={rowLayout(rows.top.length, maxBricks)}
+			style={rowLayoutStyle(rows.top.length, max_bricks)}
 		/>
 		<PartnerWallRow
 			partners={rows.mid}
-			style={rowLayout(rows.mid.length, maxBricks)}
+			style={rowLayoutStyle(rows.mid.length, max_bricks)}
 		/>
 		<PartnerWallRow
 			partners={rows.bottom}
-			style={rowLayout(rows.bottom.length, maxBricks)}
+			style={rowLayoutStyle(rows.bottom.length, max_bricks)}
 		/>
 	</div>
 );
 
 const PartnershipBarCompactWall: React.FC<IPartnershipBarCompactWallProps> = ({
 	partners,
-	staticStyle,
+	StaticStyle,
 }) => (
 	<div
 		style={{
-			...staticStyle,
+			...StaticStyle,
 			...CompactViewStyle,
 		}}
 	>
@@ -110,24 +110,24 @@ const PartnershipWall: React.FC<IPartnershipBar> = ({
 	partners,
 	index = 0,
 }) => {
-	const staticStyle: React.CSSProperties = {
+	const StaticStyle: React.CSSProperties = {
 		...PartnerStyles["Large"],
-		borderColor: Theme(index).tertiaryColor,
+		borderColor: getTheme(index).tertiaryColor,
 	};
 	const layout = WallLayout(partners.length);
-	const maxBricks = Math.max(layout[0], layout[1]);
+	const max_bricks = Math.max(layout[0], layout[1]);
 
 	const threshold =
-		PARTNER_EFFECTIVE_WIDTH * (maxBricks + +!(maxBricks % 2 === 0));
+		PARTNER_EFFECTIVE_WIDTH * (max_bricks + +!(max_bricks % 2 === 0));
 	const isNarrow = useNarrowLayout(threshold);
 	return isNarrow ? (
 		<PartnershipBarCompactWall
 			partners={partners}
-			staticStyle={staticStyle}
+			StaticStyle={StaticStyle}
 		/>
 	) : (
 		<PartnershipBarFullWall
-			staticStyle={staticStyle}
+			StaticStyle={StaticStyle}
 			{...getLayoutData(partners)}
 		/>
 	);

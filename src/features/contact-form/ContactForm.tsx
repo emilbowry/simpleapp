@@ -1,33 +1,33 @@
 // src/features/contact-form/ContactForm.tsx
 
-import React, { useState, useContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../store";
+import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
 import {
-	updateField,
+	ButtonDisabledStyle,
+	ButtonStyle,
+	CallTimeStyle,
+	CheckboxInputStyle,
+	ErrorMessageStyle,
+	FormContainerStyle,
+	FormGroupStyle,
+	InputBaseStyle,
+	LabelStyle,
+	SuccessMessageStyle,
+	TextAreaStyle,
+	TitleStyle,
+} from "./ContactForm.styles";
+import {
+	IFormState,
+	TDataKeys,
+	TValidationCheck,
 	setIsForTeam,
 	submitContactForm,
-	ValidationCheck,
-	DataKeys,
-	FormState as SliceFormState,
+	updateField,
 } from "./formSlice";
-import {
-	buttonStyle,
-	buttonDisabledStyle,
-	formContainerStyle,
-	titleStyle,
-	successMessageStyle,
-	errorMessageStyle,
-	formGroupStyle,
-	labelStyle,
-	inputBaseStyle,
-	checkboxInputStyle,
-	textareaStyle,
-	callTimeStyle,
-} from "./ContactForm.styles";
 
 interface FieldConfig {
-	name: DataKeys;
+	name: TDataKeys;
 	label: string;
 	as: "input" | "textarea" | "checkbox";
 	required?: boolean;
@@ -54,7 +54,7 @@ const formConfig: FieldConfig[] = [
 		as: "checkbox",
 		type: "checkbox",
 		description: "(Leave unchecked if enquiring for yourself)",
-		style: checkboxInputStyle,
+		style: CheckboxInputStyle,
 	},
 	{
 		name: "reason",
@@ -62,23 +62,21 @@ const formConfig: FieldConfig[] = [
 		required: true,
 		type: undefined,
 		as: "textarea",
-		style: textareaStyle,
+		style: TextAreaStyle,
 	},
 	{
 		name: "callTime",
 		label: "If you want a call scheduled, please indicate when works for you",
 		as: "input",
 		type: "datetime-local",
-		style: callTimeStyle,
+		style: CallTimeStyle,
 	},
 ];
 
-type FormState = SliceFormState;
-
 interface FormContextValue {
-	formState: FormState;
+	formState: IFormState;
 
-	handleChange: (field: DataKeys, value: string | boolean) => void;
+	handleChange: (field: TDataKeys, value: string | boolean) => void;
 	handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -100,23 +98,23 @@ const useContactForm = () => {
 	const formState = useSelector((state: RootState) => state.form);
 	const dispatch = useDispatch<AppDispatch>();
 
-	const handleChange = (field: DataKeys, value: string | boolean) => {
+	const handleChange = (field: TDataKeys, value: string | boolean) => {
 		if (field === "isForTeam") {
 			dispatch(setIsForTeam(value as boolean));
 		} else {
 			dispatch(
 				updateField({
-					field: field as Exclude<DataKeys, "isForTeam">,
+					field: field as Exclude<TDataKeys, "isForTeam">,
 					value: value as string,
 				})
 			);
 		}
 	};
 
-	const validateForm: ValidationCheck = (state) => {
+	const validateForm: TValidationCheck = (state) => {
 		const requiredFields = formConfig.filter((field) => field.required);
 		const missingField = requiredFields.find(
-			(field) => !state.form[field.name as DataKeys]
+			(field) => !state.form[field.name as TDataKeys]
 		);
 
 		if (missingField) {
@@ -146,7 +144,7 @@ const FormLabel: React.FC<{ htmlFor: string; label: string }> = ({
 }) => (
 	<label
 		htmlFor={htmlFor}
-		style={labelStyle}
+		style={LabelStyle}
 	>
 		{label}
 	</label>
@@ -173,7 +171,7 @@ const FormField: React.FC<{ config: FieldConfig }> = ({ config }) => {
 
 	return (
 		<>
-			<div style={formGroupStyle}>
+			<div style={FormGroupStyle}>
 				<FormLabel
 					htmlFor={key}
 					label={label}
@@ -197,7 +195,7 @@ const FormField: React.FC<{ config: FieldConfig }> = ({ config }) => {
 							opt === "checked"
 								? (formState[key] as boolean)
 								: (formState[key] as string),
-						style: style ?? inputBaseStyle,
+						style: style ?? InputBaseStyle,
 						required: required ?? false,
 					}}
 				/>
@@ -232,12 +230,12 @@ const FormStatus: React.FC = () => {
 	return (
 		<>
 			{formState.status === "success" && (
-				<div style={successMessageStyle}>
+				<div style={SuccessMessageStyle}>
 					Message sent successfully! We'll get back to you soon.
 				</div>
 			)}
 			{formState.status === "error" && formState.errorMessage && (
-				<div style={errorMessageStyle}>{formState.errorMessage}</div>
+				<div style={ErrorMessageStyle}>{formState.errorMessage}</div>
 			)}
 		</>
 	);
@@ -248,8 +246,8 @@ const FormSubmit: React.FC = () => {
 	const [isHovered, setIsHovered] = useState(false);
 	const isSubmitting = formState.status === "submitting";
 	const combinedButtonStyle = {
-		...buttonStyle,
-		...(isSubmitting ? buttonDisabledStyle : {}),
+		...ButtonStyle,
+		...(isSubmitting ? ButtonDisabledStyle : {}),
 		...(isHovered && !isSubmitting ? { backgroundColor: "#0069d9" } : {}),
 	};
 
@@ -285,8 +283,8 @@ const ContactForm: React.FC = () => {
 	const contextValue = { formState, handleChange, handleSubmit };
 
 	return (
-		<div style={formContainerStyle}>
-			<h2 style={titleStyle}>Contact Us</h2>
+		<div style={FormContainerStyle}>
+			<h2 style={TitleStyle}>Contact Us</h2>
 
 			<FormContext.Provider value={contextValue}>
 				<FormStatus />

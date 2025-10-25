@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
-import { scrollVisabilityStyling } from "./Footer.styles";
+import { scrollVisabilityStyle } from "./Footer.styles";
 const calcVisibilityRegion = (
 	docHeight: number,
 	borders: [number, number],
@@ -12,7 +12,7 @@ const calcVisibilityRegion = (
 ): [number, number, number] => {
 	const positions = [borders[0], (borders[0] + borders[1]) / 2, borders[1]];
 	return positions.map(
-		n =>
+		(n) =>
 			n * viewportHeight * footerVH +
 			(docHeight - (1 + footerVH) * viewportHeight)
 	) as [number, number, number];
@@ -30,7 +30,7 @@ const useScrollVisibility = (
 	const handleScroll = useCallback(() => {
 		if (noBorders) return;
 
-		const currentScrollY = window.scrollY;
+		const current_scroll_y = window.scrollY;
 
 		const [maxVis, , minVis] = calcVisibilityRegion(
 			document.documentElement.scrollHeight,
@@ -42,10 +42,10 @@ const useScrollVisibility = (
 		setOpacity(
 			Math.min(
 				1,
-				Math.max(0, (currentScrollY - minVis) / (maxVis - minVis))
+				Math.max(0, (current_scroll_y - minVis) / (maxVis - minVis))
 			)
 		);
-		setIsVisible(currentScrollY >= minVis);
+		setIsVisible(current_scroll_y >= minVis);
 	}, [borders, footerVH]);
 
 	useEffect(() => {
@@ -56,15 +56,15 @@ const useScrollVisibility = (
 		};
 	}, [handleScroll]);
 
-	return scrollVisabilityStyling(isVisible, opacity, styling);
+	return scrollVisabilityStyle(isVisible, opacity, styling);
 };
 const ScrollVisibilityDependent: React.FC<{
 	element: ValidComponent;
 	percentage?: number;
 	borders?: [number, number];
-	styling?: React.CSSProperties;
-}> = ({ element, styling = {}, borders = undefined }) => (
-	<div style={useScrollVisibility(borders, 0.7, styling)}>
+	StyleOverrides?: React.CSSProperties;
+}> = ({ element, StyleOverrides = {}, borders = undefined }) => (
+	<div style={useScrollVisibility(borders, 0.7, StyleOverrides)}>
 		{formatComponent(element as any)}
 	</div>
 );

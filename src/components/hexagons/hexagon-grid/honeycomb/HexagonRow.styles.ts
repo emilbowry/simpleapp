@@ -2,12 +2,12 @@
 import React from "react";
 
 import {
-	IScaleParams,
 	TDualScalingFunction,
+	TScaleParams,
 	TScalingFunction,
 	TWithCalc,
 } from "../HexagonGrid.types";
-import { debug_background } from "./_debugstylesbackground";
+import { DebugBackground } from "./_debugstylesbackground";
 import {
 	ASPECT_RATIO,
 	CONTAINER_per_Element,
@@ -112,7 +112,7 @@ const calculateColGap = withCalc(colGap, false);
 const calcYShift = withCalc(YOffset, true);
 const calcXShift = withCalc(XOffset, true);
 
-const elementStyle = (scale_params: IScaleParams): React.CSSProperties => {
+const ElementStyle = (scale_params: TScaleParams): React.CSSProperties => {
 	const Xshifts = calcXShift(scale_params);
 	const Yshifts = calcYShift(scale_params);
 	return {
@@ -146,11 +146,11 @@ const elementStyle = (scale_params: IScaleParams): React.CSSProperties => {
  */
 
 const background_override = (
-	scale_params: IScaleParams,
+	scale_params: TScaleParams,
 	useDebugBackground = false
-) => (useDebugBackground ? debug_background(scale_params) : {});
+) => (useDebugBackground ? DebugBackground(scale_params) : {});
 const vertGap = (
-	scale_params: IScaleParams,
+	scale_params: TScaleParams,
 	length: number = 1,
 	useRowGap = false
 ): React.CSSProperties => {
@@ -164,7 +164,7 @@ const rowHeight: TDualScalingFunction = (scale_params, length: number) => [
 ];
 const calculateRowHeight = withCalc(rowHeight, false);
 const calculateRowGap = withCalc(rowGap, false);
-const container = (
+const ContainerStyle = (
 	_relative_spacing: number = 0,
 	absolute_spacing: number = 0,
 	length: number = 1,
@@ -195,7 +195,7 @@ const container = (
 	};
 };
 
-const wrapper = (
+const WrapperStyle = (
 	topExtension: boolean,
 	bottomExtension: boolean,
 	length: number,
@@ -234,4 +234,4 @@ const wrapper = (
 	};
 };
 
-export { container, elementStyle, K, wrapper };
+export { ContainerStyle, ElementStyle, K, WrapperStyle };

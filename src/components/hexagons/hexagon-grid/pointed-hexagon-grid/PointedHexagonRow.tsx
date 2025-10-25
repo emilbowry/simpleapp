@@ -9,22 +9,22 @@ import { PointedTopHexagon } from "../../Hexagons";
 
 import { useNarrowLayout } from "../../../../hooks/WindowSizeDependent";
 import {
-	lItemStyle,
-	narrowBottomRowStyle,
-	narrowLayoutContainerStyle,
-	narrowTopRowStyle,
-	sItemStyle,
-	wideLayoutContainerStyle,
+	NarrowBottomRowStyle,
+	narrowItemStyle,
+	NarrowLayoutContainerStyle,
+	NarrowTopRowStyle,
+	wideItemStyle,
+	WideLayoutContainerStyle,
 } from "./PointedHexagonRow.styles";
 import { PointedtopHexagonFeatureGridProps } from "./PointedHexagonRow.types";
 
 const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
 	const renderWideLayout = () => {
 		return (
-			<div style={wideLayoutContainerStyle}>
+			<div style={WideLayoutContainerStyle}>
 				{elements.map((element, index) => (
 					<React.Fragment key={index}>
-						<div style={lItemStyle(index)}>
+						<div style={wideItemStyle(index)}>
 							{formatComponent(element)}
 						</div>
 					</React.Fragment>
@@ -34,23 +34,23 @@ const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
 	};
 
 	const renderNarrowLayout = () => {
-		const topRowElements = elements.slice(0, 2);
-		const bottomRowElement = elements[2];
+		const top_row_elements = elements.slice(0, 2);
+		const bottom_row_element = elements[2];
 
 		return (
-			<div style={narrowLayoutContainerStyle}>
-				<div style={narrowTopRowStyle}>
-					{topRowElements.map((element, index) => (
+			<div style={NarrowLayoutContainerStyle}>
+				<div style={NarrowTopRowStyle}>
+					{top_row_elements.map((element, index) => (
 						<div
-							style={sItemStyle(index)}
+							style={narrowItemStyle(index)}
 							key={index}
 						>
 							{formatComponent(element)}
 						</div>
 					))}
 				</div>
-				<div style={narrowBottomRowStyle}>
-					{formatComponent(bottomRowElement)}
+				<div style={NarrowBottomRowStyle}>
+					{formatComponent(bottom_row_element)}
 				</div>
 			</div>
 		);
@@ -64,12 +64,12 @@ const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
 };
 const PointedtopHexagonFeatureGrid: React.FC<
 	PointedtopHexagonFeatureGridProps
-> = ({ featureCallouts, hexagonArgs, useVerticalAlignment = false }) => {
-	const elements = featureCallouts.map((calloutProps, index) => {
+> = ({ FeatureCallouts, hexagon_args, useVerticalAlignment = false }) => {
+	const elements = FeatureCallouts.map((calloutProps, index) => {
 		return (
 			<PointedTopHexagon
 				key={index}
-				args={hexagonArgs}
+				args={hexagon_args}
 				element={calloutProps}
 				opacity={1}
 				useVerticalAlignment={useVerticalAlignment}

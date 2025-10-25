@@ -7,20 +7,20 @@ interface ITitleBarLink {
 }
 
 interface ITitleBarProps {
-	logoSrc: string;
-	links: ITitleBarLink[][];
-	style_fn?: (...args: any[]) => React.CSSProperties;
+	logo_src: string;
+	Links: ITitleBarLink[][];
+	styleFunction?: (...args: any[]) => React.CSSProperties;
 	children?: React.ReactNode;
 }
 interface ITitleBarUILinksProps {
-	activeLinkAlias: string;
-	links: ITitleBarLink[][];
+	active_link_alias: string;
+	Links: ITitleBarLink[][];
 	onLinkOver: (alias: string) => void;
 }
 
 interface ITitleBarUIState {
-	initialActiveAlias: string;
-	activeLinkAlias: string;
+	initial_active_alias: string;
+	active_link_alias: string;
 	setActiveLinkAlias:
 		| React.Dispatch<React.SetStateAction<string>>
 		| ((alias: string) => void);

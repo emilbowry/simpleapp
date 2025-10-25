@@ -8,7 +8,7 @@ import {
 	DEFAULT_RELATIVE_SPACING,
 } from "./HexagonRow.consts";
 import { K } from "./HexagonRow.styles";
-const debug_background = ({
+const DebugBackground = ({
 	relative_spacing = DEFAULT_RELATIVE_SPACING,
 	absolute_spacing = DEFAULT_ABSOLUTE_SPACING,
 }) => {
@@ -30,7 +30,7 @@ const debug_background = ({
 			linear-gradient(to right, red 0%, transparent 4px),
 			linear-gradient(to left, red 0%, transparent 4px)
 `;
-	const bgAxis = `
+	const bg_axis = `
 			${border_background},
 			linear-gradient(90deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px)),
 			linear-gradient(90deg, transparent calc(25% - 2px), red 25%, transparent calc(25% + 2px)),
@@ -41,6 +41,6 @@ const debug_background = ({
 			linear-gradient(0deg, transparent calc(${Pos_Y}% - 2px), red ${Pos_Y}%, transparent calc(${Pos_Y}% + 2px)),
 			linear-gradient(0deg, transparent calc(50% - 2px), red 50%, transparent calc(50% + 2px))
 		`;
-	return { background: bgAxis };
+	return { background: bg_axis };
 };
-export { debug_background };
+export { DebugBackground };

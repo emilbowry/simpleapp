@@ -1,10 +1,10 @@
 import React from "react";
 
-import { THexagonStyleParams } from "./Hexagons.types";
+import { IHexagonStyleParams } from "./Hexagons.types";
 
 const containerStyle = ({
 	opacity = 0.8,
-}: THexagonStyleParams): React.CSSProperties => {
+}: IHexagonStyleParams): React.CSSProperties => {
 	return {
 		position: "relative",
 		fontSize: 0,
@@ -14,26 +14,26 @@ const containerStyle = ({
 	};
 };
 
-const svgStyle = ({}: THexagonStyleParams): React.CSSProperties => {
+const svgStyle = ({}: IHexagonStyleParams): React.CSSProperties => {
 	return {};
 };
 
 const s = 1;
 
-const pointedLeftCutout =
+const POINTED_LEFT_CUTOUT =
 	"polygon(0% 0%, 100% 0%, 0% 25%, 0% 100%, 100% 100%, 0% 75%)";
-const pointedRightCutout =
+const POINTED_RIGHT_CUTOUT =
 	"polygon(100% 0%, 0% 0%, 100% 25%, 100% 100%, 0% 100%, 100% 75%)";
-const flattopLeftCutout =
+const FLATTOP_LEFT_CUTOUT =
 	"polygon(0 0,0 100%,100% 100%,50% 100%,0% 50%,50% 0%)";
-const flattopRightCutout =
+const FLATTOP_RIGHT_CUTOUT =
 	"polygon(100% 50%,100% 100%,50% 100%,100% 50%,50% 0%, 100% 0%)";
 const leftCutout = (usePointedTop: boolean) =>
-	usePointedTop ? pointedLeftCutout : flattopLeftCutout;
+	usePointedTop ? POINTED_LEFT_CUTOUT : FLATTOP_LEFT_CUTOUT;
 const rightCutout = (usePointedTop: boolean) =>
-	usePointedTop ? pointedRightCutout : flattopRightCutout;
+	usePointedTop ? POINTED_RIGHT_CUTOUT : FLATTOP_RIGHT_CUTOUT;
 
-const PolyCutout = (
+const polyCutoutStyle = (
 	usePointedTop: boolean,
 	isLeft: boolean
 ): React.CSSProperties => {
@@ -51,7 +51,7 @@ const PolyCutout = (
 	};
 };
 
-const elementSection: React.CSSProperties = {
+const ElementSectionStyle: React.CSSProperties = {
 	position: "relative",
 	top: 0,
 
@@ -59,7 +59,7 @@ const elementSection: React.CSSProperties = {
 	height: `calc(100%)`,
 };
 
-const elementWrapper: React.CSSProperties = {
+const ElementWrapperStyle: React.CSSProperties = {
 	position: "relative",
 
 	width: "100%",
@@ -67,7 +67,7 @@ const elementWrapper: React.CSSProperties = {
 	height: `calc(100%)`,
 };
 
-const hexagonalContentStyle: React.CSSProperties = {
+const HexagonalContentStyle: React.CSSProperties = {
 	position: "absolute",
 	height: `calc(100%)`,
 	width: "100%",
@@ -91,10 +91,10 @@ const ElContainerStyle: React.CSSProperties = {
 export {
 	containerStyle,
 	ElContainerStyle,
-	elementSection,
-	elementWrapper,
+	ElementSectionStyle,
+	ElementWrapperStyle,
 	ELWrapperStyle,
-	hexagonalContentStyle,
-	PolyCutout,
+	HexagonalContentStyle,
+	polyCutoutStyle,
 	svgStyle,
 };

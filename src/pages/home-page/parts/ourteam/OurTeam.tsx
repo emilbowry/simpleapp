@@ -9,7 +9,7 @@ import miranda from "../../../../assets/miranda.jpg";
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
 import { ImageHexagon } from "../../../../components/hexagons/ImageHexagon";
 import { useBrowserScale } from "../../../../hooks/WindowSizeDependent";
-import { borderGrad, Theme } from "../../../../styles";
+import { border_gradient, getTheme } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import {
 	_PersonaTextStyle,
@@ -52,7 +52,7 @@ const prompt_engineers: IPersona[] = [
 		body: "Will has 10 years of experience as a Data and Reporting Analyst for Nintendo, PwC and Everfox. His expertise is in automation so founded Surrey Data Solutions (SDS), a specialist consultancy delivering practical, high- impact solutions in business intelligence, data analytics, process automation, and robotic process automation (RPA).",
 	},
 ];
-const PHeader: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
+const PHeader: React.FC<IPersona & { theme: ReturnType<typeof getTheme> }> = ({
 	name,
 	title,
 	email,
@@ -73,7 +73,7 @@ const PHeader: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 	</div>
 );
 
-const PBody: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
+const PBody: React.FC<IPersona & { theme: ReturnType<typeof getTheme> }> = ({
 	body,
 	theme,
 }) => (
@@ -83,7 +83,10 @@ const PBody: React.FC<IPersona & { theme: ReturnType<typeof Theme> }> = ({
 );
 
 const PText: React.FC<
-	IPersona & { theme: ReturnType<typeof Theme>; children?: React.ReactNode }
+	IPersona & {
+		theme: ReturnType<typeof getTheme>;
+		children?: React.ReactNode;
+	}
 > = (props) => (
 	<div
 		style={
@@ -105,7 +108,7 @@ const Persona: React.FC<IPersona> = (props) => {
 		index = 2,
 	} = props;
 
-	let theme = Theme(+!!(index === 0) || +!(index % 2 === 0));
+	let theme = getTheme(+!!(index === 0) || +!(index % 2 === 0));
 
 	return (
 		<div style={personaWrapperStyle}>
@@ -155,7 +158,7 @@ const OurTeam: React.FC = () => (
 				</div>
 			);
 		})}
-		<div style={{ borderImage: borderGrad, borderTop: `2px solid` }}>
+		<div style={{ borderImage: border_gradient, borderTop: `2px solid` }}>
 			<h1 style={{ color: bgwhite, marginLeft: "2vw" }}>
 				Our Prompt Engineers:
 			</h1>

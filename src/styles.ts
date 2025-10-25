@@ -29,13 +29,13 @@ const BackgroundStyle: React.CSSProperties = {
 	inset: 0,
 };
 
-const logoGrag = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%)`;
-const borderGrad = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%) 1`;
-const genericSectionStyle: React.CSSProperties = {
+const logo_gradient = `linear-gradient(to right, ${logo_yellow} 0%, ${logo_blue} 100%)`;
+const border_gradient = `${logo_gradient} 1`;
+const GenericSectionStyle: React.CSSProperties = {
 	border: "1px solid black",
 	backgroundColor: "rgba(255, 0, 0, 0.2)",
 };
-const Theme = (index: number) => {
+const getTheme = (index: number) => {
 	const theme = {
 		backgroundColor: bgwhite,
 		primaryColor: midnight_green,
@@ -60,7 +60,7 @@ const linkStyle = (isUnderlined = true): React.CSSProperties => ({
 	textDecorationLine: isUnderlined ? `underline` : "none",
 	textDecorationColor: `${logo_blue}`,
 	backgroundOrigin: "content-box",
-	backgroundImage: `${logoGrag}`,
+	backgroundImage: `${logo_gradient}`,
 	backgroundPosition: "bottom left",
 	backgroundRepeat: "no-repeat",
 	boxSizing: "border-box",
@@ -116,18 +116,18 @@ const styleObjectToString = <T extends string, U extends string, V>(
 	return cssString;
 };
 
-const volume_constant_size = "1vw*calc(sqrt(calc(1vw/1vw)*calc(1vh/1vw)))";
-const volume_constant_size_prime =
+const VOLUME_CONSTANT_SIZE = "1vw*calc(sqrt(calc(1vw/1vw)*calc(1vh/1vw)))";
+const VOLUME_CONSTANT_SIZE_PRIME =
 	"1vh*calc(sqrt(calc(1vw/1vh)*calc(1vh/1vh)))";
 
 export {
 	BackgroundStyle,
-	borderGrad,
+	border_gradient,
 	generateGradient,
-	genericSectionStyle,
+	GenericSectionStyle,
+	getTheme,
 	linkStyle,
 	styleObjectToString,
-	Theme,
-	volume_constant_size,
-	volume_constant_size_prime,
+	VOLUME_CONSTANT_SIZE,
+	VOLUME_CONSTANT_SIZE_PRIME,
 };

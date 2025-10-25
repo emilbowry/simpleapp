@@ -2,8 +2,8 @@
 
 import React, { createContext, useContext, useMemo, useState } from "react";
 import {
-	dropdownContainerStyles,
-	interactionWrapperStyles,
+	DropdownContainerStyles,
+	InteractionWrapperStyles,
 } from "./TitleBar.styles";
 import {
 	ITitleBarLink,
@@ -18,27 +18,28 @@ import {
 	TitleBarUILinks,
 } from "./TitleBarHelpers";
 const UICTX = createContext<ITitleBarUIState | undefined>(undefined);
-const useCurrentActiveLinkAlias = (links: ITitleBarLink[][]) => {
+const useCurrentActiveLinkAlias = (Links: ITitleBarLink[][]) => {
 	return useMemo(() => {
-		for (const linkGroup of links) {
-			for (const subLink of linkGroup) {
-				if (subLink.path === window.location.pathname) {
-					return formatLabel(linkGroup[0].path, linkGroup[0].alias);
+		for (const LinkGroup of Links) {
+			for (const sub_link of LinkGroup) {
+				if (sub_link.path === window.location.pathname) {
+					return formatLabel(LinkGroup[0].path, LinkGroup[0].alias);
 				}
 			}
 		}
-		return formatLabel(links[0][0].path, links[0][0].alias);
-	}, [location.pathname, links]);
+		return formatLabel(Links[0][0].path, Links[0][0].alias);
+	}, [location.pathname, Links]);
 };
-const useUIState = (links: ITitleBarLink[][]) => {
-	const initialActiveAlias = useCurrentActiveLinkAlias(links);
-	const [activeLinkAlias, setActiveLinkAlias] = useState(initialActiveAlias);
+const useUIState = (Links: ITitleBarLink[][]) => {
+	const initial_active_alias = useCurrentActiveLinkAlias(Links);
+	const [active_link_alias, setActiveLinkAlias] =
+		useState(initial_active_alias);
 	const [isOverLink, setIsOverLink] = useState(false);
 	const [isActive, setIsActive] = useState(false);
 
 	return {
-		initialActiveAlias,
-		activeLinkAlias,
+		initial_active_alias,
+		active_link_alias,
 		setActiveLinkAlias,
 		isOverLink,
 		setIsOverLink,
@@ -60,7 +61,7 @@ const useActiveTitleLink = () => {
 					ctx.setIsActive(false);
 
 					ctx.setIsOverLink(false);
-					ctx.setActiveLinkAlias(ctx.initialActiveAlias);
+					ctx.setActiveLinkAlias(ctx.initial_active_alias);
 			  }
 			: () => {},
 	};
@@ -70,38 +71,38 @@ const useActiveDropdownLink = () => {
 
 	return { onMouseEnter: ctx ? () => ctx.setIsActive(true) : () => {} };
 };
-const useDropDownInteractions = (links: ITitleBarLink[][]) => {
+const useDropDownInteractions = (Links: ITitleBarLink[][]) => {
 	const ctx = useContext(UICTX);
 	if (ctx) {
-		const { activeLinkAlias, isOverLink, isActive } = ctx;
+		const { active_link_alias, isOverLink, isActive } = ctx;
 
-		const activeLinkGroup = useMemo(
+		const ActiveLinkGroup = useMemo(
 			() =>
-				links.find((linkGroup) => {
-					const mainLink = linkGroup[0];
+				Links.find((LinkGroup) => {
+					const main_link = LinkGroup[0];
 					return (
-						mainLink &&
-						formatLabel(mainLink.path, mainLink.alias) ===
-							activeLinkAlias
+						main_link &&
+						formatLabel(main_link.path, main_link.alias) ===
+							active_link_alias
 					);
 				}),
-			[links, activeLinkAlias]
+			[Links, active_link_alias]
 		);
 		const showDropdown = !!(
 			(isOverLink || isActive) &&
-			activeLinkGroup &&
-			(activeLinkGroup.length > 1 || activeLinkGroup[0].image)
+			ActiveLinkGroup &&
+			(ActiveLinkGroup.length > 1 || ActiveLinkGroup[0].image)
 		);
 		return {
-			activeLinkGroup,
+			ActiveLinkGroup,
 			showDropdown,
 		};
 	} else {
-		return { activeLinkGroup: undefined, showDropdown: false };
+		return { ActiveLinkGroup: undefined, showDropdown: false };
 	}
 };
 const TitleBarUI: React.FC<ITitleBarProps> = (props) => (
-	<UICTX value={useUIState(props.links)}>
+	<UICTX value={useUIState(props.Links)}>
 		<InnerTitleBarUI {...props} />
 	</UICTX>
 );
@@ -113,19 +114,21 @@ const TitleBarUI: React.FC<ITitleBarProps> = (props) => (
 
 */
 const InnerTitleBarUI: React.FC<ITitleBarProps> = (props) => {
-	const { links, style_fn = () => ({}) } = props;
+	const { Links, styleFunction = () => ({}) } = props;
 	const { onWrapperMouseLeave, onLinkOver } = useActiveTitleLink();
 	return (
 		<div
-			style={interactionWrapperStyles}
+			style={InteractionWrapperStyles}
 			className="no-aos"
 			onMouseLeave={onWrapperMouseLeave}
 		>
-			<div style={style_fn()}>
+			<div style={styleFunction()}>
 				<TitleBarLogo />
 				<TitleBarUILinks
-					activeLinkAlias={useContext(UICTX)?.activeLinkAlias || ""}
-					links={links}
+					active_link_alias={
+						useContext(UICTX)?.active_link_alias || ""
+					}
+					Links={Links}
 					onLinkOver={onLinkOver}
 				/>
 				<TitleBarMenu />
@@ -135,17 +138,17 @@ const InnerTitleBarUI: React.FC<ITitleBarProps> = (props) => {
 	);
 };
 const Dropdown: React.FC<ITitleBarProps> = (props) => {
-	const { activeLinkGroup, showDropdown } = useDropDownInteractions(
-		props.links
+	const { ActiveLinkGroup, showDropdown } = useDropDownInteractions(
+		props.Links
 	);
 	return (
 		showDropdown &&
-		activeLinkGroup && (
+		ActiveLinkGroup && (
 			<div
-				style={dropdownContainerStyles}
+				style={DropdownContainerStyles}
 				onMouseEnter={useActiveDropdownLink().onMouseEnter}
 			>
-				<DropDownOuter activeLinkGroup={activeLinkGroup} />
+				<DropDownOuter ActiveLinkGroup={ActiveLinkGroup} />
 			</div>
 		)
 	);

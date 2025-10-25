@@ -75,7 +75,7 @@ export const BoxedImage: React.FC<{
 	wrapperStyling = {},
 }) => {
 	const wrapperStyle: React.CSSProperties = {
-		// ...genericSectionStyle,
+		// ...GenericSectionStyle,
 		display: "flex",
 		width,
 		margin: width === "100%" ? "" : "auto",

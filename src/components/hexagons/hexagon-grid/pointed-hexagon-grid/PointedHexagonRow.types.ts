@@ -2,9 +2,9 @@
 
 import { ValidComponent } from "../../../../utils/reactUtils";
 interface PointedtopHexagonFeatureGridProps {
-	featureCallouts: ValidComponent[][];
+	FeatureCallouts: ValidComponent[][];
 
-	hexagonArgs: any; // Consider a more precise type if 'args' are well-defined
+	hexagon_args: any;
 	theme?: number;
 	useVerticalAlignment?: boolean;
 }

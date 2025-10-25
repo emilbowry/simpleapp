@@ -1,7 +1,7 @@
 // src/components/partnershipbar/PartnershipBar.styles.ts
 
 import React from "react";
-import { Theme } from "../../styles";
+import { getTheme } from "../../styles";
 import { title_font_colour } from "../../utils/defaultColours";
 import { TAtRule, TValidStyle } from "../../utils/styles.types";
 
@@ -30,7 +30,7 @@ const PartnerStyles: {
 	},
 };
 
-const marqueeFrameStyle: React.CSSProperties = {
+const MarqueeFrameStyle: React.CSSProperties = {
 	margin: "0 10%",
 	position: "relative",
 	border: "1px solid",
@@ -46,7 +46,7 @@ const marqueeFrameStyle: React.CSSProperties = {
 	backdropFilter: "blur(8px)",
 };
 
-const marqueeWindowStyle: React.CSSProperties = {
+const MarqueeWindowStyle: React.CSSProperties = {
 	position: "relative",
 
 	height: "10vh",
@@ -59,7 +59,7 @@ const marqueeWindowStyle: React.CSSProperties = {
 	alignContent: "center",
 };
 
-const marqueeContentStyle: React.CSSProperties = {
+const MarqueeContentStyle: React.CSSProperties = {
 	display: "flex",
 
 	position: "relative",
@@ -69,14 +69,14 @@ const marqueeContentStyle: React.CSSProperties = {
 	animation: `90s linear infinite slide-in`,
 };
 
-const partnerWrapperStyle: React.CSSProperties = {
+const PartnerWrapperStyle: React.CSSProperties = {
 	flexShrink: 0,
 	zIndex: -1,
 	position: "relative",
 	margin: "0 30px",
 	justifyContent: "space-between",
 };
-const keyframes: TValidStyle<TAtRule, undefined, "to" | "from"> = {
+const Keyframes: TValidStyle<TAtRule, undefined, "to" | "from"> = {
 	"@keyframes slide-in": {
 		color: "red",
 		to: {
@@ -87,9 +87,10 @@ const keyframes: TValidStyle<TAtRule, undefined, "to" | "from"> = {
 		},
 	},
 };
-const rowLayout = (
+
+const rowLayoutStyle = (
 	n_bricks: number,
-	maxBricks: number
+	max_bricks: number
 ): React.CSSProperties => {
 	return {
 		overflow: "visible",
@@ -98,7 +99,7 @@ const rowLayout = (
 		alignItems: "center",
 		alignContent: "center",
 		display: "grid",
-		gridTemplateColumns: `repeat(${n_bricks}, ${100 / maxBricks}%)`,
+		gridTemplateColumns: `repeat(${n_bricks}, ${100 / max_bricks}%)`,
 	};
 };
 const PartnerImageWrapperStyle: React.CSSProperties = {
@@ -113,17 +114,17 @@ const CompactViewStyle: React.CSSProperties = {
 };
 const PBWallStyle = (index: number): React.CSSProperties => ({
 	...PartnerStyles["Large"],
-	borderColor: Theme(index).tertiaryColor,
+	borderColor: getTheme(index).tertiaryColor,
 });
 export {
 	CompactViewStyle,
-	keyframes,
-	marqueeContentStyle,
-	marqueeFrameStyle,
-	marqueeWindowStyle,
+	Keyframes,
+	MarqueeContentStyle,
+	MarqueeFrameStyle,
+	MarqueeWindowStyle,
 	PartnerImageWrapperStyle,
 	PartnerStyles,
-	partnerWrapperStyle,
+	PartnerWrapperStyle,
 	PBWallStyle,
-	rowLayout,
+	rowLayoutStyle,
 };

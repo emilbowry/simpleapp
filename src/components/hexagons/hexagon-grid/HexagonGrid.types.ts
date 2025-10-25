@@ -6,7 +6,7 @@ interface IHexagonRowElements {
 	len?: number;
 }
 
-type THexRowLayoutProps = IHexagonRowElements & Omit<IScaleParams, "index">;
+type THexRowLayoutProps = IHexagonRowElements & Omit<TScaleParams, "index">;
 
 interface IHexagonGridElements extends Partial<THexRowLayoutProps> {
 	rows: IHexagonRowElements[];
@@ -15,7 +15,7 @@ interface IHexagonGridElements extends Partial<THexRowLayoutProps> {
 	class_name?: string;
 }
 
-type IScaleParams = {
+type TScaleParams = {
 	relative_spacing: number;
 	absolute_spacing: number;
 	n: number;
@@ -23,7 +23,7 @@ type IScaleParams = {
 	upper_first?: boolean;
 };
 
-type TScalingFunction = (scale_params: IScaleParams) => number;
+type TScalingFunction = (scale_params: TScaleParams) => number;
 
 type TDualScalingFunction = TScalingFunction extends (
 	scale_params: infer U
@@ -44,9 +44,9 @@ type TWithCalc = <D extends boolean = false>(
 export type {
 	IHexagonGridElements,
 	IHexagonRowElements,
-	IScaleParams,
 	TDualScalingFunction,
 	THexRowLayoutProps,
+	TScaleParams,
 	TScalingFunction,
 	TWithCalc,
 };

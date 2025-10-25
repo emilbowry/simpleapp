@@ -132,8 +132,8 @@ const ourServices: React.FC = () => (
 			}}
 			footer={
 				<PointedtopHexagonFeatureGrid
-					featureCallouts={ourServicesFeatureCallouts(!IS_CHROME)}
-					hexagonArgs={hStyle}
+					FeatureCallouts={ourServicesFeatureCallouts(!IS_CHROME)}
+					hexagon_args={hStyle}
 					useVerticalAlignment={true}
 				/>
 			}
