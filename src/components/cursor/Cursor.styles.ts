@@ -2,7 +2,13 @@
 
 import React from "react";
 import { ASPECT_RATIO } from "../hexagons/hexagon-grid/honeycomb/HexagonRow.consts";
-import { INNER_RADIUS, OUTER_RADIUS } from "./Cursor.consts";
+import {
+	CHEV_GAP,
+	DIAMOND_SPACE,
+	HEX_SIZE,
+	INNER_RADIUS,
+	OUTER_RADIUS,
+} from "./Cursor.consts";
 const baseCursorStyle: React.CSSProperties = {
 	position: "fixed",
 	backgroundColor: "white",
@@ -40,25 +46,11 @@ const baseHexStyle: React.CSSProperties = {
 
 	pointerEvents: "none",
 	mixBlendMode: "difference",
-	width: `${INNER_RADIUS}px`,
-	height: `${INNER_RADIUS / ASPECT_RATIO}px`,
+	width: `${HEX_SIZE}px`,
+	height: `${HEX_SIZE / ASPECT_RATIO}px`,
 	zIndex: 9999,
 };
-const _baseCursorStyle = (mousePosition: {
-	x: number;
-	y: number;
-}): React.CSSProperties => ({
-	position: "fixed",
-	backgroundColor: "white",
 
-	pointerEvents: "none",
-	mixBlendMode: "difference",
-	width: `${INNER_RADIUS}px`,
-	height: `${INNER_RADIUS / ASPECT_RATIO}px`,
-	left: `${mousePosition.x - 10}px`,
-	top: `${mousePosition.y - 10}px`,
-	zIndex: 9999,
-});
 const chevStyle = (mousePosition: {
 	x: number;
 	y: number;
@@ -76,7 +68,6 @@ const hexStyle = (mousePosition: {
 }): React.CSSProperties => ({
 	...baseHexStyle,
 	clipPath: "polygon(25% 0, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-
 	left: `${mousePosition.x}px`,
 	top: `${mousePosition.y}px`,
 });
@@ -85,8 +76,10 @@ const diamondStyle = (largerCursorPosition: {
 	y: number;
 }): React.CSSProperties => ({
 	...baseHexStyle,
-	clipPath: `polygon(0% 50%, 15% ${15 * ASPECT_RATIO}%, 30% 50%, 15% ${
-		100 - 15 * ASPECT_RATIO
+	clipPath: `polygon(0% 50%, ${DIAMOND_SPACE}% ${
+		DIAMOND_SPACE * ASPECT_RATIO
+	}%, ${2 * DIAMOND_SPACE}% 50%, ${DIAMOND_SPACE}% ${
+		100 - DIAMOND_SPACE * ASPECT_RATIO
 	}%)`,
 
 	left: `${largerCursorPosition.x}px`,
@@ -98,22 +91,50 @@ const clickInsertStyle = (mousePosition: {
 	y: number;
 }): React.CSSProperties => ({
 	...baseHexStyle,
-	clipPath: `polygon(50% 50%,  ${50 - 7 / ASPECT_RATIO}% ${
-		50 - 7 * ASPECT_RATIO
-	}%,  ${100 - 7 / ASPECT_RATIO}% ${50 - 7 * ASPECT_RATIO}%, 100% 50%,  ${
-		100 - 7 / ASPECT_RATIO
-	}% ${50 + 7 * ASPECT_RATIO}%, ${50 - 7 / ASPECT_RATIO}% ${
-		50 + 7 * ASPECT_RATIO
+	clipPath: `polygon(50% 50%,  ${50 - CHEV_GAP / 2}% ${
+		50 - CHEV_GAP * ASPECT_RATIO
+	}%,  ${100 - CHEV_GAP / 2}% ${50 - CHEV_GAP * ASPECT_RATIO}%, 100% 50%,  ${
+		100 - CHEV_GAP / 2
+	}% ${50 + CHEV_GAP * ASPECT_RATIO}%, ${50 - CHEV_GAP / 2}% ${
+		50 + CHEV_GAP * ASPECT_RATIO
 	}%)`,
 	left: `${mousePosition.x}px`,
 	top: `${mousePosition.y}px`,
 });
+const clickInsertStyleA = (mousePosition: {
+	x: number;
+	y: number;
+}): React.CSSProperties => ({
+	...baseHexStyle,
 
+	clipPath: `polygon(25% 0, 75% 0%, ${100 - CHEV_GAP / 2}% ${
+		50 - CHEV_GAP * ASPECT_RATIO
+	}%, ${50 - CHEV_GAP / 2}% ${50 - CHEV_GAP * ASPECT_RATIO}%)`,
+
+	left: `${mousePosition.x}px`,
+	top: `${mousePosition.y}px`,
+});
+const clickInsertStyleB = (mousePosition: {
+	x: number;
+	y: number;
+}): React.CSSProperties => ({
+	...baseHexStyle,
+
+	clipPath: `polygon(${50 - CHEV_GAP / 2}% ${
+		50 + CHEV_GAP * ASPECT_RATIO
+	}%,  ${100 - CHEV_GAP / 2}% ${
+		50 + CHEV_GAP * ASPECT_RATIO
+	}%, 75% 100%, 25% 100%)`,
+
+	left: `${mousePosition.x}px`,
+	top: `${mousePosition.y}px`,
+});
 export {
-	_baseCursorStyle,
 	baseCursorStyle,
 	chevStyle,
 	clickInsertStyle,
+	clickInsertStyleA,
+	clickInsertStyleB,
 	diamondStyle,
 	hexStyle,
 	largeCursorStyle,

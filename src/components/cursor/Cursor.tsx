@@ -5,7 +5,8 @@ import { useIsMobile } from "../../hooks/BrowserDependant";
 import { TRAIL_SPEED } from "./Cursor.consts";
 import {
 	chevStyle,
-	clickInsertStyle,
+	clickInsertStyleA,
+	clickInsertStyleB,
 	diamondStyle,
 	hexStyle,
 	largeCursorStyle,
@@ -71,7 +72,7 @@ const useHoveringLink = () => {
 		window.addEventListener("mouseover", handleMouseOver);
 		window.addEventListener("mouseout", handleMouseOut);
 		return () => {
-			window.removeEventListener("mouseover", handleMouseOut);
+			window.removeEventListener("mouseover", handleMouseOver);
 			window.removeEventListener("mouseout", handleMouseOut);
 		};
 	}, []);
@@ -108,16 +109,27 @@ interface ICustomCursorProps {
 
 	trailing_position: IPosition;
 }
-const LogoCursor: React.FC<ICustomCursorProps> = ({
-	isMouseClicked,
-	mouse_position,
-	trailing_position,
-}) => {
+const LogoCursor: React.FC<ICustomCursorProps> = (props) => {
+	const { isMouseClicked, mouse_position, trailing_position } = props;
 	return (
 		<>
-			<div style={chevStyle(mouse_position)} />
+			{/* <div style={chevStyle(mouse_position)} /> */}
+			{isMouseClicked ? (
+				<CutChevron {...props} />
+			) : (
+				<div style={chevStyle(mouse_position)} />
+			)}
 			<div style={diamondStyle(trailing_position)} />
-			{isMouseClicked && <div style={clickInsertStyle(mouse_position)} />}
+			{/* {isMouseClicked && <div style={clickInsertStyle(mouse_position)} />} */}
+		</>
+	);
+};
+
+const CutChevron: React.FC<ICustomCursorProps> = ({ mouse_position }) => {
+	return (
+		<>
+			<div style={clickInsertStyleA(mouse_position)} />
+			<div style={clickInsertStyleB(mouse_position)} />
 		</>
 	);
 };
