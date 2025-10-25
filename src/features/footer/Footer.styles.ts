@@ -21,6 +21,7 @@ const scrollVisabilityStyle = (
 });
 
 const FooterLayoutWrapperStyle: React.CSSProperties = {
+	paddingTop: FOOTER_OFFSET,
 	marginTop: `calc(-${FOOTER_HEIGHT} - ${FOOTER_OFFSET})`,
 	fontSize: `calc(1.5*${VOLUME_CONSTANT_SIZE})`,
 	zIndex: "-15",

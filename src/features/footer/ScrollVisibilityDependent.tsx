@@ -30,7 +30,7 @@ const useScrollVisibility = (
 	const handleScroll = useCallback(() => {
 		if (noBorders) return;
 
-		const current_scroll_y = window.scrollY;
+		const current_scroll_y = window.scrollY + 2;
 
 		const [maxVis, , minVis] = calcVisibilityRegion(
 			document.documentElement.scrollHeight,
@@ -38,13 +38,13 @@ const useScrollVisibility = (
 			footerVH,
 			window.innerHeight
 		);
-
 		setOpacity(
 			Math.min(
 				1,
 				Math.max(0, (current_scroll_y - minVis) / (maxVis - minVis))
 			)
 		);
+
 		setIsVisible(current_scroll_y >= minVis);
 	}, [borders, footerVH]);
 
