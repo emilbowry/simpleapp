@@ -102,7 +102,6 @@ const CallingCard: React.FC<
 	narrowPageEl = false,
 	noAos,
 	children,
-	testEl,
 	gridOverriders = {},
 }) => {
 	let theme = Theme(index);
@@ -119,7 +118,6 @@ const CallingCard: React.FC<
 					...styleOverrides,
 				}}
 			>
-				{testEl}
 				<Header
 					content={header}
 					wrapper_style={{ color: theme.primaryColor }}
@@ -162,9 +160,6 @@ const CallingCard: React.FC<
 
 */
 
-const BackgroundFade: React.CSSProperties = {};
-
-const testBG = <div style={BackgroundFade} />;
 const SideBarCallingCard: React.FC<
 	ICallingCardProps & { sideBar?: ICallingCardProps }
 > = (props) => {
@@ -187,7 +182,6 @@ const SideBarCallingCard: React.FC<
 			{...props}
 			components={components}
 			narrowPageEl={isPageElement}
-			testEl={testBG}
 		>
 			<Child />
 		</CallingCard>
@@ -200,7 +194,6 @@ const SideBarCallingCard: React.FC<
 					: components
 			}
 			isPageElement={isPageElement}
-			testEl={testBG}
 		/>
 	);
 };
