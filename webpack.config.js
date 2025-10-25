@@ -57,7 +57,7 @@ module.exports = (env, argv) => {
 					],
 				},
 				{
-					test: /favicon|apple-touch-icon|android-chrome|manifest/i,
+					test: faviconRegex,
 					type: "asset/resource",
 					generator: {
 						filename: "[name][ext]",
