@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useIsMobile } from "../../hooks/BrowserDependant";
+import { useBrowserScale } from "../../hooks/WindowSizeDependent";
 import { TRAIL_SPEED } from "./Cursor.consts";
 import {
 	chevStyle,
@@ -124,28 +125,33 @@ interface ICustomCursorProps {
 	isHoveringLink: boolean;
 
 	trailing_position: IPosition;
+	scale_factor?: number;
 }
 const LogoCursor: React.FC<ICustomCursorProps> = (props) => {
-	const { isMouseClicked, mouse_position, trailing_position } = props;
+	const { isMouseClicked, mouse_position, trailing_position, scale_factor } =
+		props;
 	return (
 		<>
 			{/* <div style={chevStyle(mouse_position)} /> */}
 			{!isMouseClicked ? (
 				<CutChevron {...props} />
 			) : (
-				<div style={chevStyle(mouse_position)} />
+				<div style={chevStyle(mouse_position, scale_factor)} />
 			)}
-			<div style={diamondStyle(trailing_position)} />
+			<div style={diamondStyle(trailing_position, scale_factor)} />
 			{/* {isMouseClicked && <div style={clickInsertStyle(mouse_position)} />} */}
 		</>
 	);
 };
 
-const CutChevron: React.FC<ICustomCursorProps> = ({ mouse_position }) => {
+const CutChevron: React.FC<ICustomCursorProps> = ({
+	mouse_position,
+	scale_factor,
+}) => {
 	return (
 		<>
-			<div style={clickInsertStyleA(mouse_position)} />
-			<div style={clickInsertStyleB(mouse_position)} />
+			<div style={clickInsertStyleA(mouse_position, scale_factor)} />
+			<div style={clickInsertStyleB(mouse_position, scale_factor)} />
 		</>
 	);
 };
@@ -158,9 +164,10 @@ const StaticCursor: React.FC<ICustomCursorProps> = (
 		isMouseClicked={true}
 	/>
 );
-const FullHexCursor: React.FC<ICustomCursorProps> = ({ mouse_position }) => (
-	<div style={hexStyle(mouse_position)} />
-);
+const FullHexCursor: React.FC<ICustomCursorProps> = ({
+	mouse_position,
+	scale_factor,
+}) => <div style={hexStyle(mouse_position, scale_factor)} />;
 
 const DefaultCursor: React.FC<ICustomCursorProps> = ({ mouse_position }) => (
 	<>
@@ -189,7 +196,7 @@ const CustomCursor: React.FC = (useBasic = false) => {
 		loc,
 		setLoc,
 	} = useContext(CursorContext);
-
+	// const scale_factor = useBrowserScale();
 	const mouse_position = useMousePosition(global_position);
 	useEffect(() => {
 		setGlobalMousePosition?.(mouse_position);
@@ -200,6 +207,7 @@ const CustomCursor: React.FC = (useBasic = false) => {
 		trailing_position: useTrailingPosition(mouse_position),
 		isHoveringLink: useHoveringLink(loc, setLoc),
 		isMouseClicked: useMouseClick(),
+		scale_factor: useBrowserScale(),
 	};
 	return !isMobile && hasCustomCursor ? (
 		<>

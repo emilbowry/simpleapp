@@ -49,32 +49,44 @@ const BaseHexStyle: React.CSSProperties = {
 	backgroundImage: `${logo_gradient_prime}`,
 	pointerEvents: "none",
 	mixBlendMode: "difference",
-	width: `${HEX_SIZE}px`,
-	height: `${HEX_SIZE / ASPECT_RATIO}px`,
+
 	zIndex: 9999,
 };
 
-const baseHexStyle = (mousePosition: {
-	x: number;
-	y: number;
-}): React.CSSProperties => ({
+const baseHexStyle = (
+	mousePosition: {
+		x: number;
+		y: number;
+	},
+	scale_factor = 1
+): React.CSSProperties => ({
 	...BaseHexStyle,
-
-	left: `${mousePosition.x - HEX_SIZE / 2}px`,
-	top: `${mousePosition.y - HEX_SIZE / 2}px`,
+	width: `calc(${1 / scale_factor}*${HEX_SIZE}px)`,
+	height: `calc(${1 / scale_factor}*${HEX_SIZE / ASPECT_RATIO}px)`,
+	left: `calc(${mousePosition.x - HEX_SIZE / 2}px)`,
+	top: `calc(${mousePosition.y - HEX_SIZE / 2}px)`,
 });
 
-const chevStyle = (mousePosition: IPosition): React.CSSProperties => ({
-	...baseHexStyle(mousePosition),
+const chevStyle = (
+	mousePosition: IPosition,
+	scale_factor?: number
+): React.CSSProperties => ({
+	...baseHexStyle(mousePosition, scale_factor),
 	clipPath: "polygon(25% 0, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 50% 50%)",
 });
 
-const hexStyle = (mousePosition: IPosition): React.CSSProperties => ({
-	...baseHexStyle(mousePosition),
+const hexStyle = (
+	mousePosition: IPosition,
+	scale_factor?: number
+): React.CSSProperties => ({
+	...baseHexStyle(mousePosition, scale_factor),
 	clipPath: "polygon(25% 0, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
 });
-const diamondStyle = (mousePosition: IPosition): React.CSSProperties => ({
-	...baseHexStyle(mousePosition),
+const diamondStyle = (
+	mousePosition: IPosition,
+	scale_factor?: number
+): React.CSSProperties => ({
+	...baseHexStyle(mousePosition, scale_factor),
 	clipPath: `polygon(0% 50%, ${DIAMOND_SPACE}% ${
 		DIAMOND_SPACE * ASPECT_RATIO
 	}%, ${2 * DIAMOND_SPACE}% 50%, ${DIAMOND_SPACE}% ${
@@ -92,15 +104,21 @@ const diamondStyle = (mousePosition: IPosition): React.CSSProperties => ({
 // 		50 + CHEV_GAP * ASPECT_RATIO
 // 	}%)`,
 // });
-const clickInsertStyleA = (mousePosition: IPosition): React.CSSProperties => ({
-	...baseHexStyle(mousePosition),
+const clickInsertStyleA = (
+	mousePosition: IPosition,
+	scale_factor?: number
+): React.CSSProperties => ({
+	...baseHexStyle(mousePosition, scale_factor),
 
 	clipPath: `polygon(25% 0, 75% 0%, ${100 - CHEV_GAP / 2}% ${
 		50 - CHEV_GAP * ASPECT_RATIO
 	}%, ${50 - CHEV_GAP / 2}% ${50 - CHEV_GAP * ASPECT_RATIO}%)`,
 });
-const clickInsertStyleB = (mousePosition: IPosition): React.CSSProperties => ({
-	...baseHexStyle(mousePosition),
+const clickInsertStyleB = (
+	mousePosition: IPosition,
+	scale_factor?: number
+): React.CSSProperties => ({
+	...baseHexStyle(mousePosition, scale_factor),
 
 	clipPath: `polygon(${50 - CHEV_GAP / 2}% ${
 		50 + CHEV_GAP * ASPECT_RATIO
