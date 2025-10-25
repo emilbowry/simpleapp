@@ -93,7 +93,7 @@ const ourServicesFeatureCallouts = (renderIcon = true) => [
 	],
 ];
 
-import { SideBarOverlapStyle } from "../../components/callingcard/CallingCard.styles";
+import { SideBarBottomOverlapStyle } from "../../components/callingcard/CallingCard.styles";
 // import { IS_CHROME } from "../../hooks/BrowserDependant";
 import {
 	ServicesContainerStyle,
@@ -139,7 +139,7 @@ const ourServices: React.FC = () => (
 			}
 			styleOverrides={{
 				backgroundColor: bgwhite,
-				...SideBarOverlapStyle,
+				...SideBarBottomOverlapStyle,
 				zIndex: -5,
 			}}
 		/>

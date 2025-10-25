@@ -10,7 +10,7 @@ import {
 } from "../../../../components/callingcard/graphics";
 
 import { SideBarCallingCard } from "../../../../components/callingcard/CallingCard";
-import { SideBarOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
+import { SideBarBottomOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { partners } from "../../../../components/partnership-bar/Partner";
 import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
@@ -149,7 +149,7 @@ const AboutUsCallingCard: React.FC = () => {
 				}
 				styleOverrides={{
 					backgroundColor: bgwhite,
-					...SideBarOverlapStyle,
+					...SideBarBottomOverlapStyle,
 				}}
 			/>
 		</>
