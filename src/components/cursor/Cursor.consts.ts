@@ -4,7 +4,7 @@ const HEX_SIZE = 15;
 const OUTER_RADIUS = 30;
 const TRAIL_SPEED = 0.15;
 const DIAMOND_SPACE = 15;
-const CHEV_GAP = DIAMOND_SPACE / 2;
+const CHEV_GAP = 5; //DIAMOND_SPACE / 2;
 
 export {
 	CHEV_GAP,

@@ -114,7 +114,7 @@ const LogoCursor: React.FC<ICustomCursorProps> = (props) => {
 	return (
 		<>
 			{/* <div style={chevStyle(mouse_position)} /> */}
-			{isMouseClicked ? (
+			{!isMouseClicked ? (
 				<CutChevron {...props} />
 			) : (
 				<div style={chevStyle(mouse_position)} />
@@ -153,9 +153,7 @@ const DefaultCursor: React.FC<ICustomCursorProps> = ({ mouse_position }) => (
 	</>
 );
 
-const New_HexCursor: React.FC<ICustomCursorProps> = (
-	props: ICustomCursorProps
-) =>
+const HexCursor: React.FC<ICustomCursorProps> = (props: ICustomCursorProps) =>
 	props.isHoveringLink ? (
 		props.isMouseClicked ? (
 			<StaticCursor {...props} />
@@ -189,7 +187,7 @@ const CustomCursor: React.FC = (useBasic = false) => {
 			{useBasic === true ? (
 				<DefaultCursor {...MouseProps} />
 			) : (
-				<New_HexCursor {...MouseProps} />
+				<HexCursor {...MouseProps} />
 			)}
 		</>
 	) : (
