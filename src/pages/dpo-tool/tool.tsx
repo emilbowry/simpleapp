@@ -438,6 +438,7 @@ const ToolPage = () => (
 	<Page
 		page={PolicyAnalyzer}
 		bg={false}
+		useCursor={false}
 	/>
 );
 export default ToolPage;
