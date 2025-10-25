@@ -56,18 +56,34 @@ const getTheme = (index: number) => {
 	return theme;
 };
 
-const linkStyle = (isUnderlined = true): React.CSSProperties => ({
-	textDecorationLine: isUnderlined ? `underline` : "none",
+const linkStyle = (
+	isUnderlined = true,
+	useDefaultDecoration = false,
+	bg_height = "3px"
+): React.CSSProperties => ({
+	textDecorationLine:
+		isUnderlined || useDefaultDecoration ? `underline` : "none",
 	textDecorationColor: `${logo_blue}`,
 	backgroundOrigin: "content-box",
 	backgroundImage: `${logo_gradient}`,
 	backgroundPosition: "bottom left",
 	backgroundRepeat: "no-repeat",
 	boxSizing: "border-box",
-	backgroundSize: isUnderlined ? "100% 3px" : "0% 3px",
+	backgroundSize: isUnderlined ? `100% ${bg_height}` : `0% ${bg_height}`,
 	width: "fit-content",
 	color: "#333",
 });
+
+const interactiveLinkStyle = (
+	isUnderlined = false,
+	useDefaultDecoration = false,
+	bg_height?: string
+): React.CSSProperties => ({
+	...linkStyle(isUnderlined, useDefaultDecoration, bg_height),
+	transition: "background-size 0.3s ease-in",
+	padding: 0,
+});
+
 const generateGradient = (
 	n: number,
 
@@ -126,6 +142,7 @@ export {
 	generateGradient,
 	GenericSectionStyle,
 	getTheme,
+	interactiveLinkStyle,
 	linkStyle,
 	styleObjectToString,
 	VOLUME_CONSTANT_SIZE,
