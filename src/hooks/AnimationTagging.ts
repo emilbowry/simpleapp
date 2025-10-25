@@ -13,16 +13,38 @@ const cleanSVGAccidents = () => {
 		el.classList.remove("aos", "is-visible");
 	});
 };
-type Pos = [baseDepth: number, nextChildIndex: number, orderIndex: number];
 
 const shouldSkip = (el: Element) =>
 	!!el.closest(".no-aos") || isInSVG(el) || !isHTMLElement(el);
+const setElementProperties = (
+	el: Element,
+	baseDepth: number,
+	siblingIndex: number,
+	orderIndex: number
+) => {
+	if (!el.classList.contains("aos-ignore")) {
+		el.classList.add("aos");
+		if (el instanceof HTMLElement) {
+			el.dataset.baseDepth = String(baseDepth);
+			el.dataset.siblingIndex = String(siblingIndex);
+			el.dataset.orderIndex = String(orderIndex);
+			const displayDepth = baseDepth + siblingIndex + orderIndex;
+			el.dataset.depth = String(displayDepth);
+			el.style.setProperty("--aos-base-depth", String(baseDepth));
+			el.style.setProperty("--aos-sibling-index", String(siblingIndex));
+			el.style.setProperty("--aos-order-index", String(orderIndex));
+			el.style.setProperty("--aos-depth", String(displayDepth));
+		}
+	}
+};
+
+type TPos = [baseDepth: number, nextChildIndex: number, orderIndex: number];
 
 const tagAllUnderMain = (): void => {
 	const main = document.querySelector("main");
 	if (!main) return;
 	let orderCounter = 0;
-	const pos = new WeakMap<Element, Pos>();
+	const pos = new WeakMap<Element, TPos>();
 	const nextChildIndexByParent = new Map<Element, number>();
 	const existing = Array.from(main.querySelectorAll(".aos"));
 	const ensureParentSeeded = (parent: Element) => {
@@ -79,25 +101,10 @@ const tagAllUnderMain = (): void => {
 		pos.set(parent, [parentBase, nextChildIndex + 1, pos.get(parent)![2]]);
 
 		pos.set(el, [baseDepth, 0, orderIndex]);
-		if (!el.classList.contains("aos-ignore")) {
-			el.classList.add("aos");
-			if (el instanceof HTMLElement) {
-				el.dataset.baseDepth = String(baseDepth);
-				el.dataset.siblingIndex = String(siblingIndex);
-				el.dataset.orderIndex = String(orderIndex);
-				const displayDepth = baseDepth + siblingIndex + orderIndex;
-				el.dataset.depth = String(displayDepth);
-				el.style.setProperty("--aos-base-depth", String(baseDepth));
-				el.style.setProperty(
-					"--aos-sibling-index",
-					String(siblingIndex)
-				);
-				el.style.setProperty("--aos-order-index", String(orderIndex));
-				el.style.setProperty("--aos-depth", String(displayDepth));
-			}
-		}
+		setElementProperties(el, baseDepth, siblingIndex, orderIndex);
 	});
 };
+
 const observeAll = (io: IntersectionObserver) => {
 	cleanSVGAccidents();
 	tagAllUnderMain();

@@ -94,9 +94,7 @@ const usePillOnScroll = (d_threshold: number = 1, u_threshold: number = 10) => {
 	}, [isScrolled, d_threshold, u_threshold]);
 	return isScrolled;
 };
-const usePillBarStyle = () => {
-	const isScrolled = usePillOnScroll();
-
+const usePillBarStyle = (isScrolled: boolean = usePillOnScroll()) => {
 	const TitleBarStyle = useMemo(
 		() => ({
 			...titleBarStyles(),

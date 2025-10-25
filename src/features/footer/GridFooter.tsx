@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ValidComponent, formatComponent } from "../../utils/reactUtils";
+import { gridFooterStyle } from "./Footer.styles";
 
 const GridFooter: React.FC<{
 	n_rows?: number;
@@ -9,19 +10,7 @@ const GridFooter: React.FC<{
 }> = ({ n_rows = 3, children }) => {
 	return (
 		<div>
-			<div
-				style={{
-					width: "100vw",
-					height: "70vh",
-					margin: "0 auto",
-					minWidth: 0,
-					color: "white",
-					display: "grid",
-					gridTemplateRows: `repeat(${n_rows}, ${70 / n_rows}vh)`,
-				}}
-			>
-				{children}
-			</div>
+			<div style={gridFooterStyle(n_rows)}>{children}</div>
 		</div>
 	);
 };

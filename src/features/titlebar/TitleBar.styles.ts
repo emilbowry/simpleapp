@@ -14,7 +14,6 @@ const InteractionWrapperStyles: React.CSSProperties = {
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
-	// fontSize: "min(1.5rem,calc(1.5rem*calc(1vw/1vh)))",
 	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
 };
 const titleBarStyles = (): React.CSSProperties => {
@@ -23,12 +22,9 @@ const titleBarStyles = (): React.CSSProperties => {
 		alignContent: "center",
 		alignItems: "center",
 		height: `${VISIBLE_TITLEBAR_HEIGHT}vh`,
-
 		minHeight: "1rem",
 		backgroundColor: "rgb(255 255 255 / 90%)",
 		justifyContent: "space-between",
-
-		// minWidth: `fit-content`,
 	};
 };
 const LogoContainerStyles: React.CSSProperties = {
@@ -43,11 +39,8 @@ const LogoStyles: React.CSSProperties = {
 const NavLinksContainerStyles: React.CSSProperties = {
 	flex: 2,
 	display: "flex",
-	// justifyContent: "center",
 	gap: "2%",
 	justifyContent: "space-evenly",
-
-	// border: "1px solid red",
 	textWrap: "nowrap",
 	textAlign: "center",
 };
