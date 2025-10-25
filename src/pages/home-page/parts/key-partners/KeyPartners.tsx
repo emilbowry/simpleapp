@@ -1,4 +1,4 @@
-// src/pages/homepage/parts/AboutUS.tsx
+// src/pages/home-page/parts/key-partners/KeyPartners.tsx
 
 import React from "react";
 
@@ -119,19 +119,21 @@ const KeyPartnersCallingCard: React.FC = () => {
 				footer={
 					<div
 						className="aos-ignore"
-						style={{
-							width: "100%",
-							height: "50px",
-							background: bgwhite,
-							zIndex: "100",
-							paddingTop: "50px",
-							marginTop: "50px",
+						style={
+							{
+								width: "100%",
+								height: "50px",
+								background: bgwhite,
+								zIndex: "100",
+								paddingTop: "50px",
+								marginTop: "50px",
 
-							["--borderrad"]: `calc(4*${volume_constant_size})`,
+								["--borderrad"]: `calc(4*${volume_constant_size})`,
 
-							borderRadius:
-								"0 0 var(--borderrad) var(--borderrad)",
-						}}
+								borderRadius:
+									"0 0 var(--borderrad) var(--borderrad)",
+							} as React.CSSProperties
+						}
 					/>
 				}
 			/>
