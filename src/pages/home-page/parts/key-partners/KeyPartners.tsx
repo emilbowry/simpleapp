@@ -2,12 +2,12 @@
 
 import React from "react";
 
-import gh from "../../../../assets/growthhouselogo.png";
+import gh from "../../../../assets/growthhouse_no_bg.png";
 import hm from "../../../../assets/HewardMills.png";
 import ms from "../../../../assets/ms.png";
 
 import { CallingCard } from "../../../../components/callingcard/CallingCard";
-import { SideBarFullOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
+import { SideBarTopOverlapStyle } from "../../../../components/callingcard/CallingCard.styles";
 import { linkStyle, VOLUME_CONSTANT_SIZE } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { BoxedImage } from "../../../../utils/reactUtils";
@@ -113,7 +113,7 @@ const KeyPartnersCallingCard: React.FC = () => {
 				header={<h1>Key Partners</h1>}
 				styleOverrides={{
 					backgroundColor: bgwhite,
-					...SideBarFullOverlapStyle,
+					...SideBarTopOverlapStyle,
 					zIndex: 0,
 				}}
 				footer={
@@ -125,8 +125,8 @@ const KeyPartnersCallingCard: React.FC = () => {
 								height: "50px",
 								background: bgwhite,
 								zIndex: "100",
-								paddingTop: "50px",
-								marginTop: "50px",
+								// paddingTop: "50px",
+								// marginTop: "50px",
 
 								["--borderrad"]: `calc(4*${VOLUME_CONSTANT_SIZE})`,
 
