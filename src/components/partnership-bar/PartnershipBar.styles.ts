@@ -78,7 +78,6 @@ const PartnerWrapperStyle: React.CSSProperties = {
 };
 const Keyframes: TValidStyle<TAtRule, undefined, "to" | "from"> = {
 	"@keyframes slide-in": {
-		color: "red",
 		to: {
 			transform: "translateX(-100%)",
 		},

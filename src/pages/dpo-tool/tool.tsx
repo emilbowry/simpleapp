@@ -166,7 +166,6 @@ const styles: Record<string, CSSProperties> = {
 	listItem: {
 		padding: "0.75rem",
 		borderRadius: "4px",
-		cursor: "pointer",
 		transition: "background-color 0.2s ease-in-out",
 		border: "1px solid #ddd",
 		marginBottom: "0.5rem",
@@ -187,7 +186,6 @@ const styles: Record<string, CSSProperties> = {
 		backgroundColor: "#007bff",
 		color: "white",
 		borderRadius: "4px",
-		cursor: "pointer",
 		marginBottom: "1rem",
 		transition: "background-color 0.2s, border-color 0.2s",
 	},

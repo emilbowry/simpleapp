@@ -54,7 +54,6 @@ const navLinkStyles = (isUnderlined = false): React.CSSProperties => ({
 	...linkStyle(isUnderlined),
 	transition: "background-size 0.3s ease-in",
 	padding: 0,
-	cursor: "none",
 });
 const DropdownStyles: React.CSSProperties = {
 	left: "0",
@@ -73,7 +72,6 @@ const DropdownContainerStyles: React.CSSProperties = {
 	position: "relative",
 	left: "0",
 	right: "0",
-	cursor: "none",
 	margin: "0 auto",
 	top: `-${VISIBLE_TITLEBAR_HEIGHT}vh`,
 	marginTop: `calc(${VISIBLE_TITLEBAR_HEIGHT}vh - 10px)`,
@@ -88,7 +86,6 @@ const DropdownLinksColumnStyles: React.CSSProperties = {
 };
 const DropdownLinkStyles: React.CSSProperties = {
 	color: "#333",
-	cursor: "none",
 	fontSize: "15px",
 	textDecoration: "none",
 	padding: "5px 0",

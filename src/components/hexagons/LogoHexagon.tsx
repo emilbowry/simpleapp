@@ -38,7 +38,7 @@ class LogoHexagon extends Hexagon {
 			components.defs.push(
 				<mask id="logoCutout">
 					<path
-						d={this.hexPath}
+						d={this.hex_path}
 						fill="white"
 					/>
 					<path
@@ -55,7 +55,7 @@ class LogoHexagon extends Hexagon {
 			components.defs.push(
 				<mask id="logoCutout">
 					<path
-						d={this.hexPath}
+						d={this.hex_path}
 						fill="white"
 					/>
 					<path

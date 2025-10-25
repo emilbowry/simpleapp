@@ -42,12 +42,29 @@ const textEl = (
 		</div>
 	</div>
 );
-const firstRow = [null, null, <ImageHexagon img={hi3} />] as const;
+const firstRow = [
+	null,
+	null,
+	<ImageHexagon
+		img={hi3}
+		opacity={0.6}
+	/>,
+] as const;
 const secondRow = [
-	<ImageHexagon img={hi1} />,
-	<LogoHexagon args={{ withGap: false }} />,
+	<ImageHexagon
+		img={hi1}
+		opacity={0.6}
+	/>,
+	<LogoHexagon
+		args={{ withGap: false }}
+		opacity={1}
+		filter="drop-shadow(rgba(0, 0, 0, 0.2)  2px 2px 3px)  drop-shadow(rgba(255, 255, 255, 0.4)  3px 3px 3px)"
+	/>,
 
-	<ImageHexagon img={hi2} />,
+	<ImageHexagon
+		img={hi2}
+		opacity={0.6}
+	/>,
 ] as const;
 
 const thirdRow = [
@@ -56,8 +73,9 @@ const thirdRow = [
 		args={{ colour: light_mix_green }}
 		element={textEl}
 		useVerticalAlignment={true}
+		opacity={0.6}
 	/>,
-	<Hexagon />,
+	<Hexagon opacity={0.6} />,
 ] as const;
 
 const r = [

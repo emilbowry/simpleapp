@@ -48,7 +48,9 @@ const OurTeamContainerStyle: React.CSSProperties = {
 	rowGap: "1%",
 	width: "100%",
 	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
-	paddingBottom: "10vh",
+
+	paddingBottom: "calc(10%)",
+	marginBottom: "calc(10%)",
 };
 export {
 	_PersonaTextStyle,

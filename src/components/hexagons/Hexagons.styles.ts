@@ -4,13 +4,15 @@ import { IHexagonStyleParams } from "./Hexagons.types";
 
 const containerStyle = ({
 	opacity = 0.8,
+	filter = "",
 }: IHexagonStyleParams): React.CSSProperties => {
 	return {
 		position: "relative",
 		fontSize: 0,
 		overflow: "visible",
 
-		opacity: `${opacity}`,
+		opacity,
+		filter,
 	};
 };
 

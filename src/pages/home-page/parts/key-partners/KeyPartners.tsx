@@ -27,9 +27,14 @@ const f1 = (
 		<div>
 			<a
 				href="https://thegrowthhouse.com/ai-programme/"
-				style={{ ...linkStyle(true), color: "inherit" }}
+				style={{
+					...linkStyle(true),
+					color: "inherit",
+					fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
+					fontWeight: "bold",
+				}}
 			>
-				<h2>The Growth House</h2>
+				The Growth House
 			</a>
 		</div>
 		<p>
@@ -57,9 +62,14 @@ const f2 = (
 		<div>
 			<a
 				href="https://community.mindstone.com/events"
-				style={{ ...linkStyle(true), color: "inherit" }}
+				style={{
+					...linkStyle(true),
+					color: "inherit",
+					fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
+					fontWeight: "bold",
+				}}
 			>
-				<h2>Mindstone</h2>
+				Mindstone
 			</a>
 		</div>
 		<p>
@@ -87,9 +97,14 @@ const f3 = (
 		<div>
 			<a
 				href="https://www.hewardmills.com"
-				style={{ ...linkStyle(true), color: "inherit" }}
+				style={{
+					...linkStyle(true),
+					color: "inherit",
+					fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})`,
+					fontWeight: "bold",
+				}}
 			>
-				<h2>Heward Mills</h2>
+				Heward Mills
 			</a>
 		</div>
 		<p>
@@ -103,11 +118,8 @@ const f3 = (
 );
 
 const KeyPartnersCallingCard: React.FC = () => {
-	// const scale_adj = useBrowserScale();
 	return (
 		<>
-			{/* <div style={BackgroundFade} /> */}
-
 			<CallingCard
 				components={[f1, f2, f3]}
 				header={<h1>Key Partners</h1>}
@@ -126,7 +138,7 @@ const KeyPartnersCallingCard: React.FC = () => {
 								background: bgwhite,
 								zIndex: "100",
 								// paddingTop: "50px",
-								// marginTop: "50px",
+								// marginBottom: "50px",
 
 								["--borderrad"]: `calc(4*${VOLUME_CONSTANT_SIZE})`,
 

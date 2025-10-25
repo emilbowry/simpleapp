@@ -241,6 +241,11 @@ const theJourneyPage: React.FC = () => {
 	);
 };
 
-const TheJourneyPage = () => <Page page={theJourneyPage} />;
+const TheJourneyPage = () => (
+	<Page
+		page={theJourneyPage}
+		useCursor={false}
+	/>
+);
 
 export default TheJourneyPage;

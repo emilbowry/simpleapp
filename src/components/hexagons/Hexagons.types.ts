@@ -12,6 +12,7 @@ interface IHexagonStyleParams {
 	size?: number;
 	scale?: number;
 	opacity?: number;
+	filter?: string;
 }
 type TSanitationFunction = (
 	args: TOptionalParameters,

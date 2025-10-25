@@ -61,7 +61,6 @@ const ButtonStyle: React.CSSProperties = {
 	color: "#ffffff",
 	backgroundColor: "#007bff",
 	border: "none",
-	cursor: "pointer",
 	transition: "background-color 0.2s",
 	marginTop: "2%",
 };

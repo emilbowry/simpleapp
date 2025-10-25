@@ -141,12 +141,13 @@ const Dropdown: React.FC<ITitleBarProps> = (props) => {
 	const { ActiveLinkGroup, showDropdown } = useDropDownInteractions(
 		props.Links
 	);
+	const { onMouseEnter } = useActiveDropdownLink();
 	return (
 		showDropdown &&
 		ActiveLinkGroup && (
 			<div
 				style={DropdownContainerStyles}
-				onMouseEnter={useActiveDropdownLink().onMouseEnter}
+				onMouseEnter={onMouseEnter}
 			>
 				<DropDownOuter ActiveLinkGroup={ActiveLinkGroup} />
 			</div>
