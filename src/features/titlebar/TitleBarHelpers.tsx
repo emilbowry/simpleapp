@@ -69,7 +69,6 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 							active_link_alias === display_alias,
 						style_args: ["2px"],
 						StyleOverrides: {
-							// textUnderlineOffset: "1px",
 							backgroundPosition: "bottom  left",
 							paddingBottom: "1px",
 						},
@@ -87,17 +86,6 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 						{display_alias}
 					</NavLink>
 				</div>
-
-				// <NavLink
-				// 				key={display_alias}
-				// 				to={main_link.path}
-				// 				onMouseOver={() => onLinkOver(display_alias)}
-
-				// 			>
-
-				// 				{display_alias}
-
-				// 			</NavLink>
 			);
 		})}
 	</div>

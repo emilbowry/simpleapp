@@ -190,7 +190,6 @@ const HexCursor: React.FC<ICustomCursorProps> = (props: ICustomCursorProps) =>
 const Custom_Cursor: React.FC<{ useBasic: boolean }> = ({
 	useBasic = false,
 }) => {
-	// const isMobile = useIsMobile();
 	const {
 		hasCustomCursor,
 		global_position,
@@ -198,7 +197,6 @@ const Custom_Cursor: React.FC<{ useBasic: boolean }> = ({
 		loc,
 		setLoc,
 	} = useContext(CursorContext);
-	// const scale_factor = useBrowserScale();
 	const mouse_position = useMousePosition(global_position);
 	useEffect(() => {
 		setGlobalMousePosition?.(mouse_position);
