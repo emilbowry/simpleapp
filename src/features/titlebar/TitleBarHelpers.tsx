@@ -61,21 +61,33 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 			if (!main_link) return null;
 			const display_alias = formatLabel(main_link.path, main_link.alias);
 			return (
-				<div
+				<NavLink
 					key={display_alias}
-					{...useDynamicLink({
-						useDefaultDecoration: false,
-						condition_function: () =>
-							active_link_alias === display_alias,
-						style_args: ["2px"],
-						StyleOverrides: {
-							// textUnderlineOffset: "1px",
-							backgroundPosition: "bottom  left",
-							paddingBottom: "1px",
-						},
-					})}
+					to={main_link.path}
+					onMouseOver={() => onLinkOver(display_alias)}
+					style={{
+						color: "inherit",
+						textDecorationColor: "inherit",
+						textDecorationLine: "inherit",
+					}}
 				>
-					<NavLink
+					<div
+						key={display_alias}
+						{...useDynamicLink({
+							useDefaultDecoration: false,
+							condition_function: () =>
+								active_link_alias === display_alias,
+							style_args: ["2px"],
+							StyleOverrides: {
+								// textUnderlineOffset: "1px",
+								backgroundPosition: "bottom  left",
+								paddingBottom: "1px",
+							},
+						})}
+					>
+						{/* <NavLink
+					key={display_alias}
+
 						to={main_link.path}
 						onMouseOver={() => onLinkOver(display_alias)}
 						style={{
@@ -83,10 +95,11 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 							textDecorationColor: "inherit",
 							textDecorationLine: "inherit",
 						}}
-					>
+					> */}
 						{display_alias}
-					</NavLink>
-				</div>
+						{/* </NavLink> */}
+					</div>
+				</NavLink>
 			);
 		})}
 	</div>
