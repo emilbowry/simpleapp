@@ -118,18 +118,18 @@ const App: React.FC = () => {
 	useScrollToTop();
 	return (
 		<>
-			<CursorContext
-				value={{
-					hasCustomCursor,
-					setHasCustomCursor,
-					global_position,
-					setGlobalMousePosition,
-					loc,
-					setLoc,
-				}}
-			>
-				<CustomCursor />
-				<Suspense fallback={<LoadingFC />}>
+			<Suspense fallback={<LoadingFC />}>
+				<CursorContext
+					value={{
+						hasCustomCursor,
+						setHasCustomCursor,
+						global_position,
+						setGlobalMousePosition,
+						loc,
+						setLoc,
+					}}
+				>
+					<CustomCursor />
 					<Routes>
 						<Route
 							path="/"
@@ -156,8 +156,8 @@ const App: React.FC = () => {
 							element={<DemoPage />}
 						/>
 					</Routes>
-				</Suspense>
-			</CursorContext>
+				</CursorContext>
+			</Suspense>
 		</>
 	);
 };
