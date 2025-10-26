@@ -72,7 +72,6 @@ const PointedtopHexagonFeatureGrid: React.FC<
 	useVerticalAlignment = false,
 	pointedtop_shape_height_override = undefined,
 }) => {
-	console.log(pointedtop_shape_height_override);
 	const elements = FeatureCallouts.map((calloutProps, index) => {
 		return (
 			<PointedTopHexagon

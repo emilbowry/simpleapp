@@ -25,37 +25,20 @@ const useNarrowLayout = (threshold = LAYOUT_BREAKPOINT) => {
 };
 
 const useBrowserScale = (): number => {
-	const [scale, setScale] = useState(1.0);
+	const getScaleRatio = () => window.outerWidth / window.innerWidth;
+	const [scale, setScale] = useState(getScaleRatio());
 
 	useEffect(() => {
-		const visualViewport = window.visualViewport;
+		const updateScale = () => {
+			const current_scale = getScaleRatio();
+			setScale(current_scale);
+		};
 
-		let initial_scale = window.devicePixelRatio || 1;
+		window.addEventListener("resize", updateScale);
 
-		if (visualViewport) {
-			initial_scale *= visualViewport.scale;
-		}
-
-		setScale(initial_scale);
-
-		if (visualViewport) {
-			const updateScale = () => {
-				const current_scale = window.outerWidth / window.innerWidth;
-
-				setScale(current_scale);
-			};
-
-			visualViewport.addEventListener("resize", updateScale);
-
-			return () => {
-				visualViewport.removeEventListener("resize", updateScale);
-			};
-		} else {
-			console.warn(
-				"window.visualViewport not supported. Only using devicePixelRatio."
-			);
-		}
-		return () => {};
+		return () => {
+			window.removeEventListener("resize", updateScale);
+		};
 	}, []);
 
 	return scale;
