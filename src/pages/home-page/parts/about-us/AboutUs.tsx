@@ -14,7 +14,6 @@ import { SideBarBottomOverlapStyle } from "../../../../components/callingcard/Ca
 import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { partners } from "../../../../components/partnership-bar/Partner";
 import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
-import { IS_CHROME } from "../../../../hooks/BrowserDependant";
 import { VOLUME_CONSTANT_SIZE } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
@@ -55,32 +54,28 @@ const wGif = (
 );
 const aboutUsFeatureCallouts = (renderIcon = true) => [
 	[
-		renderIcon && (
-			<BoxedImage
-				image={bulb}
-				width="25%"
-				aspectRatio="1"
-				imageStyling={{
-					...imageStyling,
-				}}
-			/>
-		),
+		<BoxedImage
+			image={bulb}
+			width="25%"
+			aspectRatio="1"
+			imageStyling={{
+				...imageStyling,
+			}}
+		/>,
 		<div style={titleStyle}>Consultancy</div>,
 		<div style={footerStyle}>
 			Scoping <br /> Matching Tasks to Tools
 		</div>,
 	],
 	[
-		renderIcon && (
-			<BoxedImage
-				image={bullseye}
-				width="25%"
-				aspectRatio="1"
-				imageStyling={{
-					...imageStyling,
-				}}
-			/>
-		),
+		<BoxedImage
+			image={bullseye}
+			width="25%"
+			aspectRatio="1"
+			imageStyling={{
+				...imageStyling,
+			}}
+		/>,
 		<div style={titleStyle}>Training</div>,
 		<div style={footerStyle}>
 			Prompt Engineering
@@ -89,21 +84,19 @@ const aboutUsFeatureCallouts = (renderIcon = true) => [
 		</div>,
 	],
 	[
-		renderIcon && (
-			<BoxedImage
-				image={pencil}
-				width="25%"
-				aspectRatio="1"
-				imageStyling={{
-					...imageStyling,
-				}}
-				wrapperStyling={{
-					position: "relative",
-					top: 0,
-					display: "block",
-				}}
-			/>
-		),
+		<BoxedImage
+			image={pencil}
+			width="25%"
+			aspectRatio="1"
+			imageStyling={{
+				...imageStyling,
+			}}
+			wrapperStyling={{
+				position: "relative",
+				top: 0,
+				display: "block",
+			}}
+		/>,
 		<div style={titleStyle}>Policy</div>,
 		<div style={footerStyle}>
 			Drafting AI
@@ -114,11 +107,8 @@ const aboutUsFeatureCallouts = (renderIcon = true) => [
 ];
 
 const AboutUsCallingCard: React.FC = () => {
-	// const scale_adj = useBrowserScale();
 	return (
 		<>
-			{/* <div style={BackgroundFade} /> */}
-
 			<SideBarCallingCard
 				components={[wGif]}
 				header={
@@ -141,7 +131,7 @@ const AboutUsCallingCard: React.FC = () => {
 				sideBar={{ components: [<Foot />], header: head }}
 				footer={
 					<PointedtopHexagonFeatureGrid
-						FeatureCallouts={aboutUsFeatureCallouts(!IS_CHROME)} // seems odd that it doesnt work on android
+						FeatureCallouts={aboutUsFeatureCallouts(true)}
 						useVerticalAlignment={true}
 						hexagon_args={hStyle}
 						theme={-1}

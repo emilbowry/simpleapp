@@ -58,37 +58,31 @@ const tserv = {
 
 const ourServicesFeatureCallouts = (renderIcon = true) => [
 	[
-		renderIcon && (
-			<BoxedImage
-				image={bulb}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
+		<BoxedImage
+			image={bulb}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
 		<div style={titleStyle}>Our Work</div>,
 	],
 	[
-		renderIcon && (
-			<BoxedImage
-				image={bullseye}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
+		<BoxedImage
+			image={bullseye}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
 		<div style={titleStyle}>Our Vision</div>,
 	],
 
 	[
-		renderIcon && (
-			<BoxedImage
-				image={pencil}
-				width="30%"
-				aspectRatio="1"
-				imageStyling={imageStyling}
-			/>
-		),
+		<BoxedImage
+			image={pencil}
+			width="30%"
+			aspectRatio="1"
+			imageStyling={imageStyling}
+		/>,
 		<div style={titleStyle}>Our Work</div>,
 	],
 ];
