@@ -15,13 +15,14 @@ const textEl = (
 		style={{
 			color: " #066070",
 			textAlign: "center",
+			fontSize: "1.3vw",
 		}}
 	>
 		<div
 			style={{
 				fontStyle: "italic",
-				fontSize: "1.6vw",
-				width: "120%",
+
+				// width: "120%",
 			}}
 		>
 			<div>
@@ -35,7 +36,6 @@ const textEl = (
 		<div
 			style={{
 				fontWeight: "bold",
-				fontSize: "1.6vw",
 			}}
 		>
 			- Joe Fennell
@@ -43,7 +43,7 @@ const textEl = (
 	</div>
 );
 const firstRow = [
-	null,
+	<Hexagon opacity={0.6} />,
 	null,
 	<ImageHexagon
 		img={hi3}
@@ -75,7 +75,7 @@ const thirdRow = [
 		useVerticalAlignment={true}
 		opacity={0.6}
 	/>,
-	<Hexagon opacity={0.6} />,
+	null,
 ] as const;
 
 const r = [
@@ -88,15 +88,17 @@ const Hero: React.FC = () => {
 	return (
 		<div
 			style={{
-				// height: "100%",
-				margin: "5% 0",
-				// marginTop: `calc(10%)`,
+				display: "grid",
+				gridTemplateColumns: "1fr minmax(auto, 1000px) 1fr",
+				marginTop: "5%",
 			}}
 		>
+			<div />
 			<HexagonGrid
 				rows={r}
 				relative_spacing={10}
 			/>
+			<div />
 		</div>
 	);
 };

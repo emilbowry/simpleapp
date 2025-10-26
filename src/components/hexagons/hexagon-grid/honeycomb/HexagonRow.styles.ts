@@ -190,7 +190,7 @@ const ContainerStyle = (
 		overflow: "visible",
 	};
 };
-
+/* since inverted offset logic, padding pottom is slightly off */
 const WrapperStyle = (
 	topExtension: boolean,
 	bottomExtension: boolean,
@@ -219,7 +219,6 @@ const WrapperStyle = (
 		paddingTop: `calc(${
 			correction * rel_padding_top_factor * relative_correction_top
 		}% + ${absolute_spacing * correction * abs_padding_top_factor}px)`,
-
 		paddingBottom: `calc(${
 			(length - rel_padding_bottom_offset) *
 			correction *
