@@ -6,9 +6,23 @@ import { Hexagon } from "./Hexagons";
 //
 // ===== ImageHexagon =====
 //
+const generateUniqueId = () => {
+	try {
+		const generator = window.crypto || crypto;
+
+		if (generator && typeof generator.randomUUID === "function") {
+			const uuid = generator.randomUUID.call(generator);
+			return "img-id-" + uuid;
+		}
+	} catch (e) {
+		console.warn("UUID generation failed, using fallback:", e);
+	}
+	return "img-id-" + Math.random().toString(36).substring(2, 11);
+};
 
 class ImageHexagon extends Hexagon {
-	uniqueId = "img-id-" + crypto.randomUUID();
+	uniqueId = generateUniqueId();
+
 	override construct() {
 		let components = super.construct();
 		components.defs.push(

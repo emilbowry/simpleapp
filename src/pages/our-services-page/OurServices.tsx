@@ -89,6 +89,7 @@ const ourServicesFeatureCallouts = [
 
 import { SideBarBottomOverlapStyle } from "../../components/callingcard/CallingCard.styles";
 // import { IS_CHROME } from "../../hooks/BrowserDependant";
+import { IS_CHROME } from "../../hooks/BrowserDependant";
 import {
 	ServicesContainerStyle,
 	ServicesSideBarStyle,
@@ -126,6 +127,7 @@ const ourServices: React.FC = () => (
 					FeatureCallouts={ourServicesFeatureCallouts}
 					hexagon_args={hStyle}
 					useVerticalAlignment={true}
+					height_override={IS_CHROME && "10%"}
 				/>
 			}
 			styleOverrides={{

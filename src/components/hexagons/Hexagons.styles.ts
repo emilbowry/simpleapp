@@ -37,8 +37,19 @@ const rightCutout = (usePointedTop: boolean) =>
 
 const polyCutoutStyle = (
 	usePointedTop: boolean,
-	isLeft: boolean
+	isLeft: boolean,
+	height_override: boolean | string | undefined
 ): React.CSSProperties => {
+	console.log(height_override);
+	let b_height: any = { height: `calc(${100 * s}%)` };
+	if (usePointedTop && height_override) {
+		if (typeof height_override === "string") {
+			b_height = { height: height_override };
+			console.log(b_height);
+		} else if (height_override === true) {
+			b_height = {};
+		}
+	}
 	return {
 		position: "relative",
 
@@ -48,6 +59,7 @@ const polyCutoutStyle = (
 		shapeMargin: "5%",
 		float: isLeft ? "left" : "right",
 		width: `${50 * s}%`,
+		...b_height,
 		/* 	// height: `calc(${100 * s}%)`, // breaks on chrome, not setting doesnt break elsewhere */
 	};
 };

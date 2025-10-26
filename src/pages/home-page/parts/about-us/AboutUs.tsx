@@ -14,6 +14,7 @@ import { SideBarBottomOverlapStyle } from "../../../../components/callingcard/Ca
 import { PointedtopHexagonFeatureGrid } from "../../../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { partners } from "../../../../components/partnership-bar/Partner";
 import { PartnershipWall } from "../../../../components/partnership-bar/PartnershipWall";
+import { IS_CHROME } from "../../../../hooks/BrowserDependant";
 import { VOLUME_CONSTANT_SIZE } from "../../../../styles";
 import { bgwhite } from "../../../../utils/defaultColours";
 import { BoxedImage, getImageEl } from "../../../../utils/reactUtils";
@@ -24,7 +25,12 @@ import {
 	titleStyle,
 } from "./AboutUs.styles";
 const head = (
-	<h2 style={{ fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})` }}>About Us</h2>
+	<h2
+		className="aos-ignore"
+		style={{ fontSize: `calc(3*${VOLUME_CONSTANT_SIZE})` }}
+	>
+		About Us
+	</h2>
 );
 
 const Foot = () => (
@@ -135,6 +141,7 @@ const AboutUsCallingCard: React.FC = () => {
 						useVerticalAlignment={true}
 						hexagon_args={hStyle}
 						theme={-1}
+						height_override={IS_CHROME && "10%"}
 					/>
 				}
 				styleOverrides={{

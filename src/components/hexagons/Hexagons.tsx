@@ -124,18 +124,28 @@ const ScallingWrapper: THexFC = ({ children }) => {
 		</div>
 	);
 };
-const BoundingShape: React.FC = () => {
+const BoundingShape: React.FC<{
+	height_override: boolean | string | undefined;
+}> = ({ height_override }) => {
 	const { usePointedTop } = useContext(HexagonContext);
 
 	return (
 		<>
-			<div style={polyCutoutStyle(usePointedTop, true)} />
-			<div style={polyCutoutStyle(usePointedTop, false)} />
+			<div
+				style={polyCutoutStyle(usePointedTop, true, height_override)}
+			/>
+			<div
+				style={polyCutoutStyle(usePointedTop, false, height_override)}
+			/>
 		</>
 	);
 };
 
-const CenterAlignedElement: THexFC = ({ element, useVerticalAlignment }) => {
+const CenterAlignedElement: THexFC = ({
+	element,
+	useVerticalAlignment,
+	height_override,
+}) => {
 	const { container_height, content_height, setContainerRef } =
 		useContext(HexagonContext);
 	return (
@@ -145,7 +155,7 @@ const CenterAlignedElement: THexFC = ({ element, useVerticalAlignment }) => {
 				ref={setContainerRef}
 			>
 				<div style={ElementWrapperStyle}>
-					<BoundingShape />
+					<BoundingShape height_override={height_override} />
 					<div
 						style={{
 							...ElementSectionStyle,
@@ -329,6 +339,7 @@ class Hexagon
 			element = undefined,
 			svgStyle = {},
 			useVerticalAlignment = false,
+			height_override = undefined,
 			...styleProps
 		} = this.props;
 		return (
@@ -339,6 +350,7 @@ class Hexagon
 					<CenterAlignedElement
 						element={element}
 						useVerticalAlignment={useVerticalAlignment}
+						height_override={height_override}
 					/>
 				</div>
 			</HexagonContext>

@@ -42,7 +42,7 @@ interface IOptParamMap {
 type TRefNode<T extends Element> = T | null;
 type TContentObserver = ResizeObserver | null;
 type TOscillation = undefined | number;
-type THexFC = React.FC<Partial<THexFCProps>>;
+type THexFC = React.FC<Partial<THexFCProps & any>>;
 
 type THexFCProps = {
 	element: ValidComponent[] | ValidComponent;
