@@ -46,7 +46,6 @@ const polyCutoutStyle = (
 			? leftCutout(usePointedTop)
 			: rightCutout(usePointedTop),
 		shapeMargin: "5%",
-		backgroundColor: "rgba(255,0,0,0.2)",
 		float: isLeft ? "left" : "right",
 		width: `${50 * s}%`,
 		/* 	// height: `calc(${100 * s}%)`, // breaks on chrome, not setting doesnt break elsewhere */

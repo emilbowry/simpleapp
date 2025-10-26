@@ -8,12 +8,12 @@ import { Hexagon } from "./Hexagons";
 //
 
 class ImageHexagon extends Hexagon {
+	uniqueId = "img-id-" + crypto.randomUUID();
 	override construct() {
 		let components = super.construct();
-
 		components.defs.push(
 			<pattern
-				id="img1"
+				id={this.uniqueId}
 				patternContentUnits="objectBoundingBox"
 				width="1"
 				height="1"
@@ -27,7 +27,7 @@ class ImageHexagon extends Hexagon {
 			</pattern>
 		);
 		components.paths[0] = React.cloneElement(components.paths[0], {
-			fill: "url(#img1)",
+			fill: `url(#${this.uniqueId})`,
 		});
 		return components;
 	}
