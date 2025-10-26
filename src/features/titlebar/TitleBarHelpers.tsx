@@ -65,26 +65,24 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 					key={display_alias}
 					to={main_link.path}
 					onMouseOver={() => onLinkOver(display_alias)}
-					style={{
-						color: "inherit",
-						textDecorationColor: "inherit",
-						textDecorationLine: "inherit",
-					}}
+					// style={{
+					// 	color: "inherit",
+					// 	textDecorationColor: "inherit",
+					// 	textDecorationLine: "inherit",
+					// }}
+					{...useDynamicLink({
+						useDefaultDecoration: false,
+						condition_function: () =>
+							active_link_alias === display_alias,
+						style_args: ["2px"],
+						StyleOverrides: {
+							// textUnderlineOffset: "1px",
+							backgroundPosition: "bottom  left",
+							paddingBottom: "1px",
+						},
+					})}
 				>
-					<div
-						key={display_alias}
-						{...useDynamicLink({
-							useDefaultDecoration: false,
-							condition_function: () =>
-								active_link_alias === display_alias,
-							style_args: ["2px"],
-							StyleOverrides: {
-								// textUnderlineOffset: "1px",
-								backgroundPosition: "bottom  left",
-								paddingBottom: "1px",
-							},
-						})}
-					>
+					<div key={display_alias}>
 						{/* <NavLink
 					key={display_alias}
 
