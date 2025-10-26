@@ -63,10 +63,31 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 			return (
 				<div
 					key={display_alias}
-					// onMouseOver={() => onLinkOver(display_alias)}
+					{...useDynamicLink({
+						useDefaultDecoration: false,
+						condition_function: () =>
+							active_link_alias === display_alias,
+						style_args: ["2px"],
+						StyleOverrides: {
+							// textUnderlineOffset: "1px",
+							backgroundPosition: "bottom  left",
+							paddingBottom: "1px",
+						},
+					})}
 				>
-					<NavLink to={main_link.path}>{display_alias}</NavLink>
+					<NavLink
+						to={main_link.path}
+						onMouseOver={() => onLinkOver(display_alias)}
+						style={{
+							color: "inherit",
+							textDecorationColor: "inherit",
+							textDecorationLine: "inherit",
+						}}
+					>
+						{display_alias}
+					</NavLink>
 				</div>
+
 				// <NavLink
 				// 				key={display_alias}
 				// 				to={main_link.path}
@@ -81,34 +102,6 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 		})}
 	</div>
 );
-// const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
-// 	activeLinkAlias,
-// 	links,
-// 	onLinkOver,
-// }) => {
-// 	return (
-// 		<div style={BavLinksContainerStyles}>
-// 			{links.map((linkGroup) => {
-// 				const mainLink = linkGroup[0];
-// 				if (!mainLink) return null;
-// 				const displayAlias = formatLabel(mainLink.path, mainLink.alias);
-// 				return (
-// 					<div
-// 						key={displayAlias}
-// 						onMouseOver={() => onLinkOver(displayAlias)}
-// 					>
-// 						<NavLink
-// 							to={mainLink.path}
-
-// 						>
-// 							{displayAlias}
-// 						</NavLink>
-// 					</div>
-// 				);
-// 			})}
-// 		</div>
-// 	);
-// };
 
 const usePillOnScroll = (d_threshold: number = 1, u_threshold: number = 10) => {
 	const [isScrolled, setIsScrolled] = useState(false);
