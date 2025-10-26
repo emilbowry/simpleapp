@@ -220,11 +220,9 @@ const theJourneyPage: React.FC = () => {
 
 	return (
 		<div
-			style={
-				{
-					// margin: "5% 0",
-				}
-			}
+			style={{
+				margin: "5% 0",
+			}}
 		>
 			<div style={BlurBackgroundStyle} />
 			<HexagonGrid

@@ -33,7 +33,7 @@ const RowContentStyle: React.CSSProperties = {
 const BlurBackgroundStyle: React.CSSProperties = {
 	height: "100%",
 	width: "100%",
-	// marginTop: "-5%",
+	marginTop: "-5%",
 	backdropFilter: "blur(8px)",
 	position: "absolute",
 	overflow: "visible",
