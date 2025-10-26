@@ -34,6 +34,81 @@ const LoadingFC = () => (
 	</>
 );
 
+// const App: React.FC = () => {
+// 	const [hasCustomCursor, setHasCustomCursor] = useState(true);
+// 	const [global_position, setGlobalMousePosition] = useState({ x: 0, y: 0 }); // to track between navlinks
+// 	const location = useLocation();
+// 	const [loc, setLoc] = useState(location);
+// 	useAnimationTagging();
+// 	useScrollToTop();
+// 	return (
+// 		<>
+// 			<CursorContext
+// 				value={{
+// 					hasCustomCursor,
+// 					setHasCustomCursor,
+// 					global_position,
+// 					setGlobalMousePosition,
+// 					loc,
+// 					setLoc,
+// 				}}
+// 			>
+// 				<CustomCursor />
+// 				<Routes>
+// 					<Route
+// 						path="/"
+// 						element={
+// 							<Suspense fallback={<LoadingFC />}>
+// 								<HomePage />
+// 							</Suspense>
+// 						}
+// 					/>
+// 					<Route
+// 						path="/thejourney"
+// 						element={
+// 							<Suspense fallback={<LoadingFC />}>
+// 								<TheJourneyPage />
+// 							</Suspense>
+// 						}
+// 					/>
+// 					<Route
+// 						path="/ourservices"
+// 						element={
+// 							<Suspense fallback={<LoadingFC />}>
+// 								<OurServices />
+// 							</Suspense>
+// 						}
+// 					/>
+// 					<Route
+// 						path="/contact"
+// 						element={
+// 							<Suspense fallback={<LoadingFC />}>
+// 								<ContactPage />
+// 							</Suspense>
+// 						}
+// 					/>
+// 					<Route
+// 						path="/dpotool"
+// 						element={
+// 							<Suspense fallback={<LoadingFC />}>
+// 								<ToolPage />
+// 							</Suspense>
+// 						}
+// 					/>
+// 					<Route
+// 						path="/demo_and_testing"
+// 						element={
+// 							<Suspense fallback={<LoadingFC />}>
+// 								<DemoPage />
+// 							</Suspense>
+// 						}
+// 					/>
+// 				</Routes>
+// 			</CursorContext>
+// 		</>
+// 	);
+// };
+
 const App: React.FC = () => {
 	const [hasCustomCursor, setHasCustomCursor] = useState(true);
 	const [global_position, setGlobalMousePosition] = useState({ x: 0, y: 0 }); // to track between navlinks
@@ -54,56 +129,34 @@ const App: React.FC = () => {
 				}}
 			>
 				<CustomCursor />
-				<Routes>
-					<Route
-						path="/"
-						element={
-							<Suspense fallback={<LoadingFC />}>
-								<HomePage />
-							</Suspense>
-						}
-					/>
-					<Route
-						path="/thejourney"
-						element={
-							<Suspense fallback={<LoadingFC />}>
-								<TheJourneyPage />
-							</Suspense>
-						}
-					/>
-					<Route
-						path="/ourservices"
-						element={
-							<Suspense fallback={<LoadingFC />}>
-								<OurServices />
-							</Suspense>
-						}
-					/>
-					<Route
-						path="/contact"
-						element={
-							<Suspense fallback={<LoadingFC />}>
-								<ContactPage />
-							</Suspense>
-						}
-					/>
-					<Route
-						path="/dpotool"
-						element={
-							<Suspense fallback={<LoadingFC />}>
-								<ToolPage />
-							</Suspense>
-						}
-					/>
-					<Route
-						path="/demo_and_testing"
-						element={
-							<Suspense fallback={<LoadingFC />}>
-								<DemoPage />
-							</Suspense>
-						}
-					/>
-				</Routes>
+				<Suspense fallback={<LoadingFC />}>
+					<Routes>
+						<Route
+							path="/"
+							element={<HomePage />}
+						/>
+						<Route
+							path="/thejourney"
+							element={<TheJourneyPage />}
+						/>
+						<Route
+							path="/ourservices"
+							element={<OurServices />}
+						/>
+						<Route
+							path="/contact"
+							element={<ContactPage />}
+						/>
+						<Route
+							path="/dpotool"
+							element={<ToolPage />}
+						/>
+						<Route
+							path="/demo_and_testing"
+							element={<DemoPage />}
+						/>
+					</Routes>
+				</Suspense>
 			</CursorContext>
 		</>
 	);
