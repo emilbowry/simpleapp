@@ -70,20 +70,20 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 					// 	textDecorationColor: "inherit",
 					// 	textDecorationLine: "inherit",
 					// }}
-					{...useDynamicLink({
-						useDefaultDecoration: false,
-						condition_function: () =>
-							active_link_alias === display_alias,
-						style_args: ["2px"],
-						StyleOverrides: {
-							// textUnderlineOffset: "1px",
-							backgroundPosition: "bottom  left",
-							paddingBottom: "1px",
-						},
-					})}
+					// {...useDynamicLink({
+					// 	useDefaultDecoration: false,
+					// 	condition_function: () =>
+					// 		active_link_alias === display_alias,
+					// 	style_args: ["2px"],
+					// 	StyleOverrides: {
+					// 		// textUnderlineOffset: "1px",
+					// 		backgroundPosition: "bottom  left",
+					// 		paddingBottom: "1px",
+					// 	},
+					// })}
 				>
-					<div key={display_alias}>
-						{/* <NavLink
+					{/* <div key={display_alias}>
+						<NavLink
 					key={display_alias}
 
 						to={main_link.path}
@@ -94,9 +94,9 @@ const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 							textDecorationLine: "inherit",
 						}}
 					> */}
-						{display_alias}
-						{/* </NavLink> */}
-					</div>
+					{display_alias}
+					{/* </NavLink>
+					</div> */}
 				</NavLink>
 			);
 		})}
