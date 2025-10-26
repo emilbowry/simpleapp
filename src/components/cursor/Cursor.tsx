@@ -187,8 +187,10 @@ const HexCursor: React.FC<ICustomCursorProps> = (props: ICustomCursorProps) =>
 		<LogoCursor {...props} />
 	);
 
-const CustomCursor: React.FC = (useBasic = false) => {
-	const isMobile = useIsMobile();
+const Custom_Cursor: React.FC<{ useBasic: boolean }> = ({
+	useBasic = false,
+}) => {
+	// const isMobile = useIsMobile();
 	const {
 		hasCustomCursor,
 		global_position,
@@ -209,7 +211,7 @@ const CustomCursor: React.FC = (useBasic = false) => {
 		isMouseClicked: useMouseClick(),
 		scale_factor: useBrowserScale(),
 	};
-	return !isMobile && hasCustomCursor ? (
+	return hasCustomCursor ? (
 		<>
 			<style>{`* {cursor: none !important;}`}</style>
 
@@ -222,6 +224,13 @@ const CustomCursor: React.FC = (useBasic = false) => {
 	) : (
 		<></>
 	);
+};
+
+const CustomCursor: React.FC<{ useBasic: boolean }> = ({
+	useBasic = false,
+}) => {
+	const isMobile = useIsMobile();
+	return isMobile ? <></> : <Custom_Cursor useBasic={useBasic} />;
 };
 const CursorContext = createContext<{
 	hasCustomCursor: boolean;
