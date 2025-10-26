@@ -52,7 +52,7 @@ const wGif = (
 		})}
 	</div>
 );
-const aboutUsFeatureCallouts = (renderIcon = true) => [
+const aboutUsFeatureCallouts = [
 	[
 		<BoxedImage
 			image={bulb}
@@ -131,7 +131,7 @@ const AboutUsCallingCard: React.FC = () => {
 				sideBar={{ components: [<Foot />], header: head }}
 				footer={
 					<PointedtopHexagonFeatureGrid
-						FeatureCallouts={aboutUsFeatureCallouts(true)}
+						FeatureCallouts={aboutUsFeatureCallouts}
 						useVerticalAlignment={true}
 						hexagon_args={hStyle}
 						theme={-1}

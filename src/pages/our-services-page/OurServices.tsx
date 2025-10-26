@@ -56,7 +56,7 @@ const tserv = {
 	],
 };
 
-const ourServicesFeatureCallouts = (renderIcon = true) => [
+const ourServicesFeatureCallouts = [
 	[
 		<BoxedImage
 			image={bulb}
@@ -113,9 +113,6 @@ const ServicesSideBar: React.FC = () => {
 	);
 };
 
-const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
-
-const IS_CHROME = /Chrome/i.test(userAgent);
 const ourServices: React.FC = () => (
 	<>
 		<SideBarCallingCard
@@ -126,7 +123,7 @@ const ourServices: React.FC = () => (
 			}}
 			footer={
 				<PointedtopHexagonFeatureGrid
-					FeatureCallouts={ourServicesFeatureCallouts(!IS_CHROME)}
+					FeatureCallouts={ourServicesFeatureCallouts}
 					hexagon_args={hStyle}
 					useVerticalAlignment={true}
 				/>

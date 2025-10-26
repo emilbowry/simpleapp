@@ -107,13 +107,10 @@ const FormSlice = createSlice({
 	},
 });
 
-export const {
-	updateField,
-	setIsForTeam,
-	setFormStatus,
-	setErrorMessage,
-	resetForm,
-} = FormSlice.actions;
+const { updateField, setIsForTeam, setFormStatus, setErrorMessage, resetForm } =
+	FormSlice.actions;
+
+export { setIsForTeam, updateField };
 
 export type { IFormState, TDataKeys, TValidationCheck };
 
