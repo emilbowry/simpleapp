@@ -14,7 +14,7 @@ const InteractionWrapperStyles: React.CSSProperties = {
 	position: "fixed",
 	top: 0,
 	zIndex: "100",
-	fontSize: `calc(2*${VOLUME_CONSTANT_SIZE})`,
+	fontSize: `min(calc(2*${VOLUME_CONSTANT_SIZE}),${VISIBLE_TITLEBAR_HEIGHT}vh*(0.4))`,
 };
 const titleBarStyles = (): React.CSSProperties => {
 	return {
