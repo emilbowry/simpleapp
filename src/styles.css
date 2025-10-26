@@ -33,7 +33,7 @@ body {
 .is-visible {
   opacity: revert;
 }
-@Keyframes fadeInUpAnimation {
+@keyframes fadeInUpAnimation {
   from {
     opacity: 0.9;
     transform: translateX(calc(((0.05vw)*(var(--aos-base-depth)))* cos((var(--aos-sibling-index, 0) + var(--aos-base-depth, 0)) * pi)));
