@@ -226,7 +226,7 @@ const Custom_Cursor: React.FC<{ useBasic: boolean }> = ({
 	);
 };
 
-const CustomCursor: React.FC<{ useBasic: boolean }> = ({
+const CustomCursor: React.FC<{ useBasic?: boolean }> = ({
 	useBasic = false,
 }) => {
 	const isMobile = useIsMobile();
