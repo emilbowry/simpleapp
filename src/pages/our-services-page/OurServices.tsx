@@ -127,7 +127,7 @@ const ourServices: React.FC = () => (
 					FeatureCallouts={ourServicesFeatureCallouts}
 					hexagon_args={hStyle}
 					useVerticalAlignment={true}
-					pointedtop_shape_height_override={IS_CHROME && "10%"}
+					hex_shape_height_override={IS_CHROME && "10%"}
 				/>
 			}
 			styleOverrides={{

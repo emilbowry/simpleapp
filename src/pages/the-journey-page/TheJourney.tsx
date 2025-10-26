@@ -13,7 +13,7 @@ import { bulb, bullseye, pencil } from "../../components/callingcard/graphics";
 import { IS_CHROME } from "../../hooks/BrowserDependant";
 import { useNarrowLayout } from "../../hooks/WindowSizeDependent";
 import { generateGradient } from "../../styles";
-import { bgwhite, purple } from "../../utils/defaultColours";
+import { bgwhite } from "../../utils/defaultColours";
 import { BoxedImage } from "../../utils/reactUtils";
 import {
 	BlurBackgroundStyle,
@@ -146,7 +146,7 @@ const getRows = (isNarrow = false) => {
 						</RowHeader>,
 					]}
 				/>
-			) : icon && isNarrow && !IS_CHROME ? (
+			) : icon && isNarrow ? (
 				<Hexagon
 					args={{ colour: "transparent" }}
 					element={[
@@ -165,17 +165,8 @@ const getRows = (isNarrow = false) => {
 						</div>,
 					]}
 					opacity={1}
-					useVerticalAlignment={!isNarrow}
-				/>
-			) : isNarrow ? (
-				<Hexagon
-					args={{ colour: purple }}
-					element={[
-						<RowHeader styleoverrides={{ color: bgwhite }}>
-							{item.date}
-						</RowHeader>,
-					]}
-					opacity={1}
+					hex_shape_height_override={IS_CHROME && "50%"}
+					hex_shape_width_override={IS_CHROME && "25%"}
 					useVerticalAlignment={!isNarrow}
 				/>
 			) : (

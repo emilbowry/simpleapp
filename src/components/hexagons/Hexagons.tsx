@@ -125,8 +125,9 @@ const ScallingWrapper: THexFC = ({ children }) => {
 	);
 };
 const BoundingShape: React.FC<{
-	pointedtop_shape_height_override: boolean | string | undefined;
-}> = ({ pointedtop_shape_height_override }) => {
+	hex_shape_height_override: boolean | string | undefined;
+	hex_shape_width_override: boolean | string | undefined;
+}> = ({ hex_shape_height_override, hex_shape_width_override }) => {
 	const { usePointedTop } = useContext(HexagonContext);
 
 	return (
@@ -135,14 +136,16 @@ const BoundingShape: React.FC<{
 				style={polyCutoutStyle(
 					usePointedTop,
 					true,
-					pointedtop_shape_height_override
+					hex_shape_height_override,
+					hex_shape_width_override
 				)}
 			/>
 			<div
 				style={polyCutoutStyle(
 					usePointedTop,
 					false,
-					pointedtop_shape_height_override
+					hex_shape_height_override,
+					hex_shape_width_override
 				)}
 			/>
 		</>
@@ -152,7 +155,8 @@ const BoundingShape: React.FC<{
 const CenterAlignedElement: THexFC = ({
 	element,
 	useVerticalAlignment,
-	pointedtop_shape_height_override,
+	hex_shape_height_override,
+	hex_shape_width_override,
 }) => {
 	const { container_height, content_height, setContainerRef } =
 		useContext(HexagonContext);
@@ -164,9 +168,8 @@ const CenterAlignedElement: THexFC = ({
 			>
 				<div style={ElementWrapperStyle}>
 					<BoundingShape
-						pointedtop_shape_height_override={
-							pointedtop_shape_height_override
-						}
+						hex_shape_height_override={hex_shape_height_override}
+						hex_shape_width_override={hex_shape_width_override}
 					/>
 					<div
 						style={{
@@ -351,7 +354,8 @@ class Hexagon
 			element = undefined,
 			svgStyle = {},
 			useVerticalAlignment = false,
-			pointedtop_shape_height_override = undefined,
+			hex_shape_height_override = undefined,
+			hex_shape_width_override = undefined,
 			...styleProps
 		} = this.props;
 		return (
@@ -362,9 +366,8 @@ class Hexagon
 					<CenterAlignedElement
 						element={element}
 						useVerticalAlignment={useVerticalAlignment}
-						pointedtop_shape_height_override={
-							pointedtop_shape_height_override
-						}
+						hex_shape_height_override={hex_shape_height_override}
+						hex_shape_width_override={hex_shape_width_override}
 					/>
 				</div>
 			</HexagonContext>

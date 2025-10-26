@@ -38,16 +38,27 @@ const rightCutout = (usePointedTop: boolean) =>
 const polyCutoutStyle = (
 	usePointedTop: boolean,
 	isLeft: boolean,
-	pointedtop_shape_height_override: boolean | string | undefined
+	hex_shape_height_override: boolean | string | undefined,
+	hex_shape_width_override: boolean | string | undefined
 ): React.CSSProperties => {
 	let b_height: any = { height: `calc(${100 * s}%)` };
 
 	// breaks on chrome, not setting  break elsewhere */
-	if (usePointedTop && pointedtop_shape_height_override) {
-		if (typeof pointedtop_shape_height_override === "string") {
-			b_height = { height: pointedtop_shape_height_override };
-		} else if (pointedtop_shape_height_override === true) {
+	if (hex_shape_height_override) {
+		if (typeof hex_shape_height_override === "string") {
+			b_height = { height: hex_shape_height_override };
+		} else if (hex_shape_height_override === true) {
 			b_height = {};
+		}
+	}
+	let b_width: any = { width: `calc(${50 * s}%)` };
+
+	// breaks on chrome, not setting  break elsewhere */
+	if (hex_shape_width_override) {
+		if (typeof hex_shape_width_override === "string") {
+			b_width = { width: hex_shape_width_override };
+		} else if (hex_shape_width_override === true) {
+			b_width = {};
 		}
 	}
 	return {
@@ -58,7 +69,8 @@ const polyCutoutStyle = (
 			: rightCutout(usePointedTop),
 		shapeMargin: "5%",
 		float: isLeft ? "left" : "right",
-		width: `${50 * s}%`,
+		// width: `${50 * s}%`,
+		...b_width,
 		...b_height,
 	};
 };

@@ -141,7 +141,7 @@ const AboutUsCallingCard: React.FC = () => {
 						useVerticalAlignment={true}
 						hexagon_args={hStyle}
 						theme={-1}
-						pointedtop_shape_height_override={IS_CHROME && "10%"}
+						hex_shape_height_override={IS_CHROME && "10%"}
 					/>
 				}
 				styleOverrides={{
