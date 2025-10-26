@@ -169,6 +169,13 @@ const getRows = (isNarrow = false) => {
 					hex_shape_width_override={IS_CHROME && "25%"}
 					useVerticalAlignment={!isNarrow}
 				/>
+			) : isNarrow ? (
+				<Hexagon
+					args={{ colour: bgwhite }}
+					element={[<RowHeader>{item.date}</RowHeader>]}
+					opacity={1}
+					useVerticalAlignment={!isNarrow}
+				/>
 			) : (
 				<Hexagon
 					args={{ colour: bgwhite }}
