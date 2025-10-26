@@ -63,14 +63,16 @@ const PointedtopHexagonGrid: React.FC<IHexagonRowElements> = ({ elements }) => {
 	);
 };
 const PointedtopHexagonFeatureGrid: React.FC<
-	PointedtopHexagonFeatureGridProps & { height_override?: boolean | string }
+	PointedtopHexagonFeatureGridProps & {
+		pointedtop_shape_height_override?: boolean | string;
+	}
 > = ({
 	FeatureCallouts,
 	hexagon_args,
 	useVerticalAlignment = false,
-	height_override = undefined,
+	pointedtop_shape_height_override = undefined,
 }) => {
-	console.log(height_override);
+	console.log(pointedtop_shape_height_override);
 	const elements = FeatureCallouts.map((calloutProps, index) => {
 		return (
 			<PointedTopHexagon
@@ -79,7 +81,9 @@ const PointedtopHexagonFeatureGrid: React.FC<
 				element={calloutProps}
 				opacity={1}
 				useVerticalAlignment={useVerticalAlignment}
-				height_override={height_override}
+				pointedtop_shape_height_override={
+					pointedtop_shape_height_override
+				}
 			/>
 		);
 	});

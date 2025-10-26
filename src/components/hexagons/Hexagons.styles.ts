@@ -38,15 +38,15 @@ const rightCutout = (usePointedTop: boolean) =>
 const polyCutoutStyle = (
 	usePointedTop: boolean,
 	isLeft: boolean,
-	height_override: boolean | string | undefined
+	pointedtop_shape_height_override: boolean | string | undefined
 ): React.CSSProperties => {
-	console.log(height_override);
+	console.log(pointedtop_shape_height_override);
 	let b_height: any = { height: `calc(${100 * s}%)` };
-	if (usePointedTop && height_override) {
-		if (typeof height_override === "string") {
-			b_height = { height: height_override };
+	if (usePointedTop && pointedtop_shape_height_override) {
+		if (typeof pointedtop_shape_height_override === "string") {
+			b_height = { height: pointedtop_shape_height_override };
 			console.log(b_height);
-		} else if (height_override === true) {
+		} else if (pointedtop_shape_height_override === true) {
 			b_height = {};
 		}
 	}
