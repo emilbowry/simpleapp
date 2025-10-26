@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { useIsMobile } from "../../hooks/BrowserDependant";
 import { useDynamicLink } from "../../hooks/DynamicLink";
 import {
 	DropdownImageContainerStyles,
@@ -49,59 +50,101 @@ const TitleBarMenu: React.FC = () => (
 		</button>
 	</div>
 );
-
 const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
 	active_link_alias,
 	Links,
 	onLinkOver,
-}) => (
-	<div style={NavLinksContainerStyles}>
-		{Links.map((LinkGroup) => {
-			const main_link = LinkGroup[0];
-			if (!main_link) return null;
-			const display_alias = formatLabel(main_link.path, main_link.alias);
-			return (
-				<NavLink
-					key={display_alias}
-					to={main_link.path}
-					onMouseOver={() => onLinkOver(display_alias)}
-					// style={{
-					// 	color: "inherit",
-					// 	textDecorationColor: "inherit",
-					// 	textDecorationLine: "inherit",
-					// }}
-					// {...useDynamicLink({
-					// 	useDefaultDecoration: false,
-					// 	condition_function: () =>
-					// 		active_link_alias === display_alias,
-					// 	style_args: ["2px"],
-					// 	StyleOverrides: {
-					// 		// textUnderlineOffset: "1px",
-					// 		backgroundPosition: "bottom  left",
-					// 		paddingBottom: "1px",
-					// 	},
-					// })}
-				>
-					{/* <div key={display_alias}>
-						<NavLink
-					key={display_alias}
+}) => {
+	const isMobile = useIsMobile(); // Using your hook
 
-						to={main_link.path}
-						onMouseOver={() => onLinkOver(display_alias)}
-						style={{
-							color: "inherit",
-							textDecorationColor: "inherit",
-							textDecorationLine: "inherit",
-						}}
-					> */}
-					{display_alias}
-					{/* </NavLink>
-					</div> */}
-				</NavLink>
-			);
-		})}
-	</div>
-);
+	return (
+		<div style={NavLinksContainerStyles}>
+			{Links.map((LinkGroup) => {
+				const main_link = LinkGroup[0];
+				if (!main_link) return null;
+				const display_alias = formatLabel(
+					main_link.path,
+					main_link.alias
+				);
+
+				// Conditionally add the onMouseOver prop only on non-mobile devices
+				const interactiveProps = isMobile
+					? {}
+					: { onMouseOver: () => onLinkOver(display_alias) };
+
+				return (
+					<div
+						key={display_alias}
+						{...useDynamicLink({
+							useDefaultDecoration: false,
+							condition_function: () =>
+								active_link_alias === display_alias,
+							style_args: ["2px"],
+							StyleOverrides: {
+								backgroundPosition: "bottom  left",
+								paddingBottom: "1px",
+							},
+						})}
+					>
+						<NavLink
+							to={main_link.path}
+							// Spread the conditional props. onMouseOver will not exist on mobile.
+							{...interactiveProps}
+							style={{
+								color: "inherit",
+								textDecorationColor: "inherit",
+								textDecorationLine: "inherit",
+							}}
+						>
+							{display_alias}
+						</NavLink>
+					</div>
+				);
+			})}
+		</div>
+	);
+};
+// const TitleBarUILinks: React.FC<ITitleBarUILinksProps> = ({
+// 	active_link_alias,
+// 	Links,
+// 	onLinkOver,
+// }) => (
+// 	<div style={NavLinksContainerStyles}>
+// 		{Links.map((LinkGroup) => {
+// 			const main_link = LinkGroup[0];
+// 			if (!main_link) return null;
+// 			const display_alias = formatLabel(main_link.path, main_link.alias);
+// 			return (
+// 				<div
+// 					key={display_alias}
+// 					{...useDynamicLink({
+// 						useDefaultDecoration: false,
+// 						condition_function: () =>
+// 							active_link_alias === display_alias,
+// 						style_args: ["2px"],
+// 						StyleOverrides: {
+// 							backgroundPosition: "bottom  left",
+// 							paddingBottom: "1px",
+// 						},
+// 					})}
+// 				>
+// 					<NavLink
+// 						to={main_link.path}
+// 						onMouseOver={() => onLinkOver(display_alias)}
+// 						style={{
+// 							color: "inherit",
+// 							textDecorationColor: "inherit",
+// 							textDecorationLine: "inherit",
+// 						}}
+// 					>
+// 						{display_alias}
+// 					</NavLink>
+// 				</div>
+
+// 			);
+// 		})}
+// 	</div>
+// );
 
 const usePillOnScroll = (d_threshold: number = 1, u_threshold: number = 10) => {
 	const [isScrolled, setIsScrolled] = useState(false);
