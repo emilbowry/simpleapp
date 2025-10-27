@@ -1,171 +1,66 @@
-// import React from "react";
-// import {
-// 	CheckboxInputStyle,
-// 	DescriptionStyle,
-// 	FormGroupStyle,
-// 	InputBaseStyle,
-// 	LabelStyle,
-// 	TextAreaStyle,
-// } from "./OutReachForm.styles";
-// import {
-// 	TFormConfig,
-// 	TInputType,
-// 	TInputValueType,
-// 	TOptionalFormInputs,
-// 	TOptionalInputProps,
-// 	TOutreachFormBoolInputs,
-// 	TOutreachFormStrInputs,
-// 	TRequiredInputProps,
-// 	TTextAreaProps,
-// } from "./OutReachForm.types";
+const NameInput: TFormConfigProps<"name"> = {
+	name: "name",
+	label: "Name",
+	required: true,
+	type: "text",
+};
 
-// const _FormInput: React.FC<
-// 	(
-// 		| TRequiredInputProps<TInputType, HTMLInputElement>
-// 		| TOptionalInputProps
-// 	) & {
-// 		style: React.CSSProperties;
-// 	}
-// > = (props) => {
-// 	return <input {...props} />;
-// };
-// const FormOptStrInput: React.FC<TOptionalInputProps> = (props) => {
-// 	return (
-// 		<_FormInput
-// 			{...props}
-// 			style={InputBaseStyle}
-// 		/>
-// 	);
-// };
-// const FormBoolInput: React.FC<
-// 	TRequiredInputProps<"checkbox", HTMLInputElement>
-// > = (props) => {
-// 	return (
-// 		<_FormInput
-// 			{...props}
-// 			style={CheckboxInputStyle}
-// 		/>
-// 	);
-// };
+const JobInput: TFormConfigProps<"job_title"> = {
+	name: "job_title",
+	label: "Job Title",
+	required: false,
+	type: "text",
+};
 
-// const FormStrInput: React.FC<
-// 	TRequiredInputProps<Exclude<TInputType, "checkbox">, HTMLInputElement>
-// > = (props) => {
-// 	return (
-// 		<_FormInput
-// 			{...props}
-// 			style={InputBaseStyle}
-// 		/>
-// 	);
+const OrganisationInput: TFormConfigProps<"organisation"> = {
+	name: "organisation",
+	label: "Organisation",
+	required: false,
+	type: "text",
+};
+const ForTeamCheckbox: TFormConfigProps<"isMailingListable"> = {
+	name: "isMailingListable",
+	label: "Join Mailing List",
+	required: true,
+	type: "checkbox",
+};
+const EmailInput: TFormConfigProps<"email"> = {
+	name: "email",
+	label: "Email",
+	required: true,
+	type: "email",
+};
+
+const NotesTextArea: TFormConfigProps<"notes"> = {
+	name: "notes",
+	label: "Notes",
+	required: true,
+	type: undefined,
+};
+
+const PhoneInput: TFormConfigProps<"raw_phone_number"> = {
+	name: "raw_phone_number",
+	label: "Phone Number",
+	required: false,
+	type: "tel",
+};
+
+// const ForFollowUpCheckbox: TFormConfigProps<"isMailingListable"> = {
+// 	name: "isMailingListable",
+// 	label: "Join Mailing List",
+// 	required: true,
+// 	type: "checkbox",
 // };
 
-// const FormTextArea: React.FC<TTextAreaProps> = (props) => {
-// 	return (
-// 		<textarea
-// 			{...props}
-// 			style={TextAreaStyle}
-// 		/>
-// 	);
-// };
-
-// const FormLabel: React.FC<{
-// 	htmlFor: string;
-// 	label: string;
-// 	isDescription?: boolean;
-// }> = ({ htmlFor, label, isDescription = false }) => (
-// 	<label
-// 		htmlFor={htmlFor}
-// 		style={isDescription ? LabelStyle : DescriptionStyle}
-// 	>
-// 		{label}
-// 	</label>
-// );
-
-// /* dummy */
-
-// const formState = <
-// 	T extends
-// 		| TOutreachFormBoolInputs
-// 		| TOutreachFormStrInputs
-// 		| TOptionalFormInputs
-// >(
-// 	key: T
-// ) => {
-// 	return (
-// 		(checkable_keys as any).includes(key) ? true : "false"
-// 	) as T extends TOutreachFormBoolInputs ? boolean : string;
-// };
-
-// type t_some_strs = "a" | "b";
-// type t_other_strs = "c" | "d";
-
-// const select_strs: t_some_strs[] = ["a", "b"];
-// const e = (s: t_other_strs | t_some_strs) => select_strs.includes(s);
-
-// // const all_strs:t_some_strs|t_other_strs= [...select_strs,"c","d"]
-
-// const optional_keys = ["job_title", "organisation", "raw_phone_number"];
-// const checkable_keys = [
-// 	"isMailingListable",
-// 	"isRequestingFollowUpMessage",
-// ] as TOutreachFormBoolInputs[];
-// const FormField: React.FC<{
-// 	config: TFormConfig<TInputValueType, true>;
-// }> = ({ config }) => {
-// 	const { name: key, label, type: _type } = config;
-// 	const props = { onChange: (e: any) => {}, id: key };
-
-// 	return (
-// 		<>
-// 			<div style={FormGroupStyle}>
-// 				<FormLabel
-// 					htmlFor={key}
-// 					label={label}
-// 				/>
-// 				{!_type? (
-// 					<FormBoolInput
-// 						{...{
-// 							...config,
-// 							...props,
-// 							checked: formState(),
-
-// 						}}
-// key={_type}
-// 					/>
-// 				) : null}
-// 				{/* {!_type ? (
-// 					<FormTextArea
-// 						{...{
-// 							...config,
-// 							...props,
-// 							value: "true",
-// 						}}
-// 					/>
-// 				) : _type === "checkbox" ? (
-// 					<FormBoolInput
-// 						{...{
-// 							...config,
-// 							...props,
-// 							checked: formState(key),
-// 						}}
-// 					/>
-// 				) : (
-// 					<FormStrInput
-// 						{...{
-// 							...config,
-// 							...props,
-// 							value: formState(_type),
-// 						}}
-// 					/>
-// 				)}
-// 				{description && (
-// 					<FormLabel
-// 						htmlFor={key}
-// 						isDescription={true}
-// 						label={description}
-// 					/>
-// 				)} */}
-// 			</div>
-// 		</>
-// 	);
-// };
+const RequiredFields: TOutreachFormFields<
+	TOutreachFormBoolInputs | TOptionalFormInputs
+> = {
+	name: "Name",
+	email: "Email",
+	notes: "Notes",
+	isMailingListable: "Join Mailing List",
+	// isRequestingFollowUpMessage: "I am enquiring for my team",
+	job_title: "Job title",
+	raw_phone_number: "Phone Number",
+	organisation: "Organisation",
+};

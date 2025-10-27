@@ -1,224 +1,154 @@
-// // src/features/outreach-form/OutReachForm.types.ts
+type TStatus = "Paid" | "Unpaid" | "Free";
+type TConsultancyService = "1_to_1_consulting" | "group_consulting";
+type TTrainingService = "1_to_1_training" | "group_training";
+type TOutreachService = "Inquiry_Call" | "Email_Request";
+type TService = TConsultancyService | TTrainingService | TOutreachService;
+type TAppointment<T extends TService, S extends TStatus = TStatus> = {
+	appointment_type: T;
+	appointment_date: Date | null;
+	participents: number;
+	status: S;
+	pricing: number;
+};
 
-// type TConsultancyService = "1_to_1_consulting" | "group_consulting";
-// type TTrainingService = "1_to_1_training" | "group_training";
+interface IOutreachAppointment<T extends TOutreachService>
+	extends TAppointment<TOutreachService, "Free"> {
+	appointment_type: T;
+	status: "Free";
+	pricing: 0;
+}
 
-// type TService = TConsultancyService | TTrainingService;
-// type TClientIP = string;
-// type TRawPhoneNumber = string;
+interface TCallAppointement extends IOutreachAppointment<"Inquiry_Call"> {
+	appointment_date: Date;
+}
 
-// type TStatus = "Paid" | "Unpaid";
-// type TRegion = "other" | "UK";
+interface TEmailAppointement extends IOutreachAppointment<"Inquiry_Call"> {
+	appointment_date: null;
+}
 
-// type TPhoneNumber = number;
-// type TCountryCode = number;
+type TOutreachFormTextAreas = "notes";
+type TOutreachFormStrInputs = "name" | "email";
+type TOutreachFormBoolInputs = "isMailingListable";
+/* | "isRequestingFollowUpMessage"; */
+type TOptionalFormInputs = "job_title" | "organisation" | "raw_phone_number";
+type TOutreachFormRequiredFields =
+	| TOutreachFormTextAreas
+	| TOutreachFormStrInputs
+	| TOutreachFormBoolInputs;
+type TOutreachFormGeneralFields =
+	| TOutreachFormRequiredFields
+	| TOptionalFormInputs;
 
-// type TgetCountryCode<T extends TRawPhoneNumber> = (
-// 	raw_phone_number: T
-// ) => TCountryCode;
+type TOutreachFormNormalFields<T extends TOutreachFormGeneralFields> = {
+	[k in Exclude<TOutreachFormGeneralFields, T>]: Capitalize<k>;
+};
 
-// type TgetPhoneNumber<T extends TRawPhoneNumber> = (raw_phone_number: T) =>
-// 	| {
-// 			phone_number: TPhoneNumber;
-// 			country_code: ReturnType<TgetCountryCode<T>>;
-// 	  }
-// 	| undefined;
-// type TgetRegion<I extends TClientIP, T extends TRawPhoneNumber> = (
-// 	clientip: I,
-// 	country_code: NonNullable<ReturnType<TgetPhoneNumber<T>>> extends infer R
-// 		? R extends { country_code: infer C }
-// 			? C
-// 			: never
-// 		: never
-// ) => TRegion;
+type TOutreachFormCustomFields<T extends TOutreachFormGeneralFields> = {
+	[k in Extract<T, TOutreachFormGeneralFields>]: string;
+};
 
-// interface IAppointment<S extends TStatus = TStatus> {
-// 	appointment_type: "Inquiry_Call" | "Email_Request" | TService;
-// 	appointment_date: Date;
-// 	participents: number;
-// 	status: S;
-// }
+type TOutreachFormFields<T extends Partial<TOutreachFormGeneralFields>> =
+	TOutreachFormNormalFields<T> & TOutreachFormCustomFields<T>;
 
-// interface IFormMetaData {
-// 	submission_datetime: Date;
-// 	source: string;
-// 	client_ip: TClientIP;
-// 	user_agent: string;
-// 	account_id: string | undefined;
-// 	form_identifier: "Footer" | "ContactUs" | "other";
-// }
+type TFormConfigProps<T extends TOutreachFormGeneralFields> = {
+	label: TOutreachFormFields<
+		TOutreachFormBoolInputs | TOptionalFormInputs
+	>[T];
+	name: T;
+} & (T extends TOutreachFormRequiredFields
+	? { required: true }
+	: { required: false }) &
+	(T extends TOutreachFormStrInputs | TOptionalFormInputs
+		? T extends "email"
+			? { type: "email" }
+			: T extends "raw_phone_number"
+			? { type: "tel" }
+			: { type: "text" }
+		: T extends TOutreachFormBoolInputs
+		? { type: "checkbox" }
+		: { type: undefined });
 
-// type TFormInput<K extends string, T> = Record<K, T>;
-// type TFormOptionalInput<K extends string, T> = Partial<Record<K, T>>;
+type TFormFieldProps<T extends TOutreachFormGeneralFields> =
+	TFormConfigProps<T> &
+		(T extends TOutreachFormBoolInputs
+			? { checked: boolean }
+			: { value: string });
 
-// type TFormTextArea<K extends string> = Record<K, string | undefined>;
-// type TFormDate<K extends string> = Record<K, Date>;
-// type TOutreachFormTextAreas = "notes";
+type TClientIP = string;
+type TRawPhoneNumber = string;
 
-// type TOutreachFormStrInputs = "name" | "email";
-// type TOutreachFormBoolInputs =
-// 	| "isMailingListable"
-// 	| "isRequestingFollowUpMessage";
-// type TOptionalFormInputs = "job_title" | "organisation" | "raw_phone_number";
+type TRegion = "other" | "UK";
 
-// interface IOptionalFormFields
-// 	extends TFormOptionalInput<TOptionalFormInputs, string> {}
+type TPhoneNumber = number;
+type TCountryCode = number;
 
-// interface IOutreachFormTextAreas
-// 	extends TFormTextArea<TOutreachFormTextAreas> {}
+type TgetCountryCode<T extends TRawPhoneNumber> = (
+	raw_phone_number: T
+) => TCountryCode;
 
-// interface IOutreachFormStrInputs
-// 	extends TFormInput<TOutreachFormStrInputs, string> {}
+type TgetPhoneNumber<T extends TRawPhoneNumber> = (raw_phone_number: T) =>
+	| {
+			phone_number: TPhoneNumber;
+			country_code: ReturnType<TgetCountryCode<T>>;
+	  }
+	| undefined;
+type TgetRegion<I extends TClientIP, T extends TRawPhoneNumber> = (
+	clientip: I,
+	country_code: NonNullable<ReturnType<TgetPhoneNumber<T>>> extends infer R
+		? R extends { country_code: infer C }
+			? C
+			: never
+		: never
+) => TRegion;
+interface IFormMetaData {
+	submission_datetime: Date;
+	source: string;
+	client_ip: TClientIP;
+	user_agent: string;
+	account_id: string | undefined;
+	form_identifier: "Footer" | "ContactUs" | "other";
+}
 
-// interface IOutreachFormBoolInputs
-// 	extends TFormInput<TOutreachFormBoolInputs, boolean> {}
+type TFormInput<K extends string, T> = Record<K, T>;
+type TFormOptionalInput<K extends string, T> = Partial<Record<K, T>>;
+type TFormTextArea<K extends string> = Record<K, string | undefined>;
+type TFormDate<K extends string> = Record<K, Date>;
 
-// interface IOutreachFormInputs
-// 	extends IOutreachFormStrInputs,
-// 		IOutreachFormBoolInputs {}
+interface IOptionalFormFields
+	extends TFormOptionalInput<TOptionalFormInputs, string> {}
 
-// // interface
-// interface IOutreachFormFields
-// 	extends IOutreachFormInputs,
-// 		IOutreachFormTextAreas {}
+interface IOutreachFormTextAreas
+	extends TFormTextArea<TOutreachFormTextAreas> {}
 
-// interface IOutreachForm<S extends TStatus> extends IOptionalFormFields {
-// 	appointment: IAppointment<S>;
-// }
+interface IOutreachFormStrInputs
+	extends TFormInput<TOutreachFormStrInputs, string> {}
 
-// type THasPaid<F extends IOutreachForm<any>> =
-// 	F["appointment"]["status"] extends "Paid" ? true : false;
+interface IOutreachFormBoolInputs
+	extends TFormInput<TOutreachFormBoolInputs, boolean> {}
 
-// type TOutreachForm<S extends TStatus> = IFormMetaData & IOutreachForm<S>;
+interface IOutreachFormInputs
+	extends IOutreachFormStrInputs,
+		IOutreachFormBoolInputs {}
 
-// type TInferredFormData<OF extends TOutreachForm<any>> = {
-// 	isNeedingFollowUp: THasPaid<OF> extends true ? false : true;
-// 	transaction_id: THasPaid<OF> extends true ? string : undefined;
-// 	region: ReturnType<
-// 		TgetRegion<OF["client_ip"], NonNullable<OF["raw_phone_number"]>>
-// 	>;
-// };
-// type TForm<S extends TStatus, OF extends TOutreachForm<S>> = Omit<
-// 	OF,
-// 	"raw_phone_number"
-// > &
-// 	TInferredFormData<OF>;
+interface IOutreachFormFields
+	extends IOutreachFormInputs,
+		IOutreachFormTextAreas {}
 
-// type TInputValueType =
-// 	| "checkbox"
-// 	| "text"
-// 	| "email"
-// 	| "datetime-local"
-// 	| "freeform";
-// type TInputType = Exclude<TInputValueType, "freeform">;
+interface IOutreachForm<S extends TService, T extends TStatus>
+	extends IOptionalFormFields {
+	appointment: TAppointment<S, T>;
+}
 
-// type TStringValueType = Exclude<TInputType, "checkbox">;
+type THasPaid<F extends IOutreachForm<any, any>> =
+	F["appointment"]["status"] extends "Paid" ? true : false;
 
-// type TName<T extends TInputValueType> = T extends "checkbox"
-// 	? TOutreachFormBoolInputs
-// 	: TOutreachFormStrInputs | TOptionalFormInputs;
+type TOutreachForm<S extends TService, T extends TStatus> = IFormMetaData &
+	IOutreachForm<S, T>;
 
-// // type aaf = TOutreachFormBoolInputs & TOptionalFormInputs;
-// // type TCheckabl<T extends TInputValueType> = T extends "checkbox"
-// // 	? TOptionalFormInputs
-// // 	: string;
-// type TFormBaseConfig<T extends TInputValueType, R extends boolean = true> = {
-// 	name: TName<T>;
-// 	required: R;
-// } & (T extends "freeform" ? { type: undefined } : { type: T });
-
-// // type TName<T extends TOutreachFormStrInputs|TOutreachFormBoolInputs|TOutreachFormTextAreas> = T extends TOutreachFormTextAreas ? "Reason for enquiring / Notes": T extends
-// type TFormConfig<
-// 	T extends TInputValueType,
-// 	R extends boolean
-// > = TFormBaseConfig<T, R> & { label: string; description: string | undefined };
-
-// type TRequiredInputProps<
-// 	T extends TInputType,
-// 	E extends HTMLElement,
-// 	F = TFormBaseConfig<T, true>
-// > = F & {
-// 	onChange: (e: React.ChangeEvent<E>) => void;
-// 	id: TFormBaseConfig<T, true>["name"];
-// } & (T extends "checkbox" ? { checked: boolean } : { value: string });
-
-// type TTextAreaProps = Omit<
-// 	TRequiredInputProps<"text", HTMLTextAreaElement>,
-// 	"type"
-// >;
-// type TOptionalInputProps = Omit<
-// 	TRequiredInputProps<TStringValueType, HTMLInputElement>,
-// 	"required"
-// > & { required: false };
-
-// export type {
-// 	TFormConfig,
-// 	TInputType,
-// 	TInputValueType,
-// 	TOptionalFormInputs,
-// 	TOptionalInputProps,
-// 	TOutreachFormBoolInputs,
-// 	TOutreachFormStrInputs,
-// 	TRequiredInputProps,
-// 	TStringValueType,
-// 	TTextAreaProps,
-// };
-
-// /*
-// I always start a feature by defining the expected shaped of my objects and function, given above are some type definitions that describe the general shape of the some of the objects I need.
-
-// My aim is to refactor and improve a simple contact page, it currently has 3 buttons:
-// * **Button One:**
-// ```
-// Book a free 20 minute
-// chat to find out how we
-// could help you or your
-// business
-// ```
-// * **Button Two:**
-// ```
-// Request an email of our
-// services and offering
-// and keep up to date with
-// our mailing
-// list
-// ```
-// * **Button Three:**
-// ```
-// Buy 1-1 consultancy and
-// training
-// ```
-
-// Each which simply are a <a> element with a mailto link.
-
-// **Improvements**
-// My improvements go as such:
-// 1. First I spotted an error, that is, the services offered also consist of group consultancy, and both 1-1 and group training, this was ambiguous.
-// 	- Resolution: See IAppointment["appointment_type"]
-// 2. Purchasing of services must offer an option to directly and instantly purchase from the site, the current method must go via email first.
-// 	- 2.a There will be variations on pricing based on appointment type, hence we need to compute some general data structure to infer the pricing from:
-// 		- Resolution: See IAppointment
-// 	- 2.b This must be invoiced and tracked, and also chased up on:
-// 		- Resolution: See TInferredFormData
-// 3. Insights and Leads must be analysable:
-// 	- Resolution: See IFormMetaData
-// 4. We want to be able to store the information about interactions, purchases, and appointments. These have many overlapping fields so it makes sense to keep them as one data_type
-// 	- Resolution: See TForm
-
-// **Solution**
-// My solution will be to design one consistent form component, rendering a selection of fields defined by the access point, these would be somewhat analagous to the original buttons.
-// It shall:
-// i) Render the relevant form fields
-// 	i.a) Process relevent meta-data
-// ii) compose the data as a JSON object
-// iii) offer relevant endpoints, a non exhaustive list is:
-// 	iii.a) "adding to calander" for chat bookings
-// 	iii.b) immediate purchase option via something like a stripe checkout
-// iv) Compose an invoice or order form as a PDF
-
-// So far i've designed the site as a front end only SPA, as such some of these are not implementable immediately. Immediately designable options are:
-// - Solution i.a,ii, iii.a, and iv
-
-// Discuss this design idea, give no code. I am using React and Typescript
-
-// */
+type TInferredFormData<OF extends TOutreachForm<any, any>> = {
+	isNeedingFollowUp: THasPaid<OF> extends true ? false : true;
+	transaction_id: THasPaid<OF> extends true ? string : undefined;
+	region: ReturnType<
+		TgetRegion<OF["client_ip"], NonNullable<OF["raw_phone_number"]>>
+	>;
+};
