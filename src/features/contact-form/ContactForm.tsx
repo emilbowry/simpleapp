@@ -294,4 +294,17 @@ const ContactForm: React.FC = () => {
 	);
 };
 
+/*
+Add form type props:
+- book 20 minute chat
+- email request
+- mailing list
+- buy consultancy/training:1-1 or team
+
+Immediatley we can sketch out how to:
+a) Consistently Serialise Form Data => JSON
+b) Handler From json to pdf ? if testable without backend
+
+*/
+
 export { ContactForm };

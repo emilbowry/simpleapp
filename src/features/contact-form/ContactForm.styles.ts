@@ -30,7 +30,6 @@ const LabelStyle: React.CSSProperties = {
 const InputBaseStyle: React.CSSProperties = {
 	width: "100%",
 	padding: "1rem",
-	// height: "100%",
 	fontSize: "2rem",
 	border: "1px solid #ccd0d5",
 	borderRadius: "1%",
@@ -49,7 +48,6 @@ const CheckboxInputStyle: React.CSSProperties = {
 	height: "100%",
 	aspectRatio: 1,
 	zoom: 2,
-
 	accentColor: "#007bff",
 };
 
