@@ -8,10 +8,7 @@ import React, {
 import ReactDOM from "react-dom";
 import { useHref } from "react-router-dom";
 
-// Get the dedicated root element for the modal
 const modalRoot = document.getElementById("modal-root");
-
-// --- INLINE STYLE OBJECTS (Using React.CSSProperties) ---
 
 const modalBackdropStyle: React.CSSProperties = {
 	position: "fixed",
@@ -19,38 +16,38 @@ const modalBackdropStyle: React.CSSProperties = {
 	left: 0,
 	right: 0,
 	bottom: 0,
-	backgroundColor: "rgba(0, 0, 0, 0.75)",
+	backgroundColor: "transparent",
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
 	zIndex: 1000,
 };
 
-const modalContentStyle: React.CSSProperties = {
-	backgroundColor: "white",
-	padding: "20px",
-	borderRadius: "8px",
-	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+const modalWrapperStyle: React.CSSProperties = {
+	position: "relative",
+	display: "inline-block",
 	maxWidth: "90%",
 	maxHeight: "90%",
+};
+
+const modalContentStyle: React.CSSProperties = {
+	backgroundColor: "white",
+
+	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
 	overflowY: "auto",
-	position: "relative",
 };
 
 const closeButtonStyle: React.CSSProperties = {
 	position: "absolute",
-	top: "10px",
-	right: "10px",
-	background: "none",
-	border: "none",
-	fontSize: "24px",
-	cursor: "pointer",
-	lineHeight: "1",
-	color: "#333",
-	padding: "5px",
+	top: "0",
+	right: "0",
+	marginTop: "-24px",
+	marginRight: "-24px",
+	fontWeight: "bold",
+	backgroundColor: "#CCC",
+	zIndex: 1001,
+	color: "black",
 };
-
-// --- Component Props Interface ---
 
 interface ToggleablePortalProps {
 	node?: ReactNode;
@@ -104,7 +101,9 @@ const ModalBody: React.FC<{
 			onClick={handleBackdropClick}
 			className="no-aos"
 		>
-			<div style={modalContentStyle}>
+			{/* NEW WRAPPER HERE */}
+			<div style={modalWrapperStyle}>
+				{/* BUTTON IS NOW CHILD OF THE WRAPPER */}
 				<button
 					onClick={closeModal}
 					style={closeButtonStyle}
@@ -112,7 +111,8 @@ const ModalBody: React.FC<{
 					&times;
 				</button>
 
-				{node}
+				{/* CONTENT IS ALSO CHILD OF THE WRAPPER */}
+				<div style={modalContentStyle}>{node}</div>
 			</div>
 		</div>,
 		elRef.current
@@ -130,7 +130,6 @@ const ToggleablePortal: React.FC<ToggleablePortalProps> = ({
 	const openModal = () => setIsOpen(true);
 	const closeModal = () => setIsOpen(false);
 
-	// console.log(source);
 	return (
 		<>
 			<PortalContext value={{ source }}>
