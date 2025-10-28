@@ -12,6 +12,7 @@ const InputBaseStyle: React.CSSProperties = {
 	fontFamily: "inherit",
 };
 
+const OptionalInputStyle = { ...InputBaseStyle };
 const TextAreaStyle: React.CSSProperties = {
 	...InputBaseStyle,
 	minHeight: "120px",
@@ -38,11 +39,29 @@ const FormGroupStyle: React.CSSProperties = {
 const DescriptionStyle = {
 	color: "#606770",
 };
+const FormContainerStyle: React.CSSProperties = {
+	backgroundColor: "#ffffff",
+	padding: "2%",
+	borderRadius: "2%",
+	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+	width: "100%",
+};
+const TitleStyle: React.CSSProperties = {
+	marginBottom: "5%",
+	fontSize: "3rem",
+	fontWeight: 600,
+	textAlign: "center",
+	color: "#1c1e21",
+};
+
 export {
 	CheckboxInputStyle,
 	DescriptionStyle,
+	FormContainerStyle,
 	FormGroupStyle,
 	InputBaseStyle,
 	LabelStyle,
+	OptionalInputStyle,
 	TextAreaStyle,
+	TitleStyle,
 };

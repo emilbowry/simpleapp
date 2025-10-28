@@ -1,13 +1,14 @@
 // src/features/footer/Footer.tsx
 
 import React from "react";
-import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { linkedin_svg } from "../../components/callingcard/graphics";
 import { partners } from "../../components/partnership-bar/Partner";
 import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
 import { linkStyle } from "../../styles";
 import { BoxedImage } from "../../utils/reactUtils";
+import { ContactForm2 } from "../outreach-form/OutReachForm";
+import { ToggleablePortal } from "../outreach-form/PopOver";
 import { CenterableStyle } from "./Footer.styles";
 import { FooterLayoutHandler } from "./FooterLayoutHandler";
 import { GridFooter, GridFooterRows } from "./GridFooter";
@@ -127,15 +128,23 @@ const FooterBottomLeftSideBar: React.FC = () => (
 		/>
 		<ScrollVisibilityDependent
 			element={
-				<NavLink
-					to={"/demo_and_testing"}
-					style={{
+				// <NavLink
+				// 	to={"/demo_and_testing"}
+				// style={{
+				// 	...linkStyle(),
+				// 	color: "white",
+				// }}
+				// >
+				// 	Inquiries
+				// </NavLink>
+				<ToggleablePortal
+					node={<ContactForm2 />}
+					styling={{
 						...linkStyle(),
 						color: "white",
 					}}
-				>
-					Inquiries
-				</NavLink>
+					text="Inquiries"
+				/>
 			}
 			StyleOverrides={{ ...CenterableStyle }}
 			borders={[0.5 * (1 / 3), 0.25 * (1 / 3)]}
@@ -144,7 +153,7 @@ const FooterBottomLeftSideBar: React.FC = () => (
 		<ScrollVisibilityDependent
 			element={
 				<a
-					href="emilbowry.com"
+					href="https://emilbowry.com"
 					style={{
 						...linkStyle(),
 						color: "white",

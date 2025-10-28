@@ -8,6 +8,8 @@ import { Page } from "../../features/page/Page";
 import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { bgwhite } from "../../utils/defaultColours";
 
+import { ContactForm2 } from "../../features/outreach-form/OutReachForm";
+import { ToggleablePortal } from "../../features/outreach-form/PopOver";
 import { getTheme, linkStyle } from "../../styles";
 import { formatComponent, ValidComponent } from "../../utils/reactUtils";
 import { titleStyle } from "./ContactPage.styles";
@@ -35,6 +37,34 @@ const StyledLink: React.FC<{
 		</div>
 	</div>
 );
+
+const StyledLinkToggle: React.FC<{
+	href?: string;
+	content?: string;
+	form_type?: string;
+}> = ({ content = "", form_type = "" }) => {
+	return (
+		<div
+			style={{
+				flex: 2,
+				display: "flex",
+				justifyContent: "center",
+				gap: "15px",
+			}}
+		>
+			<div>
+				<ToggleablePortal
+					node={<ContactForm2 form_type={form_type} />}
+					styling={{
+						...linkStyle(),
+						...titleStyle,
+					}}
+					text={content}
+				/>
+			</div>
+		</div>
+	);
+};
 
 const sidebar_body = (
 	<p>
@@ -73,20 +103,21 @@ const CUBody = (
 
 const contactFeatureCallouts = [
 	[
-		<StyledLink
+		<StyledLinkToggle
 			content={`Book a free 20 minute chat to find out how we could
 							help you or your business`}
+			form_type="BookCall"
 		/>,
 	],
 	[
-		<StyledLink
+		<StyledLinkToggle
 			content={`
 							Request an email of our services and offering and
 							keep up to date with AI Comaptible’s mailing list
 						`}
 		/>,
 	],
-	[<StyledLink content={`Buy 1-1 consultancy and training`} />],
+	[<StyledLinkToggle content={`Buy 1-1 consultancy and training`} />],
 ];
 
 const contactPage: React.FC = () => (

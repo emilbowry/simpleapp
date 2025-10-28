@@ -40,4 +40,4 @@ const useIsMobile = (): boolean => {
 const user_agent = typeof navigator !== "undefined" ? navigator.userAgent : "";
 
 const IS_CHROME = /Chrome/i.test(user_agent);
-export { IS_CHROME, useIsMobile };
+export { IS_CHROME, useIsMobile, user_agent };
