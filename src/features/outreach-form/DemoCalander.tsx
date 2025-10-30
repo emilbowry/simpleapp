@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // --- I. TYPING AND CONFIGURATION ---
 
@@ -91,22 +91,14 @@ const getDefaultDateTimeLocal = (): string => {
 // --- III. THE CUSTOM HOOK: useCalendarForm (Dynamic Update via useEffect) ---
 
 interface CalendarFormHookResult {
-	selectedDateTime: string;
-	icsResult: IcsContentResult | null;
 	blobUrl: string; // Stores the generated, revocable Object URL
-	handleDateTimeChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const useCalendarForm = (config: IcsConfig): CalendarFormHookResult => {
-	const [selectedDateTime, setSelectedDateTime] = useState<string>(
-		getDefaultDateTimeLocal()
-	);
-	const [icsResult, setIcsResult] = useState<IcsContentResult | null>(null);
+export const useCalendarLink = (
+	config: IcsConfig,
+	selectedDateTime: string
+): CalendarFormHookResult => {
 	const [blobUrl, setBlobUrl] = useState<string>("#");
-
-	const handleDateTimeChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setSelectedDateTime(event.target.value);
-	};
 
 	const generateContent = (
 		dateTimeString: string
@@ -143,7 +135,7 @@ export const useCalendarForm = (config: IcsConfig): CalendarFormHookResult => {
 
 	useEffect(() => {
 		const result = generateContent(selectedDateTime);
-		setIcsResult(result);
+		// setIcsResult(result);
 
 		let newUrl = "#";
 		let oldUrl = blobUrl;
@@ -169,10 +161,7 @@ export const useCalendarForm = (config: IcsConfig): CalendarFormHookResult => {
 	]);
 
 	return {
-		selectedDateTime,
-		icsResult,
 		blobUrl,
-		handleDateTimeChange,
 	};
 };
 
@@ -186,9 +175,15 @@ const EVENT_CONFIG: IcsConfig = {
 };
 
 const MinimalCalendarForm: React.FC = () => {
-	const { selectedDateTime, handleDateTimeChange, icsResult, blobUrl } =
-		useCalendarForm(EVENT_CONFIG);
-
+	const [selectedDateTime_test, setSelectedDateTime_test] = useState(
+		getDefaultDateTimeLocal
+	);
+	const handleDateTimeChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setSelectedDateTime_test(event.target.value);
+	};
+	const { blobUrl } = useCalendarLink(EVENT_CONFIG, selectedDateTime_test);
 	return (
 		<form
 			style={{
@@ -211,7 +206,7 @@ const MinimalCalendarForm: React.FC = () => {
 				<input
 					type="datetime-local"
 					id="appointment-time"
-					value={selectedDateTime}
+					value={selectedDateTime_test}
 					onChange={handleDateTimeChange}
 					style={{
 						width: "100%",
@@ -223,7 +218,7 @@ const MinimalCalendarForm: React.FC = () => {
 			</div>
 
 			<p style={{ marginTop: "20px", fontWeight: "bold" }}>
-				Generated Blob URL (Test Link):
+				{selectedDateTime_test}
 			</p>
 
 			{/* CORRECTED: Removed 'download' attribute to enable "Add to Calendar" prompt */}
@@ -234,18 +229,6 @@ const MinimalCalendarForm: React.FC = () => {
 			>
 				{blobUrl === "#" ? "Select a valid time..." : blobUrl}
 			</a>
-
-			{icsResult && (
-				<p
-					style={{
-						fontSize: "small",
-						color: "#666",
-						marginTop: "10px",
-					}}
-				>
-					Content generated: {icsResult.icsContent.length} bytes.
-				</p>
-			)}
 		</form>
 	);
 };
