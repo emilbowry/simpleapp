@@ -8,7 +8,7 @@ import { Page } from "../../features/page/Page";
 import { PointedtopHexagonFeatureGrid } from "../../components/hexagons/hexagon-grid/pointed-hexagon-grid/PointedHexagonRow";
 import { bgwhite } from "../../utils/defaultColours";
 
-import { ContactForm2 } from "../../features/outreach-form/OutReachForm";
+import { OutReachForm } from "../../features/outreach-form/OutReachForm";
 import { ToggleablePortal } from "../../features/outreach-form/PopOver";
 import { getTheme, linkStyle } from "../../styles";
 import { formatComponent, ValidComponent } from "../../utils/reactUtils";
@@ -54,7 +54,7 @@ const StyledLinkToggle: React.FC<{
 		>
 			<div>
 				<ToggleablePortal
-					node={<ContactForm2 form_type={form_type} />}
+					node={<OutReachForm form_type={form_type} />}
 					styling={{
 						...linkStyle(),
 						...titleStyle,
@@ -115,9 +115,15 @@ const contactFeatureCallouts = [
 							Request an email of our services and offering and
 							keep up to date with AI Comaptible’s mailing list
 						`}
+			form_type="EmailInquiry"
 		/>,
 	],
-	[<StyledLinkToggle content={`Buy 1-1 consultancy and training`} />],
+	[
+		<StyledLinkToggle
+			content={`Buy 1-1 consultancy and training`}
+			form_type="BookService"
+		/>,
+	],
 ];
 
 const contactPage: React.FC = () => (
@@ -133,7 +139,6 @@ const contactPage: React.FC = () => (
 					FeatureCallouts={contactFeatureCallouts}
 					hexagon_args={{
 						colour: getTheme(0).backgroundColor,
-						// borderColour: logo_blue,
 					}}
 					useVerticalAlignment={true}
 				/>

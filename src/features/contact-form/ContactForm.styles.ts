@@ -1,10 +1,10 @@
 // src/features/contact-form/ContactForm.styles.ts
 
 const FormContainerStyle: React.CSSProperties = {
-	backgroundColor: "#ffffff",
+	// backgroundColor: "#ffffff",
 	padding: "2%",
 	borderRadius: "2%",
-	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+	// boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
 	width: "100%",
 };
 const TitleStyle: React.CSSProperties = {

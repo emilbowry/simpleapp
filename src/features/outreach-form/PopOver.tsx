@@ -16,7 +16,9 @@ const modalBackdropStyle: React.CSSProperties = {
 	left: 0,
 	right: 0,
 	bottom: 0,
-	backgroundColor: "transparent",
+	// backgroundColor: "transparent",
+	background: "transparent",
+
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
@@ -26,12 +28,11 @@ const modalBackdropStyle: React.CSSProperties = {
 const modalWrapperStyle: React.CSSProperties = {
 	position: "relative",
 	display: "inline-block",
-	maxWidth: "90%",
-	maxHeight: "90%",
 };
 
 const modalContentStyle: React.CSSProperties = {
-	backgroundColor: "white",
+	background: "transparent",
+	backdropFilter: "blur(16px)",
 
 	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
 	overflowY: "auto",

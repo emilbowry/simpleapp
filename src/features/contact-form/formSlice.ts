@@ -13,7 +13,6 @@ interface IFormState {
 	email: string;
 	isForTeam: boolean;
 	reason: string;
-	callTime: string;
 	status: TFormStatus;
 	errorMessage: string | null;
 }
@@ -25,7 +24,6 @@ const InitialState: IFormState = {
 	email: "",
 	isForTeam: false,
 	reason: "",
-	callTime: "",
 	status: "idle",
 	errorMessage: null,
 };

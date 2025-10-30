@@ -1,0 +1,206 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useDynamicLink } from "../../hooks/DynamicLink";
+import { AppDispatch, RootState } from "../../store";
+import { dark_midnight_green } from "../../utils/defaultColours";
+import { getFields } from "./Appointments";
+import {
+	DEFAULT_EVENT_CONFIG,
+	useCalanderEvent,
+	useCalendarLink,
+} from "./CalanderHooks";
+import { useInitializeFormMetadata, useMetadata } from "./OutReachForm";
+import { submitFormAndGeneratePdf } from "./OutReachForm.slice";
+import { SubmitContainerStyle } from "./OutReachForm.styles";
+import { IOutreachFormFields } from "./OutReachForm.types";
+
+const _AddToCalender: React.FC<{ date_key: keyof IOutreachFormFields }> = ({
+	date_key,
+}) => {
+	const date = useSelector(
+		(state: RootState) => state.outreachForm.fields[date_key]
+	);
+	const icsContent = useCalanderEvent({
+		date_string: date,
+		config: DEFAULT_EVENT_CONFIG,
+	});
+	const { blobUrl } = useCalendarLink(icsContent);
+	const link_props = useDynamicLink({
+		useDefaultDecoration: true,
+		style_args: ["3px"],
+		StyleOverrides: {
+			color: dark_midnight_green,
+		},
+	});
+	return (
+		<>
+			{date && (
+				<button>
+					<a
+						href={blobUrl}
+						target="_blank"
+						{...link_props}
+					>
+						Add booked slot to calender
+					</a>
+				</button>
+			)}
+		</>
+	);
+};
+const AddToCalender: React.FC<{ date_key?: string }> = ({ date_key }) => {
+	return (
+		<>
+			{date_key && (
+				<_AddToCalender
+					date_key={date_key as keyof IOutreachFormFields}
+				/>
+			)}
+		</>
+	);
+};
+const TEST_CHECKOUT_URL = "https://buy.stripe.com/test_dRm14m7i5b2b0XgdOz0VO00";
+
+const CheckoutButton: React.FC = () => {
+	const disabled = false;
+
+	const props = disabled
+		? { onClick: (e: React.MouseEvent) => e.preventDefault() }
+		: { href: TEST_CHECKOUT_URL };
+	const link_props = useDynamicLink({
+		useDefaultDecoration: true,
+		style_args: ["3px"],
+		StyleOverrides: {
+			color: dark_midnight_green,
+		},
+	});
+	return (
+		<button>
+			<a
+				{...props}
+				{...link_props}
+			>
+				Buy Now
+			</a>
+		</button>
+	);
+};
+
+const useRequiredFields = (form_type?: string) => {
+	const currentInputs = [...getFields(), ...getFields(form_type)];
+
+	const requiredFieldNames = currentInputs
+		.filter((config) => config.required && config.type)
+		.map((config) => config.name);
+	return requiredFieldNames;
+};
+const validateEmail = (email: string) => {
+	return String(email)
+		.toLowerCase()
+		.match(
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		);
+};
+
+const validateNumber = (maybeNum: string) => !isNaN(+maybeNum);
+const useValidation = (form_type?: string) => {
+	const requiredFieldNames = useRequiredFields(form_type);
+
+	const fields = useSelector((state: RootState) => state.outreachForm.fields);
+
+	const isFormValid = requiredFieldNames.every((fieldName) => {
+		const value = fields[fieldName];
+		let selector = true;
+		if (fieldName === "email") {
+			selector = !!validateEmail(value);
+		}
+		if (fieldName === "participants") {
+			selector = !!validateNumber(value);
+		}
+		return (!!value || typeof value === "boolean") && selector;
+	});
+
+	return !isFormValid;
+};
+
+const SubmitButton: React.FC<{
+	isDisabled: boolean;
+	includeMetaData?: boolean;
+}> = ({ isDisabled, includeMetaData = false }) => {
+	const dispatch = useDispatch<AppDispatch>();
+	const { status, pdfDownloadUrl } = useSelector(
+		(state: RootState) => state.outreachForm
+	);
+	const isLoading = status === "loading";
+
+	const handleSubmit = (e: React.MouseEvent) => {
+		e.preventDefault();
+
+		if (!isDisabled && !isLoading) {
+			dispatch(submitFormAndGeneratePdf(includeMetaData));
+		}
+	};
+
+	const buttonText = isLoading ? "Submitting..." : "Submit";
+
+	const pdfLinkProps = useDynamicLink({
+		useDefaultDecoration: true,
+		style_args: ["3px"],
+		StyleOverrides: {
+			color: dark_midnight_green,
+			marginLeft: "10px",
+		},
+	});
+
+	return (
+		<div style={{ display: "flex", alignItems: "center" }}>
+			<button
+				type="submit"
+				disabled={isDisabled || isLoading}
+				onClick={handleSubmit}
+			>
+				{buttonText}
+			</button>
+
+			{status === "succeeded" && pdfDownloadUrl && (
+				<a
+					href={pdfDownloadUrl}
+					download="outreach_form_submission.pdf"
+					{...pdfLinkProps}
+				>
+					Download PDF
+				</a>
+			)}
+		</div>
+	);
+};
+const Submission: React.FC<{
+	form_type?: string;
+	includeMetaData?: boolean;
+}> = ({ form_type, includeMetaData }) => {
+	const MetaData = useMetadata();
+	const isDisabled = useValidation(form_type);
+
+	useInitializeFormMetadata(MetaData);
+
+	const data_val_key =
+		form_type === "BookCall"
+			? "call_time"
+			: form_type === "BookService"
+			? "preliminary_date"
+			: undefined;
+
+	return (
+		<div style={SubmitContainerStyle}>
+			<SubmitButton
+				isDisabled={isDisabled}
+				includeMetaData={includeMetaData}
+			/>
+			{form_type === "BookCall" || form_type === "BookService" ? (
+				<AddToCalender date_key={data_val_key} />
+			) : null}
+			{form_type === "BookService" ? <CheckoutButton /> : null}
+		</div>
+	);
+};
+
+export { Submission };

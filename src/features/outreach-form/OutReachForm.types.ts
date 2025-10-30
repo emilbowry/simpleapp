@@ -6,7 +6,7 @@ type TService = TConsultancyService | TTrainingService | TOutreachService;
 type TAppointment<T extends TService, S extends TStatus = TStatus> = {
 	appointment_type: T;
 	appointment_date: Date | null;
-	participents: number;
+	participants: number;
 	status: S;
 	pricing: number;
 };
@@ -36,43 +36,60 @@ type TOutreachFormRequiredFields =
 	| TOutreachFormStrInputs
 	| TOutreachFormBoolInputs;
 
-type TConditionalFields = "call_time";
-// type TOtherBoolInputs = "request_email";
+type TOtherDateInputs = "call_time" | "preliminary_date";
+type TOtherTextArea = "request_email";
+type TOtherNumerical = "participants";
+
+type TRequiredAppointments =
+	| TOtherDateInputs
+	| TOtherTextArea
+	| TOtherNumerical;
+type TTextAreas = TOtherTextArea | TOutreachFormTextAreas;
+type TCheckbox = TOutreachFormBoolInputs;
+type TDateTime = TOtherDateInputs;
+type TNumerical = TOtherNumerical;
+type TInputs =
+	| TOptionalFormInputs
+	| TOutreachFormStrInputs
+	| TDateTime
+	| TCheckbox
+	| TNumerical;
+type TAllFields = TInputs | TTextAreas;
 type TOutreachFormGeneralFields =
 	| TOutreachFormRequiredFields
-	| TOptionalFormInputs
-	| TConditionalFields;
+	| TOptionalFormInputs;
 // | TOtherBoolInputs;
 
-type TOutreachFormNormalFields<T extends TOutreachFormGeneralFields> = {
-	[k in Exclude<TOutreachFormGeneralFields, T>]: Capitalize<k>;
+type TOutreachFormNormalFields<T extends TAllFields> = {
+	[k in Exclude<TAllFields, T>]: Capitalize<k>;
 };
 
-type TOutreachFormCustomFields<T extends TOutreachFormGeneralFields> = {
-	[k in Extract<T, TOutreachFormGeneralFields>]: string;
+type TOutreachFormCustomFields<T extends TAllFields> = {
+	[k in Extract<T, TAllFields>]: string;
 };
 
-type TOutreachFormFields<T extends Partial<TOutreachFormGeneralFields>> =
+type TOutreachFormFields<T extends Partial<TAllFields>> =
 	TOutreachFormNormalFields<T> & TOutreachFormCustomFields<T>;
 
-type TFormConfigProps<T extends TOutreachFormGeneralFields> = {
-	label: TOutreachFormFields<TOutreachFormGeneralFields>[T];
+type TFormConfigProps<T extends TAllFields> = {
+	label: TOutreachFormFields<TAllFields>[T];
 	name: T;
 	description?: string;
-} & (T extends TOutreachFormRequiredFields | TConditionalFields
-	? /* 	| TOtherBoolInputs */
-	  { required: true }
+} & (T extends TOutreachFormRequiredFields | TRequiredAppointments
+	? { required: true }
 	: { required: false }) &
-	(T extends TOutreachFormBoolInputs /* | TOtherBoolInputs */
+	(T extends TCheckbox /* | TOtherBoolInputs */
 		? { type: "checkbox" }
-		: T extends TOutreachFormTextAreas
+		: T extends TTextAreas
 		? { type: undefined }
+		: T extends TNumerical
+		? { type: "number" }
+		: T extends TDateTime
+		? { type: "datetime-local" }
 		: T extends "email"
 		? { type: "email" }
 		: T extends "raw_phone_number"
 		? { type: "tel" }
-		: T extends "call_time"
-		? { type: "datetime-local" }
 		: { type: "text" });
 /* 
 type TFormFieldProps<
@@ -112,7 +129,7 @@ type TgetRegion<I extends TClientIP, T extends TRawPhoneNumber> = (
 		: never
 ) => TRegion; */
 interface IFormMetaData {
-	// submission_datetime?: Date;
+	submission_datetime: string;
 	source: string;
 	client_ip: TClientIP;
 	user_agent: string;
@@ -123,10 +140,9 @@ interface IFormMetaData {
 type TFormInput<K extends string, T> = Record<K, T>;
 type TFormOptionalInput<K extends string, T> = Partial<Record<K, T>>;
 type TFormTextArea<K extends string> = Record<K, string | undefined>;
-/* type TFormDate<K extends string> = Record<K, Date>; */
 
 interface IOptionalFormFields
-	extends TFormOptionalInput<TOptionalFormInputs, string> {}
+	extends Partial<TFormOptionalInput<TOptionalFormInputs, string>> {}
 
 interface IOutreachFormTextAreas
 	extends TFormTextArea<TOutreachFormTextAreas> {}
@@ -134,11 +150,7 @@ interface IOutreachFormTextAreas
 interface IOutreachFormStrInputs
 	extends TFormInput<TOutreachFormStrInputs, string> {}
 
-interface IOutreachFormBoolInputs
-	extends TFormInput<
-		TOutreachFormBoolInputs /* | TOtherBoolInputs */,
-		boolean
-	> {}
+interface IOutreachFormBoolInputs extends TFormInput<TCheckbox, boolean> {}
 
 interface IOutreachFormInputs
 	extends IOutreachFormStrInputs,
@@ -148,7 +160,7 @@ interface IOutreachFormFields
 	extends IOutreachFormInputs,
 		IOutreachFormTextAreas,
 		IOptionalFormFields,
-		Partial<TFormInput<TConditionalFields, string>> {}
+		Partial<TFormInput<TRequiredAppointments, any>> {}
 /* 
 interface IOutreachForm<S extends TService, T extends TStatus>
 	extends IOptionalFormFields {
@@ -175,6 +187,7 @@ export {
 	// TOptionalFormInputs,
 	// TOutreachFormBoolInputs,
 	IOutreachFormFields,
+	TAllFields,
 	TFormConfigProps,
 	TFormInput,
 	TOutreachFormGeneralFields,

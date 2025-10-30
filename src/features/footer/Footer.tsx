@@ -7,7 +7,7 @@ import { partners } from "../../components/partnership-bar/Partner";
 import { PartnershipMarquee } from "../../components/partnership-bar/PartnershipMarquee";
 import { linkStyle } from "../../styles";
 import { BoxedImage } from "../../utils/reactUtils";
-import { ContactForm2 } from "../outreach-form/OutReachForm";
+import { OutReachForm } from "../outreach-form/OutReachForm";
 import { ToggleablePortal } from "../outreach-form/PopOver";
 import { CenterableStyle } from "./Footer.styles";
 import { FooterLayoutHandler } from "./FooterLayoutHandler";
@@ -138,7 +138,7 @@ const FooterBottomLeftSideBar: React.FC = () => (
 				// 	Inquiries
 				// </NavLink>
 				<ToggleablePortal
-					node={<ContactForm2 />}
+					node={<OutReachForm includeMetaData={true} />}
 					styling={{
 						...linkStyle(),
 						color: "white",

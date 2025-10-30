@@ -30,7 +30,6 @@ const LabelStyle: React.CSSProperties = {
 	display: "block",
 	marginBottom: "2%",
 	fontWeight: 500,
-	color: "#606770",
 };
 
 const FormGroupStyle: React.CSSProperties = {
@@ -40,18 +39,23 @@ const DescriptionStyle = {
 	color: "#606770",
 };
 const FormContainerStyle: React.CSSProperties = {
-	backgroundColor: "#ffffff",
+	backgroundColor: "rgb(255 255 255 / 40%)",
+	background: `linear-gradient(to bottom, rgb(255 222 89 / 20%), rgb(12 192 223 / 20%)),
+		rgb(255 255 255 / 30%)`,
 	padding: "2%",
 	borderRadius: "2%",
 	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-	width: "100%",
 };
 const TitleStyle: React.CSSProperties = {
 	marginBottom: "5%",
 	fontSize: "3rem",
 	fontWeight: 600,
 	textAlign: "center",
-	color: "#1c1e21",
+};
+
+const SubmitContainerStyle: React.CSSProperties = {
+	display: "flex",
+	justifyContent: "space-between",
 };
 
 export {
@@ -62,6 +66,7 @@ export {
 	InputBaseStyle,
 	LabelStyle,
 	OptionalInputStyle,
+	SubmitContainerStyle,
 	TextAreaStyle,
 	TitleStyle,
 };
