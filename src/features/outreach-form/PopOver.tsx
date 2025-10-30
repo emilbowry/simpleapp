@@ -18,7 +18,7 @@ const modalBackdropStyle: React.CSSProperties = {
 	bottom: 0,
 	// backgroundColor: "transparent",
 	background: "transparent",
-	maxHeight: "100vh",
+	maxHeight: "90vh",
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
