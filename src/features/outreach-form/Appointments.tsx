@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { FormContainer } from "./FormUI";
+import { FormContext } from "./OutReachForm";
 import { TFormConfigProps } from "./OutReachForm.types";
 import { AllDefaultInputs } from "./UniversalForm";
 
@@ -42,8 +44,10 @@ const getFields = (form_type?: string) =>
 		: form_type === "BookService"
 		? BookServiceInputs
 		: AllDefaultInputs;
-const Appointment: React.FC<{ form_type?: string }> = ({ form_type }) => {
-	return <FormContainer inputs={getFields(form_type)} />;
+const Appointment: React.FC = () => {
+	return (
+		<FormContainer inputs={getFields(useContext(FormContext).form_type)} />
+	);
 };
 
 export { Appointment, getFields };

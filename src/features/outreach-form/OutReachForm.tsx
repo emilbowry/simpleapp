@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHref } from "react-router-dom";
 import { user_agent } from "../../hooks/BrowserDependant";
@@ -39,21 +39,69 @@ const useInitializeFormMetadata = (MetaData: IFormMetaData) => {
 
 export { useInitializeFormMetadata, useMetadata };
 
+interface IFormContext {
+	submit_disabled: boolean;
+	isValidated: boolean | undefined;
+	validationErr: string;
+	form_type: string | undefined;
+	setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+	setIsValidated: React.Dispatch<React.SetStateAction<boolean>>;
+	submitted: boolean;
+	setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+
+	setValidationErr: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+const default_form_context = {
+	submit_disabled: true,
+	isValidated: undefined,
+	validationErr: "",
+	form_type: undefined,
+	submitted: false,
+	setSubmitted: () => {},
+
+	setDisabled: () => {},
+	setValidationErr: () => {},
+	setIsValidated: () => {},
+};
+const FormContext = createContext<IFormContext>(default_form_context);
+
 const OutReachForm: React.FC<{
 	form_type?: string;
 	includeMetaData?: boolean;
 }> = ({ form_type, includeMetaData }) => {
+	// const { isValid, validation_err } = useValidation(form_type);
+	const [isValidated, setIsValidated] = useState(false);
+	const [validation_err, setValidationErr] = useState<string | undefined>(
+		undefined
+	);
+	const [disabled, setDisabled] = useState(isValidated);
+	const [submitted, setSubmitted] = useState(false);
+
 	return (
-		<div style={FormContainerStyle}>
-			<h2 style={TitleStyle}>Contact Us</h2>
-			<FormContainer />
-			{form_type && <Appointment form_type={form_type} />}
-			<Submission
-				form_type={form_type}
-				includeMetaData={includeMetaData}
-			/>
-		</div>
+		<FormContext
+			value={{
+				...default_form_context,
+				form_type: form_type,
+				submit_disabled: disabled,
+				isValidated,
+				setDisabled,
+				submitted,
+				setSubmitted,
+				setValidationErr,
+				setIsValidated,
+			}}
+		>
+			<div style={FormContainerStyle}>
+				<h2 style={TitleStyle}>Contact Us</h2>
+				{validation_err && validation_err}
+
+				<FormContainer />
+				{form_type && <Appointment />}
+				<Submission includeMetaData={includeMetaData} />
+			</div>
+		</FormContext>
 	);
 };
 
-export { OutReachForm };
+export { FormContext, OutReachForm };
