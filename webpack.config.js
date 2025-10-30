@@ -44,6 +44,13 @@ module.exports = (env, argv) => {
 					use: "babel-loader",
 				},
 				{
+					test: /\.ics$/i,
+					type: "asset/resource",
+					generator: {
+						filename: "static/media/[name].[hash][ext]",
+					},
+				},
+				{
 					test: /\.module\.css$/i,
 					use: [
 						"style-loader",
