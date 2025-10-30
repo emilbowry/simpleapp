@@ -45,6 +45,7 @@ const FormContainerStyle: React.CSSProperties = {
 	padding: "2%",
 	borderRadius: "2%",
 	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+	overflowY: "scroll",
 };
 const TitleStyle: React.CSSProperties = {
 	marginBottom: "5%",

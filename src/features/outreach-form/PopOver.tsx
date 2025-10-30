@@ -35,7 +35,7 @@ const modalContentStyle: React.CSSProperties = {
 	backdropFilter: "blur(16px)",
 
 	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-	overflowY: "auto",
+	overflowY: "scroll",
 };
 
 const closeButtonStyle: React.CSSProperties = {
