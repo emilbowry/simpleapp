@@ -14,7 +14,7 @@ import {
 	useInitializeFormMetadata,
 	useMetadata,
 } from "./OutReachForm";
-import { submitFormAndGeneratePdf } from "./OutReachForm.slice";
+import { initialState, submitFormAndGeneratePdf } from "./OutReachForm.slice";
 import { SubmitContainerStyle } from "./OutReachForm.styles";
 import { IOutreachFormFields } from "./OutReachForm.types";
 
@@ -66,11 +66,7 @@ const AddToCalender: React.FC<{ date_key?: string }> = ({ date_key }) => {
 const TEST_CHECKOUT_URL = "https://buy.stripe.com/test_dRm14m7i5b2b0XgdOz0VO00";
 
 const CheckoutButton: React.FC = () => {
-	// const disabled = isDisabled;
 	const { submitted } = useContext(FormContext);
-	const props = submitted
-		? { onClick: (e: React.MouseEvent) => e.preventDefault() }
-		: { href: TEST_CHECKOUT_URL };
 	const link_props = useDynamicLink({
 		useDefaultDecoration: true,
 		style_args: ["3px"],
@@ -78,23 +74,33 @@ const CheckoutButton: React.FC = () => {
 			color: dark_midnight_green,
 		},
 	});
+	const props = !submitted
+		? { onClick: (e: React.MouseEvent) => e.preventDefault() }
+		: { href: TEST_CHECKOUT_URL, ...link_props };
+
 	return (
 		<button disabled={!submitted}>
-			<a
-				{...props}
-				{...link_props}
-			>
-				Buy Now
-			</a>
+			<a {...props}>Buy Now</a>
 		</button>
 	);
 };
 
-const useRequiredFields = (form_type?: string) => {
+const useRequiredFields = (
+	form_type?: string,
+	remove_bools: boolean = false,
+	remove_text_areas: boolean = false
+) => {
 	const currentInputs = [...getFields(), ...getFields(form_type)];
 
 	const requiredFieldNames = currentInputs
-		.filter((config) => config.required && config.type)
+		.filter(
+			(config) =>
+				config.required &&
+				remove_text_areas &&
+				config.type !== "checkbox" &&
+				remove_bools &&
+				config.type
+		)
 		.map((config) => config.name);
 	return requiredFieldNames;
 };
@@ -107,34 +113,181 @@ const validateEmail = (email: string) => {
 };
 
 const validateNumber = (maybeNum: string) => !isNaN(+maybeNum);
-const useValidation = (form_type?: string) => {
-	const requiredFieldNames = useRequiredFields(form_type);
-	let validation_err: string | undefined = undefined;
-	const fields = useSelector((state: RootState) => state.outreachForm.fields);
 
-	const isFormValid = requiredFieldNames.every((fieldName) => {
-		const value = fields[fieldName];
+const useDirtyFields = () => {
+	const currentFields = useSelector(
+		(state: RootState) => state.outreachForm.fields
+	);
 
-		let selector = true;
-		if (fieldName === "email") {
-			console.log(fieldName);
+	const defaultFields = initialState.fields; // Assuming this is imported
 
-			selector = !!validateEmail(value);
-			if (!selector) {
-				validation_err = "invalid email";
-			}
-		} else if (fieldName === "participants") {
-			selector = !!validateNumber(value);
-			if (!selector) {
-				validation_err = "invalid participants (non numerical)";
-			}
+	const dirtyFieldNames: any[] = [];
+
+	Object.keys(currentFields).forEach((fieldName) => {
+		const currentValue = (currentFields as any)[fieldName];
+		const defaultValue = (defaultFields as any)[fieldName];
+		if (typeof currentValue === "boolean") {
+			return;
 		}
-		return (!!value || typeof value === "boolean") && selector;
+		if (currentValue !== defaultValue) {
+			dirtyFieldNames.push(fieldName);
+		}
 	});
 
-	return { isValidated: !isFormValid, validation_err };
+	return dirtyFieldNames;
+};
+// const useValidation = (form_type?: string) => {
+// 	const requiredFieldNames = useRequiredFields(form_type);
+// 	let err_state: string | undefined = undefined;
+// 	const fields = useSelector((state: RootState) => state.outreachForm.fields);
+// 	/* Function that returns the fieldNames of every position that is no longer at its initial value*/
+// 	const isFormValid = requiredFieldNames.every((fieldName) => {
+// 		const value = fields[fieldName];
+
+// 		let selector = true;
+// 		if (fieldName === "email") {
+// 			selector = !!validateEmail(value);
+// 			if (!selector) {
+// 				err_state = "invalid email";
+// 			}
+// 		} else if (fieldName === "participants") {
+// 			selector = !!validateNumber(value);
+// 			if (!selector) {
+// 				err_state = "invalid participants (non numerical)";
+// 			}
+// 		}
+// 		return (!!value || typeof value === "boolean") && selector;
+// 	});
+
+// 	return { isInvalid: !isFormValid, err_state };
+// };
+// const useValidation = (form_type?: string, current_err_state?: string) => {
+// 	const requiredFieldNames = useRequiredFields(form_type, true, true);
+// 	const allDirtyFieldNames = useDirtyFields();
+
+// 	let err_state: string | undefined = current_err_state;
+
+// 	const fields = useSelector((state: RootState) => state.outreachForm.fields);
+
+// 	const isValidLength =
+// 		allDirtyFieldNames.length >= requiredFieldNames.length;
+// 	const selector_check = allDirtyFieldNames.every((fieldName) => {
+// 		const value = (fields as any)[fieldName];
+
+// 		let selector = true;
+
+// 		if (fieldName === "email" && !validateEmail(value)) {
+// 			err_state = "Invalid email";
+// 			selector = false;
+// 		} else if (fieldName === "participants" && !validateNumber(value)) {
+// 			err_state = "invalid participants (non numerical)";
+// 			selector = false;
+// 		} else if (!isValidLength) {
+// 			err_state = "Required fields are marked *";
+// 			selector = false;
+// 		} else if (isValidLength) {
+// 			err_state = undefined;
+// 		}
+
+// 		return selector;
+// 	});
+// 	console.log(`Selector Check - Validity: ${selector_check}`);
+// 	console.log(
+// 		`Err_State external: ${err_state}, isValidLength: ${isValidLength},`
+// 	);
+// 	console.log(`Validity: ${selector_check}`);
+// 	return { isInvalid: !selector_check, err_state };
+// };
+import { useEffect, useState } from "react";
+
+const useValidation = (form_type?: string) => {
+	const [err_state, setErrorState] = useState<string | undefined>(undefined);
+
+	const [selectorCheckResult, setSelectorCheckResult] = useState(false);
+
+	const requiredFieldNames = useRequiredFields(form_type, true, true);
+	const allDirtyFieldNames = useDirtyFields();
+
+	const fields = useSelector((state: RootState) => state.outreachForm.fields);
+
+	const isValidLength =
+		allDirtyFieldNames.length >= requiredFieldNames.length;
+
+	useEffect(() => {
+		let mutable_err_state: string | undefined = undefined;
+
+		const new_selector_check = allDirtyFieldNames.every((fieldName) => {
+			const value = (fields as any)[fieldName];
+
+			let selector = true;
+
+			if (fieldName === "email" && !validateEmail(value)) {
+				mutable_err_state = "Invalid email";
+				selector = false;
+			} else if (fieldName === "participants" && !validateNumber(value)) {
+				mutable_err_state = "invalid participants (non numerical)";
+				selector = false;
+			} else if (!isValidLength) {
+				mutable_err_state = "Required fields are marked *";
+				selector = false;
+			} else if (isValidLength) {
+				mutable_err_state = undefined;
+			}
+
+			return selector;
+		});
+
+		setSelectorCheckResult(new_selector_check);
+		setErrorState(mutable_err_state);
+	}, [fields, allDirtyFieldNames, requiredFieldNames, isValidLength]);
+
+	return { isInvalid: !selectorCheckResult, err_state };
 };
 
+// const useValidation = (form_type?: string, current_err_state?: string) => {
+// 	const [e, setE] = useState<string | undefined>(undefined);
+// 	const requiredFieldNames = useRequiredFields(form_type, true, true);
+// 	const allDirtyFieldNames = useDirtyFields();
+
+// 	let err_state: string | undefined = e;
+
+// 	const fields = useSelector((state: RootState) => state.outreachForm.fields);
+
+// 	const isValidLength =
+// 		allDirtyFieldNames.length >= requiredFieldNames.length;
+// 	let isValid = isValidLength;
+// 	useEffect(() => {
+// 		isValid = allDirtyFieldNames.every((fieldName) => {
+// 			const value = (fields as any)[fieldName];
+
+// 			let selector = true;
+
+// 			if (fieldName === "email" && !validateEmail(value)) {
+// 				// err_state = "Invalid email";
+// 				setE("Invalid email");
+// 				selector = false;
+// 			} else if (fieldName === "participants" && !validateNumber(value)) {
+// 				err_state = "invalid participants (non numerical)";
+// 				setE("invalid participants (non numerical)");
+// 				selector = false;
+// 			} else if (!isValidLength) {
+// 				err_state = "Required fields are marked *";
+// 				setE("Required fields are marked *");
+// 				selector = false;
+// 			} else if (isValidLength) {
+// 				err_state = undefined;
+// 			}
+
+// 			return selector;
+// 		});
+// 	}, [isValid]);
+// 	console.log(`Selector Check - Validity: ${isValid}`);
+// 	console.log(
+// 		`Err_State external: ${err_state}, isValidLength: ${isValidLength},`
+// 	);
+// 	console.log(`Validity: ${isValid}`);
+// 	return { isInvalid: !isValid, e };
+// };
 const SubmitButton: React.FC<{
 	isDisabled: boolean;
 	includeMetaData?: boolean;
@@ -190,13 +343,8 @@ const SubmitButton: React.FC<{
 const Submission: React.FC<{
 	includeMetaData?: boolean;
 }> = ({ includeMetaData }) => {
-	const { form_type, submit_disabled, setIsValidated, setValidationErr } =
-		useContext(FormContext);
+	const { form_type, isFormError = false } = useContext(FormContext);
 	const MetaData = useMetadata();
-	const { isValidated, validation_err } = useValidation(form_type);
-	setIsValidated(isValidated);
-	setValidationErr(validation_err);
-
 	useInitializeFormMetadata(MetaData);
 
 	const data_val_key =
@@ -209,13 +357,13 @@ const Submission: React.FC<{
 	return (
 		<div style={SubmitContainerStyle}>
 			<SubmitButton
-				isDisabled={isValidated}
+				isDisabled={isFormError}
 				includeMetaData={includeMetaData}
 			/>
 			{form_type === "BookCall" || form_type === "BookService" ? (
 				<AddToCalender date_key={data_val_key} />
 			) : null}
-			{form_type === "BookService" && !isValidated ? (
+			{form_type === "BookService" && !isFormError ? (
 				<CheckoutButton />
 			) : null}
 		</div>

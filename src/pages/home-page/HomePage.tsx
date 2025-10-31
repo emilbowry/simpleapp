@@ -28,4 +28,8 @@ const HomePage = () => (
 	/>
 );
 // export default TheJourneyPage;
-export default HomePage;
+
+import ContactPage from "../contact-page/ContactPage";
+
+export default ContactPage;
+// export default HomePage;

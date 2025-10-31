@@ -10,7 +10,7 @@ import { initializeMetadata } from "./OutReachForm.slice";
 import { FormContainerStyle, TitleStyle } from "./OutReachForm.styles";
 import type { IFormMetaData } from "./OutReachForm.types";
 import { PortalContext } from "./PopOver";
-import { Submission } from "./SubmissionButton";
+import { Submission, useValidation } from "./SubmissionButton";
 
 const useMetadata = (): IFormMetaData => {
 	const source = useContext(PortalContext)?.source || useHref("");
@@ -41,27 +41,27 @@ export { useInitializeFormMetadata, useMetadata };
 
 interface IFormContext {
 	submit_disabled: boolean;
-	isValidated: boolean | undefined;
-	validationErr: string;
+	isFormError: boolean | undefined;
+	validationErr: string | undefined;
 	form_type: string | undefined;
 	setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsValidated: React.Dispatch<React.SetStateAction<boolean>>;
 	submitted: boolean;
 	setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 
-	setValidationErr: React.Dispatch<React.SetStateAction<string | undefined>>;
+	// setValidationErr: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const default_form_context = {
 	submit_disabled: true,
-	isValidated: undefined,
+	isFormError: undefined,
 	validationErr: "",
 	form_type: undefined,
 	submitted: false,
 	setSubmitted: () => {},
 
 	setDisabled: () => {},
-	setValidationErr: () => {},
+	// setValidationErr: () => {},
 	setIsValidated: () => {},
 };
 const FormContext = createContext<IFormContext>(default_form_context);
@@ -70,12 +70,8 @@ const OutReachForm: React.FC<{
 	form_type?: string;
 	includeMetaData?: boolean;
 }> = ({ form_type, includeMetaData }) => {
-	// const { isValid, validation_err } = useValidation(form_type);
-	const [isValidated, setIsValidated] = useState(false);
-	const [validation_err, setValidationErr] = useState<string | undefined>(
-		undefined
-	);
-	const [disabled, setDisabled] = useState(isValidated);
+	const { isInvalid, err_state } = useValidation(form_type);
+
 	const [submitted, setSubmitted] = useState(false);
 
 	return (
@@ -83,18 +79,15 @@ const OutReachForm: React.FC<{
 			value={{
 				...default_form_context,
 				form_type: form_type,
-				submit_disabled: disabled,
-				isValidated,
-				setDisabled,
+				isFormError: isInvalid,
+				validationErr: err_state,
 				submitted,
 				setSubmitted,
-				setValidationErr,
-				setIsValidated,
 			}}
 		>
 			<div style={FormContainerStyle}>
 				<h2 style={TitleStyle}>Contact Us</h2>
-				{validation_err && validation_err}
+				{err_state && err_state}
 
 				<FormContainer />
 				{form_type && <Appointment />}

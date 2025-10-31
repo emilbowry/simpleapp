@@ -166,5 +166,5 @@ export const outreachFormSlice = createSlice({
 
 export const { updateField, initializeMetadata, resetForm } =
 	outreachFormSlice.actions;
-
+export { initialState };
 export default outreachFormSlice.reducer;
