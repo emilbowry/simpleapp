@@ -11,32 +11,25 @@ interface ContactFormState {
 	pdfDownloadUrl: string | null;
 }
 const isMeaningfulValue = (value: any): boolean => {
-	// Treat boolean false (like isMailingListable: false) as meaningful data
 	if (typeof value === "boolean") {
 		return true;
 	}
-	// Check for null or undefined
 	if (value === null || value === undefined) {
 		return false;
 	}
-	// Check for empty string after converting to string (just in case)
 	const strValue = String(value);
 	return strValue.trim() !== "";
 };
 
 const formatStateForPdf = (
 	state: ContactFormState,
-	includeMetadata: boolean = true // <-- NEW FLAG
+	includeMetadata: boolean = true
 ): TData => {
-	// Helper to process an object and filter out non-meaningful values
 	const filterAndMapContent = (obj: Record<string, any>) => {
 		return Object.fromEntries(
 			Object.entries(obj)
 				.filter(([, value]) => isMeaningfulValue(value))
-				.map(([key, value]) => [
-					key,
-					String(value), // Ensure all remaining values are strings for TContent
-				])
+				.map(([key, value]) => [key, String(value)])
 		);
 	};
 
@@ -44,12 +37,10 @@ const formatStateForPdf = (
 
 	const content: TContent = {};
 
-	// 1. Add Form Fields (always included if non-empty)
 	if (Object.keys(fieldsContent).length > 0) {
 		content["Form Fields"] = fieldsContent;
 	}
 
-	// 2. Add Metadata (conditionally included)
 	if (includeMetadata) {
 		const metadataContent = filterAndMapContent(state.metadata);
 		if (Object.keys(metadataContent).length > 0) {
@@ -63,21 +54,16 @@ const formatStateForPdf = (
 	};
 };
 export const submitFormAndGeneratePdf = createAsyncThunk<
-	// Return type: The object containing downloadUrl and message
 	{ downloadUrl: string; message: string },
-	// Payload type: boolean (includeMetadata flag)
 	boolean,
-	// ThunkAPI config (for getState)
 	{ state: RootState; rejectValue: string }
 >(
 	"outreachForm/submitAndGeneratePdf",
-	// 2. Accept the payload as the first argument
 	async (includeMetadata: boolean, { getState, rejectWithValue }) => {
 		try {
 			const rootState = getState() as { outreachForm: ContactFormState };
 			const formState = rootState.outreachForm;
 
-			// 3. Use the received payload in the function call
 			const pdfData = formatStateForPdf(formState, includeMetadata);
 
 			const downloadUrl = generatePdf(pdfData);

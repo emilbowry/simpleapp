@@ -43,7 +43,7 @@ const processBody = (content: TContent, tab_idx = 0, fontSize = bodySize) => {
 
 	const _fontSize = fontSize > bodySize ? fontSize : bodySize;
 	if (typeof content === "string") {
-		body.push(`/F1 ${_fontSize} Tf`);
+		body.push(`${_fontSize === bodySize ? `/F1` : `/F2`} ${_fontSize} Tf`);
 		body.push(`${_fontSize + 2} TL`);
 		const indentedContent = tab.repeat(tab_idx) + content;
 
@@ -89,10 +89,12 @@ const generatePdf = (
 	pdfObjects.push(
 		"2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj"
 	);
+	// pdfObjects.push(
+	// 	"3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>\nendobj"
+	// );
 	pdfObjects.push(
-		"3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>\nendobj"
+		"3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>\nendobj"
 	);
-
 	const streamLines: string[] = [
 		"BT",
 		"/F1 24 Tf",
@@ -115,7 +117,9 @@ const generatePdf = (
 	pdfObjects.push(
 		"5 0 obj\n<< /Type /Font /Subtype /Type1 /Name /F1 /BaseFont /Helvetica >>\nendobj"
 	);
-
+	pdfObjects.push(
+		"6 0 obj\n<< /Type /Font /Subtype /Type1 /Name /F2 /BaseFont /Helvetica-Bold >>\nendobj"
+	);
 	const offsets: number[] = [];
 	const pdfChunks: string[] = [];
 
