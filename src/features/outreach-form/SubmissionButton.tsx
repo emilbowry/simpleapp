@@ -215,7 +215,7 @@ const Submission: React.FC<{
 			{form_type === "BookCall" || form_type === "BookService" ? (
 				<AddToCalender date_key={data_val_key} />
 			) : null}
-			{form_type === "BookService" && !submit_disabled ? (
+			{form_type === "BookService" && !isValidated ? (
 				<CheckoutButton />
 			) : null}
 		</div>
