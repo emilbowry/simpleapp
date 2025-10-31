@@ -136,68 +136,7 @@ const useDirtyFields = () => {
 
 	return dirtyFieldNames;
 };
-// const useValidation = (form_type?: string) => {
-// 	const requiredFieldNames = useRequiredFields(form_type);
-// 	let err_state: string | undefined = undefined;
-// 	const fields = useSelector((state: RootState) => state.outreachForm.fields);
-// 	/* Function that returns the fieldNames of every position that is no longer at its initial value*/
-// 	const isFormValid = requiredFieldNames.every((fieldName) => {
-// 		const value = fields[fieldName];
 
-// 		let selector = true;
-// 		if (fieldName === "email") {
-// 			selector = !!validateEmail(value);
-// 			if (!selector) {
-// 				err_state = "invalid email";
-// 			}
-// 		} else if (fieldName === "participants") {
-// 			selector = !!validateNumber(value);
-// 			if (!selector) {
-// 				err_state = "invalid participants (non numerical)";
-// 			}
-// 		}
-// 		return (!!value || typeof value === "boolean") && selector;
-// 	});
-
-// 	return { isInvalid: !isFormValid, err_state };
-// };
-// const useValidation = (form_type?: string, current_err_state?: string) => {
-// 	const requiredFieldNames = useRequiredFields(form_type, true, true);
-// 	const allDirtyFieldNames = useDirtyFields();
-
-// 	let err_state: string | undefined = current_err_state;
-
-// 	const fields = useSelector((state: RootState) => state.outreachForm.fields);
-
-// 	const isValidLength =
-// 		allDirtyFieldNames.length >= requiredFieldNames.length;
-// 	const selector_check = allDirtyFieldNames.every((fieldName) => {
-// 		const value = (fields as any)[fieldName];
-
-// 		let selector = true;
-
-// 		if (fieldName === "email" && !validateEmail(value)) {
-// 			err_state = "Invalid email";
-// 			selector = false;
-// 		} else if (fieldName === "participants" && !validateNumber(value)) {
-// 			err_state = "invalid participants (non numerical)";
-// 			selector = false;
-// 		} else if (!isValidLength) {
-// 			err_state = "Required fields are marked *";
-// 			selector = false;
-// 		} else if (isValidLength) {
-// 			err_state = undefined;
-// 		}
-
-// 		return selector;
-// 	});
-// 	console.log(`Selector Check - Validity: ${selector_check}`);
-// 	console.log(
-// 		`Err_State external: ${err_state}, isValidLength: ${isValidLength},`
-// 	);
-// 	console.log(`Validity: ${selector_check}`);
-// 	return { isInvalid: !selector_check, err_state };
-// };
 import { useEffect, useState } from "react";
 
 const useValidation = (form_type?: string) => {
