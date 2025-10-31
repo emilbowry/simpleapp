@@ -45,7 +45,6 @@ const FormContainerStyle: React.CSSProperties = {
 	padding: "2%",
 	borderRadius: "2%",
 	boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-	// maxHeight: "100vh",
 	maxHeight: "90vh",
 
 	overflowY: "scroll",
@@ -62,9 +61,15 @@ const SubmitContainerStyle: React.CSSProperties = {
 	justifyContent: "space-between",
 };
 
+const ErrMessageStyle: React.CSSProperties = {
+	backgroundColor: "rgb(255,0,0,0.2)",
+	padding: "2%",
+	marginBottom: "2%",
+};
 export {
 	CheckboxInputStyle,
 	DescriptionStyle,
+	ErrMessageStyle,
 	FormContainerStyle,
 	FormGroupStyle,
 	InputBaseStyle,

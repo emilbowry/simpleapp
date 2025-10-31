@@ -7,7 +7,11 @@ import { Appointment } from "./Appointments";
 import { getDefaultDateTimeLocal } from "./CalanderHooks";
 import { FormContainer } from "./FormUI";
 import { initializeMetadata } from "./OutReachForm.slice";
-import { FormContainerStyle, TitleStyle } from "./OutReachForm.styles";
+import {
+	ErrMessageStyle,
+	FormContainerStyle,
+	TitleStyle,
+} from "./OutReachForm.styles";
 import type { IFormMetaData } from "./OutReachForm.types";
 import { PortalContext } from "./PopOver";
 import { Submission, useValidation } from "./SubmissionButton";
@@ -65,7 +69,10 @@ const default_form_context = {
 	setIsValidated: () => {},
 };
 const FormContext = createContext<IFormContext>(default_form_context);
-
+const FormStatus: React.FC = () => {
+	const { validationErr } = useContext(FormContext);
+	return validationErr && <div style={ErrMessageStyle}>{validationErr}</div>;
+};
 const OutReachForm: React.FC<{
 	form_type?: string;
 	includeMetaData?: boolean;
@@ -87,7 +94,7 @@ const OutReachForm: React.FC<{
 		>
 			<div style={FormContainerStyle}>
 				<h2 style={TitleStyle}>Contact Us</h2>
-				{err_state && err_state}
+				<FormStatus />
 
 				<FormContainer />
 				{form_type && <Appointment />}
