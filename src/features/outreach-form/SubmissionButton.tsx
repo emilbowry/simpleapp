@@ -214,80 +214,28 @@ const useValidation = (form_type?: string) => {
 		allDirtyFieldNames.length >= requiredFieldNames.length;
 
 	useEffect(() => {
-		let mutable_err_state: string | undefined = undefined;
+		allDirtyFieldNames.forEach((n) => {
+			const value = (fields as any)[n];
 
-		const new_selector_check = allDirtyFieldNames.every((fieldName) => {
-			const value = (fields as any)[fieldName];
-
-			let selector = true;
-
-			if (fieldName === "email" && !validateEmail(value)) {
-				mutable_err_state = "Invalid email";
-				selector = false;
-			} else if (fieldName === "participants" && !validateNumber(value)) {
-				mutable_err_state = "invalid participants (non numerical)";
-				selector = false;
+			if (n === "email" && !validateEmail(value)) {
+				setErrorState("Invalid email");
+				setSelectorCheckResult(false);
+			} else if (n === "participants" && !validateNumber(value)) {
+				setErrorState("Non-numerical number of participents");
+				setSelectorCheckResult(false);
 			} else if (!isValidLength) {
-				mutable_err_state = "Required fields are marked *";
-				selector = false;
+				setErrorState("Required Fields are marked with *");
+
+				setSelectorCheckResult(false);
 			} else if (isValidLength) {
-				mutable_err_state = undefined;
+				setErrorState(undefined);
 			}
-
-			return selector;
 		});
-
-		setSelectorCheckResult(new_selector_check);
-		setErrorState(mutable_err_state);
 	}, [fields, allDirtyFieldNames, requiredFieldNames, isValidLength]);
 
 	return { isInvalid: !selectorCheckResult, err_state };
 };
 
-// const useValidation = (form_type?: string, current_err_state?: string) => {
-// 	const [e, setE] = useState<string | undefined>(undefined);
-// 	const requiredFieldNames = useRequiredFields(form_type, true, true);
-// 	const allDirtyFieldNames = useDirtyFields();
-
-// 	let err_state: string | undefined = e;
-
-// 	const fields = useSelector((state: RootState) => state.outreachForm.fields);
-
-// 	const isValidLength =
-// 		allDirtyFieldNames.length >= requiredFieldNames.length;
-// 	let isValid = isValidLength;
-// 	useEffect(() => {
-// 		isValid = allDirtyFieldNames.every((fieldName) => {
-// 			const value = (fields as any)[fieldName];
-
-// 			let selector = true;
-
-// 			if (fieldName === "email" && !validateEmail(value)) {
-// 				// err_state = "Invalid email";
-// 				setE("Invalid email");
-// 				selector = false;
-// 			} else if (fieldName === "participants" && !validateNumber(value)) {
-// 				err_state = "invalid participants (non numerical)";
-// 				setE("invalid participants (non numerical)");
-// 				selector = false;
-// 			} else if (!isValidLength) {
-// 				err_state = "Required fields are marked *";
-// 				setE("Required fields are marked *");
-// 				selector = false;
-// 			} else if (isValidLength) {
-// 				err_state = undefined;
-// 			}
-
-// 			return selector;
-// 		});
-// 	}, [isValid]);
-// 	console.log(`Selector Check - Validity: ${isValid}`);
-// 	console.log(
-// 		`Err_State external: ${err_state}, isValidLength: ${isValidLength},`
-// 	);
-// 	console.log(`Validity: ${isValid}`);
-// 	return { isInvalid: !isValid, e };
-// };
 const SubmitButton: React.FC<{
 	isDisabled: boolean;
 	includeMetaData?: boolean;
