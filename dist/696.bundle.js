@@ -1,2 +1,2 @@
-(self.webpackChunksimpleapp=self.webpackChunksimpleapp||[]).push([[696],{441:()=>{},1696:(s,e,p)=>{"use strict";p.r(e),p.d(e,{default:()=>i}),p(6540);var a=p(441),c=p(5791),l=p(4848),t=()=>(0,l.jsx)("div",{children:(0,l.jsx)(a.ContactForm,{})});const i=()=>(0,l.jsx)(c.Y,{page:t,bg:!0})}}]);
+(self.webpackChunksimpleapp=self.webpackChunksimpleapp||[]).push([[696],{441:()=>{},1696:(s,e,p)=>{"use strict";p.r(e),p.d(e,{default:()=>i}),p(6540);var a=p(441),c=p(18),l=p(4848),t=()=>(0,l.jsx)("div",{children:(0,l.jsx)(a.ContactForm,{})});const i=()=>(0,l.jsx)(c.Y,{page:t,bg:!0})}}]);
 //# sourceMappingURL=696.bundle.js.map
